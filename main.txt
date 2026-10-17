@@ -326,6 +326,9 @@ Alloc($AimStartTime, 8978)
 Alloc($RobberyMoney, 8979)
 Alloc($ElapsedTime, 8980)
 Alloc($FaeBlip, 8981)
+Alloc($InWater, 8902)
+Alloc($WaterCar, 8903)
+Alloc ($Any_Car, 8904)
 
 var
     $CarHealthBar: int
@@ -7548,73 +7551,70 @@ goto @VPHotel_10
 script_name 'Water'
 
 :Water_10
-wait 0
-if
-    Char.IsInWater($scplayer)
-then
-    Text.PrintHelpForever('TPORT2')
-    goto @Water_20
-else
-    goto @Water_50
+while Player.IsPlaying($PLAYER1)
+    wait 0
+    $InWater = 0
+    $WaterCar = 0
+    
+    if
+        Char.IsInWater($scplayer)
+    then
+        $InWater = 1
+    else
+        if
+            Player.IsInAnyCar($PLAYER1)
+        then
+            Player.StoreCarIsIn($PLAYER1, $Any_Car)
+            if or
+                Car.IsInWater($Any_Car)
+                Car.IsDead($Any_Car)
+            then
+                $WaterCar = 1
+            end
+        end
+    end
+    if or
+        $WaterCar == 1
+        $InWater == 1
+    then
+        Text.PrintHelpForever('TPORT2')
+        if
+            Pad.IsKeyPressed(KeyCode.N)
+        then
+            if
+                $WaterCar == 1
+            then
+                Text.ClearHelp()
+                Camera.DoFade(500, Fade.Out)
+                wait 500
+                Player.SetControl($PLAYER1, False)
+                Player.WarpFromCarToCoord($PLAYER1, 315.7423, -1164.2609, 11.0712)
+                wait 500
+                Camera.DoFade(500, Fade.In)
+                wait 500
+                Player.SetControl($PLAYER1, True)
+                break
+            else
+                Text.ClearHelp()
+                Camera.DoFade(500, Fade.Out)
+                wait 500
+                Player.SetControl($PLAYER1, False)
+                Player.SetCoordinates($PLAYER1, 315.7423, -1164.2609, 11.0712)
+                wait 500
+                Camera.DoFade(500, Fade.In)
+                wait 500
+                Player.SetControl($PLAYER1, True)
+                break
+            end
+        end
+    else
+        Text.ClearHelp()
+        break
+    end
 end
 
 :Water_20
-wait 0
-if
-    Pad.IsKeyPressed(KeyCode.N)
-then
-    if
-        Player.IsInAnyCar($PLAYER1)
-    then
-        Text.ClearHelp()
-        Camera.DoFade(500, Fade.Out)
-        wait 500
-        Player.SetControl($PLAYER1, False)
-        Player.WarpFromCarToCoord($PLAYER1, 315.7423, -1164.2609, 11.0712)
-        wait 500
-        Camera.DoFade(500, Fade.In)
-        wait 500
-        Player.SetControl($PLAYER1, True)
-        goto @Water_60
-    else
-        if
-            not Player.IsInAnyCar($PLAYER1)
-        then
-            Text.ClearHelp()
-            Camera.DoFade(500, Fade.Out)
-            wait 500
-            Player.SetControl($PLAYER1, False)
-            Player.SetCoordinates($PLAYER1, 315.7423, -1164.2609, 11.0712)
-            wait 500
-            Camera.DoFade(500, Fade.In)
-            wait 500
-            Player.SetControl($PLAYER1, True)
-            goto @Water_60
-        end
-    end
-else
-    if
-        not Pad.IsKeyPressed(KeyCode.N)
-    then
-        goto @Water_70
-    else
-        goto @Water_20
-    end
-end
-
-:Water_50
-wait 500
-if
-    not Char.IsInWater($scplayer)
-then
-    goto @Water_60
-end
-
-:Water_60
 goto @Water_10
-
-:Water_70
-goto @Water_20
 
 //-------------Mission 0---------------
 
