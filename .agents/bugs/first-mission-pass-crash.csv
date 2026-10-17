@@ -1,0 +1,2 @@
+id,location,bug,evidence,status
+P1,"main.txt :Intro_1450 (8407 to 8464), :INTRO_1455 (8466 to 8474), start_new_script @Police (8473)","The game crashes to the desktop when the player passes the first mission (Intro, ITBEG). The game raises unhandled exception c0000005 at address 004582ed. The cause is not identified.","Playtester report with screenshot of the Unhandled Exception dialog. Read of main.txt (no cause found yet, no log read yet)",Open
