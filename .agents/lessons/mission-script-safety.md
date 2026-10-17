@@ -17,6 +17,7 @@ Follow these rules when you edit `main.txt` to avoid the crashes found so far. T
 5. Clear the mission flag (`$ONMISSION = 0`) when a mission or tutorial ends. Gates such as `$ONMISSION == 0` stay closed until it is cleared. The engine clears it only when its death check fires.
 6. Check the label after the last statement of every script block, including prototypes. An empty block with no terminate runs off the end of the script.
 7. Fix one hazard per build, then play that case. Several patches in one build hide which one broke something.
+8. Recreate a mission pickup in the death/arrest retry handler when the retry re-enters a collection loop. A pickup created only during startup is not guaranteed to remain available after collection, death, or arrest.
 
 ## How to Find a Crash
 

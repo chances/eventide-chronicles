@@ -7,3 +7,4 @@ P5,Mission flag never cleared,"A gate that tests $ONMISSION == 0 never opens","s
 P6,Script block with no terminate at the end,"The thread runs off the end of the script","Last label of the file; prototypes","End the block with terminate_this_script"
 P7,Compiler exits 0 with no output,"Tests run on the old build","main.scm older than main.txt","Fail the build when the output file is not newer"
 P8,Older text saved over main.txt,"Edits missing from the build","Edit marker lines absent after a compile","Reload main.txt before compiling"
+P9,Pickup not recreated after mission retry,"Tutorial loops on a pickup prompt that cannot be completed","Retry follows death/arrest after pickup collection and does not recreate the handle","Remove the stale pickup handle and create a fresh pickup in the retry handler"

@@ -7,9 +7,7 @@ These rules apply to every agent working in this repository.
 - Read [docs/branding.md](docs/branding.md) and [docs/lore.md](docs/lore.md) before writing or editing any story text, string, or document.
 - Check the ledger, [docs/lore.csv](docs/lore.csv), before defining any story element. Use the status it records. Do not contradict a Book entry without adding a departure note.
 - Publishing targets and release instructions go in [docs/publish.md](docs/publish.md). Do not put them in the branding or lore documents.
-- Tabular data goes in a sibling CSV. Each document names its CSV, and each CSV names its document. Do not put tables of record in prose documents.
-- A bug document with one bug has no CSV. Create a sibling CSV only when the document records two or more bugs.
-- A bug CSV has the columns `id, status, hazard, location, evidence`. Each cell holds one short phrase. A status starts with an emoji: 🔴 open, 🧪 patched and needing a test, ✅ closed. A location is `main.txt`, a line number, and a label.
+- CSV files are for tabular data sets. Record a single bug in a Markdown document; when one bug document tracks multiple bugs, use a sibling CSV for the tabular records.
 
 ## Style
 
