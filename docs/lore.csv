@@ -1,0 +1,23 @@
+id,section,topic,status,source,departure_note,notes
+L001,Relationship to Book 2,Source work,Book,"Book 2 ""Turning Darkness into Light"" by Libby Shimmz (Archive of Our Own, unfinished manuscript)",,Work in progress; text pending
+L002,Relationship to Book 2,Alternate universe premise,Mod,Grilling decision,,Mod branches from the world of Book 2 and introduces new canon
+L003,Canon Precedence,Mod canon wins conflicts with Book 2,Mod,Grilling decision,,Each conflict is logged as a departure
+L004,Open Ground,Unwritten Book 2 material is defined by the mod,Mod,Grilling decision,,Each filled gap gets its own row
+L005,Tone and Narration,Grim and serious register,Mod,Grilling decision,,Applies to narration and system text
+L006,Tone and Narration,Unreliable narrators,Mod,Grilling decision,,Each unreliable account needs a discoverable truth or clear reason it misleads
+L007,Tone and Narration,Dark comedy emerges from story events,Mod,Grilling decision,,Narration never announces jokes or laughs at itself
+L008,World and Setting,Enbenite mineral: name and role,Open,Pending Book 2 text,,Set Book or Mod once defined
+L009,World and Setting,Setting geography and factions,Open,Pending Book 2 text,,Set Book or Mod once defined
+L010,Characters,Character roster and portrayal,Open,Pending Book 2 text,,One row per character once defined
+L011,Mission Structure,Mission label INIT,Mod,main.txt DEFINE MISSION 0 AT @INIT,,Initialization label; story beat Open
+L012,Mission Structure,Mission label Intro,Mod,main.txt DEFINE MISSION 1 AT @Intro,,Story beat Open
+L013,Mission Structure,Mission label Cop,Mod,main.txt DEFINE MISSION 2 AT @Cop,,Story beat Open
+L014,Mission Structure,Mission label Hotel,Mod,main.txt DEFINE MISSION 3 AT @Hotel,,Story beat Open
+L015,Mission Structure,Mission label Work,Mod,main.txt DEFINE MISSION 4 AT @Work,,Story beat Open
+L016,Mission Structure,Mission label Cart,Mod,main.txt DEFINE MISSION 5 AT @Cart,,Story beat Open
+L017,Mission Structure,Mission label BossDie,Mod,main.txt DEFINE MISSION 6 AT @BossDie,,Story beat Open
+L018,Mission Structure,Mission label Endgame,Mod,main.txt DEFINE MISSION 7 AT @Endgame,,Story beat Open
+L019,Mission Structure,Mission label Fairy,Mod,main.txt DEFINE MISSION 8 AT @Fairy,,Story beat Open
+L020,Mission Structure,Mission label Hell,Mod,main.txt DEFINE MISSION 9 AT @Hell,,Story beat Open
+L021,Mission Structure,Mission label Heaven,Mod,main.txt DEFINE MISSION 10 AT @Heaven,,Story beat Open
+L022,Mission Structure,Story beat for each mission label,Open,Pending Book 2 text and mod plotting,,One row per label once decided
