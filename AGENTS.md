@@ -28,3 +28,8 @@ These rules apply to every agent working in this repository.
 - Record each departure from Book 2 in the ledger with a departure note.
 - Record new canon in the ledger as Mod. Record material still undecided as Open.
 - Do not treat the Eventide-III repository as canon.
+
+## Scripting
+
+- Use the `sanny-guidance` skill before writing, editing, or reviewing any Sanny Builder script.
+- Look up every command in the Sanny Builder Library before using it. The skill lists the lookup tools.
