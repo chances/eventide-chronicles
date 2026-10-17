@@ -326,6 +326,9 @@ Alloc($AimStartTime, 8978)
 Alloc($RobberyMoney, 8979)
 Alloc($ElapsedTime, 8980)
 Alloc($FaeBlip, 8981)
+Alloc($InWater, 8902)
+Alloc($WaterCar, 8903)
+Alloc ($Any_Car, 8904)
 
 var
     $CarHealthBar: int
@@ -338,7 +341,6 @@ end
 script_name 'MAIN'
 Camera.DoFade(0, Fade.Out)
 Game.SetMaxWantedLevel(2)
-set_deatharrest_state 0
 Clock.SetTimeOfDay(21, 0)
 Streaming.RequestCollision(-535.64, -300.451)
 Streaming.LoadScene(-535.64, -300.451, 12.29)
@@ -1036,26 +1038,8 @@ then
 end
 
 :MAIN_DeadBust
-while not Player.IsPlaying($PLAYER1)
 wait 250
-    if
-        Player.IsPlaying($PLAYER1)
-    then
-        goto @MAIN_Loop
-    end
-end
-    
-:MAIN_Loop
-while Player.IsPlaying($PLAYER1)
-wait 0
-    if
-        not Player.IsPlaying($PLAYER1)
-    then
-        goto @MAIN_DeadBust
-    else
-        goto @Main_Loop
-    end
-end
+goto @MAIN_Start
 
 // Mission Scripts
 
@@ -2425,6 +2409,7 @@ goto @Mall_232
 script_name 'PakTog'
 $FirstPackageTold = 0                   // Flag to ensure tutorial only triggers once
 
+:PakTog_Loop
 while Player.IsPlaying($PLAYER1)
     wait 0
     $Packages = Game.GetCollectablesCollected()
@@ -2481,6 +2466,9 @@ while Player.IsPlaying($PLAYER1)
     end
 end
 
+wait 250
+goto @PakTog_Loop
+
 
 // ============================================================================
 // RADAR GUIDE & PACKAGE REWARDS THREAD
@@ -2491,6 +2479,7 @@ script_name 'PACKAGE'
 0@ = 0                                  // Active Target Package Index (0 to 82)
 1@ = 1                                  // Blip Redraw Flag (1 = Needs New Blip)
 
+:PACKAGE_Loop
 while Player.IsPlaying($PLAYER1)
     wait 250
 
@@ -2586,6 +2575,9 @@ while Player.IsPlaying($PLAYER1)
         end
     end
 end
+
+wait 250
+goto @PACKAGE_Loop
 
 // ============================================================================
 // COORDINATE INDEXING SUBROUTINE (84 TOTAL)
@@ -3211,22 +3203,30 @@ goto @Help_10
 
 :Help_400
 wait 0
-Player.SetControl($PLAYER1, False)
-Camera.SetFixedPosition(406.4554, -460.4517, 15.1183, 0.0, 0.0, 0.0)
-Camera.PointAtPoint(395.4785, -474.2657, 12.3432, SwitchType.JumpCut)
-wait 1000
-Text.PrintHelp('WANTA')
+Help_HoldView()
 wait 3000
-Text.PrintHelp('WANTB')
+Help_HoldView()
+Text.PrintHelp('WANTA')
 wait 5000
-Text.PrintHelp('WANTC')
-wait 6000
-Text.PrintHelp('WANTD')
+Help_HoldView()
+Text.PrintHelp('WANTB')
 wait 7000
+Help_HoldView()
+Text.PrintHelp('WANTC')
+wait 8000
+Help_HoldView()
+Text.PrintHelp('WANTD')
+wait 9000
 Camera.RestoreJumpcut
 Player.SetControl($PLAYER1, True)
 $BustedHelpDone = 1
 goto @Help_10
+
+:Help_HoldView
+Player.SetControl($PLAYER1, False)
+Camera.SetFixedPosition(406.4554, -460.4517, 15.1183, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(395.4785, -474.2657, 12.3432, SwitchType.JumpCut)
+return
 
 :Help_682
 wait 0
@@ -7408,17 +7408,17 @@ else
 end
 
 :Jewelry_ResetWait
-while Player.LocateAnyMeans3D($PLAYER1, 379.6753, 210.1892, 11.3862, 30.0, 30.0, 10.0, False)
-    wait 1000
-    if
-        not Player.LocateAnyMeans3D($PLAYER1, 379.6753, 210.1892, 11.3862, 30.0, 30.0, 10.0, False)
-    then
-        Char.Delete($JewelryClerk)
-        $JewelryClerk = Char.Create(PedType.CivMale, #SPECIAL16, 379.6753, 210.1892, 11.3862)
-        Char.SetHeading($JewelryClerk, 268.67)
-        Char.SetHealth($JewelryClerk, 100)
-        goto @Jewelry_MainLoop
-    end
+wait 1000
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 379.6753, 210.1892, 11.3862, 30.0, 30.0, 10.0, False)
+then
+    Char.Delete($JewelryClerk)
+    $JewelryClerk = Char.Create(PedType.CivMale, #SPECIAL16, 379.6753, 210.1892, 11.3862)
+    Char.SetHeading($JewelryClerk, 268.67)
+    Char.SetHealth($JewelryClerk, 100)
+    goto @Jewelry_MainLoop
+else
+    goto @Jewelry_ResetWait
 end
 
 :VehHeal
@@ -7549,73 +7549,70 @@ goto @VPHotel_10
 script_name 'Water'
 
 :Water_10
-wait 0
-if
-    Char.IsInWater($scplayer)
-then
-    Text.PrintHelpForever('TPORT2')
-    goto @Water_20
-else
-    goto @Water_50
+while Player.IsPlaying($PLAYER1)
+    wait 0
+    $InWater = 0
+    $WaterCar = 0
+    
+    if
+        Char.IsInWater($scplayer)
+    then
+        $InWater = 1
+    else
+        if
+            Player.IsInAnyCar($PLAYER1)
+        then
+            Player.StoreCarIsIn($PLAYER1, $Any_Car)
+            if or
+                Car.IsInWater($Any_Car)
+                Car.IsDead($Any_Car)
+            then
+                $WaterCar = 1
+            end
+        end
+    end
+    if or
+        $WaterCar == 1
+        $InWater == 1
+    then
+        Text.PrintHelpForever('TPORT2')
+        if
+            Pad.IsKeyPressed(KeyCode.N)
+        then
+            if
+                $WaterCar == 1
+            then
+                Text.ClearHelp()
+                Camera.DoFade(500, Fade.Out)
+                wait 500
+                Player.SetControl($PLAYER1, False)
+                Player.WarpFromCarToCoord($PLAYER1, 315.7423, -1164.2609, 11.0712)
+                wait 500
+                Camera.DoFade(500, Fade.In)
+                wait 500
+                Player.SetControl($PLAYER1, True)
+                break
+            else
+                Text.ClearHelp()
+                Camera.DoFade(500, Fade.Out)
+                wait 500
+                Player.SetControl($PLAYER1, False)
+                Player.SetCoordinates($PLAYER1, 315.7423, -1164.2609, 11.0712)
+                wait 500
+                Camera.DoFade(500, Fade.In)
+                wait 500
+                Player.SetControl($PLAYER1, True)
+                break
+            end
+        end
+    else
+        Text.ClearHelp()
+        break
+    end
 end
 
 :Water_20
-wait 0
-if
-    Pad.IsKeyPressed(KeyCode.N)
-then
-    if
-        Player.IsInAnyCar($PLAYER1)
-    then
-        Text.ClearHelp()
-        Camera.DoFade(500, Fade.Out)
-        wait 500
-        Player.SetControl($PLAYER1, False)
-        Player.WarpFromCarToCoord($PLAYER1, 315.7423, -1164.2609, 11.0712)
-        wait 500
-        Camera.DoFade(500, Fade.In)
-        wait 500
-        Player.SetControl($PLAYER1, True)
-        goto @Water_60
-    else
-        if
-            not Player.IsInAnyCar($PLAYER1)
-        then
-            Text.ClearHelp()
-            Camera.DoFade(500, Fade.Out)
-            wait 500
-            Player.SetControl($PLAYER1, False)
-            Player.SetCoordinates($PLAYER1, 315.7423, -1164.2609, 11.0712)
-            wait 500
-            Camera.DoFade(500, Fade.In)
-            wait 500
-            Player.SetControl($PLAYER1, True)
-            goto @Water_60
-        end
-    end
-else
-    if
-        not Pad.IsKeyPressed(KeyCode.N)
-    then
-        goto @Water_70
-    else
-        goto @Water_20
-    end
-end
-
-:Water_50
-wait 500
-if
-    not Char.IsInWater($scplayer)
-then
-    goto @Water_60
-end
-
-:Water_60
 goto @Water_10
-
-:Water_70
-goto @Water_20
 
 //-------------Mission 0---------------
 
@@ -8045,6 +8042,7 @@ Text.PrintString("This is the Radar. Use it to help yourself navigate.", 3000)
 $PRINT_HELP_FOR_RADAR = 1
 wait 3000
 Hud.FlashObject(0)
+$ONMISSION = 0
 $AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
 Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
 $SidewalkSphere = Sphere.Create(395.0, -906.2, 12.0, 2.0)
@@ -10550,6 +10548,36 @@ terminate_this_script
 //-------------Mission 7---------------
 
 :Fairy
+Fairy_Body()
+if
+    has_deatharrest_been_executed
+then
+    Fairy_Fail()
+end
+terminate_this_script
+
+:Fairy_Fail
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+if
+    Char.DoesExist($Fairy1)
+then
+    Char.RemoveElegantly($Fairy1)
+end
+if
+    Char.DoesExist($Fairy2)
+then
+    Char.RemoveElegantly($Fairy2)
+end
+if
+    Char.DoesExist($Fairy3)
+then
+    Char.RemoveElegantly($Fairy3)
+end
+Player.SetControl($PLAYER1, True)
+return
+
+:Fairy_Body
 script_name 'Fairy'
 
 :Fairy_101
