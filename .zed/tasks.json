@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Build",
+    "command": "deno",
+    "args": ["task", "build"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "hide": "on_success",
+  },
+  {
+    "label": "Install",
+    "command": "deno",
+    "args": ["task", "install"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "hide": "never",
+  },
+  {
+    "label": "Run",
+    "command": "deno",
+    "args": ["task", "run"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "hide": "on_success",
+  },
+]
