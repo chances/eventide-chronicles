@@ -1,6 +1,6 @@
 # Death and Bust Hazards
 
-The hazards are tabulated in [death-and-bust-hazards.csv](death-and-bust-hazards.csv). This document records the symptom, the scope, and the sources.
+The hazards are tabulated in [death-and-bust-hazards.csv](death-and-bust-hazards.csv). This document records the symptom, the scope, and the sources. The status column uses 🔴 for open, 🧪 for patched and needing a test, and ✅ for closed.
 
 ## Symptom
 
@@ -47,7 +47,7 @@ Valid game actions (the busted text, "Mission Failed", the wanted level change, 
 - H1 relates to mission deaths only.
 - H2, H3, and H4 concern the death handling in `MAIN` and `INIT`. Playtesters report that they relate to the crashes. H2 is closed as not a defect.
 - H5 concerns missions 9 and 10, which are prototypes and are out of scope for now.
-- H6 matches the reproduction: the `PACKAGE` thread runs invalid opcodes after the player is busted.
+- H6 matches the reproduction: the `PACKAGE` thread runs invalid opcodes after the player is busted. After the fix, a bust and a wasted both respawn the player without a crash.
 - Whether H6 explains every crash is not yet known.
 - A temporary 2-star wanted level (`TEMP DEBUG`, `main.txt` line 348) supports bust testing. Remove it before release.
 

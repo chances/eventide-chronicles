@@ -1,0 +1,9 @@
+id,pattern,symptom,check,fix
+P1,Loop with no code after end,"After death or bust, the thread renames itself and runs into other code","Fall-through scan; thread name changes in scrlog.log","Add terminate_this_script, or wait and goto the loop label"
+P2,return with an empty gosub stack,"Instruction pointer above 1000000; invalid opcodes or NOP runs; access violation","scrlog.log shows RETURN then a wild address","Never run into a subroutine; reach it by gosub"
+P3,Mission body with no gosub wrapper,"A death mid-mission reads past the stack","Mission script whose first statement is not a call","Call the body as a function, then test has_deatharrest_been_executed"
+P4,set_deatharrest_state in a non-mission thread,"No effect","The opcode sits in MAIN or a started script","Remove it, or move it into the mission script"
+P5,Mission flag never cleared,"A gate that tests $ONMISSION == 0 never opens","scrlog.log shows the flag test FALSE","Set $ONMISSION = 0 when the mission or tutorial ends"
+P6,Script block with no terminate at the end,"The thread runs off the end of the script","Last label of the file; prototypes","End the block with terminate_this_script"
+P7,Compiler exits 0 with no output,"Tests run on the old build","main.scm older than main.txt","Fail the build when the output file is not newer"
+P8,Older text saved over main.txt,"Edits missing from the build","Edit marker lines absent after a compile","Reload main.txt before compiling"
