@@ -1,0 +1,101 @@
+line,context,kind,speaker,text,flags
+1088,Star,Mission title,System,"Answering the Call to Abandon...",ellipsis
+1123,Police,Mission title,System,"Model Citizens Get Stitches...",ellipsis
+1157,HOT,Mission title,System,"Born of Dirt",
+1199,Boss,Mission title,System,"Behind The Mask, Another Mask!",exclamation;capitalization
+1233,Golf,Mission title,System,"Takin' Out the Competition...",ellipsis;dialect-spelling
+1263,Kill,Mission title,System,"Burying the Evidence...",ellipsis
+1290,End,Mission title,System,"The End Is Simply The Beginning...",ellipsis;capitalization
+1346,Fae,Time card,System,"Three Days Later...",ellipsis
+1326,Fae,Help text,System,"Come back once you have completed ~g~Born of Dirt.",direct-address
+1620,Bathe,Help text,Narrator,"It looks like Poseidon isn't too keen on letting you into his family's penthouse.",direct-address;contraction
+1622,Bathe,Help text,Narrator,"I'd be on the lookout for golf-ball sized hail or a biblical plague soon.",first-person;contraction
+1624,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before tresspassing, eh?",typo;direct-address;contraction
+1701,Barrier,Help text,Unknown,"Leave this area at once!",exclamation;direct-address
+1767,Barrier,Help text,Unknown,"Leave this area at once!",exclamation;direct-address
+1842,Barrier,Help text,Unknown,"Do not set foot on our lands again!",exclamation;first-person-plural
+1855,Barrier,Help text,Unknown,"Do not set foot on our lands again!",exclamation;first-person-plural
+1908,Barrier,Help text,Unknown,"Leave this area at once!",exclamation;direct-address
+2024,Payphone,Objective,System,"Get to the payphone on Starfish Island.",imperative
+2131,Clothes,Help text,System,"Lose the heat first!",exclamation;imperative
+2191,Clothes,Help text,System,"Lose the heat first!",exclamation;imperative
+2366,Mall,Objective,System,"Go inside the North Point Mall, and find the green Sprunk Cup.",imperative
+2414,Mall,Location card,System,"Vice Point",
+2554,Packages,Help text,System,"Nice! That's all the packages! Here's a bonus!",exclamation
+3886-6762,Vehicle delivery,Big text,System,"[Vehicle name] Delivered!",exclamation;80 strings
+6811,Vehicle delivery,Help text,System,"This car has already been delivered!",exclamation
+6883,Vehicle delivery,Big text,System,"Nice! That's all the cars!",exclamation
+6889,Vehicle delivery,Help text,System,"Every vehicle is now impervious to damage!",exclamation
+7231,Hardware,Help text,System,"Step up to the counter to complete your purchase.",imperative
+7249,Hardware,Big text,System,"Tool purchased! $50",exclamation
+7257,Hardware,Help text,Shopkeeper,"Hey! You're supposed to pay for that!",exclamation;contraction
+7259,Hardware,Help text,Shopkeeper,"Didn't your mother teach you that stealing is wrong!?",interrobang;contraction
+7271,Hardware,Big text,System,"Lose the heat first!",exclamation;imperative
+7362,Hardware,Big text,System,"+$50",
+7379,Hardware,Help text,Shopkeeper,"He called the cops! Lose the heat!",exclamation
+7816,INIT,Opening narration,Narrator,"Despite its murky appearance, this is ~g~Vice City.",direct-address
+7824,INIT,Opening narration,Narrator,"You may notice that it is extremely foggy.",second-person
+7832,INIT,Opening narration,Narrator,"The aberrant weather is a consequence of a Barrier put in place to keep the city safe from outsiders.",passive-voice
+7840,INIT,Opening narration,Narrator,"It has been prophesized that upon the completion of 5 tasks, The Barrier will be destroyed.",passive-voice
+7848,INIT,Opening narration,Narrator,"With a little bit of perseverance and some time, it can be systematically disabled.",passive-voice
+7858,INIT,Opening narration,Narrator,"Unfortunately, although people have tried hitting it with large wooden sticks...",ellipsis
+7866,INIT,Opening narration,Narrator,"...nothing they've tried has brought it down.",ellipsis;contraction
+7876,INIT,Opening narration,Narrator,"Please heed the following warning.",imperative
+7884,INIT,Opening narration,Narrator,"Do not attempt to leave the island. Doing so will indubitably lead to your death.",imperative;second-person
+7892,INIT,Opening narration,Narrator,"Due to the inherent protective nature of ~g~The Barrier~w~, you cannot die while inside it.",second-person
+7900,INIT,Opening narration,Narrator,"Otherwise, you are free to roam around at your leisure.",second-person
+7908,INIT,Opening narration,Narrator,"Tread carefully. This land is fraught with danger.",imperative
+8044,INIT,Tutorial,System,"This is the Radar. Use it to help yourself navigate.",imperative
+8233,Intro,Objective,System,"RUN!",exclamation;capitals
+9164,Work,Objective,System,"Get into your car.",imperative
+9191,Work,Objective,System,"Go to the Hardware store.",imperative
+9288,Work,Objective,System,"Walk into the shop, grab a Hammer, and step up to the counter to continue.",imperative
+9326,Work,Help text,Shopkeeper,"Hey! You're supposed to pay for that!",exclamation;contraction
+9328,Work,Help text,Shopkeeper,"Didn't your mother teach you that stealing is wrong!?",interrobang;contraction
+9333,Work,Help text,System,"Shake the cops!",exclamation;imperative
+9348,Work,Help text,System,"Get back to the Hardware Store and pay for the Hammer.",imperative
+9376,Work,Big text,System,"Tool purchased! $100",exclamation
+9378,Work,Help text,Shopkeeper,"Come back any time you need the right tool for the wrong job.",direct-address
+9384,Work,Objective,System,"Get back in your car.",imperative
+9398,Work,Objective,Unknown,"Get in your car, dammit!",exclamation;profanity;imperative
+9423,Work,Objective,System,"Go home.",imperative
+9426,Work,Help text,System,"The Western Starfish Island gate is now open.",
+9446,Work,Objective,System,"Go to work.",imperative
+9464,Work,Objective,System,"Follow the L to find your workplace.",imperative
+9479,Work,Failure reason,System,"The car is totaled!",exclamation
+9484,Work,Failure card,System,"Mission Failed!",exclamation
+9557,Cart,Dialogue,Boss,"Well look who it is... You're late! Where the hell have you been?!",profanity;exclamation;interrobang;ellipsis
+9561,Cart,Dialogue,Player,"Oh, that... Well, I can explain-",ellipsis;hyphen-cutoff
+9565,Cart,Dialogue,Boss,"Shove it. I don't care. We've got a client who wants you to deliver the bike out back.",contraction
+9568,Cart,Dialogue,Boss,"He's giving it to his daughter as a homecoming present.",contraction
+9571,Cart,Dialogue,Boss,"So make sure it's in mint condition. If you screw up one more time, I'm taking it out of your ass! Comprende?",profanity;exclamation;contraction
+9575,Cart,Dialogue,Player,"Yes, I unders-.",hyphen-cutoff
+9579,Cart,Dialogue,Boss,"You're still here?! Get going!",exclamation;interrobang
+9595,Cart,Objective,System,"You have ten seconds to get on the ~b~bike.",second-person
+9605,Cart,Objective,System,"Deliver the bike to the client's daughter.",imperative
+9676,Cart,Dialogue,Daughter,"Oh, cool! Is that my new bike?!",exclamation;interrobang
+9684,Cart,Dialogue,Player,"No, it's the Popemobile. Yes, this is your bike.",contraction
+9688,Cart,Dialogue,Daughter,"Haha, very funny. Say, could you take me for a ride? I want to see how fast it can go!",exclamation
+9692,Cart,Dialogue,Player,"As long as you don't tell my boss, I'll take you anywhere your heart desires.",contraction
+9696,Cart,Dialogue,Daughter,"Oh, yay! This is going to be so much fun!",exclamation
+9700,Cart,Dialogue,Player,"Yeah... This'll be a riot.",ellipsis;contraction
+9751,Cart,Objective,System,"Take the bike for a spin around the city.",imperative
+9764,Cart,Failure reason,System,"You've left her behind!",exclamation
+9811,Cart,Objective,Unknown,"OK, that's enough dilly-dallying. Take her home.",imperative
+9878,Cart,Failure reason,System,"You killed the client's daughter!",exclamation
+9882,Cart,Failure reason,System,"The bike is trashed! Get it repaired!",exclamation
+9910,Cart,Failure reason,System,"You wrecked the bike!",exclamation
+9942,Cart,Dialogue,Daughter,"I'll see you later...",ellipsis;contraction
+10126,Cart,Failure card,System,"Assassination Failed!",exclamation
+10194,BossDie,Phone call,Boss,"Hey. This is your boss. Meet me on the Jetty east of the Golf Course.",
+10205,BossDie,Objective,System,"Go meet your boss.",imperative
+10249,BossDie,Dialogue,Boss,"Did you think I wouldn't find out?",contraction
+10262,BossDie,Dialogue,Player,"Find what out?",
+10276,BossDie,Dialogue,Boss,"You know damn well what!",profanity;exclamation
+10289,BossDie,Dialogue,Boss,"I know what you did with our client's daughter!",exclamation
+10302,BossDie,Dialogue,Player,"Boss, it wasn't like that! I swear!",exclamation;contraction
+10315,BossDie,Dialogue,Boss,"Save your excuses for someone who gives a shit!",profanity;exclamation
+10374,BossDie,Big text,System,"Gods, you're the worst!",exclamation;contraction
+10382,BossDie,Help text,Unknown,"Good luck, sucker!",exclamation
+10582,Fairy,Dialogue,Fairy,"Greetings, child.",
+10584,Fairy,Dialogue,Fairy,"We have been waiting so long for your arrival...",ellipsis;first-person-plural
