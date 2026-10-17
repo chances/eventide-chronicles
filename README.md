@@ -1,3 +1,3 @@
-# The Eventide Chronicles: Episode 2 - Miami
+# The Eventide Chronicles
 
 A Total Conversion mod for Grand Theft Auto: Vice City.
