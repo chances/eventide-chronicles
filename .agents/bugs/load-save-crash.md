@@ -19,7 +19,7 @@ After the second dialog, the game closes to the desktop.
 
 - The opcode ID `3B80` is not a valid opcode in Vice City. It suggests that a script thread read an instruction pointer that does not point to the start of an instruction.
 - The report does not say which save game loads, or which build of `main.scm` made the save.
-- The dialog differs from the dialogs in [first-mission-pass-crash.md](first-mission-pass-crash.md) and [death-and-bust-hazards.md](death-and-bust-hazards.md). Whether the causes are related is not known.
+- The dialog differs from the first mission pass crash (`c0000005` at `004582ed`) and from the dialogs in [death-and-bust-hazards.md](death-and-bust-hazards.md). Whether the causes are related is not known.
 
 ## Open Questions
 

@@ -19,8 +19,12 @@ Follow these rules when you edit `main.txt` to avoid the crashes found so far. T
 7. Fix one hazard per build, then play that case. Several patches in one build hide which one broke something.
 8. Recreate a mission pickup in the death/arrest retry handler when the retry re-enters a collection loop. A pickup created only during startup is not guaranteed to remain available after collection, death, or arrest.
 
+9. Give a weapon the mission requires with `Player.GiveWeapon` and `Player.SetCurrentWeapon`, not a pickup. The engine refuses an on-street weapon pickup when the player holds a weapon in the same slot, and `Pickup.HasBeenCollected` is true once per collection. Vice City has no command that tests whether the player holds a weapon.
+10. Do not put a long `wait` between `Hud.DisplayTimer` and the event the timer counts toward. Poll with `wait 250`, test the event and `$TIMER == 0`, and call `Hud.ClearTimer($TIMER)` on every exit.
+
 ## How to Find a Crash
 
+- `scrlog.log` is rewritten while the game runs and keeps only the last few frames. Read it while the crash dialog is open, before you close the game.
 - Read `scrlog.log` in the game folder. It lists each thread per frame with its instruction pointer.
 - An address above 1000000, a long run of `NOP`, or `COMMAND_xxxx` entries mean a thread ran off its code.
 - The values in the error dialog are 16-bit opcodes. Match each one against the log. A run that goes up in steps of 2 is one thread reading memory.

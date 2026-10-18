@@ -33,6 +33,8 @@ These rules apply to every agent working in this repository.
 
 - Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css) and [confetti.js](.agents/testing/confetti.js). Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
 - Preview a test plan through the `docs` server in `.claude/launch.json`. The Browser pane loads local files as `data:` documents, so relative links break.
+- A finished test case (Passed or Failed) collapses only its steps. The Expected result stays visible in a `fieldset.expected` group box whose `legend` sits on the border.
+- Test case internals use one flex `gap` in `.test-case` and no margins. Measure the visible-edge gaps in the running page after you add an element.
 - Read [.agents/lessons/test-plan-visual-centering.md](.agents/lessons/test-plan-visual-centering.md) before you center a number or label in a pill or button.
 
 ## Scripting

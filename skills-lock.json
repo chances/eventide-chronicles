@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "qa-game": {
+      "source": "playableintelligence/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/qa-game/SKILL.md",
+      "computedHash": "91a3634eaddb74be97404a3ad702cdd3a1abc71b209c80f57c407ecc4a556617"
+    }
+  }
+}

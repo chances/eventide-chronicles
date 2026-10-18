@@ -209,6 +209,20 @@ main li,
   margin-block-start: 1rem;
 }
 
+.test-case {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.test-case > * {
+  flex: none;
+}
+
+.test-case .steps {
+  margin: 0;
+}
+
 .test-case-title {
   position: sticky;
   inset-block-start: var(--test-progress-block-size, 0px);
@@ -245,6 +259,50 @@ main li,
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+.test-case-details > summary {
+  padding-block: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.test-case-details:not([open]) > summary {
+  padding-block: 0.5rem;
+}
+
+.test-case:has(input[value="passed"]:checked) .test-case-title h2,
+.test-case:has(input[value="failed"]:checked) .test-case-title h2 {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.expected {
+  --legend-size: 0.9rem;
+  min-inline-size: 0;
+  margin-block: calc(var(--legend-size) / -2) 0;
+  margin-inline: 0;
+  padding-block: 0.75rem 0.575rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+}
+
+.expected > legend {
+  padding-block: 0;
+  padding-inline: 0.5rem;
+  color: var(--muted);
+  font-size: var(--legend-size);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.expected > p {
+  margin: 0;
 }
 
 .test-progress {

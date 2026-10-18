@@ -1,8 +1,8 @@
 (() => {
   const tokens = ["--pass", "--primary", "--secondary"];
-  const count = 18;
+  const count = 40;
   const gravity = 0.2;
-  const lifetimeMs = 800;
+  const lifetimeMs = 1400;
 
   window.eventideConfetti = (origin) => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -32,13 +32,13 @@
     const originY = box.top + box.height / 2;
     const pieces = Array.from({ length: count }, () => {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 1.5 + Math.random() * 2.5;
+      const speed = 2.5 + Math.random() * 4;
       return {
         x: originX,
         y: originY,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed - 2,
-        size: 3 + Math.random() * 2,
+        size: 5 + Math.random() * 4,
         spin: Math.random() * Math.PI,
         spinSpeed: (Math.random() - 0.5) * 0.4,
         color: colors[Math.floor(Math.random() * colors.length)],
