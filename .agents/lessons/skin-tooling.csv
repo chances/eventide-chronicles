@@ -1,0 +1,9 @@
+id,pattern,symptom,check,fix
+P1,Hand-rolled format code,"A script reimplements PNG decoding, DXT compression, mip scaling, or DFF parsing","Search the JSR API, then npm, before writing a helper","Use @cross/image, dxtn, and rw-parser-ng from deno.json"
+P2,New npm package will not load,"Loading unprepared module for a package that deno add just installed","deno.json has no nodeModulesDir","Set nodeModulesDir to auto and gitignore node_modules"
+P3,Sheet bounds read from a scaled preview,"The viewer shows 2000 px for a 2400 px sheet, so estimates drift by the scale","Run slice-sheet edges on a thin window beside each border","Write the measured cuts into the manifest"
+P4,Transparent pixel in a texture,"One pixel under alpha 255 makes the texture DXT3, which doubles its size and breaks a stock header comparison","hasTransparency on level 0","Fill alpha to 255 in test fixtures, and expect DXT3 only for real transparency"
+P5,DXT on the small mips,"dxtn throws when a side is not a multiple of 4, which the 2x2 and 1x1 levels are","The mip chain reaches 1x1","Pad to 4x4 with a nearest resize before compressing"
+P6,Duplicate archive names,"gta3.dir holds chef.dff twice and a map keeps only one","parseDirectory returns a list for each name","Update every entry that shares the name"
+P7,Duplicated reader,"img.ts and extract-skins.ts each parse gta3.dir","grep for readDirectory and parseDirectory","Export one reader and import it in both scripts"
+P8,Probe files left in the repo,"skins/_probe and skins/test show in git status","git status after a test run","Move probes to the scratchpad folder before finishing"

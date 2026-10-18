@@ -34,6 +34,10 @@ These rules apply to every agent working in this repository.
 
 ## Test Plans
 
+- A test plan is for humans. Every case is something a person does and sees in the game or on a page. Keep commands, file hashes and sizes, exit codes, and output comparisons out of the plan. The agent runs those checks itself, through tests or scripts, and reports the results in chat.
+- A test plan stands alone. Never refer to the agent, to chat, or to anything outside the page, because a human may read only the plan. Each case starts with the exact command that prepares its build, then says what to do in the game, and then says what the player sees.
+- Do not write a plan that has no human case.
+
 - Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css) and [confetti.js](.agents/testing/confetti.js). Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
 - Preview a test plan through the `docs` server in `.claude/launch.json`. The Browser pane loads local files as `data:` documents, so relative links break.
 - A finished test case (Passed or Failed) collapses only its steps. The Expected result stays visible in a `fieldset.expected` group box whose `legend` sits on the border.
@@ -62,5 +66,8 @@ These rules apply to every agent working in this repository.
 - `deno task build` fails with "Sanny Builder did not write" when the compiler exits 0 without output.
 - `deno task run` launches the game through `cmd /c start`, because a game started as a Deno child process on Windows ends when Deno exits.
 - `deno task extract-skins [--out dir] [name ...]` copies each model's `.dff` and `.txd` out of `gta3.img` and decodes its textures to PNG. The default name is `IGMerc`, the model the `Skin` thread dresses the player in. Output goes to `skins/`, which Git ignores because the files are game assets.
+- `deno task install:skins [name ...] [--dry-run]` installs every `.dff` and `.txd` in `skins/` into `gta3.img` and adds directory entries for new model names. `deno task install` runs it after the script install. Use the `skinning-characters` skill before you change a character's look, and read [.agents/lessons/skin-tooling.md](.agents/lessons/skin-tooling.md) before you change the skin scripts.
+- `deno task slice-sheet` measures and cuts a composite sheet, such as `skins/All Skins.jpg`, into one PNG per texture from a manifest like `skins/outfits.csv`. The slices, and every other folder staged for installation, go in `dist/`, which Git ignores. `deno task clean` removes `dist/`. `deno task import-skin` then packs the slices into one TXD.
 - A compile from the Sanny Builder window can leave older text in `main.txt`. Reload `main.txt` there before a compile.
 - The Semgrep rules for Sanny Builder text are in `~/.agents/skills/semgrep/rules/sanny-builder`. They need UTF-8 input, so transcode `main.txt` to a copy before a scan.
+- Deno scripts get their dependencies from packages declared in `deno.json`, added with `deno add`. Search JSR first, then npm, and read the `deno-guidance` skill. Do not hand-write a decoder, encoder, or parser that a package provides. `"nodeModulesDir": "auto"` is set because new npm packages fail to load without it.

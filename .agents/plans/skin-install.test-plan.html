@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skin Install - Test Plan</title>
+    <link rel="stylesheet" href="../testing/test-plan.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="page-header">
+      <p class="eyebrow">Test Plan</p>
+      <h1>Skin Install</h1>
+      <p class="intro">
+        Play the game and check that each installed outfit shows on the player
+        character. Every case tells you what to run, what to do in the game,
+        and what you should see.
+      </p>
+    </header>
+    <noscript>
+      <p
+        class="note">JavaScript is required to save results and update progress.</p>
+    </noscript>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href="#scope">Scope and Setup</a></li>
+        <li>
+          Striped Utility Build
+          <ol>
+            <li><a href="#gm-01">Striped Utility at New Game</a></li>
+            <li><a href="#gm-02">Striped Utility After a Skin Thread Re-dress</a></li>
+            <li><a href="#gm-03">Striped Utility at the Other Skin Locations</a></li>
+          </ol>
+        </li>
+        <li>
+          Other Builds
+          <ol>
+            <li><a href="#gm-04">Scarred Leather Build</a></li>
+            <li><a href="#gm-05">Stock Skin Build</a></li>
+          </ol>
+        </li>
+        <li><a href="#evidence">Evidence and Pass Criteria</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+      <section id="scope" aria-labelledby="scope-heading">
+        <h2 id="scope-heading">Scope and Setup</h2>
+        <ul>
+          <li>
+            Target <code>gta-vc.exe</code> v1.0. Run every command from the
+            repository root.
+          </li>
+          <li>
+            Close the game before each <code>install:skins</code> command. It
+            writes to the game's archive. Each case names the build folder it
+            installs from.
+          </li>
+          <li>
+            The outfits come from <code>skins/All Skins.jpg</code>. The striped
+            utility outfit is gold stripes with olive trousers and knee pads.
+            The scarred leather outfit is orange scarred leather with ripped
+            black trousers. The stock look is a pink top with black leather.
+          </li>
+          <li>
+            The temporary two-star wanted level in <code>MAIN</code> is still
+            present, so the police chase the player from the start.
+          </li>
+        </ul>
+      </section>
+
+      <section
+        id="test-progress"
+        class="test-progress"
+        aria-labelledby="completion-heading"
+      >
+        <h2 id="completion-heading"
+          class="visually-hidden">Test Plan Completion</h2>
+        <p class="progress-row">
+          <span id="completion-count" class="progress-count">0 of 5</span>
+          <progress
+            id="completion-progress"
+            aria-labelledby="completion-heading"
+            max="5"
+            value="0"
+          >0 of 5</progress>
+          <span class="progress-spacer" aria-hidden="true"></span>
+          <span id="completion-outcomes" class="completion-outcomes">
+            <span
+              id="passed-pill"
+              class="metric-pill metric-pill--passed"
+              role="img"
+              title="0 passed"
+              aria-label="0 test cases have passed"
+            >
+              <span id="passed-count">0</span>
+              <span class="visually-hidden">passed</span>
+            </span>
+            <span
+              id="failed-pill"
+              class="metric-pill metric-pill--failed"
+              role="img"
+              title="0 failed"
+              aria-label="0 test cases have failed"
+            >
+              <span id="failed-count">0</span>
+              <span class="visually-hidden">failed</span>
+            </span>
+          </span>
+        </p>
+        <p
+          id="completion-summary"
+          class="visually-hidden"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >0 of 5 cases recorded.</p>
+        <p id="storage-status" class="storage-status" role="status"
+          aria-live="polite" hidden></p>
+      </section>
+
+      <section
+        class="test-case"
+        id="gm-01"
+        aria-labelledby="gm-01-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="gm-01-heading">Striped Utility at New Game</h2>
+          <fieldset
+            class="result-controls"
+            data-case="GM-01"
+            aria-labelledby="gm-01-heading"
+          >
+            <label>
+              <input type="radio" name="result-GM-01" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-GM-01" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-GM-01" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li>Close the game. Run <code>deno task install:skins --from dist/builds/striped_utility</code>.</li>
+            <li>Run <code>deno task run</code> and begin a new game.</li>
+            <li>When the fade-in ends, look at the player character, and turn the camera to see the jacket and the trousers.</li>
+          </ol>
+        </details>
+        <fieldset class="expected">
+          <legend>Expected</legend>
+          <p>
+            The player wears the gold-striped jacket and the olive trousers
+            with knee pads of the striped utility outfit. The model is not white, not
+            untextured, and not the stock pink top. The game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section
+        class="test-case"
+        id="gm-02"
+        aria-labelledby="gm-02-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="gm-02-heading">Striped Utility After a Skin Thread Re-dress</h2>
+          <fieldset
+            class="result-controls"
+            data-case="GM-02"
+            aria-labelledby="gm-02-heading"
+          >
+            <label>
+              <input type="radio" name="result-GM-02" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-GM-02" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-GM-02" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li>Continue from GM-01 in the same game session.</li>
+            <li>Go to the first <code>Skin</code> location, at <code>-108.3, -974.4, 9.4</code>, and stay within 5 units.</li>
+            <li>Watch the screen fade out and fade in, then look at the player character again.</li>
+          </ol>
+        </details>
+        <fieldset class="expected">
+          <legend>Expected</legend>
+          <p>
+            The player still wears the striped utility outfit after the fade. The stock pink top
+            does not come back, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section
+        class="test-case"
+        id="gm-03"
+        aria-labelledby="gm-03-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="gm-03-heading">Striped Utility at the Other Skin Locations</h2>
+          <fieldset
+            class="result-controls"
+            data-case="GM-03"
+            aria-labelledby="gm-03-heading"
+          >
+            <label>
+              <input type="radio" name="result-GM-03" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-GM-03" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-GM-03" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li>Continue from GM-02 in the same game session.</li>
+            <li>Go to each of these places in turn, and stay within 5 units for the fade: <code>508.9, 506.8, 10.3</code>, <code>-822.6, 1149.8, 12.4</code>, <code>398.8, -469.7, 10.7</code>, <code>-872.2, -683.4, 11.2</code>, and <code>-885.5, -471.0, 13.1</code>.</li>
+            <li>After each fade, look at the player character.</li>
+          </ol>
+        </details>
+        <fieldset class="expected">
+          <legend>Expected</legend>
+          <p>
+            The player wears the striped utility outfit after every fade. Note any place where
+            the stock look comes back or the game crashes.
+          </p>
+        </fieldset>
+      </section>
+
+      <section
+        class="test-case"
+        id="gm-04"
+        aria-labelledby="gm-04-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="gm-04-heading">Scarred Leather Build</h2>
+          <fieldset
+            class="result-controls"
+            data-case="GM-04"
+            aria-labelledby="gm-04-heading"
+          >
+            <label>
+              <input type="radio" name="result-GM-04" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-GM-04" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-GM-04" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li>Close the game. Run <code>deno task install:skins --from dist/builds/scarred_leather</code>.</li>
+            <li>Run <code>deno task run</code> and begin a new game.</li>
+            <li>Look at the player character, and turn the camera to see the jacket and the trousers.</li>
+          </ol>
+        </details>
+        <fieldset class="expected">
+          <legend>Expected</legend>
+          <p>
+            The player wears the orange scarred leather jacket and the ripped
+            black trousers of the scarred leather outfit. The striped utility outfit
+            is gone, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section
+        class="test-case"
+        id="gm-05"
+        aria-labelledby="gm-05-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="gm-05-heading">Stock Skin Build</h2>
+          <fieldset
+            class="result-controls"
+            data-case="GM-05"
+            aria-labelledby="gm-05-heading"
+          >
+            <label>
+              <input type="radio" name="result-GM-05" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-GM-05" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-GM-05" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li>Close the game. Run <code>deno task install:skins --from dist/builds/stock</code>.</li>
+            <li>Run <code>deno task run</code> and begin a new game.</li>
+            <li>Look at the player character, and turn the camera to see the jacket and the trousers.</li>
+          </ol>
+        </details>
+        <fieldset class="expected">
+          <legend>Expected</legend>
+          <p>
+            The player wears the stock look, a pink top with black leather.
+            No outfit shows, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section id="evidence" aria-labelledby="evidence-heading">
+        <h2 id="evidence-heading">Evidence and Pass Criteria</h2>
+        <ul>
+          <li>
+            For each case, capture one screenshot of the player character and
+            note whether the texture was the outfit, stock, white, or missing.
+          </li>
+          <li>
+            If the game crashes, keep the full exception report and the last
+            lines of <code>scrlog.log</code> in the game folder.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Test plan for the <a href="../skills/skinning-characters/SKILL.md">skinning-characters</a>
+        skill and <a href="../../scripts/install-skins.ts">install-skins.ts</a>.
+      </p>
+    </footer>
+    <script src="../testing/confetti.js"></script>
+    <script>
+    (() => {
+      const storageKey = "eventide.skin-install.test-results.v4";
+      const validResults = new Set(["not-run", "passed", "failed"]);
+      const controls = Array.from(
+        document.querySelectorAll("fieldset[data-case]"),
+      );
+      const results = Object.fromEntries(
+        controls.map((control) => [control.dataset.case, "not-run"]),
+      );
+      const progress = document.getElementById("completion-progress");
+      const completionCount = document.getElementById("completion-count");
+      const passedCount = document.getElementById("passed-count");
+      const failedCount = document.getElementById("failed-count");
+      const passedPill = document.getElementById("passed-pill");
+      const failedPill = document.getElementById("failed-pill");
+      const summary = document.getElementById("completion-summary");
+      const storageStatus = document.getElementById("storage-status");
+      const progressHeader = document.getElementById("test-progress");
+
+      function updateStickyOffset() {
+        const height = progressHeader.getBoundingClientRect().height;
+        document.documentElement.style.setProperty(
+          "--test-progress-block-size",
+          `${height}px`,
+        );
+      }
+
+      updateStickyOffset();
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(updateStickyOffset).observe(progressHeader);
+      }
+      window.addEventListener("resize", updateStickyOffset);
+
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          const saved = JSON.parse(stored);
+          if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+            for (const control of controls) {
+              const result = saved[control.dataset.case];
+              if (validResults.has(result)) {
+                results[control.dataset.case] = result;
+              }
+            }
+          }
+        }
+        storageStatus.textContent = stored
+          ? "Saved results loaded from this browser."
+          : "Results you record will be saved in this browser.";
+      } catch {
+        storageStatus.textContent =
+          "Local storage is unavailable. Results will last only until this page closes.";
+        storageStatus.hidden = false;
+      }
+
+      function renderResults() {
+        let passed = 0;
+        let failed = 0;
+
+        for (const control of controls) {
+          const caseId = control.dataset.case;
+          const result = results[caseId];
+          if (result === "passed") passed++;
+          if (result === "failed") failed++;
+
+          for (
+            const radio of control.querySelectorAll(
+              "input[type=radio][data-case-result]",
+            )
+          ) {
+            radio.checked = radio.dataset.result === result;
+          }
+
+          const details = control.closest(".test-case")
+            .querySelector(".test-case-details");
+          if (details) details.open = result === "not-run";
+        }
+
+        const recorded = passed + failed;
+        progress.max = controls.length;
+        progress.value = recorded;
+        completionCount.textContent = `${recorded} of ${controls.length}`;
+        passedCount.textContent = passed;
+        failedCount.textContent = failed;
+        passedPill.title = `${passed} passed`;
+        passedPill.setAttribute("aria-label", `${passed} test cases have passed`);
+        failedPill.title = `${failed} failed`;
+        failedPill.setAttribute("aria-label", `${failed} test cases have failed`);
+        summary.textContent =
+          `${recorded} of ${controls.length} cases recorded: ${passed} passed, ${failed} failed.`;
+      }
+
+      function saveResults() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(results));
+          storageStatus.hidden = true;
+        } catch {
+          storageStatus.textContent =
+            "Local storage is unavailable. Results will last only until this page closes.";
+          storageStatus.hidden = false;
+        }
+      }
+
+      document.addEventListener("change", (event) => {
+        const radio = event.target;
+        if (!(radio instanceof HTMLInputElement)) return;
+        if (!radio.matches("input[type=radio][data-case-result]")) return;
+
+        const control = radio.closest("fieldset[data-case]");
+        const caseId = control.dataset.case;
+        const result = radio.dataset.result;
+        if (!validResults.has(result)) return;
+        const previous = results[caseId];
+        results[caseId] = result;
+        if (result === "passed" && previous !== "passed") {
+          window.eventideConfetti?.(radio);
+        }
+        saveResults();
+        renderResults();
+      });
+
+      renderResults();
+    })();
+    </script>
+  </body>
+</html>
