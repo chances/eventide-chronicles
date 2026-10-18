@@ -2,7 +2,7 @@
   "nodeModulesDir": "auto",
   "tasks": {
     "build": "deno run --env-file=.env --allow-env --allow-read --allow-run scripts/build.ts",
-    "install": "deno task build && deno run --env-file=.env --allow-env --allow-read --allow-write scripts/install.ts && deno task install:skins",
+    "install": "deno task install:skins && deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run scripts/install.ts",
     "install:skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/install-skins.ts",
     "run": "deno run --env-file=.env --allow-env --allow-read --allow-run scripts/run.ts",
     "extract-skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/extract-skins.ts",
@@ -12,6 +12,7 @@
   },
   "imports": {
     "@cross/image": "jsr:@cross/image@^0.4.3",
+    "@nktkas/bmp": "jsr:@nktkas/bmp@^5.0.0",
     "@std/cli": "jsr:@std/cli@^1.0.32",
     "@std/csv": "jsr:@std/csv@^1.0.6",
     "@std/path": "jsr:@std/path@^1.1.4",

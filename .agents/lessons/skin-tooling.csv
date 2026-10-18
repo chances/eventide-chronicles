@@ -7,3 +7,5 @@ P5,DXT on the small mips,"dxtn throws when a side is not a multiple of 4, which 
 P6,Duplicate archive names,"gta3.dir holds chef.dff twice and a map keeps only one","parseDirectory returns a list for each name","Update every entry that shares the name"
 P7,Duplicated reader,"img.ts and extract-skins.ts each parse gta3.dir","grep for readDirectory and parseDirectory","Export one reader and import it in both scripts"
 P8,Probe files left in the repo,"skins/_probe and skins/test show in git status","git status after a test run","Move probes to the scratchpad folder before finishing"
+P9,Orphan texture archive,"outfits.txd held textures named after outfits and no .dff asked for those names, so install:skins skipped it","dffTextureNames of the mesh against txdTextureNames of the archive","Build one slot per outfit with import-skin --base, so the mesh and the texture name match"
+P10,Default skin bitmap ignored,"player.txd installs and the default outfit does not change","models/generic/player.bmp exists in the game folder","Install skins/player.bmp with install:skins"

@@ -1,3 +1,6 @@
+---
+audience: [ai, human]
+---
 # Test Plan Visual Centering
 
 Follow these rules when you center a number or label inside a badge, pill, or segmented button in [test-plan.css](../testing/test-plan.css). The patterns are in [test-plan-visual-centering.csv](test-plan-visual-centering.csv).

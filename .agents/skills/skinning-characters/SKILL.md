@@ -15,17 +15,27 @@ Read [visual-identity.md](../../../docs/visual-identity.md) before you paint. Co
 
 | Kind | Files in `gta3.img` | How the game uses it |
 |---|---|---|
-| Player outfits | `player`, `player2` to `player9`, `play10` to `play12` | `player.txd` is overridden by `models/generic/player.bmp` while that file exists. This install has it. |
+| Player outfits | `player`, `player2` to `player9`, `play10` to `play12` | The stock clothing-store outfits, each with one texture named like the model (`play12` has two): `player` Street, `player2` Raphael, `player3` Spandex, `player4` Golf, `player5` Cuban, `player6` Cop, `player7` The Job, `player8` Casual, `player9` Collars and Cuffs, `play10` Black Tracksuit, `play11` Wine Red Tracksuit, `play12` Frankie. `player.txd` is overridden by `models/generic/player.bmp` while that file exists. This install has it. |
 | Special characters | `IGxxx` in-game, `CSxxx` cutscene, `chef` | Loaded by name with `Char.Undress` or `Streaming.LoadSpecialCharacter`. None is in `default.ide`. The `Skin` thread uses `IGMERC`, `IGMERC2`, and `CHEF`. |
 | Ordinary peds | `wmyri` and the rest of the `peds` section in `default.ide` | Spawned by model id. The IDE row names the `.dff` and `.txd`. |
 
 A character seen in play and in a cutscene has two models, such as `IGMerc` and `CSMerc`. Reskin both. A new model name works as a special character. It needs both files and a name of at most 7 characters, because Vice City script strings hold 7.
 
+## Clothing-Store Outfits
+
+The outfits on `skins/All Skins.jpg` are outfits the player buys in the game's clothing stores. The stores hand out the stock models `player` to `play12`, so each outfit replaces one slot. Both files of the slot change: `<slot>.dff` becomes a copy of `IGMerc.dff`, because the textures use the `IGMerc` layout, and `<slot>.txd` holds one texture named `igmerc`, as that `.dff` asks. The stock slot names are in the table above. `skins/outfits.csv` maps each outfit to its `slot` and to the `store`, the `Clothing.` name of the pickup that `Pickup.CreateClothes` creates in `main.txt`. A blank `store` has no pickup. The `Clothes` thread gives the outfit with `Char.Undress($scplayer, 'PLAYERn')`, `wait 250`, `Streaming.LoadAllModelsNow`, `wait 250`, `Char.Dress($scplayer)`. Without `LoadAllModelsNow` the model may not be loaded when `Dress` runs. `deno test --allow-read scripts/clothes-stores.test.ts` checks that `main.txt` and the CSV agree.
+
+1. `deno task extract-skins IGMerc` if `skins/IGMerc.dff` is missing.
+2. `deno task slice-sheet cut "skins/All Skins.jpg" skins/outfits.csv --size 256` writes `dist/outfits/<row>.png`. `256` matches the stock `igmerc` texture.
+3. For each outfit: `deno task import-skin <slot> dist/outfits/<row>.png --base IGMerc` writes `skins/<slot>.dff` and `skins/<slot>.txd`. For `player` it also writes `skins/player.bmp`, a 24-bit bitmap of the texture.
+4. `deno task install:skins player player2 player3 player4 player5 --dry-run`, then without `--dry-run` with the game closed. `install:skins` copies `skins/player.bmp` over `models/generic/player.bmp` and saves the original as `player.bmp.eventide-bak`. Without that bitmap the game ignores the new `player.txd`.
+5. Cutscenes use `CSplay` to `CSplay9`, so the outfit shows in a cutscene only after those models are reskinned too.
+
 ## Process
 
 1. **Extract.** `deno task extract-skins <Name>` writes `skins/<Name>.dff`, `skins/<Name>.txd`, and one `skins/<Name>_<texture>.png` per texture.
 2. **Paint the PNG.** Keep the same size. Both sides must be a power of two. Save RGB or RGBA. Any pixel with alpha below 255 makes the texture DXT3, which is twice the size.
-3. **Import.** `deno task import-skin <Name> skins/<Name>_<texture>.png [...]` builds `skins/<Name>.txd` with a full mip chain. It removes the `<Name>_` prefix to get the texture name. It stops when the `.dff` never asks for a name. It overwrites the extracted TXD, and `extract-skins` restores it.
+3. **Import.** `deno task import-skin <Name> skins/<Name>_<texture>.png [...]` builds `skins/<Name>.txd` with a full mip chain. It removes the `<Name>_` prefix to get the texture name. It stops when the `.dff` never asks for a name. It overwrites the extracted TXD, and `extract-skins` restores it. `--base <Model>` makes `<Name>` a new outfit of `<Model>`: it copies `<Model>.dff` and names the one PNG's texture after the texture that `.dff` asks for.
 4. **Install.** Close the game. `deno task install:skins [<name> ...] [--dry-run]` installs each `skins/*.dff` and `skins/*.txd`. Use `--dry-run` first to see what changes.
 5. **Wire the script.** `Char.Undress($scplayer, 'NAME')`, `Streaming.LoadAllModelsNow`, then `Char.Dress($scplayer)`. A retexture needs no script change.
 6. **Ask the user to play it.** Report what the scripts printed. The user decides whether the skin is right.
@@ -36,14 +46,14 @@ A sheet is one image that holds several textures, such as `skins/All Skins.jpg` 
 
 1. **Look at the sheet.** The viewer scales large images, so multiply a viewed coordinate by the scale it reports. Treat it as a rough guess only.
 2. **Measure each side.** `deno task slice-sheet edges <sheet> <x0> <y0> <x1> <y1>` lists the strongest cuts in a window. A cut is the first pixel after a brightness step, so a panel spanning pixels `s` to `e` has cuts at `s` and `e + 1`, and its width is the difference. Use a thin window, 30 to 50 pixels wide, that stays inside the span of the panel. Its strongest cut is the border, and weaker cuts are texture detail. Labels and backgrounds that touch a wide window add false cuts.
-3. **Write the manifest.** `skins/<set>.csv` has the columns `name,x,y,width,height` in sheet pixels. Name each row after its label, in lowercase with underscores, such as `scraped_gray_tank`.
+3. **Write the manifest.** `skins/<set>.csv` has the columns `name,x,y,width,height` in sheet pixels. Name each row after its label, in lowercase, such as `graytop`. An outfit set adds a `slot` column naming the stock model the outfit replaces, as `skins/outfits.csv` does. `slice-sheet` ignores extra columns.
 4. **Cut.** `deno task slice-sheet cut <sheet> skins/<set>.csv --size 512` writes `dist/<set>/<name>.png`. Each tile is scaled to a square, so a tile that is not square is stretched. `512` is the largest power of two that fits the smallest panel. `1024` works for sources of at least that size.
 5. **Check every slice.** Open each PNG. No background, label, or neighbor may show at an edge.
-6. **Pack.** `deno task import-skin <set> dist/<set>/*.png` writes `skins/<set>.txd` with one texture per file, named after the file.
+6. **Pack.** For outfits, see Clothing-Store Outfits. For one TXD holding several textures, `deno task import-skin <set> dist/<set>/*.png` names each texture after its file.
 
 `dist/` holds every folder staged for installation, and Git ignores it. `deno task clean` removes it. A build to test is a folder under `dist/builds/` that holds one `.txd`, and `deno task install:skins --from dist/builds/<name>` installs it.
 
-A panel that runs off the edge of the sheet stays cut. In `All Skins.jpg`, panels J and K lose their top rows. A `<set>.txd` with no `<set>.dff` is skipped with a warning by `install:skins`. Add a `.dff` that asks for these texture names to install it.
+A panel that runs off the edge of the sheet stays cut. In `All Skins.jpg`, panels J and K lose their top rows. A `.txd` with no `.dff` and a new name is skipped with a warning by `install:skins`.
 
 ## What `install:skins` Does
 
@@ -56,7 +66,7 @@ A panel that runs off the edge of the sheet stays cut. In `All Skins.jpg`, panel
 | A file identical to the game's copy | Skipped, so every install is safe. |
 | A `.dff` that asks for a texture the `.txd` lacks | Stops before any write. |
 
-Files are appended to `gta3.img`, and an earlier install's slot is reused when the data fits. The first write saves `gta3.dir` as `gta3.dir.eventide-bak`. Copy it over `gta3.dir` to undo every install. Installing `player.txd` prints a warning about `player.bmp`.
+Files are appended to `gta3.img`, and an earlier install's slot is reused when the data fits. The first write saves `gta3.dir` as `gta3.dir.eventide-bak`. Copy it over `gta3.dir` to undo every install. A `skins/player.bmp` replaces `models/generic/player.bmp` and saves the original as `player.bmp.eventide-bak`. Installing `player.txd` without it prints a warning.
 
 ## Quick Reference
 
@@ -66,7 +76,7 @@ Files are appended to `gta3.img`, and an earlier install's slot is reused when t
 | `is 300x200. Vice City needs power-of-two sides.` | Resize the PNG to 256x256, 128x128, or similar. |
 | `new model with a name over 7 characters` | Rename the files to 7 characters or fewer. |
 | `Set VC in .env` | The install and extract tasks read `VC` from `.env`. |
-| Default player skin unchanged | `models/generic/player.bmp` overrides `player.txd`. |
+| Default player skin unchanged | `models/generic/player.bmp` overrides `player.txd`. `import-skin player` writes `skins/player.bmp`, and `install:skins` installs it. |
 
 `deno test --allow-read --allow-env scripts/skin-format.test.ts` checks the TXD writer against the stock `IGMerc.txd` and the archive logic.
 

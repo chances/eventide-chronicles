@@ -77,6 +77,15 @@ if (skins.size === 0) {
   Deno.exit(0);
 }
 
+// The game reads models/generic/player.bmp, not player.txd, for the default
+// player model. A player.bmp in the source folder replaces it.
+const bmpPath = join(vc, "models", "generic", "player.bmp");
+const bmpFile = join(fromDir, "player.bmp");
+const bmpSource = (only.size === 0 || only.has("player")) &&
+    await exists(bmpFile)
+  ? await Deno.readFile(bmpFile)
+  : undefined;
+
 const errors: string[] = [];
 const writes: { entry: DirEntry; data: Uint8Array }[] = [];
 const img = await Deno.open(imgPath, { read: true, write: true });
@@ -134,8 +143,8 @@ try {
         errors.push(`Cannot read ${stem}.dff or ${stem}.txd: ${error}`);
       }
     }
-    if (given.txd && stem === "player") {
-      if (await exists(join(vc, "models", "generic", "player.bmp"))) {
+    if (given.txd && stem === "player" && !bmpSource) {
+      if (await exists(bmpPath)) {
         console.warn(
           "models/generic/player.bmp overrides player.txd for the default player model. Replace that bitmap to change the default skin.",
         );
@@ -195,4 +204,19 @@ try {
 if (writes.length > 0) {
   await Deno.writeFile(dirPath, dir);
   console.log(`Updated ${dirPath}. Backup: ${backupPath}`);
+}
+if (bmpSource) {
+  const current = await exists(bmpPath) ? await Deno.readFile(bmpPath) : null;
+  if (current && sameBytes(current, bmpSource)) {
+    console.log("Skipped player.bmp (already installed)");
+  } else if (dryRun) {
+    console.log("Would install player.bmp");
+  } else {
+    const bmpBackup = `${bmpPath}.eventide-bak`;
+    if (current && !await exists(bmpBackup)) {
+      await Deno.writeFile(bmpBackup, current);
+    }
+    await Deno.writeFile(bmpPath, bmpSource);
+    console.log(`Installed player.bmp. Backup: ${bmpBackup}`);
+  }
 }

@@ -1,6 +1,6 @@
-name,x,y,width,height
-striped_utility,117,0,933,847
-scarred_leather,1338,0,956,847
-battered_vest,24,962,764,740
-battered_pink_tank,1611,962,765,740
-scraped_gray_tank,818,962,764,740
+name,slot,store,x,y,width,height
+utility,player,,117,0,933,847
+leather,player2,Soiree,1338,0,956,847
+vest,player3,TrackSuitBlack,24,962,764,740
+pinktop,player4,,1611,962,765,740
+graytop,player5,Casual,818,962,764,740

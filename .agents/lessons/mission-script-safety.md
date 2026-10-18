@@ -1,3 +1,6 @@
+---
+audience: [ai, human]
+---
 # Mission Script Safety
 
 Follow these rules when you edit `main.txt` to avoid the crashes found so far. The patterns are in [mission-script-safety.csv](mission-script-safety.csv), and the crash hazards found so far are in [death-and-bust-hazards.md](../bugs/death-and-bust-hazards.md).

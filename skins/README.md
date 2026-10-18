@@ -9,8 +9,8 @@ This folder holds the source art and manifests for the character skins. The `.df
 ## Files
 
 - `All Skins.jpg` is the composite mockup sheet of the outfits.
-- `outfits.csv` lists each outfit's name and its crop box on the sheet, as `name,x,y,width,height`.
-- `outfits.txd` is the archive of the five outfit textures cut from the sheet.
+- `outfits.csv` lists each outfit's name and its crop box on the sheet, as `name,slot,x,y,width,height`. The `slot` column names the stock model each outfit replaces.
+- `player.dff` to `player5.dff`, their `.txd` files, and `player.bmp` are the generated outfit slots, `IGMerc` copies with each outfit's texture.
 - `striped_utility.csv` and `scarred_leather.csv` list the textures of one build each, as input to `import-skin`.
 - `IGMerc.dff`, `IGMerc.txd`, and `IGMerc_igmerc.png` are the stock player model, extracted from `gta3.img`.
 - `mockups/` holds the concept art.

@@ -1,0 +1,2 @@
+// Written by scripts/install.ts. Pass --debug-wanted to turn the debug aids on.
+const DebugWantedLevel = 0

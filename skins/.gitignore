@@ -1,3 +1,4 @@
 # Game assets extracted by scripts/extract-skins.ts
 *.dff
 *.txd
+player.bmp
