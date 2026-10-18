@@ -8,6 +8,9 @@ These rules apply to every agent working in this repository.
 - Check the ledger, [docs/lore.csv](docs/lore.csv), before defining any story element. Use the status it records. Do not contradict a Book entry without adding a departure note.
 - Publishing targets and release instructions go in [docs/publish.md](docs/publish.md). Do not put them in the branding or lore documents.
 - CSV files are for tabular data sets. Record a single bug in a Markdown document; when one bug document tracks multiple bugs, use a sibling CSV for the tabular records.
+- Read [docs/visual-identity.md](docs/visual-identity.md) before making any art, font, color, or HUD change. Colors come from [docs/palette.csv](docs/palette.csv).
+- The hidden premise lives only in [docs/spoilers.md](docs/spoilers.md). Do not state or hint at it in any other document, in release art, or in any player-facing string. Link to the spoiler document instead.
+- Design specimens, such as typeface and color comparisons, are saved as HTML pages in [docs/specimens](docs/specimens). Show a visual choice as a specimen before asking the user to pick.
 
 ## Style
 
@@ -58,5 +61,6 @@ These rules apply to every agent working in this repository.
 - To debug a crash, read `scrlog.log` in the game folder. It lists each thread per frame with its instruction pointer. Hazards found so far are in [.agents/bugs/death-and-bust-hazards.md](.agents/bugs/death-and-bust-hazards.md).
 - `deno task build` fails with "Sanny Builder did not write" when the compiler exits 0 without output.
 - `deno task run` launches the game through `cmd /c start`, because a game started as a Deno child process on Windows ends when Deno exits.
+- `deno task extract-skins [--out dir] [name ...]` copies each model's `.dff` and `.txd` out of `gta3.img` and decodes its textures to PNG. The default name is `IGMerc`, the model the `Skin` thread dresses the player in. Output goes to `skins/`, which Git ignores because the files are game assets.
 - A compile from the Sanny Builder window can leave older text in `main.txt`. Reload `main.txt` there before a compile.
 - The Semgrep rules for Sanny Builder text are in `~/.agents/skills/semgrep/rules/sanny-builder`. They need UTF-8 input, so transcode `main.txt` to a copy before a scan.

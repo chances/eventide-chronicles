@@ -3,6 +3,7 @@
     "build": "deno run --env-file=.env --allow-env --allow-read --allow-run scripts/build.ts",
     "install": "deno task build && deno run --env-file=.env --allow-env --allow-read --allow-write scripts/install.ts",
     "run": "deno run --env-file=.env --allow-env --allow-read --allow-run scripts/run.ts",
+    "extract-skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/extract-skins.ts",
   },
   "imports": {
     "@std/path": "jsr:@std/path@^1.1.4",

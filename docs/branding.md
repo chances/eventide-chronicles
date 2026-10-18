@@ -12,7 +12,7 @@ Status: Draft. Items marked **Open** are pending decisions listed under [Open It
 | Episode number | None. The title carries no episode number. |
 | Form | Total conversion mod for Grand Theft Auto: Vice City |
 | Relationship to source | Alternate universe companion to Book 2 of the Enbenite series |
-| Visual identity | Palette defined in [Color Story](#color-story). **Open**: no logo, title treatment, or typefaces exist yet |
+| Visual identity | Defined in [visual-identity.md](visual-identity.md). **Open**: the title mark waits for the Enbenite mineral |
 
 The title "The Eventide Chronicles: Episode 2 - Miami" is retired. It was inaccurate, and the README now uses the plain title.
 
@@ -95,7 +95,7 @@ Do not use "Episode 2 - Miami" or "Episode 2" in any document or string.
 
 ## Visual Identity
 
-The palette is defined under [Color Story](#color-story). **Open.** No logo, title treatment, or typefaces have been defined. The project currently relies on the game's own interface. This section should be revised once visual assets exist.
+The palette is defined under [Color Story](#color-story). Typefaces, moods, coherence, speaker colors, and asset order are in [visual-identity.md](visual-identity.md). **Open.** The title mark waits for the Enbenite mineral.
 
 ### Color Story
 
@@ -140,6 +140,6 @@ The repository is licensed under the GNU General Public License v3.0 (GPL-3.0). 
 
 ## Open Items
 
-1. Visual identity: logo, title treatment, and typefaces.
+1. Visual identity: title mark, which waits for the Enbenite mineral. See [visual-identity.md](visual-identity.md).
 2. Narration and dialogue style: writing rules for each, to be defined after the grilling.
 3. Book 2 text: required before the mod-specific story sections of [lore.md](lore.md) can be completed.

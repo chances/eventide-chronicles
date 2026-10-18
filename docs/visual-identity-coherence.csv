@@ -1,0 +1,4 @@
+stage,sign_text,clocks,leaks,hud_garbling,notes
+Stable,Normal,Normal,None,None,Start of the game.
+Unstable,Unstable,Wrong,Rare and unmistakable,None,Middle of the story.
+Broken,Unstable and more often,Wrong and more often,More often and explicit,"Radar, numbers, and subtitles",Late arc. Garbled subtitle text returns to normal within one second.

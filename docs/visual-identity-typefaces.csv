@@ -1,0 +1,6 @@
+surface,typeface,license,weight,notes
+Cards and subtitles,Special Elite,Apache 2.0,Regular,One weight. Typed case-file look.
+Narration,Special Elite,Apache 2.0,Regular,Same face as subtitles.
+HUD digits,Inter Black,SIL OFL 1.1,Black,Money and health and armor and ammo.
+Radar and map labels,Inter Black,SIL OFL 1.1,Black,Smallest text in the game.
+Help text,Inter Black,SIL OFL 1.1,Black,Colored with the Narrator token.

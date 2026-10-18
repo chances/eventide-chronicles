@@ -21,3 +21,9 @@ L019,Mission Structure,Mission label Fairy,Mod,main.txt DEFINE MISSION 8 AT @Fai
 L020,Mission Structure,Mission label Hell,Mod,main.txt DEFINE MISSION 9 AT @Hell,,Story beat Open
 L021,Mission Structure,Mission label Heaven,Mod,main.txt DEFINE MISSION 10 AT @Heaven,,Story beat Open
 L022,Mission Structure,Story beat for each mission label,Open,Pending Book 2 text and mod plotting,,One row per label once decided
+L023,Characters,Protagonist name: Toni Mueller,Mod,Grilling decision,,Record any Book 2 departure here once the text is available
+L024,Characters,Protagonist model: IGMERC now and a Mercedes skin later,Mod,main.txt Skin thread and grilling decision,,Skin swap and mesh remodel are in TODO.md
+L025,World and Setting,Barrier is a set of physical blockers in the world,Mod,Grilling decision,,Starfish Island is locked at the start. See spoilers.md
+L026,Tone and Narration,Hidden premise behind the world,Mod,Grilling decision,,Spoiler. See spoilers.md
+L027,Tone and Narration,Mood system: Ember and Cold Twilight and Gold,Mod,Grilling decision,,Defined in visual-identity.md
+L028,Tone and Narration,Coherence system: Stable and Unstable and Broken,Mod,Grilling decision,,Defined in visual-identity.md

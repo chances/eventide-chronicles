@@ -55,7 +55,9 @@ Setting, geography, and factions are also **Open**, pending the Book 2 text.
 
 ## Characters
 
-Character entries are **Open**, pending the Book 2 text. Each character will be recorded in the ledger with a status and any departure from the book's portrayal.
+The protagonist is Toni Mueller (L023, Mod). Other character entries are **Open**, pending the Book 2 text. Each character will be recorded in the ledger with a status and any departure from the book's portrayal.
+
+Story facts the player must not learn from public material are in [spoilers.md](spoilers.md).
 
 ## Mission Structure
 

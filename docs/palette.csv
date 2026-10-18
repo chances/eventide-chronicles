@@ -35,3 +35,13 @@ Color Story,official surface,light,all,Raised surface for official documents,#ec
 Color Story,official text,light,all,Body text for official documents,#1a1a1a,16.25,Replaces text.
 Color Story,official muted,light,all,Secondary text for official documents,#505050,7.53,Replaces muted.
 Color Story,official border,light,all,Borders for official documents,#767676,4.24,Replaces border.
+Speaker Colors,toni,dark,all,Subtitle color for Toni,#b88aff,7.49,Matches the Ember secondary. Fixed in every mood.
+Speaker Colors,boss,dark,all,Subtitle color for the Boss,#b5e04a,12.67,Chartreuse. Fixed in every mood.
+Speaker Colors,daughter,dark,all,Subtitle color for the Daughter,#ff9ec4,10.09,Rose. Fixed in every mood. Hue 336 against the Cold Twilight secondary at 314.
+Speaker Colors,fairy,dark,all,Subtitle color for the Fairy,#5fe3f0,12.67,Cyan. Fixed in every mood.
+Speaker Colors,narrator,dark,all,Color for the Narrator and help text,#ffffff,19.38,White. Fixed in every mood.
+Speaker Colors,toni,light,all,Subtitle color for Toni,#6b2fd6,6.59,Matches the Ember secondary on the light base.
+Speaker Colors,boss,light,all,Subtitle color for the Boss,#4d6b00,5.79,
+Speaker Colors,daughter,light,all,Subtitle color for the Daughter,#b0245f,6.07,
+Speaker Colors,fairy,light,all,Subtitle color for the Fairy,#00717d,5.41,
+Speaker Colors,narrator,light,all,Color for the Narrator and help text,#000000,19.80,Black.

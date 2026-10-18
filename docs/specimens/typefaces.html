@@ -1,0 +1,169 @@
+<title>Typeface Specimens</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&family=IBM+Plex+Mono:wght@400;600&family=Cutive+Mono&family=Archivo+Black&family=Roboto:wght@900&family=Inter:wght@900&display=swap">
+<style>
+/* Layout: four specimen sheets in a grid, each set in the Eventide Ember palette from palette.csv, with identical sample lines so faces compare row by row. */
+:root {
+  --base: #fbf8f1;
+  --surface: #f0ebfa;
+  --text: #17142e;
+  --muted: #4a4572;
+  --border: #6b6690;
+  --primary: #b84300;
+  --secondary: #6b2fd6;
+  --pass: #00755a;
+  --fail: #c42a0a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --base: #0d0b1e;
+    --surface: #17142e;
+    --text: #f2efff;
+    --muted: #c4bfe6;
+    --border: #7f7aa8;
+    --primary: #ff7a1a;
+    --secondary: #b88aff;
+    --pass: #00d9a3;
+    --fail: #ff4a2b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --base: #0d0b1e;
+  --surface: #17142e;
+  --text: #f2efff;
+  --muted: #c4bfe6;
+  --border: #7f7aa8;
+  --primary: #ff7a1a;
+  --secondary: #b88aff;
+  --pass: #00d9a3;
+  --fail: #ff4a2b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--base);
+  color: var(--text);
+  font: 14px/1.4 system-ui, sans-serif;
+  padding-block: 12px;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-inline-size: 1500px; margin-inline: auto; display: flex; flex-direction: column; gap: 12px; }
+header { display: flex; flex-direction: column; gap: 4px; }
+h1 { font: 700 18px/1.2 system-ui, sans-serif; margin: 0; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); font-size: 13px; max-inline-size: 90ch; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 8px; }
+.sheet {
+  min-inline-size: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.meta h2 { margin: 0; font: 600 14px/1.3 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
+.meta span { font: 13px/1.3 system-ui, sans-serif; color: var(--muted); }
+.row { display: flex; flex-direction: column; gap: 4px; min-inline-size: 0; }
+.row { gap: 1px; }
+.row label { font: 10px/1.2 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.row div { overflow-wrap: anywhere; }
+.title { font-size: 19px; line-height: 1.15; }
+.card { font-size: 14px; line-height: 1.3; color: var(--secondary); }
+.narr { font-size: 13px; line-height: 1.4; }
+.hud { font-size: 12px; display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.hud-s { font-size: 10px; display: flex; flex-wrap: wrap; gap: 2px 10px; }
+.good { color: var(--pass); }
+.bad { color: var(--fail); }
+.glyph { font-size: 14px; letter-spacing: 0.04em; }
+.f-prime { font-family: "Courier Prime", "Courier New", monospace; }
+.f-elite { font-family: "Special Elite", "Courier New", monospace; }
+.f-plex { font-family: "IBM Plex Mono", "Courier New", monospace; }
+.f-cutive { font-family: "Cutive Mono", "Courier New", monospace; }
+.f-archivo { font-family: "Archivo Black", "Arial Black", sans-serif; }
+.f-roboto { font-family: "Roboto", "Arial", sans-serif; font-weight: 900; }
+.f-inter { font-family: "Inter", "Arial", sans-serif; font-weight: 900; }
+h2.sub { font: 600 14px/1.3 system-ui, sans-serif; margin: 12px 0 0; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
+.help { font-size: 11px; line-height: 1.35; padding: 6px 8px; background: var(--base); border: 1px solid var(--border); }
+.radar { font-size: 9px; display: flex; flex-wrap: wrap; gap: 2px 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+.digits { font-size: 15px; display: flex; flex-wrap: wrap; gap: 2px 14px; }
+</style>
+
+<main>
+  <header>
+    <h1>Typeface Specimens for The Eventide Chronicles</h1>
+    <p>Each sheet sets the same lines at the sizes the game uses: title card, mission card, narration, and two HUD sizes. Compare the same row across sheets. Lines come from <code>docs/voice.csv</code> and the HUD.</p>
+  </header>
+
+  <div class="grid">
+    <section class="sheet f-prime">
+      <div class="meta"><h2>Courier Prime</h2><span>SIL OFL 1.1 · Regular and Bold</span></div>
+      <div class="row"><label>Title</label><div class="title">The Eventide Chronicles</div></div>
+      <div class="row"><label>Mission card</label><div class="card">Model Citizens Get Stitches...</div></div>
+      <div class="row"><label>Narration and dialogue</label><div class="narr">Greetings, child. We have been waiting so long for your arrival... Go home.</div></div>
+      <div class="row"><label>HUD 14px</label><div class="hud"><span>$12,480</span><span>HEALTH 100</span><span>ARMOR 35</span><span class="good">+$50</span><span class="bad">Mission Failed!</span></div></div>
+      <div class="row"><label>HUD 11px</label><div class="hud-s"><span>$12,480</span><span>HEALTH 100</span><span>Infernus Delivered!</span><span>06:00</span></div></div>
+      <div class="row"><label>Confusable glyphs</label><div class="glyph">Il1| O0o rn m 5S 8B</div></div>
+    </section>
+
+    <section class="sheet f-elite">
+      <div class="meta"><h2>Special Elite</h2><span>Apache 2.0 · Regular only</span></div>
+      <div class="row"><label>Title</label><div class="title">The Eventide Chronicles</div></div>
+      <div class="row"><label>Mission card</label><div class="card">Model Citizens Get Stitches...</div></div>
+      <div class="row"><label>Narration and dialogue</label><div class="narr">Greetings, child. We have been waiting so long for your arrival... Go home.</div></div>
+      <div class="row"><label>HUD 14px</label><div class="hud"><span>$12,480</span><span>HEALTH 100</span><span>ARMOR 35</span><span class="good">+$50</span><span class="bad">Mission Failed!</span></div></div>
+      <div class="row"><label>HUD 11px</label><div class="hud-s"><span>$12,480</span><span>HEALTH 100</span><span>Infernus Delivered!</span><span>06:00</span></div></div>
+      <div class="row"><label>Confusable glyphs</label><div class="glyph">Il1| O0o rn m 5S 8B</div></div>
+    </section>
+
+    <section class="sheet f-plex">
+      <div class="meta"><h2>IBM Plex Mono</h2><span>SIL OFL 1.1 · Regular and SemiBold</span></div>
+      <div class="row"><label>Title</label><div class="title">The Eventide Chronicles</div></div>
+      <div class="row"><label>Mission card</label><div class="card">Model Citizens Get Stitches...</div></div>
+      <div class="row"><label>Narration and dialogue</label><div class="narr">Greetings, child. We have been waiting so long for your arrival... Go home.</div></div>
+      <div class="row"><label>HUD 14px</label><div class="hud"><span>$12,480</span><span>HEALTH 100</span><span>ARMOR 35</span><span class="good">+$50</span><span class="bad">Mission Failed!</span></div></div>
+      <div class="row"><label>HUD 11px</label><div class="hud-s"><span>$12,480</span><span>HEALTH 100</span><span>Infernus Delivered!</span><span>06:00</span></div></div>
+      <div class="row"><label>Confusable glyphs</label><div class="glyph">Il1| O0o rn m 5S 8B</div></div>
+    </section>
+
+    <section class="sheet f-cutive">
+      <div class="meta"><h2>Cutive Mono</h2><span>SIL OFL 1.1 · Regular only</span></div>
+      <div class="row"><label>Title</label><div class="title">The Eventide Chronicles</div></div>
+      <div class="row"><label>Mission card</label><div class="card">Model Citizens Get Stitches...</div></div>
+      <div class="row"><label>Narration and dialogue</label><div class="narr">Greetings, child. We have been waiting so long for your arrival... Go home.</div></div>
+      <div class="row"><label>HUD 14px</label><div class="hud"><span>$12,480</span><span>HEALTH 100</span><span>ARMOR 35</span><span class="good">+$50</span><span class="bad">Mission Failed!</span></div></div>
+      <div class="row"><label>HUD 11px</label><div class="hud-s"><span>$12,480</span><span>HEALTH 100</span><span>Infernus Delivered!</span><span>06:00</span></div></div>
+      <div class="row"><label>Confusable glyphs</label><div class="glyph">Il1| O0o rn m 5S 8B</div></div>
+    </section>
+  </div>
+
+  <h2 class="sub">Small Text Candidates for HUD Digits, Radar Labels, and Help Text</h2>
+  <div class="grid">
+    <section class="sheet f-elite">
+      <div class="meta"><h2>Special Elite</h2><span>Reference</span></div>
+      <div class="row"><label>HUD digits</label><div class="digits"><span>$12,480</span><span>100</span><span>35</span><span>06:00</span></div></div>
+      <div class="row"><label>Radar labels</label><div class="radar"><span>Ocean Beach</span><span>Starfish Island</span><span>Washington Beach</span></div></div>
+      <div class="row"><label>Help text</label><div class="help">Go home. Get back to the Hardware Store and pay for the Hammer.</div></div>
+    </section>
+    <section class="sheet f-archivo">
+      <div class="meta"><h2>Archivo Black</h2><span>SIL OFL 1.1 · One weight</span></div>
+      <div class="row"><label>HUD digits</label><div class="digits"><span>$12,480</span><span>100</span><span>35</span><span>06:00</span></div></div>
+      <div class="row"><label>Radar labels</label><div class="radar"><span>Ocean Beach</span><span>Starfish Island</span><span>Washington Beach</span></div></div>
+      <div class="row"><label>Help text</label><div class="help">Go home. Get back to the Hardware Store and pay for the Hammer.</div></div>
+    </section>
+    <section class="sheet f-roboto">
+      <div class="meta"><h2>Roboto Black</h2><span>Apache 2.0 · Weight 900</span></div>
+      <div class="row"><label>HUD digits</label><div class="digits"><span>$12,480</span><span>100</span><span>35</span><span>06:00</span></div></div>
+      <div class="row"><label>Radar labels</label><div class="radar"><span>Ocean Beach</span><span>Starfish Island</span><span>Washington Beach</span></div></div>
+      <div class="row"><label>Help text</label><div class="help">Go home. Get back to the Hardware Store and pay for the Hammer.</div></div>
+    </section>
+    <section class="sheet f-inter">
+      <div class="meta"><h2>Inter Black</h2><span>SIL OFL 1.1 · Weight 900</span></div>
+      <div class="row"><label>HUD digits</label><div class="digits"><span>$12,480</span><span>100</span><span>35</span><span>06:00</span></div></div>
+      <div class="row"><label>Radar labels</label><div class="radar"><span>Ocean Beach</span><span>Starfish Island</span><span>Washington Beach</span></div></div>
+      <div class="row"><label>Help text</label><div class="help">Go home. Get back to the Hardware Store and pay for the Hammer.</div></div>
+    </section>
+  </div>
+</main>
