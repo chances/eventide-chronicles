@@ -1,8 +1,8 @@
-# TODO
+# Todo List
 
 Open decisions and unfinished work that have no other home. Each item states what the scripts do now and what is still undecided.
 
-## Shop Robbery Tutorial
+## 🔫🛒 Shop Robbery Tutorial
 
 **Open.** Decide whether the mod teaches players to rob shops at gunpoint.
 
@@ -12,15 +12,11 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - If the mod teaches it, a help text on the first aim at the clerk can carry the lesson. System text stays grim, as [branding.md](branding.md) requires.
 - If the mod does not teach it, players find the robbery by accident, as happened in a playtest.
 
-## Protagonist Skin and Mesh
+## 💳 Credit Cards
 
-**Open.** The `Skin` thread dresses the player in the `IGMERC` model at six locations. See [visual-identity.md](visual-identity.md).
+- Pedestrians and the public also carry credit cards in addition to cash. Credit cards can be used at ATMs and payphones.
 
-- Replace the skin with the Mercedes character's skin.
-- Remodel the character mesh. The clothes do not fit it now.
-- The mood accent on her outfit waits for the remodel.
-
-## Visual Identity Assets
+## 💅 Visual Identity Assets
 
 **Open.** Work after the first two priorities in [visual-identity-assets.csv](visual-identity-assets.csv).
 
@@ -30,3 +26,63 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - The custom `timecyc` data file, one grade per mood.
 - Camera shake and FOV blur, within the effect limits in [visual-identity.md](visual-identity.md).
 - Script support for the mood, the coherence stage, and the ini switch that reduces effects.
+
+### Skins and Character Meshes
+
+**Open.** The `Skin` thread dresses the player in the `IGMERC` model at six locations. See [visual-identity.md](visual-identity.md).
+
+- Replace the skin with the Mercedes character's skin.
+- Remodel the character mesh. The clothes do not fit it now.
+- The mood accent on her outfit waits for the remodel.
+
+## 📚 Plot
+
+**Open.** When the player gets to the hotel, a cutscene shows her looking for her mother.
+
+- Is the player wanted when she arrives?
+- Is the player in a car when she arrives?
+
+## 🔫 Weapons
+
+**Open.** Replace the baseball bat with an axe.
+
+## 📻 Radio
+
+### Flash FM
+
+**Open.**
+
+#### Additions
+
+- "Tubthumping" by Chumbawamba.
+
+## Flashback FM
+
+**Open.**
+
+#### Additions
+
+- "Firestarter" by The Prodigy
+
+## Electroshock FM
+
+**Open.**
+
+#### Additions
+
+- "Narayan" by The Prodigy
+- "Serial Thrilla" by The Prodigy
+
+## 🖋💬 Script Ideas
+
+**Open.** A line for the player when she picks up the cell phone:
+
+### Dialogue
+
+> Hey, cool! A cell phone! I can call my mother! Are there unlimited minutes on this thing or what? (cell phone beeps erratically)
+
+## 🥅 Mission Ideas
+
+**Open.**
+
+- "Are You There God? It's Me, Toni"

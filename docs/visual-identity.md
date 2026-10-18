@@ -89,7 +89,7 @@ The Narrator is unreliable. Its color marks a voice the player can learn to doub
 
 ## Protagonist
 
-The protagonist is Toni Mueller. The `Skin` thread in `main.txt` calls `Char.Undress` with the `IGMERC` model at six locations. Two later tasks are in [TODO.md](TODO.md): replacing the skin with the Mercedes character's skin, and remodeling the mesh because the clothes do not fit. A mood accent on her outfit waits for the remodel.
+The protagonist is Toni Mueller. The `Skin` thread and `MAIN` in `main.txt` call `Char.Undress` with the `PLAYER` model, and the `Clothes` thread gives the clothing-store outfits in the stock slots `player2`, `player3`, and `player5`, as [outfits.csv](../skins/outfits.csv) maps them. Two later tasks are in [TODO.md](TODO.md): replacing the skin with the Mercedes character's skin, and remodeling the mesh because the clothes do not fit. A mood accent on her outfit waits for the remodel.
 
 ## Key Art
 
