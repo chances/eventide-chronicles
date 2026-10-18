@@ -8521,6 +8521,8 @@ $AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
 Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
 $Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
 $SidewalkSphere  = Sphere.Create(395.0, -906.2, 12.0, 2.0)
+Pickup.Remove($GUN_BEACH1)
+$GUN_BEACH1 = Pickup.Create(#BAT, PickupType.OnStreet, 410.0, -860.0, 11.0712)
 terminate_this_script
 return
 

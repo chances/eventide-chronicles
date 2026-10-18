@@ -40,6 +40,7 @@ These rules apply to every agent working in this repository.
 - Use the `sanny-guidance` skill before writing, editing, or reviewing any Sanny Builder script.
 - Look up every command in the Sanny Builder Library before using it. The skill lists the lookup tools.
 - Read [.agents/lessons/mission-script-safety.md](.agents/lessons/mission-script-safety.md) before you edit a mission script or a looping thread.
+- Use the [debug-missions](.agents/skills/debug-missions/SKILL.md) skill before you debug a script crash, hang, or hazard in `main.txt`.
 
 ## Script Architecture
 
