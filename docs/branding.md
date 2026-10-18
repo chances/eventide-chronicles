@@ -12,7 +12,7 @@ Status: Draft. Items marked **Open** are pending decisions listed under [Open It
 | Episode number | None. The title carries no episode number. |
 | Form | Total conversion mod for Grand Theft Auto: Vice City |
 | Relationship to source | Alternate universe companion to Book 2 of the Enbenite series |
-| Visual identity | **Open**: no logo, title treatment, palette, or typefaces exist yet |
+| Visual identity | Palette defined in [Color Story](#color-story). **Open**: no logo, title treatment, or typefaces exist yet |
 
 The title "The Eventide Chronicles: Episode 2 - Miami" is retired. It was inaccurate, and the README now uses the plain title.
 
@@ -95,7 +95,27 @@ Do not use "Episode 2 - Miami" or "Episode 2" in any document or string.
 
 ## Visual Identity
 
-**Open.** No logo, title treatment, color palette, or typefaces have been defined. The project currently relies on the game's own interface. This section should be revised once visual assets exist.
+The palette is defined under [Color Story](#color-story). **Open.** No logo, title treatment, or typefaces have been defined. The project currently relies on the game's own interface. This section should be revised once visual assets exist.
+
+### Color Story
+
+The palette is anchored on eventide, the hour after sunset. A cool indigo-black base holds a few fully saturated accents. It applies to every project surface. Token values are in [palette.csv](palette.csv).
+
+**Base.** Dark is the brand theme. The base is indigo-black with off-white text. The light theme keeps the same hues on a warm off-white base, with darker accents so each pair meets the contrast bar. Base and text colors never change with the mood.
+
+**Official Documents.** Testing and engineering documents use a neutral gray-black base with no indigo tint, in both themes. They keep the mood accents and the status colors. The `official` tokens in [palette.csv](palette.csv) replace the base tokens for these documents.
+
+**Moods.** A mood swaps only the primary and secondary accents. Each mood belongs to a time of day in the game.
+
+- **Ember**: orange primary and violet secondary. Dusk. It is the default mood for static surfaces such as documents, test plans, and the README.
+- **Cold Twilight**: electric blue primary and magenta secondary. Night.
+- **Gold**: gold primary and pale gold secondary. Dawn and full day.
+
+**Status Colors.** Pass is vivid teal-green and fail is vivid red-orange. They are the same in every mood. The two colors are close in lightness, so a status always carries its word or label as well.
+
+**Progress.** The progress fill uses the mood's primary accent, because it counts recorded cases of both results.
+
+**Contrast.** Every pair meets WCAG 2.1 AA: 4.5:1 for text and 3:1 for graphics. The `contrast_on_base` column in [palette.csv](palette.csv) lists each ratio against its theme's base.
 
 ## Distribution
 
@@ -120,6 +140,6 @@ The repository is licensed under the GNU General Public License v3.0 (GPL-3.0). 
 
 ## Open Items
 
-1. Visual identity: logo, title treatment, palette, and typefaces.
+1. Visual identity: logo, title treatment, and typefaces.
 2. Narration and dialogue style: writing rules for each, to be defined after the grilling.
 3. Book 2 text: required before the mod-specific story sections of [lore.md](lore.md) can be completed.

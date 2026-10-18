@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>First Mission Pass Crash - Test Plan</title>
+    <link rel="stylesheet" href="../testing/test-plan.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="page-header">
+      <p class="eyebrow">Test Plan</p>
+      <h1>First Mission Pass Crash</h1>
+      <p class="intro">
+        Validate the two successful pass paths for the Intro mission and capture
+        enough runtime evidence to identify any crash instruction.
+      </p>
+    </header>
+    <noscript>
+      <p
+        class="note">JavaScript is required to save results and update progress.</p>
+    </noscript>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href="#scope">Scope And Setup</a></li>
+        <li>
+          Test Cases
+          <ol>
+            <li><a href="#in-water-pass">In-Water Pass</a></li>
+            <li><a href="#car-dead-pass">Car-Dead Pass With Player Alive</a></li>
+            <li><a href="#death-arrest-control">Death And Arrest Control</a></li>
+          </ol>
+        </li>
+        <li><a href="#evidence">Evidence And Pass Criteria</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+      <section id="scope" aria-labelledby="scope-heading">
+        <h2 id="scope-heading">Scope And Setup</h2>
+        <ul>
+          <li>
+            Target <code>gta-vc.exe</code> v1.0 with the Vice City Sanny Builder
+            SBL mode.
+          </li>
+          <li>
+            Confirm the workspace and installed <code>data/main.scm</code> have
+            matching SHA-256 hashes before each run.
+          </li>
+          <li>
+            Start from a state where mission 1, <code>Intro</code>, is available.
+          </li>
+          <li>
+            The relevant source is the pass logic in
+            <a href="../../main.txt">main.txt</a>, labels
+            <code>:Intro_1450</code> and <code>:INTRO_1455</code>. The bug record
+            is <a href="first-mission-pass-crash.md">First Mission Pass Crash</a>.
+          </li>
+        </ul>
+      </section>
+
+      <section
+        id="test-progress"
+        class="test-progress"
+        aria-labelledby="completion-heading"
+      >
+        <h2 id="completion-heading"
+          class="visually-hidden">Test Plan Completion</h2>
+        <p class="progress-row">
+          <span id="completion-count" class="progress-count">0 of 3</span>
+          <progress
+            id="completion-progress"
+            aria-labelledby="completion-heading"
+            max="3"
+            value="0"
+          >0 of 3</progress>
+          <span class="progress-spacer" aria-hidden="true"></span>
+          <span id="completion-outcomes" class="completion-outcomes">
+            <span
+              id="passed-pill"
+              class="metric-pill metric-pill--passed"
+              role="img"
+              title="0 passed"
+              aria-label="0 test cases have passed"
+            >
+              <span id="passed-count">0</span>
+              <span class="visually-hidden">passed</span>
+            </span>
+            <span
+              id="failed-pill"
+              class="metric-pill metric-pill--failed"
+              role="img"
+              title="0 failed"
+              aria-label="0 test cases have failed"
+            >
+              <span id="failed-count">0</span>
+              <span class="visually-hidden">failed</span>
+            </span>
+          </span>
+        </p>
+        <p
+          id="completion-summary"
+          class="visually-hidden"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >0 of 3 cases recorded.</p>
+        <p id="storage-status" class="storage-status" role="status"
+          aria-live="polite" hidden></p>
+      </section>
+
+      <section
+        class="test-case"
+        id="in-water-pass"
+        aria-labelledby="in-water-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="in-water-heading">In-Water Pass</h2>
+          <fieldset
+            class="result-controls"
+            data-case="IP-01"
+            aria-labelledby="in-water-heading"
+          >
+            <label>
+              <input type="radio" name="result-IP-01" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-IP-01" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-IP-01" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <ol class="steps">
+          <li>Start mission 1 and keep the player alive.</li>
+          <li>Move the Admiral into water until the mission pass sequence begins.</li>
+          <li>Observe the pass message, fade, cleanup, next marker, and control return.</li>
+        </ol>
+        <p>
+            <strong>Expected:</strong> The pass sequence completes without an
+            unhandled exception, and the player returns to free roam with the
+            next mission marker available.
+          </p>
+      </section>
+
+      <section
+        class="test-case"
+        id="car-dead-pass"
+        aria-labelledby="car-dead-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="car-dead-heading">Car-Dead Pass With Player Alive</h2>
+          <fieldset
+            class="result-controls"
+            data-case="IP-02"
+            aria-labelledby="car-dead-heading"
+          >
+            <label>
+              <input type="radio" name="result-IP-02" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-IP-02" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-IP-02" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <ol class="steps">
+          <li>Start mission 1 and keep the player outside the Admiral and alive.</li>
+          <li>Destroy the Admiral without killing or busting the player.</li>
+          <li>Observe the pass sequence and the transition to free roam.</li>
+        </ol>
+        <p>
+            <strong>Expected:</strong> The <code>Car.IsDead($Admiral)</code>
+            branch registers the mission pass, cleans up the mission, and
+            returns control without a crash.
+          </p>
+      </section>
+
+      <section
+        class="test-case"
+        id="death-arrest-control"
+        aria-labelledby="death-arrest-heading"
+      >
+        <hgroup class="test-case-title">
+          <h2 id="death-arrest-heading">Death And Arrest Control</h2>
+          <fieldset
+            class="result-controls"
+            data-case="IP-03"
+            aria-labelledby="death-arrest-heading"
+          >
+            <label>
+              <input type="radio" name="result-IP-03" data-case-result data-result="not-run" value="not-run" checked>
+              Not Run
+            </label>
+            <label>
+              <input type="radio" name="result-IP-03" data-case-result data-result="passed" value="passed">
+              Passed
+            </label>
+            <label>
+              <input type="radio" name="result-IP-03" data-case-result data-result="failed" value="failed">
+              Failed
+            </label>
+          </fieldset>
+        </hgroup>
+        <ol class="steps">
+          <li>Start mission 1.</li>
+          <li>Cause the player to be wasted or busted before the Admiral pass condition.</li>
+          <li>Observe the mission failure path and hospital or police respawn.</li>
+        </ol>
+        <p>
+            <strong>Expected:</strong> The mission follows its death/arrest
+            failure handler. Do not count this as a successful car-dead pass.
+          </p>
+      </section>
+
+      <section id="evidence" aria-labelledby="evidence-heading">
+        <h2 id="evidence-heading">Evidence And Pass Criteria</h2>
+        <ul>
+          <li>
+            Record which pass condition occurred and whether the player was
+            alive and in a vehicle.
+          </li>
+          <li>
+            If the game crashes, capture the full exception report and the
+            final <code>Intro</code> trace entries, including the last opcode
+            before the trace stops.
+          </li>
+          <li>
+            Record the workspace and installed SCM hashes for the tested run.
+          </li>
+          <li>
+            Record whether the pass text, cleanup, fade-in, next marker, and
+            player control completed.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Test plan for <a href="first-mission-pass-crash.md">First Mission Pass Crash</a>.</p>
+    </footer>
+    <script src="../testing/confetti.js"></script>
+    <script>
+    (() => {
+      const storageKey = "eventide.first-mission-pass.test-results.v1";
+      const validResults = new Set(["not-run", "passed", "failed"]);
+      const controls = Array.from(
+        document.querySelectorAll("fieldset[data-case]"),
+      );
+      const results = Object.fromEntries(
+        controls.map((control) => [control.dataset.case, "not-run"]),
+      );
+      const progress = document.getElementById("completion-progress");
+      const completionCount = document.getElementById("completion-count");
+      const passedCount = document.getElementById("passed-count");
+      const failedCount = document.getElementById("failed-count");
+      const passedPill = document.getElementById("passed-pill");
+      const failedPill = document.getElementById("failed-pill");
+      const summary = document.getElementById("completion-summary");
+      const storageStatus = document.getElementById("storage-status");
+      const progressHeader = document.getElementById("test-progress");
+
+      function updateStickyOffset() {
+        const height = progressHeader.getBoundingClientRect().height;
+        document.documentElement.style.setProperty(
+          "--test-progress-block-size",
+          `${height}px`,
+        );
+      }
+
+      updateStickyOffset();
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(updateStickyOffset).observe(progressHeader);
+      }
+      window.addEventListener("resize", updateStickyOffset);
+
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          const saved = JSON.parse(stored);
+          if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+            for (const control of controls) {
+              const result = saved[control.dataset.case];
+              if (validResults.has(result)) {
+                results[control.dataset.case] = result;
+              }
+            }
+          }
+        }
+        storageStatus.textContent = stored
+          ? "Saved results loaded from this browser."
+          : "Results you record will be saved in this browser.";
+      } catch {
+        storageStatus.textContent =
+          "Local storage is unavailable. Results will last only until this page closes.";
+        storageStatus.hidden = false;
+      }
+
+      function renderResults() {
+        let passed = 0;
+        let failed = 0;
+
+        for (const control of controls) {
+          const caseId = control.dataset.case;
+          const result = results[caseId];
+          if (result === "passed") passed++;
+          if (result === "failed") failed++;
+
+          for (
+            const radio of control.querySelectorAll(
+              "input[type=radio][data-case-result]",
+            )
+          ) {
+            radio.checked = radio.dataset.result === result;
+          }
+        }
+
+        const recorded = passed + failed;
+        progress.max = controls.length;
+        progress.value = recorded;
+        completionCount.textContent = `${recorded} of ${controls.length}`;
+        passedCount.textContent = passed;
+        failedCount.textContent = failed;
+        passedPill.title = `${passed} passed`;
+        passedPill.setAttribute("aria-label", `${passed} test cases have passed`);
+        failedPill.title = `${failed} failed`;
+        failedPill.setAttribute("aria-label", `${failed} test cases have failed`);
+        summary.textContent =
+          `${recorded} of ${controls.length} cases recorded: ${passed} passed, ${failed} failed.`;
+      }
+
+      function saveResults() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(results));
+          storageStatus.hidden = true;
+        } catch {
+          storageStatus.textContent =
+            "Local storage is unavailable. Results will last only until this page closes.";
+          storageStatus.hidden = false;
+        }
+      }
+
+      document.addEventListener("change", (event) => {
+        const radio = event.target;
+        if (!(radio instanceof HTMLInputElement)) return;
+        if (!radio.matches("input[type=radio][data-case-result]")) return;
+
+        const control = radio.closest("fieldset[data-case]");
+        const caseId = control.dataset.case;
+        const result = radio.dataset.result;
+        if (!validResults.has(result)) return;
+        const previous = results[caseId];
+        results[caseId] = result;
+        if (result === "passed" && previous !== "passed") {
+          window.eventideConfetti?.(radio);
+        }
+        saveResults();
+        renderResults();
+      });
+
+      renderResults();
+    })();
+    </script>
+  </body>
+</html>

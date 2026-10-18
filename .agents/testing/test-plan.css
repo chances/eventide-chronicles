@@ -1,0 +1,472 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.55;
+  scroll-padding-block-start: calc(var(--test-progress-block-size, 0px) + 4rem);
+}
+
+:root {
+  --base: #f7f7f7;
+  --surface: #ececec;
+  --text: #1a1a1a;
+  --muted: #505050;
+  --border: #767676;
+  --primary: #b84300;
+  --secondary: #6b2fd6;
+  --pass: #00755a;
+  --on-pass: #ffffff;
+  --fail: #c42a0a;
+  --on-fail: #ffffff;
+  --track: color-mix(in srgb, var(--text) 15%, var(--base));
+}
+
+[data-mood="cold"] {
+  --primary: #0b52c4;
+  --secondary: #a8118a;
+}
+
+[data-mood="gold"] {
+  --primary: #7a5600;
+  --secondary: #5c4100;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base: #121212;
+    --surface: #1c1c1c;
+    --text: #ececec;
+    --muted: #b8b8b8;
+    --border: #7a7a7a;
+    --pass: #00d9a3;
+    --on-pass: #121212;
+    --fail: #ff4a2b;
+    --on-fail: #121212;
+  }
+
+  :root:not([data-mood]) {
+    --primary: #ff7a1a;
+    --secondary: #b88aff;
+  }
+
+  [data-mood="cold"] {
+    --primary: #4d94ff;
+    --secondary: #ff5ad9;
+  }
+
+  [data-mood="gold"] {
+    --primary: #ffc61a;
+    --secondary: #ffe08a;
+  }
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+code {
+  padding-block: 0.1em;
+  padding-inline: 0.4em;
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  background: var(--surface);
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 0.88em;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+body {
+  margin: 0;
+  padding-block: 2rem 4rem;
+  padding-inline: 1.25rem;
+  overflow-wrap: break-word;
+  color: var(--text);
+  background: var(--base);
+}
+
+.page-header,
+.toc,
+main,
+footer {
+  inline-size: min(100%, 68rem);
+  margin-inline: auto;
+}
+
+.page-header {
+  padding-block-end: 1rem;
+  border-block-end: 2px solid var(--border);
+}
+
+.eyebrow {
+  margin-block: 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  margin-block: 0.25rem 0.75rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+h2 {
+  margin-block: 2rem 0.75rem;
+  padding-block-end: 0.25rem;
+  border-block-end: 1px solid var(--border);
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin-block: 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+a {
+  color: var(--secondary);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  inset-block-start: -5rem;
+  inset-inline-start: 1rem;
+  z-index: 1;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+  color: var(--base);
+  background: var(--primary);
+}
+
+.skip-link:focus {
+  inset-block-start: 1rem;
+}
+
+.intro {
+  margin-block: 0;
+  color: var(--muted);
+}
+
+.note {
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--surface);
+}
+
+.toc {
+  margin-block: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  border-inline-start: 0.3rem solid var(--primary);
+  background: var(--surface);
+}
+
+.toc h2 {
+  margin-block: 0 0.5rem;
+  border: 0;
+  font-size: 1.2rem;
+}
+
+main ul,
+main ol,
+.toc ul,
+.toc ol {
+  padding-inline-start: 1.5rem;
+}
+
+.toc li > ol {
+  margin-block: 0.25rem 0;
+}
+
+.toc li > ol > li::marker {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+main li,
+.toc li {
+  margin-block: 0.25rem;
+}
+
+.test-case + .test-case {
+  margin-block-start: 1rem;
+}
+
+.test-case-title {
+  position: sticky;
+  inset-block-start: var(--test-progress-block-size, 0px);
+  z-index: 1;
+  margin-block-start: 0;
+  padding-block: 0.5rem;
+  padding-inline: 0;
+  border-block-end: 2px solid var(--primary);
+  background: var(--base);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.test-case-title h2 {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.test-case-title .result-controls {
+  flex: none;
+  margin-inline-start: auto;
+}
+
+.result-controls {
+  display: flex;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.test-progress {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  padding-block: 0.5rem;
+  padding-inline: 0;
+  background: var(--base);
+}
+
+.result-controls label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 1.75rem;
+  min-inline-size: 4.5rem;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.result-controls label + label {
+  margin-inline-start: -1px;
+}
+
+.result-controls label:first-of-type {
+  border-start-start-radius: 0.4rem;
+  border-end-start-radius: 0.4rem;
+}
+
+.result-controls label:last-of-type {
+  border-start-end-radius: 0.4rem;
+  border-end-end-radius: 0.4rem;
+}
+
+.result-controls label:hover {
+  background: color-mix(in srgb, var(--surface), var(--text) 12%);
+}
+
+.result-controls input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.result-controls label:has(input:focus-visible) {
+  z-index: 1;
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.result-controls label:has(input:checked) {
+  z-index: 1;
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--base);
+}
+
+.result-controls label:has(input[value="passed"]:checked) {
+  border-color: var(--pass);
+  background: var(--pass);
+  color: var(--on-pass);
+}
+
+.result-controls label:has(input[value="failed"]:checked) {
+  border-color: var(--fail);
+  background: var(--fail);
+  color: var(--on-fail);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-controls label {
+    transition: none;
+  }
+}
+
+.progress-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block: 0;
+}
+
+.progress-count {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.progress-row progress {
+  flex: 2 1 10rem;
+  inline-size: 0;
+  min-inline-size: 4rem;
+  block-size: 0.75rem;
+  margin-block: 0;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.progress-row progress::-webkit-progress-bar {
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.progress-row progress::-webkit-progress-value {
+  border-radius: 999px;
+  background: var(--primary);
+  transition: inline-size 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.progress-row progress::-moz-progress-bar {
+  border-radius: 999px;
+  background: var(--primary);
+  transition: inline-size 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-row progress::-webkit-progress-value,
+  .progress-row progress::-moz-progress-bar {
+    transition: none;
+  }
+}
+
+.progress-spacer {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.completion-outcomes {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.75rem;
+  block-size: 1.75rem;
+  padding-inline: calc(var(--digit-shift, 0.5px) * 2) 0;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.metric-pill > :not(.visually-hidden) {
+  text-box: trim-both cap alphabetic;
+}
+
+@supports not (text-box: trim-both cap alphabetic) {
+  .metric-pill {
+    padding-block: 0 0.125rem;
+  }
+}
+
+.metric-pill--passed {
+  background: var(--pass);
+  color: var(--on-pass);
+}
+
+.metric-pill--failed {
+  background: var(--fail);
+  color: var(--on-fail);
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.storage-status {
+  margin-block: 0.5rem 0;
+}
+
+.note {
+  margin-block: 1rem;
+  border-inline-start: 0.3rem solid var(--secondary);
+}
+
+footer {
+  margin-block-start: 2rem;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--border);
+  color: var(--muted);
+}
+
+@media print {
+  body {
+    padding-block: 0;
+    padding-inline: 0;
+    color: #000000;
+    background: #ffffff;
+  }
+
+  .skip-link {
+    display: none;
+  }
+
+  .test-progress,
+  .test-case-title {
+    position: static;
+  }
+}

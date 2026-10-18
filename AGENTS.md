@@ -29,6 +29,12 @@ These rules apply to every agent working in this repository.
 - Record new canon in the ledger as Mod. Record material still undecided as Open.
 - Do not treat the Eventide-III repository as canon.
 
+## Test Plans
+
+- Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css) and [confetti.js](.agents/testing/confetti.js). Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
+- Preview a test plan through the `docs` server in `.claude/launch.json`. The Browser pane loads local files as `data:` documents, so relative links break.
+- Read [.agents/lessons/test-plan-visual-centering.md](.agents/lessons/test-plan-visual-centering.md) before you center a number or label in a pill or button.
+
 ## Scripting
 
 - Use the `sanny-guidance` skill before writing, editing, or reviewing any Sanny Builder script.

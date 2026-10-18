@@ -1,0 +1,37 @@
+section,token,theme,mood,role,hex,contrast_on_base,notes
+Color Story,base,dark,all,Page background,#0d0b1e,,Indigo-black. Never changes with the mood.
+Color Story,surface,dark,all,Raised surface,#17142e,,Cards and controls.
+Color Story,text,dark,all,Body text,#f2efff,17.13,
+Color Story,muted,dark,all,Secondary text,#c4bfe6,11.02,
+Color Story,border,dark,all,Borders and control edges,#7f7aa8,4.85,
+Color Story,base,light,all,Page background,#fbf8f1,,Warm off-white.
+Color Story,surface,light,all,Raised surface,#f0ebfa,,Cards and controls.
+Color Story,text,light,all,Body text,#17142e,16.84,
+Color Story,muted,light,all,Secondary text,#4a4572,8.30,
+Color Story,border,light,all,Borders and control edges,#6b6690,5.04,
+Color Story,primary,dark,Ember,Primary accent,#ff7a1a,7.43,Default mood. Dusk.
+Color Story,secondary,dark,Ember,Secondary accent,#b88aff,7.49,
+Color Story,primary,dark,Cold Twilight,Primary accent,#4d94ff,6.46,Night.
+Color Story,secondary,dark,Cold Twilight,Secondary accent,#ff5ad9,7.12,
+Color Story,primary,dark,Gold,Primary accent,#ffc61a,12.31,Dawn and full day.
+Color Story,secondary,dark,Gold,Secondary accent,#ffe08a,15.02,
+Color Story,primary,light,Ember,Primary accent,#b84300,5.15,Darkened to meet contrast on the light base.
+Color Story,secondary,light,Ember,Secondary accent,#6b2fd6,6.59,
+Color Story,primary,light,Cold Twilight,Primary accent,#0b52c4,6.56,
+Color Story,secondary,light,Cold Twilight,Secondary accent,#a8118a,6.36,
+Color Story,primary,light,Gold,Primary accent,#7a5600,6.27,
+Color Story,secondary,light,Gold,Secondary accent,#5c4100,8.95,
+Color Story,pass,dark,all,Pass status,#00d9a3,10.57,Vivid teal-green. Fixed in every mood.
+Color Story,fail,dark,all,Fail status,#ff4a2b,5.78,Vivid red-orange. Fixed in every mood.
+Color Story,pass,light,all,Pass status,#00755a,5.36,
+Color Story,fail,light,all,Fail status,#c42a0a,5.38,
+Color Story,official base,dark,all,Page background for official documents,#121212,,Neutral gray-black. Replaces base.
+Color Story,official surface,dark,all,Raised surface for official documents,#1c1c1c,,Replaces surface.
+Color Story,official text,dark,all,Body text for official documents,#ececec,15.86,Replaces text.
+Color Story,official muted,dark,all,Secondary text for official documents,#b8b8b8,9.44,Replaces muted.
+Color Story,official border,dark,all,Borders for official documents,#7a7a7a,4.36,Replaces border.
+Color Story,official base,light,all,Page background for official documents,#f7f7f7,,Replaces base.
+Color Story,official surface,light,all,Raised surface for official documents,#ececec,,Replaces surface.
+Color Story,official text,light,all,Body text for official documents,#1a1a1a,16.25,Replaces text.
+Color Story,official muted,light,all,Secondary text for official documents,#505050,7.53,Replaces muted.
+Color Story,official border,light,all,Borders for official documents,#767676,4.24,Replaces border.
