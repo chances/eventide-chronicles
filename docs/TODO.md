@@ -44,7 +44,7 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 ## 🔫 Weapons
 
-**Open.** Replace the baseball bat with an axe.
+**Open.** Replace the baseball bat with an axe-like "large stick".
 
 ## 📻 Radio
 
@@ -72,6 +72,22 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 - "Narayan" by The Prodigy
 - "Serial Thrilla" by The Prodigy
+- "Kid A" by Radiohead
+- "Ageispolis" by Aphex Twin
+- "Halcyon On + On" by Orbital
+- "1999 (Kaycee Remix)" by Binary Finary
+- "All In" by Flying Lotus
+- "Ecstasy" by ATB
+- "Everytime We Touch" by Cascada
+- "Around the World" by ATC
+- "Technologic" by Daft Punk
+- "Heaven" by DJ Sammy
+- "Better Off Alone" by Alice DJ
+- "Castles in the Sky" by Ian Van Dahl
+- "Cafe Del Mar (Three ‘n One Radio Edit)" by Energy 52
+- "Children" by Robert Miles
+- "I Know It's You" by The Crystal Method
+- "Hold My Hand (Innervisions Orchestra Remix)" by UNKLE
 
 ## 🖋💬 Script Ideas
 
