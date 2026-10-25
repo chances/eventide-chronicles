@@ -335,6 +335,9 @@ Alloc($PlayerZ, 8987)
 Alloc($SafeX, 8988)
 Alloc($SafeY, 8989)
 Alloc($SafeZ, 8990)
+Alloc($BeachBlip, 8991)
+Alloc($WarningActive, 8992)
+Alloc($OffWorkBike, 8993)
 
 var
     $CarHealthBar: int
@@ -778,7 +781,9 @@ $SuitBlip = Blip.AddShortRangeSpriteForCoord(111.8251, -922.5718, 10.53, RadarSp
 $Jog = Pickup.CreateClothes(325.7121, 203.7972, 11.4034, Clothing.TrackSuitBlack)
 $JogBlip = Blip.AddShortRangeSpriteForCoord(325.7121, 203.7972, 11.4034, RadarSprite.Tshirt)
 $Packages = Game.GetCollectablesCollected()
-Game.SetCollectableTotal(84)
+Game.SetCollectableTotal(88)
+Game.CreateCollectable(-104.8713, -1591.6937, 18.8681)
+Game.CreateCollectable(53.3521, -1540.1869, 9.4706)
 Game.CreateCollectable(-995.3126, 185.0475, 12.434)
 Game.CreateCollectable(132.1319, -1099.0703, 10.4433)
 Game.CreateCollectable(-1180.1167, -1325.2484, 14.936)
@@ -863,6 +868,8 @@ Game.CreateCollectable(159.9202, -859.6636, 14.5449)
 Game.CreateCollectable(-117.2867, -915.178, 10.4635)
 Game.CreateCollectable(479.0208, 44.6912, 15.9165)
 Game.CreateCollectable(-634.4158, -316.0011, 13.1845)
+Game.CreateCollectable(180.8733, 1231.2568, 26.0042)
+Game.CreateCollectable(234.0617, 1248.2771, 17.8018)
 
 $GodsBathhouse = Blip.AddShortRangeSpriteForCoord(531.8765, -118.7697, 13.337, RadarSprite.Stripclub)
 $LighthausBlip = Blip.AddShortRangeSpriteForCoord(481.4, -1727.124, 8.24, RadarSprite.Biker)
@@ -1262,26 +1269,44 @@ script_name 'End'
 :End_10
 wait 250
 if
-  $Endgame == 1
-goto_if_false @End_35
-terminate_this_script
+    $Endgame == 1
+then
+    goto @End_95
+else
+    goto @End_35
+end
 
 :End_35
-wait 250
-if
-  Player.IsPlaying($PLAYER1)
-goto_if_false @End_94
-if
-  $ONMISSION == 0
-goto_if_false @End_94
-if
-  Player.CanStartMission($PLAYER1)
-goto_if_false @End_94
-Text.PrintBigString("The End Is Simply The Beginning...", 6000, TextStyle.BottomRight)
-Mission.LoadAndLaunchInternal(7)
+while $Endgame == 0
+    wait 250
+    if
+        Player.IsPlaying($PLAYER1)
+    then
+        if
+            Player.CanStartMission($PLAYER1)
+        then
+            if
+                Player.LocateAnyMeans3D($PLAYER1, -535.6, -325.521, 13.56, 2.0, 2.0, 2.0, False)
+            then
+                Text.PrintBigString("The End Is Simply The Beginning...", 6000, TextStyle.BottomRight)
+                Mission.LoadAndLaunchInternal(7)
+                goto @End_10
+            else
+                break
+            end
+        else
+            break
+        end
+    else
+        break
+    end
+end
 
 :End_94
 goto @End_10
+
+:End_95
+terminate_this_script
 
 :Fae
 script_name 'Fae'
@@ -1965,19 +1990,19 @@ script_name 'BUS'
 $BUS_POSITION = 1
 
 :BUS_21
-if 
+if
   $BUS_CREATED == 0
 goto_if_false @BUS_115
 wait 500
 $MOVE_BUS += 1
-if 
+if
   $MOVE_BUS > 30
 goto_if_false @BUS_83
 $BUS_POSITION += 1
 $MOVE_BUS = 0
 
 :BUS_83
-if 
+if
   $BUS_POSITION > 17
 goto_if_false @BUS_108
 $BUS_POSITION = 1
@@ -1989,33 +2014,33 @@ goto @BUS_120
 wait 500
 
 :BUS_120
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_3698
 $STOP_CHECK_ON_MISSION = 0
-if 
+if
   $BUS_CREATED == 0
 goto_if_false @BUS_2470
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_350
-if 
+if
   Player.IsInAnyCar($PLAYER1)
 goto_if_false @BUS_350
-if 
+if
   Player.IsInModel($PLAYER1, #COACH)
 goto_if_false @BUS_350
-if 
+if
   Player.IsStopped($PLAYER1)
 goto_if_false @BUS_350
 $TIME_TO_GET_END = Clock.GetGameTimer()
 set_var_int_to_var_int $TOTAL_TIME_TO_GET = $TIME_TO_GET_END
 sub_int_var_from_int_var $TOTAL_TIME_TO_GET -= $TIME_TO_GET_START
-if 
+if
   $TOTAL_TIME_TO_GET > 1000
 goto_if_false @BUS_350
 $BUS_FARES = Player.GetBusFaresCollected($PLAYER1)
-if 
+if
   $BUS_FARES > 0
 goto_if_false @BUS_350
 Text.PrintWithNumberBig('BONUS', 5, 50, TextStyle.Middle) // ~g~BONUS $~1~
@@ -2025,7 +2050,7 @@ $TIME_TO_GET_START = Clock.GetGameTimer()
 $BUS_FARES = 0
 
 :BUS_350
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_1524
 if or
@@ -2033,22 +2058,22 @@ if or
   Player.IsInZone($PLAYER1, 'BEACH2') // Washington Beach
   Player.IsInZone($PLAYER1, 'BEACH3') // Vice Point
 goto_if_false @BUS_1524
-if 
+if
   $FLAG_PLAYER_IN_STRIPCLUB == 0
 goto_if_false @BUS_1524
-if 
+if
   $FLAG_PLAYER_IN_HOTEL == 0
 goto_if_false @BUS_1524
-if 
+if
   $FLAG_PLAYER_IN_MALIBU == 0
 goto_if_false @BUS_1524
-if 
+if
   $FLAG_PLAYER_IN_MALL == 0
 goto_if_false @BUS_1524
-if 
+if
   $FLAG_PLAYER_IN_COP_SHOP == 0
 goto_if_false @BUS_1524
-if 
+if
   $BUS_POSITION == 1
 goto_if_false @BUS_564
 $BUSX = -77.6
@@ -2057,7 +2082,7 @@ $BUSZ = 9.3
 $BUS_HEADING = 9.8
 
 :BUS_564
-if 
+if
   $BUS_POSITION == 2
 goto_if_false @BUS_622
 $BUSX = 120.0
@@ -2066,7 +2091,7 @@ $BUSZ = 9.3
 $BUS_HEADING = 333.5
 
 :BUS_622
-if 
+if
   $BUS_POSITION == 3
 goto_if_false @BUS_680
 $BUSX = 183.2
@@ -2075,7 +2100,7 @@ $BUSZ = 9.9
 $BUS_HEADING = 356.5
 
 :BUS_680
-if 
+if
   $BUS_POSITION == 4
 goto_if_false @BUS_738
 $BUSX = 318.6
@@ -2084,7 +2109,7 @@ $BUSZ = 9.6
 $BUS_HEADING = 351.4
 
 :BUS_738
-if 
+if
   $BUS_POSITION == 5
 goto_if_false @BUS_796
 $BUSX = 472.7
@@ -2093,7 +2118,7 @@ $BUSZ = 10.0
 $BUS_HEADING = 1.7
 
 :BUS_796
-if 
+if
   $BUS_POSITION == 6
 goto_if_false @BUS_854
 $BUSX = 226.5
@@ -2102,7 +2127,7 @@ $BUSZ = 9.7
 $BUS_HEADING = 304.3
 
 :BUS_854
-if 
+if
   $BUS_POSITION == 7
 goto_if_false @BUS_912
 $BUSX = 306.9
@@ -2111,7 +2136,7 @@ $BUSZ = 12.1
 $BUS_HEADING = 19.4
 
 :BUS_912
-if 
+if
   $BUS_POSITION == 8
 goto_if_false @BUS_970
 $BUSX = 448.7
@@ -2120,7 +2145,7 @@ $BUSZ = 16.3
 $BUS_HEADING = 269.5
 
 :BUS_970
-if 
+if
   $BUS_POSITION == 9
 goto_if_false @BUS_1028
 $BUSX = 499.5
@@ -2129,7 +2154,7 @@ $BUSZ = 16.8
 $BUS_HEADING = 192.4
 
 :BUS_1028
-if 
+if
   $BUS_POSITION == 10
 goto_if_false @BUS_1086
 $BUSX = 528.1
@@ -2138,7 +2163,7 @@ $BUSZ = 9.8
 $BUS_HEADING = 180.9
 
 :BUS_1086
-if 
+if
   $BUS_POSITION == 11
 goto_if_false @BUS_1144
 $BUSX = 516.2
@@ -2147,7 +2172,7 @@ $BUSZ = 9.7
 $BUS_HEADING = 162.7
 
 :BUS_1144
-if 
+if
   $BUS_POSITION == 12
 goto_if_false @BUS_1202
 $BUSX = 491.5
@@ -2156,7 +2181,7 @@ $BUSZ = 9.6
 $BUS_HEADING = 194.7
 
 :BUS_1202
-if 
+if
   $BUS_POSITION == 13
 goto_if_false @BUS_1260
 $BUSX = 434.1
@@ -2165,7 +2190,7 @@ $BUSZ = 9.0
 $BUS_HEADING = 178.5
 
 :BUS_1260
-if 
+if
   $BUS_POSITION == 14
 goto_if_false @BUS_1318
 $BUSX = 217.1
@@ -2174,7 +2199,7 @@ $BUSZ = 9.0
 $BUS_HEADING = 168.2
 
 :BUS_1318
-if 
+if
   $BUS_POSITION == 15
 goto_if_false @BUS_1376
 $BUSX = 160.6
@@ -2183,7 +2208,7 @@ $BUSZ = 9.0
 $BUS_HEADING = 172.8
 
 :BUS_1376
-if 
+if
   $BUS_POSITION == 16
 goto_if_false @BUS_1434
 $BUSX = -26.6
@@ -2192,7 +2217,7 @@ $BUSZ = 9.0
 $BUS_HEADING = 84.0
 
 :BUS_1434
-if 
+if
   $BUS_POSITION == 17
 goto_if_false @BUS_1492
 $BUSX = -21.6
@@ -2202,13 +2227,13 @@ $BUS_HEADING = 358.1
 
 :BUS_1492
 BUS_3739()
-if 
+if
   $BUS_CREATED == 1
 goto_if_false @BUS_1524
 $WHERE_BUS = 1
 
 :BUS_1524
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_2463
 if or
@@ -2218,19 +2243,19 @@ if or
   Player.IsInZone($PLAYER1, 'A_PORT') // Escobar International
   Player.IsInZone($PLAYER1, 'JUNKY') // Junk Yard
 goto_if_false @BUS_2463
-if 
+if
   $FLAG_PLAYER_IN_BANK == 0
 goto_if_false @BUS_2463
-if 
+if
   $FLAG_PLAYER_IN_SHOOTING_RANGE == 0
 goto_if_false @BUS_2463
-if 
+if
   $BUS_POSITION > 13
 goto_if_false @BUS_1677
 $BUS_POSITION = 1
 
 :BUS_1677
-if 
+if
   $BUS_POSITION == 1
 goto_if_false @BUS_1735
 $BUSX = -385.7
@@ -2239,7 +2264,7 @@ $BUSZ = 8.4
 $BUS_HEADING = 338.4
 
 :BUS_1735
-if 
+if
   $BUS_POSITION == 2
 goto_if_false @BUS_1793
 $BUSX = -295.4
@@ -2248,7 +2273,7 @@ $BUSZ = 10.1
 $BUS_HEADING = 0.0
 
 :BUS_1793
-if 
+if
   $BUS_POSITION == 3
 goto_if_false @BUS_1851
 $BUSX = -477.4
@@ -2257,7 +2282,7 @@ $BUSZ = 10.1
 $BUS_HEADING = 97.2
 
 :BUS_1851
-if 
+if
   $BUS_POSITION == 4
 goto_if_false @BUS_1909
 $BUSX = -744.3
@@ -2266,7 +2291,7 @@ $BUSZ = 10.1
 $BUS_HEADING = 101.4
 
 :BUS_1909
-if 
+if
   $BUS_POSITION == 5
 goto_if_false @BUS_1967
 $BUSX = -875.4
@@ -2275,7 +2300,7 @@ $BUSZ = 9.8
 $BUS_HEADING = 187.2
 
 :BUS_1967
-if 
+if
   $BUS_POSITION == 6
 goto_if_false @BUS_2025
 $BUSX = -869.5
@@ -2284,7 +2309,7 @@ $BUSZ = 9.4
 $BUS_HEADING = 182.7
 
 :BUS_2025
-if 
+if
   $BUS_POSITION == 7
 goto_if_false @BUS_2083
 $BUSX = -996.5
@@ -2293,7 +2318,7 @@ $BUSZ = 9.3
 $BUS_HEADING = 186.3
 
 :BUS_2083
-if 
+if
   $BUS_POSITION == 8
 goto_if_false @BUS_2141
 $BUSX = -910.1
@@ -2302,7 +2327,7 @@ $BUSZ = 9.6
 $BUS_HEADING = 277.9
 
 :BUS_2141
-if 
+if
   $BUS_POSITION == 9
 goto_if_false @BUS_2199
 $BUSX = -1432.9
@@ -2311,7 +2336,7 @@ $BUSZ = 13.2
 $BUS_HEADING = 88.4
 
 :BUS_2199
-if 
+if
   $BUS_POSITION == 10
 goto_if_false @BUS_2257
 $BUSX = -1017.7
@@ -2320,7 +2345,7 @@ $BUSZ = 12.9
 $BUS_HEADING = 46.4
 
 :BUS_2257
-if 
+if
   $BUS_POSITION == 11
 goto_if_false @BUS_2315
 $BUSX = -1130.8
@@ -2329,7 +2354,7 @@ $BUSZ = 10.0
 $BUS_HEADING = 275.0
 
 :BUS_2315
-if 
+if
   $BUS_POSITION == 12
 goto_if_false @BUS_2373
 $BUSX = -1200.6
@@ -2338,7 +2363,7 @@ $BUSZ = 9.3
 $BUS_HEADING = 5.8
 
 :BUS_2373
-if 
+if
   $BUS_POSITION == 13
 goto_if_false @BUS_2431
 $BUSX = -1061.0
@@ -2348,7 +2373,7 @@ $BUS_HEADING = 278.5
 
 :BUS_2431
 BUS_3739()
-if 
+if
   $BUS_CREATED == 1
 goto_if_false @BUS_2463
 $WHERE_BUS = 2
@@ -2374,10 +2399,10 @@ goto_if_false @BUS_2555
 BUS_7126()
 
 :BUS_2555
-if 
+if
   $WHERE_BUS == 1
 goto_if_false @BUS_3170
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_3170
 if or
@@ -2443,10 +2468,10 @@ goto @BUS_3170
 BUS_7126()
 
 :BUS_3170
-if 
+if
   $WHERE_BUS == 2
 goto_if_false @BUS_3691
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_3691
 if or
@@ -2505,7 +2530,7 @@ BUS_7126()
 goto @BUS_3730
 
 :BUS_3698
-if 
+if
   $STOP_CHECK_ON_MISSION == 0
 goto_if_false @BUS_3730
 BUS_7126()
@@ -2513,36 +2538,36 @@ $STOP_CHECK_ON_MISSION = 1
 
 :BUS_3730
 goto @BUS_21
-terminate_this_script 
+terminate_this_script
 
 :BUS_3739
-if 
+if
   Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_3995
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 115.0, 115.0, 115.0, False)
 goto_if_false @BUS_3855
 Streaming.RequestModel(#COACH)
 
 :BUS_3828
-if 
+if
   not Streaming.HasModelLoaded(#COACH)
 goto_if_false @BUS_3855
 wait 0
 goto @BUS_3828
 
 :BUS_3855
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_3995
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 115.0, 115.0, 115.0, False)
 goto_if_false @BUS_3990
 $BUS1 = Car.Create(#COACH, $BUSX, $BUSY, $BUSZ)
 Car.SetToFadeIn($BUS1, 0)
 Car.SetHeading($BUS1, $BUS_HEADING)
 Car.SetDrivingStyle($BUS1, DrivingMode.StopForCars)
-$BUS_DRIVER = Char.CreateInsideCar($BUS1, PedType.Bum, 44)
+$BUS_DRIVER = Char.CreateRandomAsDriver($BUS1)
 Char.WarpIntoCar($BUS_DRIVER, $BUS1)
 $BUS_CREATED = 1
 goto @BUS_3995
@@ -2551,118 +2576,118 @@ goto @BUS_3995
 Streaming.MarkModelAsNoLongerNeeded(#COACH)
 
 :BUS_3995
-return 
+return
 
 :BUS_3997
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_4662
-if 
+if
   not Char.IsDead($BUS_DRIVER)
 goto_if_false @BUS_4648
-if 
+if
   Char.IsSittingInCar($BUS_DRIVER, $BUS1)
 goto_if_false @BUS_4634
-if 
+if
   $BUS_CAN_GO == 0
 goto_if_false @BUS_4627
-if 
+if
   $BUS_POSITION == 1
 goto_if_false @BUS_4098
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX1, $BUS_COORDY1, $BUS_COORDZ1)
 
 :BUS_4098
-if 
+if
   $BUS_POSITION == 2
 goto_if_false @BUS_4130
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX2, $BUS_COORDY2, $BUS_COORDZ2)
 
 :BUS_4130
-if 
+if
   $BUS_POSITION == 3
 goto_if_false @BUS_4162
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX3, $BUS_COORDY3, $BUS_COORDZ3)
 
 :BUS_4162
-if 
+if
   $BUS_POSITION == 4
 goto_if_false @BUS_4194
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX4, $BUS_COORDY4, $BUS_COORDZ4)
 
 :BUS_4194
-if 
+if
   $BUS_POSITION == 5
 goto_if_false @BUS_4226
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX5, $BUS_COORDY5, $BUS_COORDZ5)
 
 :BUS_4226
-if 
+if
   $BUS_POSITION == 6
 goto_if_false @BUS_4258
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX6, $BUS_COORDY6, $BUS_COORDZ6)
 
 :BUS_4258
-if 
+if
   $BUS_POSITION == 7
 goto_if_false @BUS_4290
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX7, $BUS_COORDY7, $BUS_COORDZ7)
 
 :BUS_4290
-if 
+if
   $BUS_POSITION == 8
 goto_if_false @BUS_4322
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX8, $BUS_COORDY8, $BUS_COORDZ8)
 
 :BUS_4322
-if 
+if
   $BUS_POSITION == 9
 goto_if_false @BUS_4354
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX9, $BUS_COORDY9, $BUS_COORDZ9)
 
 :BUS_4354
-if 
+if
   $BUS_POSITION == 10
 goto_if_false @BUS_4386
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX10, $BUS_COORDY10, $BUS_COORDZ10)
 
 :BUS_4386
-if 
+if
   $BUS_POSITION == 11
 goto_if_false @BUS_4418
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX11, $BUS_COORDY11, $BUS_COORDZ11)
 
 :BUS_4418
-if 
+if
   $BUS_POSITION == 12
 goto_if_false @BUS_4450
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX12, $BUS_COORDY12, $BUS_COORDZ12)
 
 :BUS_4450
-if 
+if
   $BUS_POSITION == 13
 goto_if_false @BUS_4482
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX13, $BUS_COORDY13, $BUS_COORDZ13)
 
 :BUS_4482
-if 
+if
   $BUS_POSITION == 14
 goto_if_false @BUS_4514
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX14, $BUS_COORDY14, $BUS_COORDZ14)
 
 :BUS_4514
-if 
+if
   $BUS_POSITION == 15
 goto_if_false @BUS_4546
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX15, $BUS_COORDY15, $BUS_COORDZ15)
 
 :BUS_4546
-if 
+if
   $BUS_POSITION == 16
 goto_if_false @BUS_4578
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX16, $BUS_COORDY16, $BUS_COORDZ16)
 
 :BUS_4578
-if 
+if
   $BUS_POSITION == 17
 goto_if_false @BUS_4610
 Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX17, $BUS_COORDY17, $BUS_COORDZ17)
@@ -2690,186 +2715,186 @@ goto @BUS_4669
 BUS_7126()
 
 :BUS_4669
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_5977
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_5963
-if 
+if
   not Char.IsDead($BUS_DRIVER)
 goto_if_false @BUS_5949
-if 
+if
   Char.IsSittingInCar($BUS_DRIVER, $BUS1)
 goto_if_false @BUS_5935
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_5921
-if 
+if
   $BUS_POSITION == 1
 goto_if_false @BUS_4858
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX1, $BUS_COORDY1, 3.0, 3.0, False)
 goto_if_false @BUS_4858
 BUS_5986()
 goto @BUS_3997
 
 :BUS_4858
-if 
+if
   $BUS_POSITION == 2
 goto_if_false @BUS_4924
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX2, $BUS_COORDY2, 3.0, 3.0, False)
 goto_if_false @BUS_4924
 BUS_5986()
 goto @BUS_3997
 
 :BUS_4924
-if 
+if
   $BUS_POSITION == 3
 goto_if_false @BUS_4990
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX3, $BUS_COORDY3, 3.0, 3.0, False)
 goto_if_false @BUS_4990
 BUS_5986()
 goto @BUS_3997
 
 :BUS_4990
-if 
+if
   $BUS_POSITION == 4
 goto_if_false @BUS_5056
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX4, $BUS_COORDY4, 3.0, 3.0, False)
 goto_if_false @BUS_5056
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5056
-if 
+if
   $BUS_POSITION == 5
 goto_if_false @BUS_5122
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX5, $BUS_COORDY5, 3.0, 3.0, False)
 goto_if_false @BUS_5122
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5122
-if 
+if
   $BUS_POSITION == 6
 goto_if_false @BUS_5188
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX6, $BUS_COORDY6, 3.0, 3.0, False)
 goto_if_false @BUS_5188
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5188
-if 
+if
   $BUS_POSITION == 7
 goto_if_false @BUS_5254
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX7, $BUS_COORDY7, 3.0, 3.0, False)
 goto_if_false @BUS_5254
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5254
-if 
+if
   $BUS_POSITION == 8
 goto_if_false @BUS_5320
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX8, $BUS_COORDY8, 3.0, 3.0, False)
 goto_if_false @BUS_5320
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5320
-if 
+if
   $BUS_POSITION == 9
 goto_if_false @BUS_5386
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX9, $BUS_COORDY9, 3.0, 3.0, False)
 goto_if_false @BUS_5386
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5386
-if 
+if
   $BUS_POSITION == 10
 goto_if_false @BUS_5452
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX10, $BUS_COORDY10, 3.0, 3.0, False)
 goto_if_false @BUS_5452
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5452
-if 
+if
   $BUS_POSITION == 11
 goto_if_false @BUS_5518
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX11, $BUS_COORDY11, 3.0, 3.0, False)
 goto_if_false @BUS_5518
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5518
-if 
+if
   $BUS_POSITION == 12
 goto_if_false @BUS_5584
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX12, $BUS_COORDY12, 3.0, 3.0, False)
 goto_if_false @BUS_5584
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5584
-if 
+if
   $BUS_POSITION == 13
 goto_if_false @BUS_5650
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX13, $BUS_COORDY13, 3.0, 3.0, False)
 goto_if_false @BUS_5650
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5650
-if 
+if
   $BUS_POSITION == 14
 goto_if_false @BUS_5716
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX14, $BUS_COORDY14, 3.0, 3.0, False)
 goto_if_false @BUS_5716
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5716
-if 
+if
   $BUS_POSITION == 15
 goto_if_false @BUS_5782
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX15, $BUS_COORDY15, 3.0, 3.0, False)
 goto_if_false @BUS_5782
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5782
-if 
+if
   $BUS_POSITION == 16
 goto_if_false @BUS_5848
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX16, $BUS_COORDY16, 3.0, 3.0, False)
 goto_if_false @BUS_5848
 BUS_5986()
 goto @BUS_3997
 
 :BUS_5848
-if 
+if
   $BUS_POSITION == 17
 goto_if_false @BUS_5914
-if 
+if
   Car.Locate2D($BUS1, $BUS_COORDX17, $BUS_COORDY17, 3.0, 3.0, False)
 goto_if_false @BUS_5914
 BUS_5986()
@@ -2906,31 +2931,31 @@ goto @BUS_5984
 BUS_7126()
 
 :BUS_5984
-return 
+return
 
 :BUS_5986
 Car.SetCruiseSpeed($BUS1, 0.0)
 $BUS_POSITION += 1
 $RANDOM_BUSPED1 = Char.CreateRandomAsPassenger($BUS1, SeatId.RearLeft)
-if 
+if
   not Char.IsDead($RANDOM_BUSPED1)
 goto_if_false @BUS_6037
 Char.SetObjLeaveCar($RANDOM_BUSPED1, $BUS1)
 
 :BUS_6037
 wait 4700
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_6232
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_6191
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_6184
 $PED_WALKX, $PED_WALKY, $BUSZ = Car.GetOffsetInWorldCoords($BUS1, 0.0, -20.0, 0.0)
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_6184
 goto @BUS_7016
@@ -2942,7 +2967,7 @@ goto @BUS_6198
 goto @BUS_7016
 
 :BUS_6198
-if 
+if
   not Char.IsDead($RANDOM_BUSPED1)
 goto_if_false @BUS_6225
 Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED1, $PED_WALKX, $PED_WALKY)
@@ -2955,19 +2980,19 @@ goto @BUS_7016
 
 :BUS_6239
 wait 1300
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_6441
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_6403
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_6396
 $PED_WALKX, $PED_WALKY, $BUSZ = Car.GetOffsetInWorldCoords($BUS1, 0.0, -10.0, 0.0)
 $RANDOM_BUSPED2 = Char.CreateRandomAsPassenger($BUS1, SeatId.RearRight)
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_6396
 goto @BUS_7016
@@ -2979,7 +3004,7 @@ goto @BUS_6410
 goto @BUS_7016
 
 :BUS_6410
-if 
+if
   not Char.IsDead($RANDOM_BUSPED2)
 goto_if_false @BUS_6434
 Char.SetObjLeaveCar($RANDOM_BUSPED2, $BUS1)
@@ -2992,10 +3017,10 @@ goto @BUS_7016
 
 :BUS_6448
 wait 4700
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_6505
-if 
+if
   not Char.IsDead($RANDOM_BUSPED2)
 goto_if_false @BUS_6498
 Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED2, $PED_WALKX, $PED_WALKY)
@@ -3008,18 +3033,18 @@ goto @BUS_7016
 
 :BUS_6512
 wait 1300
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_6685
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_6647
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_6640
 $RANDOM_BUSPED3 = Char.CreateRandomAsPassenger($BUS1, SeatId.Passenger4)
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_6640
 goto @BUS_7016
@@ -3031,7 +3056,7 @@ goto @BUS_6654
 goto @BUS_7016
 
 :BUS_6654
-if 
+if
   not Char.IsDead($RANDOM_BUSPED3)
 goto_if_false @BUS_6678
 Char.SetObjLeaveCar($RANDOM_BUSPED3, $BUS1)
@@ -3044,23 +3069,23 @@ goto @BUS_7016
 
 :BUS_6692
 wait 4700
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_6858
-if 
+if
   not Char.IsDead($RANDOM_BUSPED3)
 goto_if_false @BUS_6742
 Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED3, $PED_WALKX, $PED_WALKY)
 
 :BUS_6742
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_6844
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_6837
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_6837
 goto @BUS_7016
@@ -3079,17 +3104,17 @@ goto @BUS_7016
 
 :BUS_6865
 wait 3300
-if 
+if
   $ONMISSION == 0
 goto_if_false @BUS_7004
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_6990
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_6983
 $BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
-if 
+if
   not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
 goto_if_false @BUS_6983
 goto @BUS_7016
@@ -3110,19 +3135,19 @@ goto @BUS_7016
 wait 5000
 
 :BUS_7016
-if 
+if
   $WHERE_BUS == 1
 goto_if_false @BUS_7059
-if 
+if
   $BUS_POSITION > 17
 goto_if_false @BUS_7059
 $BUS_POSITION = 1
 
 :BUS_7059
-if 
+if
   $WHERE_BUS == 2
 goto_if_false @BUS_7102
-if 
+if
   $BUS_POSITION > 13
 goto_if_false @BUS_7102
 $BUS_POSITION = 1
@@ -3132,16 +3157,16 @@ Char.MarkAsNoLongerNeeded($RANDOM_BUSPED1)
 Char.MarkAsNoLongerNeeded($RANDOM_BUSPED2)
 Char.MarkAsNoLongerNeeded($RANDOM_BUSPED3)
 $BUS_CAN_GO = 0
-return 
+return
 
 :BUS_7126
-if 
+if
   not Car.IsDead($BUS1)
 goto_if_false @BUS_7194
-if 
+if
   Player.IsPlaying($PLAYER1)
 goto_if_false @BUS_7194
-if 
+if
   not Player.IsInCar($PLAYER1, $BUS1)
 goto_if_false @BUS_7194
 Car.SetDrivingStyle($BUS1, DrivingMode.AvoidCars)
@@ -3470,6 +3495,12 @@ script_name 'Swim'
 while Player.IsPlaying($PLAYER1)
     wait 0
     if
+        $BarrierWater == 1
+    then
+        Text.ClearThisPrint('TPORT2')
+    end
+
+    if
         Char.IsInWater($scplayer)
     then
         Text.PrintHelp('SWIM')
@@ -3607,7 +3638,7 @@ goto @Mall_232
 
 :PackageToggle
 script_name 'PakTog'
-$FirstPackageTold = 0                   // Flag to ensure tutorial only triggers once
+$FirstPackageTold = 0                 // Flag to ensure tutorial only triggers once
 
 :PakTog_Loop
 while Player.IsPlaying($PLAYER1)
@@ -3630,9 +3661,80 @@ while Player.IsPlaying($PLAYER1)
         Text.PrintHelp('PACKHLP')
     end
 
-    // Check if the package hunt is still active (not at max 83)
+    // ============================================================================
+    // MILESTONE REWARDS LOGIC (Runs continuously regardless of tracker ON/OFF)
+    // ============================================================================
+    if $Packages >= 9
+    then
+        if 4@ == 0
+        then
+            4@ = 1
+            Stat.PlayerMadeProgress(10)
+            Text.PrintHelp('PICK1')
+            $StarfishArmor = Pickup.Create(#BODYARMOUR, PickupType.OnStreet, -536.524, -304.216, 11.4)
+        end
+    end
+
+    if $Packages >= 18
+    then
+        if 5@ == 0
+        then
+            5@ = 1
+            Stat.PlayerMadeProgress(10)
+            Text.PrintHelp('PICK2')
+            $StarfishBlade = Pickup.Create(#KNIFECUR, PickupType.OnStreet, -499.192, -245.979, 10.4)
+        end
+    end
+
+    if $Packages >= 36
+    then
+        if 6@ == 0
+        then
+            6@ = 1
+            Stat.PlayerMadeProgress(10)
+            Text.PrintHelp('PICK3')
+            $StarfishPython = Pickup.CreateWithAmmo(#PYTHON, PickupType.OnStreet, 300, -508.021, -245.979, 10.4)
+        end
+    end
+
+    if $Packages >= 54
+    then
+        if 7@ == 0
+        then
+            7@ = 1
+            Stat.PlayerMadeProgress(10)
+            Text.PrintHelp('PICK4')
+            $StarfishSniper = Pickup.CreateWithAmmo(#SNIPER, PickupType.OnStreet, 40, -510.175, -245.979, 10.4)
+        end
+    end
+
+    if $Packages >= 72
+    then
+        if 8@ == 0
+        then
+            8@ = 1
+            Stat.PlayerMadeProgress(10)
+            Text.PrintHelp('PICK5')
+            $StarfishMinigun = Pickup.CreateWithAmmo(#MINIGUN, PickupType.OnStreet, 5000, -515.431, -245.979, 10.4)
+            CarGenerator.Switch($Squalo, 101)
+        end
+    end
+
+    if $Packages >= 88
+    then
+        if 9@ == 0
+        then
+            9@ = 1
+            Text.PrintHelp('PACKBON')
+            Player.AddScore($PLAYER1, 50000)
+            play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+            Stat.PlayerMadeProgress(10)
+        end
+    end
+
+    // --- TRACKER TOGGLE CONTROLS ---
     if
-        not $Packages == 83
+        not $Packages >= 88
     then
         // Press 'O' to turn OFF radar tracker
         if
@@ -3644,7 +3746,6 @@ while Player.IsPlaying($PLAYER1)
             terminate_all_scripts_with_this_name 'PACKAGE'
             wait 500
         else
-
         // Press 'P' to turn ON radar tracker
             if Pad.IsKeyPressed(KeyCode.P)
             then
@@ -3671,108 +3772,43 @@ goto @PakTog_Loop
 
 
 // ============================================================================
-// RADAR GUIDE & PACKAGE REWARDS THREAD
+// RADAR GUIDE THREAD (Handles blips and coordinates when active)
 // ============================================================================
 :PACKAGE
 script_name 'PACKAGE'
 
-0@ = 0                                  // Active Target Package Index (0 to 82)
-1@ = 1                                  // Blip Redraw Flag (1 = Needs New Blip)
+0@ = 0                                 // Active Target Package Index (0 to 87)
+1@ = 1                                 // Blip Redraw Flag (1 = Needs New Blip)
 
 :PACKAGE_Loop
 while Player.IsPlaying($PLAYER1)
     wait 250
 
-    // STRICT GUARD: Only run if radar tracking is toggled ON
-    if $PackHunt == 1
+    // --- RADAR TRACKING LOGIC ---
+    if 0@ <= 87
     then
-        $Packages = Game.GetCollectablesCollected()
+        gosub @Get_Package_Coords
 
-        // --- MILESTONE REWARDS LOGIC ---
-        if $Packages >= 10
+        // Draw/Redraw blip on active target package
+        if 1@ == 1
         then
-            if 5@ == 0
-            then
-                5@ = 1
-                Stat.PlayerMadeProgress(10)
-                Text.PrintHelp('PICK1')
-                $StarfishArmor = Pickup.Create(#BODYARMOUR, PickupType.OnStreet, -536.524, -304.216, 11.4)
-                $StarfishBlade = Pickup.Create(#KNIFECUR, PickupType.OnStreet, -499.192, -245.979, 10.4)
-            end
-        end
-
-        if $Packages >= 20
-        then
-            if 6@ == 0
-            then
-                6@ = 1
-                Stat.PlayerMadeProgress(10)
-                Text.PrintHelp('PICK2')
-                $StarfishPython = Pickup.CreateWithAmmo(#PYTHON, PickupType.OnStreet, 300, -508.021, -245.979, 10.4)
-            end
-        end
-
-        if $Packages >= 45
-        then
-            if 7@ == 0
-            then
-                7@ = 1
-                Stat.PlayerMadeProgress(10)
-                Text.PrintHelp('PICK3')
-                $StarfishSniper = Pickup.CreateWithAmmo(#SNIPER, PickupType.OnStreet, 40, -510.175, -245.979, 10.4)
-            end
-        end
-
-        if $Packages >= 60
-        then
-            if 8@ == 0
-            then
-                8@ = 1
-                Stat.PlayerMadeProgress(10)
-                Text.PrintHelp('PICK4')
-                $StarfishMinigun = Pickup.CreateWithAmmo(#MINIGUN, PickupType.OnStreet, 5000, -515.431, -245.979, 10.4)
-                CarGenerator.Switch($Squalo, 101)
-            end
-        end
-
-        if $Packages >= 80
-        then
-            if 9@ == 0
-            then
-                9@ = 1
-                Text.PrintHelpString("Nice! That's all the packages! Here's a bonus!")
-                Player.AddScore($PLAYER1, 50000)
-                play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
-                Stat.PlayerMadeProgress(10)
-            end
-        end
-
-        // --- RADAR TRACKING LOGIC ---
-        if 0@ <= 82
-        then
-            gosub @Get_Package_Coords
-
-            // Draw/Redraw blip on active target package
-            if 1@ == 1
-            then
-                1@ = 0
-                Blip.Remove($CurrentPackBlip)
-                $CurrentPackBlip = Blip.AddForCoord($PackCoordX, $PackCoordY, $PackCoordZ)
-                Blip.ChangeColor($CurrentPackBlip, BlipColor.Red)
-            end
-
-            // PROXIMITY CHECK: Only advance 0@ IF player actually collects THIS target package
-            if Player.LocateAnyMeans3D($PLAYER1, $PackCoordX, $PackCoordY, $PackCoordZ, 3.5, 3.5, 3.5, False)
-            then
-                0@ += 1                  // Target collected! Advance to next coordinate index
-                1@ = 1                  // Signal blip redraw for the next package
-                wait 1000                // Debounce pause so index doesn't double-increment
-            end
-        else
-            // All 83 package spots cleared
+            1@ = 0
             Blip.Remove($CurrentPackBlip)
-            terminate_this_script
+            $CurrentPackBlip = Blip.AddForCoord($PackCoordX, $PackCoordY, $PackCoordZ)
+            Blip.ChangeColor($CurrentPackBlip, BlipColor.Red)
         end
+
+        // PROXIMITY CHECK: Only advance 0@ IF player actually collects THIS target package
+        if Player.LocateAnyMeans3D($PLAYER1, $PackCoordX, $PackCoordY, $PackCoordZ, 3.5, 3.5, 3.5, False)
+        then
+            0@ += 1                  // Target collected! Advance to next coordinate index
+            1@ = 1                   // Signal blip redraw for the next package
+            wait 1000                // Debounce pause so index doesn't double-increment
+        end
+    else
+        // All package spots cleared
+        Blip.Remove($CurrentPackBlip)
+        terminate_this_script
     end
 end
 
@@ -3785,507 +3821,531 @@ goto @PACKAGE_Loop
 :Get_Package_Coords
 if 0@ == 0
 then
+    $PackCoordX = -104.8713
+    $PackCoordY = -1591.6937
+    $PackCoordZ = 18.8681
+end
+if 0@ == 1
+then
+    $PackCoordX = 53.3521
+    $PackCoordY = -1540.1869
+    $PackCoordZ = 9.4706
+end
+if 0@ == 2
+then
     $PackCoordX = -995.3126
     $PackCoordY = 185.0475
     $PackCoordZ = 12.434
 end
-if 0@ == 1
+if 0@ == 3
 then
     $PackCoordX = 132.1319
     $PackCoordY = -1099.0703
-    $PackCoordZ = 10.4432
+    $PackCoordZ = 10.4433
 end
-if 0@ == 2
+if 0@ == 4
 then
     $PackCoordX = -1180.1167
     $PackCoordY = -1325.2484
     $PackCoordZ = 14.936
 end
-if 0@ == 3
+if 0@ == 5
 then
     $PackCoordX = 97.3322
     $PackCoordY = -1137.4125
     $PackCoordZ = 17.5186
 end
-if 0@ == 4
+if 0@ == 6
 then
     $PackCoordX = 390.3965
     $PackCoordY = 263.7068
     $PackCoordZ = 23.5965
 end
-if 0@ == 5
+if 0@ == 7
 then
     $PackCoordX = 305.765
     $PackCoordY = -287.8492
     $PackCoordZ = 16.5591
 end
-if 0@ == 6
+if 0@ == 8
 then
     $PackCoordX = 112.7879
     $PackCoordY = -1228.7902
     $PackCoordZ = 31.3094
 end
-if 0@ == 7
+if 0@ == 9
 then
     $PackCoordX = 467.6731
     $PackCoordY = -558.3031
     $PackCoordZ = 39.4213
 end
-if 0@ == 8
+if 0@ == 10
 then
     $PackCoordX = 75.2355
     $PackCoordY = -942.3878
     $PackCoordZ = 29.7175
 end
-if 0@ == 9
+if 0@ == 11
 then
     $PackCoordX = 163.7425
     $PackCoordY = -989.7141
     $PackCoordZ = 31.3046
 end
-if 0@ == 10
+if 0@ == 12
 then
     $PackCoordX = 524.3358
     $PackCoordY = -172.1394
     $PackCoordZ = 13.9184
 end
-if 0@ == 11
+if 0@ == 13
 then
     $PackCoordX = 451.2108
     $PackCoordY = 782.2139
     $PackCoordZ = 12.954
 end
-if 0@ == 12
+if 0@ == 14
 then
     $PackCoordX = 474.5686
     $PackCoordY = -1717.7163
     $PackCoordZ = 57.2529
 end
-if 0@ == 13
+if 0@ == 15
 then
     $PackCoordX = 421.3252
     $PackCoordY = 587.8892
     $PackCoordZ = 18.3141
 end
-if 0@ == 14
+if 0@ == 16
 then
     $PackCoordX = -374.4153
     $PackCoordY = -1766.5123
     $PackCoordZ = 9.5101
 end
-if 0@ == 15
+if 0@ == 17
 then
     $PackCoordX = -139.4935
     $PackCoordY = -943.7438
     $PackCoordZ = 26.8794
 end
-if 0@ == 16
+if 0@ == 18
 then
     $PackCoordX = -1018.4094
     $PackCoordY = -873.3389
     $PackCoordZ = 17.9709
 end
-if 0@ == 17
+if 0@ == 19
 then
     $PackCoordX = -1102.102
     $PackCoordY = -191.329
     $PackCoordZ = 16.210
 end
-if 0@ == 18
+if 0@ == 20
 then
     $PackCoordX = -1128.7754
     $PackCoordY = -372.7903
     $PackCoordZ = 14.0148
 end
-if 0@ == 19
+if 0@ == 21
 then
     $PackCoordX = -754.6769
     $PackCoordY = 1348.5447
     $PackCoordZ = 11.767
 end
-if 0@ == 20
+if 0@ == 22
 then
     $PackCoordX = 377.51
     $PackCoordY = -872.15
     $PackCoordZ = 12.075
 end
-if 0@ == 21
+if 0@ == 23
 then
     $PackCoordX = 559.08
     $PackCoordY = -945.23
     $PackCoordZ = 14.63
 end
-if 0@ == 22
+if 0@ == 24
 then
     $PackCoordX = 89.07
     $PackCoordY = -805.28
     $PackCoordZ = 12.611
 end
-if 0@ == 23
+if 0@ == 25
 then
     $PackCoordX = -4.098
     $PackCoordY = -487.903
     $PackCoordZ = 9.69
 end
-if 0@ == 24
+if 0@ == 26
 then
     $PackCoordX = -27.321
     $PackCoordY = -1486.101
     $PackCoordZ = 10.6
 end
-if 0@ == 25
+if 0@ == 27
 then
     $PackCoordX = 92.087
     $PackCoordY = -1496.052
     $PackCoordZ = 11.1
 end
-if 0@ == 26
+if 0@ == 28
 then
     $PackCoordX = 254.52
     $PackCoordY = 29.31
     $PackCoordZ = 13.064
 end
-if 0@ == 27
+if 0@ == 29
 then
     $PackCoordX = 379.909
     $PackCoordY = 212.3831
     $PackCoordZ = 11.3862
 end
-if 0@ == 28
+if 0@ == 30
 then
     $PackCoordX = 282.6447
     $PackCoordY = 376.2519
     $PackCoordZ = 13.217
 end
-if 0@ == 29
+if 0@ == 31
 then
     $PackCoordX = 793.3981
     $PackCoordY = 782.1055
     $PackCoordZ = 31.1548
 end
-if 0@ == 30
+if 0@ == 32
 then
     $PackCoordX = 576.6083
     $PackCoordY = 993.3908
     $PackCoordZ = 21.0519
 end
-if 0@ == 31
+if 0@ == 33
 then
     $PackCoordX = -553.3828
     $PackCoordY = -404.3646
     $PackCoordZ = 10.1762
 end
-if 0@ == 32
+if 0@ == 34
 then
     $PackCoordX = -677.4451
     $PackCoordY = -1279.099
     $PackCoordZ = 21.7685
 end
-if 0@ == 33
+if 0@ == 35
 then
     $PackCoordX = -1348.2118
     $PackCoordY = -747.7886
     $PackCoordZ = 25.947
 end
-if 0@ == 34
+if 0@ == 36
 then
     $PackCoordX = -741.303
     $PackCoordY = -950.004
     $PackCoordZ = 9.83
 end
-if 0@ == 35
+if 0@ == 37
 then
     $PackCoordX = -536.336
     $PackCoordY = -289.108
     $PackCoordZ = 10.8
 end
-if 0@ == 36
+if 0@ == 38
 then
     $PackCoordX = 415.814
     $PackCoordY = 83.268
     $PackCoordZ = 13.118
 end
-if 0@ == 37
+if 0@ == 39
 then
     $PackCoordX = 294.318
     $PackCoordY = -472.956
     $PackCoordZ = 10.87
 end
-if 0@ == 38
+if 0@ == 40
 then
     $PackCoordX = 158.016
     $PackCoordY = 678.285
     $PackCoordZ = 11.09
 end
-if 0@ == 39
+if 0@ == 41
 then
     $PackCoordX = 181.724
     $PackCoordY = -753.44
     $PackCoordZ = 10.44
 end
-if 0@ == 40
+if 0@ == 42
 then
     $PackCoordX = 207.23
     $PackCoordY = -470.623
     $PackCoordZ = 12.089
 end
-if 0@ == 41
+if 0@ == 43
 then
     $PackCoordX = 269.352
     $PackCoordY = 980.071
     $PackCoordZ = 11.508
 end
-if 0@ == 42
+if 0@ == 44
 then
     $PackCoordX = 437.101
     $PackCoordY = 976.637
     $PackCoordZ = 13.023
 end
-if 0@ == 43
+if 0@ == 45
 then
     $PackCoordX = 388.578
     $PackCoordY = -659.008
     $PackCoordZ = 11.451
 end
-if 0@ == 44
+if 0@ == 46
 then
     $PackCoordX = 137.84
     $PackCoordY = -602.245
     $PackCoordZ = 15.673
 end
-if 0@ == 45
+if 0@ == 47
 then
     $PackCoordX = 375.972
     $PackCoordY = -1.332
     $PackCoordZ = 11.412
 end
-if 0@ == 46
+if 0@ == 48
 then
     $PackCoordX = -77.696
     $PackCoordY = 74.203
     $PackCoordZ = 9.521
 end
-if 0@ == 47
+if 0@ == 49
 then
     $PackCoordX = -965.061
     $PackCoordY = 187.146
     $PackCoordZ = 12.401
 end
-if 0@ == 48
+if 0@ == 50
 then
     $PackCoordX = -1049.309
     $PackCoordY = 167.208
     $PackCoordZ = 11.571
 end
-if 0@ == 49
+if 0@ == 51
 then
     $PackCoordX = -1038.658
     $PackCoordY = 80.462
     $PackCoordZ = 11.676
 end
-if 0@ == 50
+if 0@ == 52
 then
     $PackCoordX = -1110.35
     $PackCoordY = 282.033
     $PackCoordZ = 15.32
 end
-if 0@ == 51
+if 0@ == 53
 then
     $PackCoordX = -1174.078
     $PackCoordY = 67.219
     $PackCoordZ = 17.977
 end
-if 0@ == 52
+if 0@ == 54
 then
     $PackCoordX = -1196.276
     $PackCoordY = -324.229
     $PackCoordZ = 11.361
 end
-if 0@ == 53
+if 0@ == 55
 then
     $PackCoordX = -1222.0601
     $PackCoordY = -467.185
     $PackCoordZ = 11.346
 end
-if 0@ == 54
+if 0@ == 56
 then
     $PackCoordX = -925.901
     $PackCoordY = -555.343
     $PackCoordZ = 14.985
 end
-if 0@ == 55
+if 0@ == 57
 then
     $PackCoordX = -846.121
     $PackCoordY = -699.329
     $PackCoordZ = 15.482
 end
-if 0@ == 56
+if 0@ == 58
 then
     $PackCoordX = -840.24
     $PackCoordY = -1109.724
     $PackCoordZ = 16.43
 end
-if 0@ == 57
+if 0@ == 59
 then
     $PackCoordX = -827.4764
     $PackCoordY = 1038.269
     $PackCoordZ = 15.7483
 end
-if 0@ == 58
+if 0@ == 60
 then
     $PackCoordX = -500.192
     $PackCoordY = -250.979
     $PackCoordZ = 10.4
 end
-if 0@ == 59
+if 0@ == 61
 then
     $PackCoordX = -843.706
     $PackCoordY = -766.906
     $PackCoordZ = 15.47
 end
-if 0@ == 60
+if 0@ == 62
 then
     $PackCoordX = -855.626
     $PackCoordY = -631.643
     $PackCoordZ = 11.52
 end
-if 0@ == 61
+if 0@ == 63
 then
     $PackCoordX = -886.2039
     $PackCoordY = -1014.7403
     $PackCoordZ = 16.8499
 end
-if 0@ == 62
+if 0@ == 64
 then
     $PackCoordX = -783.286
     $PackCoordY = -1347.756
     $PackCoordZ = 11.898
 end
-if 0@ == 63
+if 0@ == 65
 then
     $PackCoordX = -651.219
     $PackCoordY = -1490.6639
     $PackCoordZ = 16.927
 end
-if 0@ == 64
+if 0@ == 66
 then
     $PackCoordX = -1701.6801
     $PackCoordY = -295.204
     $PackCoordZ = 29.961
 end
-if 0@ == 65
+if 0@ == 67
 then
     $PackCoordX = 352.3823
     $PackCoordY = 1111.4813
     $PackCoordZ = 25.3878
 end
-if 0@ == 66
+if 0@ == 68
 then
     $PackCoordX = 586.1125
     $PackCoordY = 691.1823
     $PackCoordZ = 12.718
 end
-if 0@ == 67
+if 0@ == 69
 then
     $PackCoordX = 521.5031
     $PackCoordY = 1126.7531
     $PackCoordZ = 18.9701
 end
-if 0@ == 68
+if 0@ == 70
 then
     $PackCoordX = 583.3524
     $PackCoordY = 1213.239
     $PackCoordZ = 18.9701
 end
-if 0@ == 69
+if 0@ == 71
 then
     $PackCoordX = 531.3647
     $PackCoordY = 1273.765
     $PackCoordZ = 18.1528
 end
-if 0@ == 70
+if 0@ == 72
 then
     $PackCoordX = 314.6457
     $PackCoordY = 1331.7729
     $PackCoordZ = 23.0053
 end
-if 0@ == 71
+if 0@ == 73
 then
     $PackCoordX = 369.9863
     $PackCoordY = 915.5944
     $PackCoordZ = 14.7001
 end
-if 0@ == 72
+if 0@ == 74
 then
     $PackCoordX = 383.3985
     $PackCoordY = 759.6602
     $PackCoordZ = 11.7449
 end
-if 0@ == 73
+if 0@ == 75
 then
     $PackCoordX = 278.7206
     $PackCoordY = 441.4341
     $PackCoordZ = 8.7847
 end
-if 0@ == 74
+if 0@ == 76
 then
     $PackCoordX = 216.4005
     $PackCoordY = 261.0344
     $PackCoordZ = 8.7083
 end
-if 0@ == 75
+if 0@ == 77
 then
     $PackCoordX = -636.233
     $PackCoordY = -525.0667
     $PackCoordZ = 14.1182
 end
-if 0@ == 76
+if 0@ == 78
 then
     $PackCoordX = -16.5197
     $PackCoordY = -1192.76
     $PackCoordZ = 20.1816
 end
-if 0@ == 77
+if 0@ == 79
 then
     $PackCoordX = -391.1594
     $PackCoordY = -1304.041
     $PackCoordZ = 8.113
 end
-if 0@ == 78
+if 0@ == 80
 then
     $PackCoordX = 37.0955
     $PackCoordY = -1103.63
     $PackCoordZ = 10.4633
 end
-if 0@ == 79
+if 0@ == 81
 then
     $PackCoordX = 5.3502
     $PackCoordY = -1277.0608
     $PackCoordZ = 10.4633
 end
-if 0@ == 80
+if 0@ == 82
 then
     $PackCoordX = 159.9202
     $PackCoordY = -859.6636
     $PackCoordZ = 14.5449
 end
-if 0@ == 81
+if 0@ == 83
 then
     $PackCoordX = -117.2867
     $PackCoordY = -915.178
     $PackCoordZ = 10.4635
 end
-if 0@ == 82
+if 0@ == 84
 then
     $PackCoordX = 479.0208
     $PackCoordY = 44.6912
     $PackCoordZ = 15.9165
 end
-if 0@ == 83
+if 0@ == 85
 then
     $PackCoordX = -634.4158
     $PackCoordY = -316.0011
     $PackCoordZ = 13.1845
+end
+if 0@ == 86
+then
+    $PackCoordX = 180.8733
+    $PackCoordY = 1231.2568
+    $PackCoordZ = 26.0042
+end
+if 0@ == 87
+then
+    $PackCoordX = 234.0617
+    $PackCoordY = 1248.2771
+    $PackCoordZ = 17.8018
 end
 return
 
@@ -4546,16 +4606,30 @@ if
 then
     if and
         not Player.IsInAnyCar($PLAYER1)
-        Player.LocateAnyMeans3D($PLAYER1, 411.3002, 97.7414, 11.3989, 25.0, 25.0, 15.0, False)
+        Player.LocateAnyMeans3D($PLAYER1, 417.4987, 104.506, 11.275, 25.0, 25.0, 15.0, False)
     then
         Text.PrintHelp('HELP21') // Press the ~h~~k~~VEHICLE_ENTER_EXIT~ ~w~button to enter or exit a vehicle.
+        Blip.AddForCar($Admiral, $AdmiralBlip)
+        Blip.ChangeDisplay($AdmiralBlip, BlipDisplay.Both)
         $PRINT_CAR_HELP = 1
-        goto @Help_10
+        goto @Help_5900
     else
         goto @Help_10
     end
 else
     goto @Help_10
+end
+
+:Help_5900
+while not Player.IsInCar($PLAYER1, $Admiral)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $Admiral)
+    then
+        Audio.SetRadioChannel(RadioChannel.Wildstyle, 0)
+        Blip.Remove($AdmiralBlip)
+        goto @Help_10
+    end
 end
 
 :Help_6000
@@ -4703,6 +4777,10 @@ goto @Mystery_10
 
 :Pier
 script_name 'Pier'
+var
+    $PierRingPlayed: int
+end
+$PierRingPlayed = 0
 
 :Pier_10
 wait 250
@@ -4723,11 +4801,17 @@ end
 :Pier_94
 wait 0
 if
-    Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.0, 10.0, False)
+    Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.0, 3.0, False)
 then
-    play_audio_stream_1channel "Audio\SSA\phone.mp3", true, 0.5
-    Text.Print('PHONE', 5000, 0)
+    if
+        $PierRingPlayed == 0
+    then
+        play_audio_stream_1channel "Audio\SSA\phone.mp3", true, 0.5
+        Text.Print('PHONE', 5000, 0)
+        $PierRingPlayed = 1
+    end
 else
+    $PierRingPlayed = 0
     goto @Pier_96
 end
 
@@ -4750,15 +4834,29 @@ else
 end
 
 :Pier_96
-wait 0
-if
-    not Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.0, 10.0, False)
-then
-    stop_audio_stream_1channel
-    goto @Pier_94
-else
-    goto @Pier_95
+while Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.0, 3.0, False)
+    wait 0
+    if
+        $ONMISSION == 1
+    then
+        if
+            Pad.IsKeyPressed(KeyCode.Tab)
+        then
+            Text.PrintBig('BUSY', 3000, TextStyle.BlueMiddleSmaller)
+        end
+    end
+
+    if
+        not Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.0, 3.0, False)
+    then
+        stop_audio_stream_1channel
+        $PierRingPlayed = 0
+        goto @Pier_94
+    else
+        goto @Pier_95
+    end
 end
+goto @Pier_94
 
 :Pier_99
 $ONMISSION = 1
@@ -8747,18 +8845,18 @@ goto @VPHotel_10
 
 :Water
 script_name 'Water'
+$WarningActive = 0
 
 :Water_10
 while Player.IsPlaying($PLAYER1)
-$InWater = 0
-$WaterCar = 0
+    $InWater = 0
+    $WaterCar = 0
     wait 0
     if
         Char.IsInWater($scplayer)
     then
         $InWater = 1
     else
-        Text.ClearThisPrint('TPORT2')
         if
             Player.IsInAnyCar($PLAYER1)
         then
@@ -8772,18 +8870,20 @@ $WaterCar = 0
         else
             Player.GetCoordinates($PLAYER1, $PlayerX, $PlayerY, $PlayerZ)
             Path.GetClosestCharNode($PlayerX, $PlayerY, $PlayerZ, $SafeX, $SafeY, $SafeZ)
-            Text.ClearThisPrint('TPORT2')
         end
     end
+
     if or
         $WaterCar == 1
         $InWater == 1
     then
         Text.PrintHelpForever('TPORT2')
+        $WarningActive = 1
         if
             Pad.IsKeyPressed(KeyCode.N)
         then
-            Text.ClearThisPrint('TPORT2')
+            Text.ClearHelp()
+            $WarningActive = 0
             if
                 $WaterCar == 1
             then
@@ -8797,29 +8897,48 @@ $WaterCar = 0
                 Player.SetControl($PLAYER1, True)
                 break
             else
-                Text.ClearThisPrint('TPORT2')
-                if
-                    $InWater == 1
-                then
-                    Camera.DoFade(500, Fade.Out)
-                    wait 500
-                    Player.SetControl($PLAYER1, False)
-                    Player.SetCoordinates($PLAYER1, $SafeX, $SafeY, $SafeZ)
-                    wait 500
-                    Camera.DoFade(500, Fade.In)
-                    wait 500
-                    Player.SetControl($PLAYER1, True)
-                    break
-                end
+                Camera.DoFade(500, Fade.Out)
+                wait 500
+                Player.SetControl($PLAYER1, False)
+                Player.SetCoordinates($PLAYER1, $SafeX ,$SafeY, $SafeZ)
+                wait 500
+                Camera.DoFade(500, Fade.In)
+                wait 500
+                Player.SetControl($PLAYER1, True)
+                break
             end
         end
     else
-        break
+        if
+            $WarningActive == 1
+        then
+            Text.ClearHelp()
+            $WarningActive = 0
+        end
+    end
+
+    if
+        $Limey_Passed == 1
+    then
+        if
+            $Barrier2Done == 1
+        then
+            Text.PrintHelpString("Aquatic teleportation network disabled. Please be wary of ~g~sharks ~w~and other ~g~large fish.")
+            wait 5000
+            Text.PrintHelpString("You can no longer survive in large bodies of water.")
+            terminate_this_script
+        end
     end
 end
 
 :Water_20
-Text.ClearThisPrint('TPORT2')
+wait 0
+if
+    $WarningActive == 1
+then
+    Text.ClearHelp()
+    $WarningActive = 0
+end
 goto @Water_10
 
 //-------------Mission 0---------------
@@ -8954,6 +9073,7 @@ $LighthouseDone = 0
 $LighthausTutorial = 0
 $Limey_Passed = 0
 $FirstPackageTold = 0
+$OffWorkBike = 0
 $PackHunt = 0
 $PRINT_CAR_HELP = 0
 $PsychoDead = 0
@@ -8985,11 +9105,11 @@ wait 0
 if
     Streaming.HasModelLoaded(#ADMIRAL)
 then
-    $Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
+    $Admiral = Car.Create(#ADMIRAL, 417.4987, 104.506, 11.275)
     $AdmiralHaus = Car.Create(#ADMIRAL, 450.739, -1642.425, 14.6)
-    Car.SetHeading($Admiral, 0)
+    Car.SetHeading($Admiral, 124)
     Car.SetToFadeIn($Admiral, 2000)
-    Car.SetHeading($AdmiralHaus, 180)
+    Car.SetHeading($AdmiralHaus, 302.2639)
     goto @INIT_14
 else
     goto @INIT_03
@@ -9229,8 +9349,8 @@ Blip.Remove($AdmiralBlip)
 Car.Delete($Admiral)
 Sphere.Remove($SidewalkSphere)
 Camera.SetFadingColor(0, 0, 0)
-$AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
-Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
+$BeachBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
+Blip.ChangeColor($BeachBlip, BlipColor.LightBlue)
 wait 500
 return
 
@@ -9252,8 +9372,8 @@ $PRINT_HELP_FOR_RADAR = 1
 wait 3000
 Hud.FlashObject(0)
 $ONMISSION = 0
-$AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
-Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
+$BeachBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
+Blip.ChangeColor($BeachBlip, BlipColor.LightBlue)
 $SidewalkSphere = Sphere.Create(395.0, -906.2, 12.0, 2.0)
 $FaeBlip = Blip.AddShortRangeSpriteForContactPoint(602.3546, -1700.3068, 6.2431, RadarSprite.Kent)
 start_new_script @Pizza
@@ -9327,7 +9447,7 @@ Stat.RegisterMissionGiven()
 Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(-532.6, -325.521, 17.56, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-535.64, -300.451, 12.29, SwitchType.JumpCut)
-Blip.Remove($AdmiralBlip)
+Blip.Remove($BeachBlip)
 wait 3000
 Camera.DoFade(1500, Fade.In)
 wait 3000
@@ -9348,16 +9468,10 @@ wait 250
 if
     $PRINT_CAR_HELP == 0
 then
-    if
-        Car.IsInArea2D($Admiral, 350.0, -950.0, 400.0, -850.0, 0)
-    then
         Player.SetControl($PLAYER1, True)
         Text.PrintHelp('HELP21') // Press the ~h~~k~~VEHICLE_ENTER_EXIT~ ~w~button to enter or exit a vehicle.
         $AdmiralBlip = Blip.AddForCar($Admiral)
         $PRINT_CAR_HELP = 1
-    else
-        goto @Intro_473
-    end
 else
     goto @Intro_328
 end
@@ -10113,42 +10227,49 @@ else
 end
 
 :Cop_3756
-wait 0
-if
-    Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 3.0, 3.0, 3.0, False)
-then
+while not Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 3.0, 3.0, 3.0, False)
+    wait 0
     if
-        Player.IsInModel($PLAYER1, #CADDY)
+        Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 3.0, 3.0, 3.0, False)
     then
-        goto @Cop_4000
+        if
+            Player.IsInModel($PLAYER1, #CADDY)
+        then
+            goto @Cop_4000
+        else
+            Text.Print('GCART5', 5000, 0)
+            Hud.DisplayTimer($TIMER, TimerDirection.Down)
+            goto @Cop_3757
+        end
     end
-end
 
-if
-    not Player.IsInModel($PLAYER1, #CADDY)
-then
-    Text.Print('GCART5', 5000, 0)
-    Hud.DisplayTimer($TIMER, TimerDirection.Down)
-    goto @Cop_3757
-end
-goto @Cop_3756
-
-:Cop_3757
-wait 0
-if
-    $TIMER == 0
-then
     if
         not Player.IsInModel($PLAYER1, #CADDY)
     then
-        goto @Cop_4013
+        Text.Print('GCART5', 5000, 0)
+        Hud.DisplayTimer($TIMER, TimerDirection.Down)
+        goto @Cop_3757
     end
-else
+end
+
+:Cop_3757
+while not $TIMER == 0
+    wait 0
     if
-        Player.IsInModel($PLAYER1, #CADDY)
+        $TIMER == 0
     then
-        Hud.ClearTimer($TIMER)
-        goto @Cop_3756
+        if
+            not Player.IsInModel($PLAYER1, #CADDY)
+        then
+            goto @Cop_4013
+        end
+    else
+        if
+            Player.IsInModel($PLAYER1, #CADDY)
+        then
+            Hud.ClearTimer($TIMER)
+            goto @Cop_3756
+        end
     end
 end
 
@@ -10512,28 +10633,22 @@ wait 1500
 Hud.DisplayTimer($TIMER, TimerDirection.Down)
 
 :Hotel_1361
-wait 0
-if
-    Pickup.HasBeenCollected($Hammer)
-then
+while not Pickup.HasBeenCollected($Hammer)
+    wait 0
     if
-        Player.LocateAnyMeans3D($PLAYER1, -967.443, -692.877, 10.2, 3.0, 3.0, 3.0, False)
+        Pickup.HasBeenCollected($Hammer)
     then
-        goto @Hotel_1468
-    else
+        if
+            not $TIMER == 0
+        then
+            Hud.ClearTimer($TIMER)
+            goto @Hotel_1468
+        end
         if
             $TIMER == 0
         then
-            goto @Hotel_1450
+            goto @Hotel_2048
         end
-    end
-else
-    if
-        $TIMER == 0
-    then
-        goto @Hotel_2048
-    else
-        goto @Hotel_1361
     end
 end
 
@@ -10550,7 +10665,7 @@ Text.PrintHelpString("Shake the cops!")
 :Hotel_1457
 wait 0
 if
-  Hud.AreWantedStarsFlashing()
+    Hud.AreWantedStarsFlashing()
 then
     $AlarmOn = 0
     Sound.Remove($Alarm)
@@ -10594,10 +10709,12 @@ then
     wait 3000
     Player.SetControl($PLAYER1, True)
     $TIMER = 10000
+    Blip.Remove($HardwareBlip)
     $SabreBlip = Blip.AddForCar($Sabre)
     Blip.ChangeColor($SabreBlip, BlipColor.Green)
     Text.PrintStringNow("Get back in your car.", 3000)
     wait 0
+    Blip.AddShortRangeSpriteForCoord(-967.443, -692.877, 10.2, 18, $HardwareBlip)
     Hud.DisplayTimer($TIMER, TimerDirection.Down)
     goto @Hotel_1513
 else
@@ -10648,11 +10765,11 @@ wait 0
 if
     Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 2.0, 2.0, 1.0, False)
 then
+    Blip.Remove($HomeBlip)
+    Sphere.Remove($SidewalkSphere)
     Player.SetControl($PLAYER1, False)
     Camera.DoFade(2000, Fade.Out)
     wait 2000
-    Blip.Remove($HomeBlip)
-    Sphere.Remove($SidewalkSphere)
     Camera.SetFixedPosition(-111.568, -1616.073, 12.73, 0.0, 0.0, 0.0)
     Camera.PointAtPoint(-101.31, -1600.662, 10.392, SwitchType.JumpCut)
     wait 500
@@ -10746,6 +10863,7 @@ script_name 'Work'
 Stat.RegisterMissionGiven()
 Game.SetMaxWantedLevel(3)
 $TIMER = 10000
+$OffWorkBike = 0
 $ONMISSION = 1
 wait 250
 Streaming.RequestModel(#CADDY)
@@ -10761,6 +10879,7 @@ $WorkBike = Car.Create(#PCJ600, -104.23, -1600.046, 9.507)
 Car.SetHeading($WorkBike, 180)
 $Boss = Char.Create(PedType.CivMale, #HMOST, -67.467, -1608.489, 11.235)
 Blip.Remove($LimeyBlip)
+Sphere.Remove($SidewalkSphere)
 Camera.SetFixedPosition(-69.315, -1600.188, 13.45, 0.0, 0.0, 0.0)
 Char.TurnToFacePlayer($Boss, $PLAYER1)
 Player.TurnToFaceChar($PLAYER1, $Boss)
@@ -10935,69 +11054,36 @@ else
 end
 
 :Work_2031
-while not Char.IsInCar($Daughter, $WorkBike)
-wait 0
 Char.SetRunning($Daughter, True)
 Char.SetObjEnterCarAsPassenger($Daughter, $WorkBike)
 Char.SetStayInCarWhenJacked($Daughter, True)
-    if
-        Char.IsInCar($Daughter, $WorkBike)
+
+while not Char.IsInCar($Daughter, $WorkBike)
+    wait 0
+    if Char.IsDead($Daughter)
     then
-        Blip.Remove($DaughterBlip)
-        Camera.RestoreJumpcut()
-        Player.SetControl($PLAYER1, True)
-        break
+        goto @Work_2582
     end
 end
+
+Blip.Remove($DaughterBlip)
+Camera.RestoreJumpcut()
+Player.SetControl($PLAYER1, True)
 
 :Work_2147
 $TIMER = 30000
-wait 0
-if
-    not Char.IsDead($Daughter)
-then
-    if
-        not Car.IsDead($WorkBike)
-    then
-        if
-            Player.IsInCar($PLAYER1, $WorkBike)
-        then
-            Hud.DisplayTimer($TIMER, TimerDirection.Down)
-            Text.PrintStringNow("Take the bike for a spin around the city.", 5000)
-            Blip.Remove($BikeBlip)
-            goto @Work_2200
-        else
-            Text.PrintString("You have ten seconds to get on the bike.", 4000)
-            goto @Work_2148
-        end
-    if
-        not Char.IsInCar($Daughter, $WorkBike)
-    then
-        $DaughterBlip = Blip.AddForChar($Daughter)
-        Blip.ChangeColor($DaughterBlip, BlipColor.Cyan)
-        Blip.ChangeDisplay($DaughterBlip, BlipDisplay.Both)
-        Text.PrintStringNow("You've left her behind!", 3000)
-    end
-
-    if
-        Char.IsInCar($Daughter, $WorkBike)
-    then
-        Blip.Remove($DaughterBlip)
-    end
-    else
-        goto @Work_2634
-    end
-else
-    goto @Work_2582
-end
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+Text.PrintString("Take the bike for a spin around the city.", 5000)
+Blip.Remove($BikeBlip)
+goto @Work_2200
 
 :Work_2148
-$TIMER = 10000
 while not Player.IsInCar($PLAYER1, $WorkBike)
     wait 0
     if
         Player.IsInCar($PLAYER1, $WorkBike)
     then
+        Hud.ClearTimer($TIMER)
         goto @Work_2147
     end
 
@@ -11008,8 +11094,26 @@ while not Player.IsInCar($PLAYER1, $WorkBike)
     end
 end
 
+:Work_2149
+while not Player.IsInCar($PLAYER1, $WorkBike)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        Blip.Remove($BikeBlip)
+        $OffWorkBike = 0
+        goto @Work_2436
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Work_2634
+    end
+end
+
 :Work_2200
-while not $TIMER == 0
+while true
     wait 0
     if
         not Char.IsDead($Daughter)
@@ -11030,6 +11134,8 @@ while not $TIMER == 0
                     $SidewalkSphere = Sphere.Create(304.747, 291.581, 15.238, 3.0)
                     break
                 end
+            else
+                goto @Work_2634
             end
         else
             goto @Work_2630
@@ -11041,7 +11147,7 @@ end
 
 :Work_2436
 while not Player.LocateAnyMeans3D($PLAYER1, 304.747, 291.581, 15.238, 1.0, 1.0, 1.0, False)
-wait 0
+    wait 0
     if
         not Char.IsDead($Daughter)
     then
@@ -11057,7 +11163,6 @@ wait 0
                     Player.SetControl($PLAYER1, False)
                     Blip.Remove($DaughterHome)
                     Sphere.Remove($SidewalkSphere)
-                    Hud.ClearCounter($CarHealthBar)
                     Stat.PlayerMadeProgress(5)
                     Camera.DoFade(1500, Fade.Out)
                     Audio.LoadMissionAudio(1, 'MERC_39')
@@ -11076,16 +11181,33 @@ wait 0
     if
         not Char.IsInCar($Daughter, $WorkBike)
     then
-        $DaughterBlip = Blip.AddForChar($Daughter)
-        Blip.ChangeColor($DaughterBlip, BlipColor.Cyan)
-        Blip.ChangeDisplay($DaughterBlip, BlipDisplay.Both)
-        Text.PrintStringNow("You've left her behind!", 3000)
+        if
+            $DaughterBlip == 0
+        then
+            $DaughterBlip = Blip.AddForChar($Daughter)
+            Blip.ChangeColor($DaughterBlip, BlipColor.Cyan)
+            Blip.ChangeDisplay($DaughterBlip, BlipDisplay.Both)
+            Text.PrintStringNow("You've left her behind!", 3000)
+        end
+    else
+        Blip.Remove($DaughterBlip)
+        $DaughterBlip = 0
     end
 
     if
-        Char.IsInCar($Daughter, $WorkBike)
+        not Player.IsInCar($PLAYER1, $WorkBike)
     then
-        Blip.Remove($DaughterBlip)
+        $OffWorkBike = 1
+    end
+
+    if
+        $OffWorkBike == 1
+    then
+        $BikeBlip = Blip.AddForCar($WorkBike)
+        Blip.ChangeDisplay($BikeBlip, BlipDisplay.Both)
+        goto @Work_2149
+    else
+        Blip.Remove($BikeBlip)
     end
 end
 
@@ -11679,24 +11801,27 @@ Char.SetObjEnterCarAsDriver($scplayer, $Sabre)
 Char.SetObjEnterCarAsPassenger($EndOfGamePed, $Sabre)
 
 :Endgame_CheckBoarding
-wait 500
-if or
-    Char.IsInCar($scplayer, $Sabre)
-    Char.IsInCar($EndOfGamePed, $Sabre)
-then
-    goto @Endgame_Go
-end
+while not Char.IsInCar($EndOfGamePed, $Sabre)
+    wait 0
+    if
+        Char.IsInCar($EndOfGamePed, $Sabre)
+    then
+        if
+            Char.IsInCar($scplayer, $Sabre)
+        then
+            goto @Endgame_Go
+        end
+    end
 
-// Check if they got stuck while trying to enter
-if or
-    Char.IsStuck($EndOfGamePed)
-    Char.IsStuck($scplayer)
-then
-    // Reset positions to try entering again without re-spawning vehicles
-    Char.SetCoordinates($EndOfGamePed, -530.692, -315.928, 13.62)
-    Char.SetCoordinates($scplayer, -535.6, -325.521, 13.56)
-    wait 500
-    goto @Endgame_Enter
+    if or
+        Char.IsStuck($EndOfGamePed)
+        Char.IsStuck($scplayer)
+    then
+        Char.SetCoordinates($EndOfGamePed, -530.692, -315.928, 13.62)
+        Char.SetCoordinates($scplayer, -535.6, -325.521, 13.56)
+        wait 500
+        goto @Endgame_Enter
+    end
 end
 
 goto @Endgame_CheckBoarding
@@ -11733,11 +11858,13 @@ if
 then
     Char.Delete($EndOfGamePed)
 end
+
 if
     not Car.IsDead($Sabre)
 then
     Car.Delete($Sabre)
 end
+
 Char.SetCoordinates($scplayer, -535.6, -325.521, 13.56)
 goto @Endgame_LoadModels
 
@@ -11765,12 +11892,70 @@ terminate_this_script
 //-------------Mission 7---------------
 
 :Fairy
-Fairy_Body()
+$ONMISSION = 1
+Streaming.RequestModel(#WFYBE)
+Streaming.RequestModel(#WFYLG)
+Streaming.RequestModel(#WFYSH)
+Streaming.LoadAllModelsNow
+
+:Fairy_LoadWait
+wait 0
+if
+    Streaming.HasModelLoaded(#WFYBE)
+then
+    if
+        Streaming.HasModelLoaded(#WFYLG)
+    then
+        if
+            Streaming.HasModelLoaded(#WFYSH)
+        then
+            goto @Fairy_Start
+        else
+            goto @Fairy_LoadWait
+        end
+    else
+        goto @Fairy_LoadWait
+    end
+else
+    goto @Fairy_LoadWait
+end
+
+:Fairy_Start
+$Fairy1 = Char.Create(PedType.CivFemale, #WFYBE, -371.9346, -1750.0928, 11.6376)
+$Fairy2 = Char.Create(PedType.CivFemale, #WFYLG, -365.9346, -1750.0928, 11.6376)
+$Fairy3 = Char.Create(PedType.CivFemale, #WFYSH, -360.9346, -1750.0928, 11.6376)
+Char.TurnToFacePlayer($Fairy1, $PLAYER1)
+Char.TurnToFacePlayer($Fairy2, $PLAYER1)
+Char.TurnToFacePlayer($Fairy3, $PLAYER1)
+Char.TurnToFaceChar($PLAYER1, $Fairy1)
+Char.SetWaitState($Fairy1, WaitState.PlayAnimChat, 6789)
+wait 500
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Text.PrintString("Greetings, child.", 3000)
+wait 3000
+Text.PrintString("We have been waiting so long for your arrival...", 5000)
+wait 2000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+
 if
     has_deatharrest_been_executed
 then
-    Fairy_Fail()
+    goto @Fairy_Fail
 end
+
+Char.RemoveElegantly($Fairy1)
+Char.RemoveElegantly($Fairy2)
+Char.RemoveElegantly($Fairy3)
+$ONMISSION = 0
+Streaming.MarkModelAsNoLongerNeeded(#WFYBE)
+Streaming.MarkModelAsNoLongerNeeded(#WFYLG)
+Streaming.MarkModelAsNoLongerNeeded(#WFYSH)
+wait 3000
+Camera.DoFade(1500, Fade.In)
+wait 1000
+Player.SetControl($PLAYER1, True)
 terminate_this_script
 
 :Fairy_Fail
@@ -11791,52 +11976,9 @@ if
 then
     Char.RemoveElegantly($Fairy3)
 end
-Player.SetControl($PLAYER1, True)
-return
-
-:Fairy_Body
-script_name 'Fairy'
-
-:Fairy_101
-Streaming.RequestModel(#WFYBE)
-Streaming.RequestModel(#WFYLG)
-Streaming.RequestModel(#WFYSH)
-
-:Fairy_102
-wait 500
-Streaming.LoadAllModelsNow()
-wait 0
-if
-  Streaming.HasModelLoaded(#WFYBE)
-goto_if_false @Fairy_102
-goto @Fairy_103
-
-:Fairy_103
-$ONMISSION = 1
-$Fairy1 = Char.Create(PedType.CivFemale, #WFYBE, -371.9346, -1750.0928, 11.6376)
-$Fairy2 = Char.Create(PedType.CivFemale, #WFYLG, -365.9346, -1750.0928, 11.6376)
-$Fairy3 = Char.Create(PedType.CivFemale, #WFYSH, -360.9346, -1750.0928, 11.6376)
-Char.TurnToFacePlayer($Fairy1, $PLAYER1)
-Char.TurnToFacePlayer($Fairy2, $PLAYER1)
-Char.TurnToFacePlayer($Fairy3, $PLAYER1)
-Char.TurnToFaceChar($PLAYER1, $Fairy1)
-Char.SetWaitState($Fairy1, WaitState.PlayAnimChat, 6789)
-wait 500
-Camera.DoFade(1500, Fade.In)
-wait 1500
-Text.PrintString("Greetings, child.", 3000)
-wait 3000
-Text.PrintString("We have been waiting so long for your arrival...", 5000)
-wait 2000
-Camera.DoFade(1500, Fade.Out)
-wait 1500
-Char.RemoveElegantly($Fairy1)
-Char.RemoveElegantly($Fairy2)
-Char.RemoveElegantly($Fairy3)
-$ONMISSION = 0
-wait 3000
-Camera.DoFade(1500, Fade.In)
-wait 1000
+Streaming.MarkModelAsNoLongerNeeded(#WFYBE)
+Streaming.MarkModelAsNoLongerNeeded(#WFYLG)
+Streaming.MarkModelAsNoLongerNeeded(#WFYSH)
 Player.SetControl($PLAYER1, True)
 terminate_this_script
 
@@ -11844,3 +11986,8 @@ terminate_this_script
 
 :Hell
 script_name 'Hell'
+
+//-------------Mission 9---------------
+
+:RandomViolence
+script_name 'Random'
