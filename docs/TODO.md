@@ -85,4 +85,4 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 **Open.**
 
-- "Are You There God? It's Me, Toni"
+- "Are You There God? It's Me, Toni!"
