@@ -1,258 +1,270 @@
-<title>Package Tracker Tests</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<style>
-  /* Layout: one narrow column. A summary bar, a setup checklist, then one card per test step. */
-  :root {
-    --bg: #f4f7f6;
-    --surface: #ffffff;
-    --ink: #18211f;
-    --muted: #55655f;
-    --line: #d5dfdb;
-    --accent: #0f766e;
-    --accent-ink: #ffffff;
-    --pass: #166534;
-    --pass-bg: #def3e5;
-    --fail: #b42318;
-    --fail-bg: #fde7e4;
-    --idle-bg: #ebf0ee;
-    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #101615;
-      --surface: #182120;
-      --ink: #e6eeec;
-      --muted: #9db2ad;
-      --line: #2c3a37;
-      --accent: #4fd1c2;
-      --accent-ink: #06201c;
-      --pass: #7be3a8;
-      --pass-bg: #16382a;
-      --fail: #ffa095;
-      --fail-bg: #45211d;
-      --idle-bg: #1f2a28;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #101615;
-    --surface: #182120;
-    --ink: #e6eeec;
-    --muted: #9db2ad;
-    --line: #2c3a37;
-    --accent: #4fd1c2;
-    --accent-ink: #06201c;
-    --pass: #7be3a8;
-    --pass-bg: #16382a;
-    --fail: #ffa095;
-    --fail-bg: #45211d;
-    --idle-bg: #1f2a28;
-    color-scheme: dark;
-  }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font: 15px/1.5 var(--sans);
-    padding-block: 28px 48px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  .wrap { max-width: 760px; margin-inline: auto; display: grid; gap: 20px; }
-  h1 { font-size: 1.7rem; line-height: 1.2; margin: 0; text-wrap: balance; }
-  h2 { font-size: 1rem; margin: 0 0 10px; letter-spacing: 0.02em; }
-  p { margin: 0; }
-  .lede { color: var(--muted); max-width: 65ch; margin-top: 6px; }
-  code, .mono { font-family: var(--mono); font-size: 0.92em; }
-  kbd {
-    font-family: var(--mono); font-size: 0.9em; padding: 1px 7px;
-    border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--surface);
-  }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
-  .summary { display: grid; gap: 12px; }
-  .counts { display: flex; flex-wrap: wrap; gap: 8px 20px; font-variant-numeric: tabular-nums; }
-  .counts span b { font-size: 1.25rem; margin-right: 4px; }
-  .bar { height: 8px; border-radius: 4px; background: var(--idle-bg); display: flex; overflow: hidden; }
-  .bar i { display: block; height: 100%; }
-  .bar .p { background: var(--pass); }
-  .bar .f { background: var(--fail); }
-  .setup { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-  .setup label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
-  .setup input { margin-top: 4px; accent-color: var(--accent); }
-  .steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-  .step { display: grid; gap: 10px; }
-  .step.pass { border-color: var(--pass); }
-  .step.fail { border-color: var(--fail); }
-  .step-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
-  .id { font-family: var(--mono); font-weight: 700; color: var(--accent); }
-  .action { font-weight: 600; min-width: 0; flex: 1 1 14rem; }
-  .expect { color: var(--muted); min-width: 0; }
-  .expect b { color: var(--ink); font-weight: 600; }
-  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; width: fit-content; max-width: 100%; }
-  .seg button {
-    font: inherit; padding: 6px 14px; border: 0; background: var(--surface); color: var(--ink); cursor: pointer;
-    border-right: 1px solid var(--line); min-height: 34px;
-  }
-  .seg button:last-child { border-right: 0; }
-  .seg button[aria-pressed="true"].u { background: var(--idle-bg); font-weight: 700; }
-  .seg button[aria-pressed="true"].p { background: var(--pass-bg); color: var(--pass); font-weight: 700; }
-  .seg button[aria-pressed="true"].f { background: var(--fail-bg); color: var(--fail); font-weight: 700; }
-  button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  textarea {
-    font: inherit; width: 100%; min-height: 54px; resize: vertical; padding: 8px 10px;
-    border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink);
-  }
-  .facts { display: grid; gap: 6px; margin: 0; padding-left: 1.1em; }
-  .note { color: var(--muted); font-size: 0.9rem; }
-  .saving { min-height: 1.3em; }
-  @media (prefers-reduced-motion: no-preference) {
-    .bar i { transition: width 0.25s ease; }
-  }
-</style>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Package Tracker</title>
+  <link rel="stylesheet" href="../testing/test-plan.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to test cases</a>
 
-<main class="wrap">
-  <header>
-    <h1>Package Tracker Tests</h1>
-    <p class="lede">Check the radar package tracker in the game after a build. Mark each step, add a note when something differs, and the page keeps your results.</p>
+  <header class="page-header">
+    <p class="eyebrow">Test Plan</p>
+    <h1>Package Tracker</h1>
+    <p class="intro">Check the radar package tracker in the game after a build. Each case checks one step of the tracker.</p>
   </header>
 
-  <section class="card summary" aria-label="Progress">
-    <div class="counts">
-      <span><b id="n-pass">0</b>passed</span>
-      <span><b id="n-fail">0</b>failed</span>
-      <span><b id="n-idle">8</b>untested</span>
-    </div>
-    <div class="bar" role="img" aria-label="Progress bar"><i class="p" id="bar-p" style="width:0"></i><i class="f" id="bar-f" style="width:0"></i></div>
-    <p class="note saving" id="save-note"></p>
+  <section id="test-progress" class="test-progress" aria-labelledby="completion-heading">
+    <h2 id="completion-heading" class="visually-hidden">Test Plan Completion</h2>
+    <p class="progress-row">
+      <span id="completion-count" class="progress-count">0 of 8</span>
+      <progress id="completion-progress" aria-labelledby="completion-heading" max="8" value="0">0 of 8</progress>
+      <span class="progress-spacer" aria-hidden="true"></span>
+      <span id="completion-outcomes" class="completion-outcomes">
+        <span id="passed-pill" class="metric-pill metric-pill--passed" role="img" title="0 passed" aria-label="0 test cases have passed">
+          <span id="passed-count">0</span>
+          <span class="visually-hidden">passed</span>
+        </span>
+        <span id="failed-pill" class="metric-pill metric-pill--failed" role="img" title="0 failed" aria-label="0 test cases have failed">
+          <span id="failed-count">0</span>
+          <span class="visually-hidden">failed</span>
+        </span>
+      </span>
+    </p>
+    <p id="completion-summary" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">0 of 8 cases recorded.</p>
+    <p id="storage-status" class="storage-status" role="status" aria-live="polite" hidden></p>
   </section>
 
-  <section class="card" aria-label="Setup">
-    <h2>Setup</h2>
-    <ul class="setup" id="setup"></ul>
-  </section>
-
-  <section class="card" aria-label="How the tracker works">
-    <h2>How the tracker works</h2>
-    <ul class="facts">
+  <div class="note">
+    <h3>How the Tracker Works</h3>
+    <ul>
       <li><code>MAIN</code> starts the <code>PackageToggle</code> thread. The tracker itself starts off.</li>
       <li><kbd>P</kbd> turns it on and starts the <code>PACKAGE</code> thread. <kbd>O</kbd> turns it off and ends that thread.</li>
       <li>A red blip marks the current package. Coming within 3.5 units moves it to the next location.</li>
       <li><kbd>O</kbd> then <kbd>P</kbd> starts again at the first location.</li>
       <li>After a death or bust, both threads wait and resume instead of running into <code>Get_Package_Coords</code>.</li>
     </ul>
-  </section>
+  </div>
 
-  <ol class="steps" id="steps"></ol>
+  <nav class="toc" aria-label="Test cases">
+    <h2>Test Cases</h2>
+    <ol>
+      <li><a href="#case-1">Turn On the Tracker</a></li>
+      <li><a href="#case-2">Drive Into the Blip</a></li>
+      <li><a href="#case-3">Turn Off the Tracker</a></li>
+      <li><a href="#case-4">Turn On the Tracker Again</a></li>
+      <li><a href="#case-5">Get Busted With the Tracker On</a></li>
+      <li><a href="#case-6">Die With the Tracker On</a></li>
+      <li><a href="#case-7">Collect the First Package</a></li>
+      <li><a href="#case-8">Collect a Second Package After a Death</a></li>
+    </ol>
+  </nav>
 
-  <p class="note">Not covered: the reward pickups at 10, 20, 45, 60, and 80 packages. Reaching them takes too long for a quick test.</p>
-</main>
+  <main id="main">
+    <section class="test-case" id="case-1">
+      <div class="test-case-title">
+        <h2>Turn On the Tracker</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn On the Tracker</legend>
+          <label><input type="radio" name="case-1" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-1" value="passed">Passed</label>
+          <label><input type="radio" name="case-1" value="failed">Failed</label>
+        </fieldset>
+      </div>
 
-<script>
-  var SETUP = [
-    "Compile the current main.txt, install main.scm, and check that the installed file is newer than main.txt.",
-    "Start a new game and wait for the opening tutorial to end.",
-    "The temporary two-star wanted level makes the cops chase you from the start."
-  ];
-  var STEPS = [
-    { id: "T1", action: "Press P after the tutorial", expect: "Help text PACKON shows and a red blip appears at -995.3, 185.0." },
-    { id: "T2", action: "Drive into the blip", expect: "The blip moves to the next location, 132.1, -1099.1." },
-    { id: "T3", action: "Press O", expect: "Help text PACKOFF shows and the blip disappears." },
-    { id: "T4", action: "Press P again", expect: "The blip returns at the first location." },
-    { id: "T5", action: "Get busted with the tracker on", expect: "The player respawns at the police station without a crash. Note whether the blip remains." },
-    { id: "T6", action: "Die with the tracker on", expect: "The player respawns at the hospital without a crash. Note whether the blip remains." },
-    { id: "T7", action: "Collect the first package", expect: "Help texts PACKHL1, PACKHL2, and PACKHLP show in order." },
-    { id: "T8", action: "Die, respawn, then collect a second package", expect: "The tutorial help texts do not show again." }
-  ];
-  var STATUS = [["u", "Untested"], ["p", "Pass"], ["f", "Fail"]];
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> Close the game. In the project folder, run <code>deno task install</code> and wait for it to finish.</label></li>
+          <li><label><input type="checkbox"> In the project folder, run <code>deno task run</code> to start the game, then choose New Game.</label></li>
+          <li><label><input type="checkbox"> Let the opening tutorial end. The temporary two-star wanted level makes the cops chase you from the start.</label></li>
+          <li><label><input type="checkbox"> Press P.</label></li>
+        </ol>
+      </details>
 
-  var state = { steps: {}, setup: {} };
-  var docRef = null;
-  var queue = Promise.resolve();
-  var refs = {};
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help text PACKON shows, and a red blip appears at -995.3, 185.0.</p>
+      </fieldset>
+    </section>
 
-  function clone(x) { return JSON.parse(JSON.stringify(x)); }
-  function el(tag, props, kids) {
-    var n = document.createElement(tag);
-    Object.keys(props || {}).forEach(function (k) {
-      if (k === "text") n.textContent = props[k]; else n.setAttribute(k, props[k]);
-    });
-    (kids || []).forEach(function (c) { n.appendChild(c); });
-    return n;
-  }
-  function stepState(id) { return state.steps[id] || { status: "u", note: "" }; }
+    <section class="test-case" id="case-2">
+      <div class="test-case-title">
+        <h2>Drive Into the Blip</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Drive Into the Blip</legend>
+          <label><input type="radio" name="case-2" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-2" value="passed">Passed</label>
+          <label><input type="radio" name="case-2" value="failed">Failed</label>
+        </fieldset>
+      </div>
 
-  function persist() {
-    var note = document.getElementById("save-note");
-    if (!docRef) { note.textContent = "Results are not being saved. Sign in to keep them between visits."; return; }
-    var payload = { steps: clone(state.steps), setup: clone(state.setup), updated: new Date().toISOString() };
-    queue = queue.then(function () { return docRef.set(payload); }).then(function () {
-      note.textContent = "Saved.";
-    }).catch(function (e) { console.error(e); note.textContent = "Could not save. Try again."; });
-  }
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, drive into the red blip.</label></li>
+        </ol>
+      </details>
 
-  function paint() {
-    var p = 0, f = 0;
-    STEPS.forEach(function (s) {
-      var st = stepState(s.id), r = refs[s.id];
-      if (st.status === "p") p++;
-      if (st.status === "f") f++;
-      r.card.className = "card step" + (st.status === "p" ? " pass" : st.status === "f" ? " fail" : "");
-      r.buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === st.status ? "true" : "false"); });
-    });
-    document.getElementById("n-pass").textContent = p;
-    document.getElementById("n-fail").textContent = f;
-    document.getElementById("n-idle").textContent = STEPS.length - p - f;
-    document.getElementById("bar-p").style.width = (100 * p / STEPS.length) + "%";
-    document.getElementById("bar-f").style.width = (100 * f / STEPS.length) + "%";
-    SETUP.forEach(function (_, i) { document.getElementById("setup-" + i).checked = !!state.setup[i]; });
-  }
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The blip moves to the next location, 132.1, -1099.1.</p>
+      </fieldset>
+    </section>
 
-  function build() {
-    var ul = document.getElementById("setup");
-    SETUP.forEach(function (t, i) {
-      var box = el("input", { type: "checkbox", id: "setup-" + i });
-      box.addEventListener("change", function () { state.setup[i] = box.checked; persist(); });
-      ul.appendChild(el("li", {}, [el("label", {}, [box, el("span", { text: t })])]));
-    });
-    var ol = document.getElementById("steps");
-    STEPS.forEach(function (s) {
-      var buttons = STATUS.map(function (pair) {
-        var b = el("button", { type: "button", class: pair[0], "data-v": pair[0], "aria-pressed": "false", text: pair[1] });
-        b.addEventListener("click", function () {
-          var cur = clone(stepState(s.id)); cur.status = pair[0]; state.steps[s.id] = cur; paint(); persist();
-        });
-        return b;
-      });
-      var note = el("textarea", { id: "note-" + s.id, "aria-label": "Note for " + s.id, placeholder: "What you saw, if it differs" });
-      note.addEventListener("change", function () {
-        var cur = clone(stepState(s.id)); cur.note = note.value; state.steps[s.id] = cur; persist();
-      });
-      var expect = el("p", { class: "expect" }, [el("b", { text: "Expect: " }), document.createTextNode(s.expect)]);
-      var head = el("div", { class: "step-head" }, [el("span", { class: "id", text: s.id }), el("span", { class: "action", text: s.action })]);
-      var card = el("li", { class: "card step" }, [head, expect, el("div", { class: "seg", role: "group", "aria-label": "Result for " + s.id }, buttons), note]);
-      refs[s.id] = { card: card, buttons: buttons, note: note };
-      ol.appendChild(card);
-    });
-  }
+    <section class="test-case" id="case-3">
+      <div class="test-case-title">
+        <h2>Turn Off the Tracker</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn Off the Tracker</legend>
+          <label><input type="radio" name="case-3" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-3" value="passed">Passed</label>
+          <label><input type="radio" name="case-3" value="failed">Failed</label>
+        </fieldset>
+      </div>
 
-  async function init() {
-    build();
-    paint();
-    try {
-      var db = window.claude && window.claude.use ? await window.claude.use("db") : null;
-      if (db) {
-        docRef = db.doc("testplan/package-tracker");
-        var snap = await docRef.get();
-        if (snap && snap.exists) {
-          var d = snap.data();
-          state.steps = clone((d && d.steps) || {});
-          state.setup = clone((d && d.setup) || {});
-          STEPS.forEach(function (s) { refs[s.id].note.value = stepState(s.id).note || ""; });
-        }
-      }
-    } catch (e) { console.error(e); docRef = null; }
-    paint();
-    if (!docRef) persist();
-  }
-  init();
-</script>
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, press O.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help text PACKOFF shows, and the blip disappears.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-4">
+      <div class="test-case-title">
+        <h2>Turn On the Tracker Again</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn On the Tracker Again</legend>
+          <label><input type="radio" name="case-4" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-4" value="passed">Passed</label>
+          <label><input type="radio" name="case-4" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, press P again.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The blip returns at the first location.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-5">
+      <div class="test-case-title">
+        <h2>Get Busted With the Tracker On</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Get Busted With the Tracker On</legend>
+          <label><input type="radio" name="case-5" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-5" value="passed">Passed</label>
+          <label><input type="radio" name="case-5" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, get busted with the tracker on.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The player respawns at the police station without a crash. Watch whether the blip remains.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-6">
+      <div class="test-case-title">
+        <h2>Die With the Tracker On</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Die With the Tracker On</legend>
+          <label><input type="radio" name="case-6" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-6" value="passed">Passed</label>
+          <label><input type="radio" name="case-6" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, die with the tracker on.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The player respawns at the hospital without a crash. Watch whether the blip remains.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-7">
+      <div class="test-case-title">
+        <h2>Collect the First Package</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Collect the First Package</legend>
+          <label><input type="radio" name="case-7" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-7" value="passed">Passed</label>
+          <label><input type="radio" name="case-7" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, collect the first package.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help texts PACKHL1, PACKHL2, and PACKHLP show in order.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-8">
+      <div class="test-case-title">
+        <h2>Collect a Second Package After a Death</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Collect a Second Package After a Death</legend>
+          <label><input type="radio" name="case-8" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-8" value="passed">Passed</label>
+          <label><input type="radio" name="case-8" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> Die, and let the player respawn.</label></li>
+          <li><label><input type="checkbox"> Collect a second package.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The tutorial help texts do not show again.</p>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer>
+    <p>Install with the game closed before the first case. Later cases continue in the same game session.</p>
+    <p>Not covered: the reward pickups at 10, 20, 45, 60, and 80 packages. Reaching them takes too long for a quick test.</p>
+  </footer>
+
+  <script src="../testing/confetti.js"></script>
+  <script src="../testing/test-plan.js"></script>
+</body>
+</html>
