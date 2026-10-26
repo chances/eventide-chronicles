@@ -1,0 +1,108 @@
+:rooftop
+script_name 'rooftop'
+
+:rooftop_10
+wait 250
+if
+    Player.LocateAnyMeans3D($PLAYER1, 475.9131, 30.3055, 12.0714, 3.0, 3.0, 3.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, 456.856, 30.6297, 34.8713)
+    Player.SetHeading($PLAYER1, 90)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_126
+end
+
+:rooftop_126
+wait 250
+if
+    Player.LocateAnyMeans3D($PLAYER1, 451.3415, 30.3045, 34.8712, 3.0, 3.0, 3.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, 479.6425, 30.1541, 11.0712)
+    Player.SetHeading($PLAYER1, 271)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_149
+end
+
+:rooftop_149
+wait 250
+if
+    Player.LocateAnyMeans3D($PLAYER1, -37.0038, -940.981, 10.459, 3.0, 3.0, 3.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, -37.8953, -936.8558, 24.573)
+    Player.SetHeading($PLAYER1, 90)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_150
+end
+
+:rooftop_150
+wait 250
+if
+  Player.LocateAnyMeans3D($PLAYER1, 46.0097, -936.7421, 24.573, 3.0, 3.0, 3.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, 44.4521, -941.1642, 10.459)
+    Player.SetHeading($PLAYER1, 274)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_160
+end
+
+:rooftop_160
+wait 250
+if
+    Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 17.7805, 2.0, 2.0, 2.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, 154.5795, -1150.3979, 31.3094)
+    Player.SetHeading($PLAYER1, 93.49)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_170
+end
+
+:rooftop_170
+wait 250
+if
+  Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 31.3094, 3.0, 3.0, 3.0, False)
+then
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Player.SetCoordinates($PLAYER1, 154.5795, -1160.3979, 17.7805)
+    Player.SetHeading($PLAYER1, 93.49)
+    wait 250
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    goto @rooftop_9000
+else
+    goto @rooftop_9000
+end
+
+:rooftop_9000
+goto @rooftop_10
+

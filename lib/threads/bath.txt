@@ -1,0 +1,42 @@
+:Bath
+script_name 'Bathe'
+
+:Bath_20
+wait 250
+if
+  Player.LocateAnyMeans3D($PLAYER1, 531.8765, -118.7697, 13.337, 1.0, 1.0, 1.0, False)
+goto_if_false @Bath_40
+if
+  Player.CanStartMission($PLAYER1)
+goto_if_false @Bath_40
+if
+  $ONMISSION == 0
+goto_if_false @Bath_40
+goto @Bath_30
+
+:Bath_30
+$TIMER = 120000
+Sphere.Remove($GodsBathSphere)
+$ONMISSION = 1
+Camera.DoFade(500, Fade.Out)
+wait 500
+Clock.SetTimeOfDay(6, 00)
+Weather.Force(WeatherType.Rainy)
+Player.SetCoordinates($PLAYER1, 650.3204, -300.0909, 42.021)
+Camera.DoFade(500, Fade.In)
+wait 500
+Text.PrintHelpString("It looks like Poseidon isn't too keen on letting you into his family's penthouse.")
+wait 5000
+Text.PrintHelpString("I'd be on the lookout for golf-ball sized hail or a biblical plague soon.")
+wait 5000
+Text.PrintHelpString("Maybe next time, you'll think twice before tresspassing, eh?")
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+wait 120000
+Hud.ClearTimer($TIMER)
+$ONMISSION = 0
+Weather.SetAllowHurricanes(True)
+terminate_this_script
+
+:Bath_40
+goto @Bath_20
+

@@ -1,0 +1,1198 @@
+:BUS
+set_deatharrest_state 0
+script_name 'BUS'
+$BUS_POSITION = 1
+
+:BUS_21
+if
+  $BUS_CREATED == 0
+goto_if_false @BUS_115
+wait 500
+$MOVE_BUS += 1
+if
+  $MOVE_BUS > 30
+goto_if_false @BUS_83
+$BUS_POSITION += 1
+$MOVE_BUS = 0
+
+:BUS_83
+if
+  $BUS_POSITION > 17
+goto_if_false @BUS_108
+$BUS_POSITION = 1
+
+:BUS_108
+goto @BUS_120
+
+:BUS_115
+wait 500
+
+:BUS_120
+if
+  $ONMISSION == 0
+goto_if_false @BUS_3698
+$STOP_CHECK_ON_MISSION = 0
+if
+  $BUS_CREATED == 0
+goto_if_false @BUS_2470
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_350
+if
+  Player.IsInAnyCar($PLAYER1)
+goto_if_false @BUS_350
+if
+  Player.IsInModel($PLAYER1, #COACH)
+goto_if_false @BUS_350
+if
+  Player.IsStopped($PLAYER1)
+goto_if_false @BUS_350
+$TIME_TO_GET_END = Clock.GetGameTimer()
+set_var_int_to_var_int $TOTAL_TIME_TO_GET = $TIME_TO_GET_END
+sub_int_var_from_int_var $TOTAL_TIME_TO_GET -= $TIME_TO_GET_START
+if
+  $TOTAL_TIME_TO_GET > 1000
+goto_if_false @BUS_350
+$BUS_FARES = Player.GetBusFaresCollected($PLAYER1)
+if
+  $BUS_FARES > 0
+goto_if_false @BUS_350
+Text.PrintWithNumberBig('BONUS', 5, 50, TextStyle.Middle) // ~g~BONUS $~1~
+Sound.AddOneOffSound(0.0, 0.0, 0.0, ScriptSound.SoundPartMissionComplete)
+Player.AddScore($PLAYER1, 5)
+$TIME_TO_GET_START = Clock.GetGameTimer()
+$BUS_FARES = 0
+
+:BUS_350
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_1524
+if or
+  Player.IsInZone($PLAYER1, 'BEACH1') // Ocean Beach
+  Player.IsInZone($PLAYER1, 'BEACH2') // Washington Beach
+  Player.IsInZone($PLAYER1, 'BEACH3') // Vice Point
+goto_if_false @BUS_1524
+if
+  $FLAG_PLAYER_IN_STRIPCLUB == 0
+goto_if_false @BUS_1524
+if
+  $FLAG_PLAYER_IN_HOTEL == 0
+goto_if_false @BUS_1524
+if
+  $FLAG_PLAYER_IN_MALIBU == 0
+goto_if_false @BUS_1524
+if
+  $FLAG_PLAYER_IN_MALL == 0
+goto_if_false @BUS_1524
+if
+  $FLAG_PLAYER_IN_COP_SHOP == 0
+goto_if_false @BUS_1524
+if
+  $BUS_POSITION == 1
+goto_if_false @BUS_564
+$BUSX = -77.6
+$BUSY = -982.5
+$BUSZ = 9.3
+$BUS_HEADING = 9.8
+
+:BUS_564
+if
+  $BUS_POSITION == 2
+goto_if_false @BUS_622
+$BUSX = 120.0
+$BUSY = -807.3
+$BUSZ = 9.3
+$BUS_HEADING = 333.5
+
+:BUS_622
+if
+  $BUS_POSITION == 3
+goto_if_false @BUS_680
+$BUSX = 183.2
+$BUSY = -488.9
+$BUSZ = 9.9
+$BUS_HEADING = 356.5
+
+:BUS_680
+if
+  $BUS_POSITION == 4
+goto_if_false @BUS_738
+$BUSX = 318.6
+$BUSY = -82.7
+$BUSZ = 9.6
+$BUS_HEADING = 351.4
+
+:BUS_738
+if
+  $BUS_POSITION == 5
+goto_if_false @BUS_796
+$BUSX = 472.7
+$BUSY = 627.8
+$BUSZ = 10.0
+$BUS_HEADING = 1.7
+
+:BUS_796
+if
+  $BUS_POSITION == 6
+goto_if_false @BUS_854
+$BUSX = 226.5
+$BUSY = 719.5
+$BUSZ = 9.7
+$BUS_HEADING = 304.3
+
+:BUS_854
+if
+  $BUS_POSITION == 7
+goto_if_false @BUS_912
+$BUSX = 306.9
+$BUSY = 1044.8
+$BUSZ = 12.1
+$BUS_HEADING = 19.4
+
+:BUS_912
+if
+  $BUS_POSITION == 8
+goto_if_false @BUS_970
+$BUSX = 448.7
+$BUSY = 1274.3
+$BUSZ = 16.3
+$BUS_HEADING = 269.5
+
+:BUS_970
+if
+  $BUS_POSITION == 9
+goto_if_false @BUS_1028
+$BUSX = 499.5
+$BUSY = 1022.8
+$BUSZ = 16.8
+$BUS_HEADING = 192.4
+
+:BUS_1028
+if
+  $BUS_POSITION == 10
+goto_if_false @BUS_1086
+$BUSX = 528.1
+$BUSY = 632.5
+$BUSZ = 9.8
+$BUS_HEADING = 180.9
+
+:BUS_1086
+if
+  $BUS_POSITION == 11
+goto_if_false @BUS_1144
+$BUSX = 516.2
+$BUSY = 403.6
+$BUSZ = 9.7
+$BUS_HEADING = 162.7
+
+:BUS_1144
+if
+  $BUS_POSITION == 12
+goto_if_false @BUS_1202
+$BUSX = 491.5
+$BUSY = 0.6
+$BUSZ = 9.6
+$BUS_HEADING = 194.7
+
+:BUS_1202
+if
+  $BUS_POSITION == 13
+goto_if_false @BUS_1260
+$BUSX = 434.1
+$BUSY = -454.1
+$BUSZ = 9.0
+$BUS_HEADING = 178.5
+
+:BUS_1260
+if
+  $BUS_POSITION == 14
+goto_if_false @BUS_1318
+$BUSX = 217.1
+$BUSY = -974.4
+$BUSZ = 9.0
+$BUS_HEADING = 168.2
+
+:BUS_1318
+if
+  $BUS_POSITION == 15
+goto_if_false @BUS_1376
+$BUSX = 160.6
+$BUSY = -1329.6
+$BUSZ = 9.0
+$BUS_HEADING = 172.8
+
+:BUS_1376
+if
+  $BUS_POSITION == 16
+goto_if_false @BUS_1434
+$BUSX = -26.6
+$BUSY = -1566.2
+$BUSZ = 9.0
+$BUS_HEADING = 84.0
+
+:BUS_1434
+if
+  $BUS_POSITION == 17
+goto_if_false @BUS_1492
+$BUSX = -21.6
+$BUSY = -1307.4
+$BUSZ = 9.0
+$BUS_HEADING = 358.1
+
+:BUS_1492
+BUS_3739()
+if
+  $BUS_CREATED == 1
+goto_if_false @BUS_1524
+$WHERE_BUS = 1
+
+:BUS_1524
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_2463
+if or
+  Player.IsInZone($PLAYER1, 'DTOWN') // Downtown
+  Player.IsInZone($PLAYER1, 'HAITI') // Little Haiti
+  Player.IsInZone($PLAYER1, 'HAVANA') // Little Havana
+  Player.IsInZone($PLAYER1, 'A_PORT') // Escobar International
+  Player.IsInZone($PLAYER1, 'JUNKY') // Junk Yard
+goto_if_false @BUS_2463
+if
+  $FLAG_PLAYER_IN_BANK == 0
+goto_if_false @BUS_2463
+if
+  $FLAG_PLAYER_IN_SHOOTING_RANGE == 0
+goto_if_false @BUS_2463
+if
+  $BUS_POSITION > 13
+goto_if_false @BUS_1677
+$BUS_POSITION = 1
+
+:BUS_1677
+if
+  $BUS_POSITION == 1
+goto_if_false @BUS_1735
+$BUSX = -385.7
+$BUSY = 1008.3
+$BUSZ = 8.4
+$BUS_HEADING = 338.4
+
+:BUS_1735
+if
+  $BUS_POSITION == 2
+goto_if_false @BUS_1793
+$BUSX = -295.4
+$BUSY = 1283.6
+$BUSZ = 10.1
+$BUS_HEADING = 0.0
+
+:BUS_1793
+if
+  $BUS_POSITION == 3
+goto_if_false @BUS_1851
+$BUSX = -477.4
+$BUSY = 1344.0
+$BUSZ = 10.1
+$BUS_HEADING = 97.2
+
+:BUS_1851
+if
+  $BUS_POSITION == 4
+goto_if_false @BUS_1909
+$BUSX = -744.3
+$BUSY = 1319.0
+$BUSZ = 10.1
+$BUS_HEADING = 101.4
+
+:BUS_1909
+if
+  $BUS_POSITION == 5
+goto_if_false @BUS_1967
+$BUSX = -875.4
+$BUSY = 1351.1
+$BUSZ = 9.8
+$BUS_HEADING = 187.2
+
+:BUS_1967
+if
+  $BUS_POSITION == 6
+goto_if_false @BUS_2025
+$BUSX = -869.5
+$BUSY = 1074.8
+$BUSZ = 9.4
+$BUS_HEADING = 182.7
+
+:BUS_2025
+if
+  $BUS_POSITION == 7
+goto_if_false @BUS_2083
+$BUSX = -996.5
+$BUSY = -513.8
+$BUSZ = 9.3
+$BUS_HEADING = 186.3
+
+:BUS_2083
+if
+  $BUS_POSITION == 8
+goto_if_false @BUS_2141
+$BUSX = -910.1
+$BUSY = -660.4
+$BUSZ = 9.6
+$BUS_HEADING = 277.9
+
+:BUS_2141
+if
+  $BUS_POSITION == 9
+goto_if_false @BUS_2199
+$BUSX = -1432.9
+$BUSY = -780.5
+$BUSZ = 13.2
+$BUS_HEADING = 88.4
+
+:BUS_2199
+if
+  $BUS_POSITION == 10
+goto_if_false @BUS_2257
+$BUSX = -1017.7
+$BUSY = -918.7
+$BUSZ = 12.9
+$BUS_HEADING = 46.4
+
+:BUS_2257
+if
+  $BUS_POSITION == 11
+goto_if_false @BUS_2315
+$BUSX = -1130.8
+$BUSY = -594.3
+$BUSZ = 10.0
+$BUS_HEADING = 275.0
+
+:BUS_2315
+if
+  $BUS_POSITION == 12
+goto_if_false @BUS_2373
+$BUSX = -1200.6
+$BUSY = -420.0
+$BUSZ = 9.3
+$BUS_HEADING = 5.8
+
+:BUS_2373
+if
+  $BUS_POSITION == 13
+goto_if_false @BUS_2431
+$BUSX = -1061.0
+$BUSY = -340.2
+$BUSZ = 9.3
+$BUS_HEADING = 278.5
+
+:BUS_2431
+BUS_3739()
+if
+  $BUS_CREATED == 1
+goto_if_false @BUS_2463
+$WHERE_BUS = 2
+
+:BUS_2463
+goto @BUS_3691
+
+:BUS_2470
+if or
+  $FLAG_PLAYER_IN_STRIPCLUB == 1
+  $FLAG_PLAYER_IN_HOTEL == 1
+  $FLAG_PLAYER_IN_MALIBU == 1
+  $FLAG_PLAYER_IN_MALL == 1
+  $FLAG_PLAYER_IN_BANK == 1
+goto_if_false @BUS_2523
+BUS_7126()
+
+:BUS_2523
+if or
+  $FLAG_PLAYER_IN_SHOOTING_RANGE == 1
+  $FLAG_PLAYER_IN_COP_SHOP == 1
+goto_if_false @BUS_2555
+BUS_7126()
+
+:BUS_2555
+if
+  $WHERE_BUS == 1
+goto_if_false @BUS_3170
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_3170
+if or
+  Player.IsInZone($PLAYER1, 'BEACH1') // Ocean Beach
+  Player.IsInZone($PLAYER1, 'BEACH2') // Washington Beach
+  Player.IsInZone($PLAYER1, 'BEACH3') // Vice Point
+goto_if_false @BUS_3163
+$BUS_COORDX1 = -77.6
+$BUS_COORDY1 = -982.5
+$BUS_COORDZ1 = 9.4
+$BUS_COORDX2 = 120.0
+$BUS_COORDY2 = -807.3
+$BUS_COORDZ2 = 9.4
+$BUS_COORDX3 = 183.2
+$BUS_COORDY3 = -488.9
+$BUS_COORDZ3 = 10.9
+$BUS_COORDX4 = 318.6
+$BUS_COORDY4 = -82.7
+$BUS_COORDZ4 = 9.6
+$BUS_COORDX5 = 472.7
+$BUS_COORDY5 = 627.8
+$BUS_COORDZ5 = 10.0
+$BUS_COORDX6 = 226.5
+$BUS_COORDY6 = 719.5
+$BUS_COORDZ6 = 9.7
+$BUS_COORDX7 = 306.9
+$BUS_COORDY7 = 1044.8
+$BUS_COORDZ7 = 11.9
+$BUS_COORDX8 = 448.7
+$BUS_COORDY8 = 1274.3
+$BUS_COORDZ8 = 16.1
+$BUS_COORDX9 = 499.5
+$BUS_COORDY9 = 1022.8
+$BUS_COORDZ9 = 16.8
+$BUS_COORDX10 = 528.1
+$BUS_COORDY10 = 632.5
+$BUS_COORDZ10 = 9.8
+$BUS_COORDX11 = 516.2
+$BUS_COORDY11 = 403.6
+$BUS_COORDZ11 = 9.7
+$BUS_COORDX12 = 491.5
+$BUS_COORDY12 = 0.6
+$BUS_COORDZ12 = 9.6
+$BUS_COORDX13 = 434.1
+$BUS_COORDY13 = -454.1
+$BUS_COORDZ13 = 9.7
+$BUS_COORDX14 = 217.1
+$BUS_COORDY14 = -974.4
+$BUS_COORDZ14 = 9.0
+$BUS_COORDX15 = 160.6
+$BUS_COORDY15 = -1329.6
+$BUS_COORDZ15 = 9.0
+$BUS_COORDX16 = -26.6
+$BUS_COORDY16 = -1566.2
+$BUS_COORDZ16 = 9.0
+$BUS_COORDX17 = -21.6
+$BUS_COORDY17 = -1307.4
+$BUS_COORDZ17 = 9.0
+BUS_3997()
+goto @BUS_3170
+
+:BUS_3163
+BUS_7126()
+
+:BUS_3170
+if
+  $WHERE_BUS == 2
+goto_if_false @BUS_3691
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_3691
+if or
+  Player.IsInZone($PLAYER1, 'DTOWN') // Downtown
+  Player.IsInZone($PLAYER1, 'HAITI') // Little Haiti
+  Player.IsInZone($PLAYER1, 'HAVANA') // Little Havana
+  Player.IsInZone($PLAYER1, 'A_PORT') // Escobar International
+  Player.IsInZone($PLAYER1, 'JUNKY') // Junk Yard
+goto_if_false @BUS_3684
+$BUS_COORDX1 = -385.7
+$BUS_COORDY1 = 1008.3
+$BUS_COORDZ1 = 8.4
+$BUS_COORDX2 = -295.4
+$BUS_COORDY2 = 1283.6
+$BUS_COORDZ2 = 10.1
+$BUS_COORDX3 = -477.4
+$BUS_COORDY3 = 1344.0
+$BUS_COORDZ3 = 10.1
+$BUS_COORDX4 = -744.3
+$BUS_COORDY4 = 1319.0
+$BUS_COORDZ4 = 10.1
+$BUS_COORDX5 = -875.4
+$BUS_COORDY5 = 1351.1
+$BUS_COORDZ5 = 9.8
+$BUS_COORDX6 = -869.5
+$BUS_COORDY6 = 1074.8
+$BUS_COORDZ6 = 9.4
+$BUS_COORDX7 = -996.5
+$BUS_COORDY7 = -513.8
+$BUS_COORDZ7 = 9.3
+$BUS_COORDX8 = -910.1
+$BUS_COORDY8 = -660.4
+$BUS_COORDZ8 = 9.6
+$BUS_COORDX9 = -1432.9
+$BUS_COORDY9 = -780.5
+$BUS_COORDZ9 = 13.2
+$BUS_COORDX10 = -1017.7
+$BUS_COORDY10 = -918.7
+$BUS_COORDZ10 = 12.9
+$BUS_COORDX11 = -1130.8
+$BUS_COORDY11 = -594.3
+$BUS_COORDZ11 = 10.0
+$BUS_COORDX12 = -1200.6
+$BUS_COORDY12 = -420.0
+$BUS_COORDZ12 = 9.3
+$BUS_COORDX13 = -1061.0
+$BUS_COORDY13 = -340.2
+$BUS_COORDZ13 = 9.3
+BUS_3997()
+goto @BUS_3691
+
+:BUS_3684
+BUS_7126()
+
+:BUS_3691
+goto @BUS_3730
+
+:BUS_3698
+if
+  $STOP_CHECK_ON_MISSION == 0
+goto_if_false @BUS_3730
+BUS_7126()
+$STOP_CHECK_ON_MISSION = 1
+
+:BUS_3730
+goto @BUS_21
+terminate_this_script
+
+:BUS_3739
+if
+  Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_3995
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 115.0, 115.0, 115.0, False)
+goto_if_false @BUS_3855
+Streaming.RequestModel(#COACH)
+
+:BUS_3828
+if
+  not Streaming.HasModelLoaded(#COACH)
+goto_if_false @BUS_3855
+wait 0
+goto @BUS_3828
+
+:BUS_3855
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_3995
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 115.0, 115.0, 115.0, False)
+goto_if_false @BUS_3990
+$BUS1 = Car.Create(#COACH, $BUSX, $BUSY, $BUSZ)
+Car.SetToFadeIn($BUS1, 0)
+Car.SetHeading($BUS1, $BUS_HEADING)
+Car.SetDrivingStyle($BUS1, DrivingMode.StopForCars)
+$BUS_DRIVER = Char.CreateRandomAsDriver($BUS1)
+Char.WarpIntoCar($BUS_DRIVER, $BUS1)
+$BUS_CREATED = 1
+goto @BUS_3995
+
+:BUS_3990
+Streaming.MarkModelAsNoLongerNeeded(#COACH)
+
+:BUS_3995
+return
+
+:BUS_3997
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_4662
+if
+  not Char.IsDead($BUS_DRIVER)
+goto_if_false @BUS_4648
+if
+  Char.IsSittingInCar($BUS_DRIVER, $BUS1)
+goto_if_false @BUS_4634
+if
+  $BUS_CAN_GO == 0
+goto_if_false @BUS_4627
+if
+  $BUS_POSITION == 1
+goto_if_false @BUS_4098
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX1, $BUS_COORDY1, $BUS_COORDZ1)
+
+:BUS_4098
+if
+  $BUS_POSITION == 2
+goto_if_false @BUS_4130
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX2, $BUS_COORDY2, $BUS_COORDZ2)
+
+:BUS_4130
+if
+  $BUS_POSITION == 3
+goto_if_false @BUS_4162
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX3, $BUS_COORDY3, $BUS_COORDZ3)
+
+:BUS_4162
+if
+  $BUS_POSITION == 4
+goto_if_false @BUS_4194
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX4, $BUS_COORDY4, $BUS_COORDZ4)
+
+:BUS_4194
+if
+  $BUS_POSITION == 5
+goto_if_false @BUS_4226
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX5, $BUS_COORDY5, $BUS_COORDZ5)
+
+:BUS_4226
+if
+  $BUS_POSITION == 6
+goto_if_false @BUS_4258
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX6, $BUS_COORDY6, $BUS_COORDZ6)
+
+:BUS_4258
+if
+  $BUS_POSITION == 7
+goto_if_false @BUS_4290
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX7, $BUS_COORDY7, $BUS_COORDZ7)
+
+:BUS_4290
+if
+  $BUS_POSITION == 8
+goto_if_false @BUS_4322
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX8, $BUS_COORDY8, $BUS_COORDZ8)
+
+:BUS_4322
+if
+  $BUS_POSITION == 9
+goto_if_false @BUS_4354
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX9, $BUS_COORDY9, $BUS_COORDZ9)
+
+:BUS_4354
+if
+  $BUS_POSITION == 10
+goto_if_false @BUS_4386
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX10, $BUS_COORDY10, $BUS_COORDZ10)
+
+:BUS_4386
+if
+  $BUS_POSITION == 11
+goto_if_false @BUS_4418
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX11, $BUS_COORDY11, $BUS_COORDZ11)
+
+:BUS_4418
+if
+  $BUS_POSITION == 12
+goto_if_false @BUS_4450
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX12, $BUS_COORDY12, $BUS_COORDZ12)
+
+:BUS_4450
+if
+  $BUS_POSITION == 13
+goto_if_false @BUS_4482
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX13, $BUS_COORDY13, $BUS_COORDZ13)
+
+:BUS_4482
+if
+  $BUS_POSITION == 14
+goto_if_false @BUS_4514
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX14, $BUS_COORDY14, $BUS_COORDZ14)
+
+:BUS_4514
+if
+  $BUS_POSITION == 15
+goto_if_false @BUS_4546
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX15, $BUS_COORDY15, $BUS_COORDZ15)
+
+:BUS_4546
+if
+  $BUS_POSITION == 16
+goto_if_false @BUS_4578
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX16, $BUS_COORDY16, $BUS_COORDZ16)
+
+:BUS_4578
+if
+  $BUS_POSITION == 17
+goto_if_false @BUS_4610
+Car.GotoCoordinatesAccurate($BUS1, $BUS_COORDX17, $BUS_COORDY17, $BUS_COORDZ17)
+
+:BUS_4610
+Car.SetCruiseSpeed($BUS1, 15.0)
+$BUS_CAN_GO = 1
+
+:BUS_4627
+goto @BUS_4641
+
+:BUS_4634
+BUS_7126()
+
+:BUS_4641
+goto @BUS_4655
+
+:BUS_4648
+BUS_7126()
+
+:BUS_4655
+goto @BUS_4669
+
+:BUS_4662
+BUS_7126()
+
+:BUS_4669
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_5977
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_5963
+if
+  not Char.IsDead($BUS_DRIVER)
+goto_if_false @BUS_5949
+if
+  Char.IsSittingInCar($BUS_DRIVER, $BUS1)
+goto_if_false @BUS_5935
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_5921
+if
+  $BUS_POSITION == 1
+goto_if_false @BUS_4858
+if
+  Car.Locate2D($BUS1, $BUS_COORDX1, $BUS_COORDY1, 3.0, 3.0, False)
+goto_if_false @BUS_4858
+BUS_5986()
+goto @BUS_3997
+
+:BUS_4858
+if
+  $BUS_POSITION == 2
+goto_if_false @BUS_4924
+if
+  Car.Locate2D($BUS1, $BUS_COORDX2, $BUS_COORDY2, 3.0, 3.0, False)
+goto_if_false @BUS_4924
+BUS_5986()
+goto @BUS_3997
+
+:BUS_4924
+if
+  $BUS_POSITION == 3
+goto_if_false @BUS_4990
+if
+  Car.Locate2D($BUS1, $BUS_COORDX3, $BUS_COORDY3, 3.0, 3.0, False)
+goto_if_false @BUS_4990
+BUS_5986()
+goto @BUS_3997
+
+:BUS_4990
+if
+  $BUS_POSITION == 4
+goto_if_false @BUS_5056
+if
+  Car.Locate2D($BUS1, $BUS_COORDX4, $BUS_COORDY4, 3.0, 3.0, False)
+goto_if_false @BUS_5056
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5056
+if
+  $BUS_POSITION == 5
+goto_if_false @BUS_5122
+if
+  Car.Locate2D($BUS1, $BUS_COORDX5, $BUS_COORDY5, 3.0, 3.0, False)
+goto_if_false @BUS_5122
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5122
+if
+  $BUS_POSITION == 6
+goto_if_false @BUS_5188
+if
+  Car.Locate2D($BUS1, $BUS_COORDX6, $BUS_COORDY6, 3.0, 3.0, False)
+goto_if_false @BUS_5188
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5188
+if
+  $BUS_POSITION == 7
+goto_if_false @BUS_5254
+if
+  Car.Locate2D($BUS1, $BUS_COORDX7, $BUS_COORDY7, 3.0, 3.0, False)
+goto_if_false @BUS_5254
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5254
+if
+  $BUS_POSITION == 8
+goto_if_false @BUS_5320
+if
+  Car.Locate2D($BUS1, $BUS_COORDX8, $BUS_COORDY8, 3.0, 3.0, False)
+goto_if_false @BUS_5320
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5320
+if
+  $BUS_POSITION == 9
+goto_if_false @BUS_5386
+if
+  Car.Locate2D($BUS1, $BUS_COORDX9, $BUS_COORDY9, 3.0, 3.0, False)
+goto_if_false @BUS_5386
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5386
+if
+  $BUS_POSITION == 10
+goto_if_false @BUS_5452
+if
+  Car.Locate2D($BUS1, $BUS_COORDX10, $BUS_COORDY10, 3.0, 3.0, False)
+goto_if_false @BUS_5452
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5452
+if
+  $BUS_POSITION == 11
+goto_if_false @BUS_5518
+if
+  Car.Locate2D($BUS1, $BUS_COORDX11, $BUS_COORDY11, 3.0, 3.0, False)
+goto_if_false @BUS_5518
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5518
+if
+  $BUS_POSITION == 12
+goto_if_false @BUS_5584
+if
+  Car.Locate2D($BUS1, $BUS_COORDX12, $BUS_COORDY12, 3.0, 3.0, False)
+goto_if_false @BUS_5584
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5584
+if
+  $BUS_POSITION == 13
+goto_if_false @BUS_5650
+if
+  Car.Locate2D($BUS1, $BUS_COORDX13, $BUS_COORDY13, 3.0, 3.0, False)
+goto_if_false @BUS_5650
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5650
+if
+  $BUS_POSITION == 14
+goto_if_false @BUS_5716
+if
+  Car.Locate2D($BUS1, $BUS_COORDX14, $BUS_COORDY14, 3.0, 3.0, False)
+goto_if_false @BUS_5716
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5716
+if
+  $BUS_POSITION == 15
+goto_if_false @BUS_5782
+if
+  Car.Locate2D($BUS1, $BUS_COORDX15, $BUS_COORDY15, 3.0, 3.0, False)
+goto_if_false @BUS_5782
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5782
+if
+  $BUS_POSITION == 16
+goto_if_false @BUS_5848
+if
+  Car.Locate2D($BUS1, $BUS_COORDX16, $BUS_COORDY16, 3.0, 3.0, False)
+goto_if_false @BUS_5848
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5848
+if
+  $BUS_POSITION == 17
+goto_if_false @BUS_5914
+if
+  Car.Locate2D($BUS1, $BUS_COORDX17, $BUS_COORDY17, 3.0, 3.0, False)
+goto_if_false @BUS_5914
+BUS_5986()
+goto @BUS_3997
+
+:BUS_5914
+goto @BUS_5928
+
+:BUS_5921
+BUS_7126()
+
+:BUS_5928
+goto @BUS_5942
+
+:BUS_5935
+BUS_7126()
+
+:BUS_5942
+goto @BUS_5956
+
+:BUS_5949
+BUS_7126()
+
+:BUS_5956
+goto @BUS_5970
+
+:BUS_5963
+BUS_7126()
+
+:BUS_5970
+goto @BUS_5984
+
+:BUS_5977
+BUS_7126()
+
+:BUS_5984
+return
+
+:BUS_5986
+Car.SetCruiseSpeed($BUS1, 0.0)
+$BUS_POSITION += 1
+$RANDOM_BUSPED1 = Char.CreateRandomAsPassenger($BUS1, SeatId.RearLeft)
+if
+  not Char.IsDead($RANDOM_BUSPED1)
+goto_if_false @BUS_6037
+Char.SetObjLeaveCar($RANDOM_BUSPED1, $BUS1)
+
+:BUS_6037
+wait 4700
+if
+  $ONMISSION == 0
+goto_if_false @BUS_6232
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_6191
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_6184
+$PED_WALKX, $PED_WALKY, $BUSZ = Car.GetOffsetInWorldCoords($BUS1, 0.0, -20.0, 0.0)
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_6184
+goto @BUS_7016
+
+:BUS_6184
+goto @BUS_6198
+
+:BUS_6191
+goto @BUS_7016
+
+:BUS_6198
+if
+  not Char.IsDead($RANDOM_BUSPED1)
+goto_if_false @BUS_6225
+Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED1, $PED_WALKX, $PED_WALKY)
+
+:BUS_6225
+goto @BUS_6239
+
+:BUS_6232
+goto @BUS_7016
+
+:BUS_6239
+wait 1300
+if
+  $ONMISSION == 0
+goto_if_false @BUS_6441
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_6403
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_6396
+$PED_WALKX, $PED_WALKY, $BUSZ = Car.GetOffsetInWorldCoords($BUS1, 0.0, -10.0, 0.0)
+$RANDOM_BUSPED2 = Char.CreateRandomAsPassenger($BUS1, SeatId.RearRight)
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_6396
+goto @BUS_7016
+
+:BUS_6396
+goto @BUS_6410
+
+:BUS_6403
+goto @BUS_7016
+
+:BUS_6410
+if
+  not Char.IsDead($RANDOM_BUSPED2)
+goto_if_false @BUS_6434
+Char.SetObjLeaveCar($RANDOM_BUSPED2, $BUS1)
+
+:BUS_6434
+goto @BUS_6448
+
+:BUS_6441
+goto @BUS_7016
+
+:BUS_6448
+wait 4700
+if
+  $ONMISSION == 0
+goto_if_false @BUS_6505
+if
+  not Char.IsDead($RANDOM_BUSPED2)
+goto_if_false @BUS_6498
+Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED2, $PED_WALKX, $PED_WALKY)
+
+:BUS_6498
+goto @BUS_6512
+
+:BUS_6505
+goto @BUS_7016
+
+:BUS_6512
+wait 1300
+if
+  $ONMISSION == 0
+goto_if_false @BUS_6685
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_6647
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_6640
+$RANDOM_BUSPED3 = Char.CreateRandomAsPassenger($BUS1, SeatId.Passenger4)
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_6640
+goto @BUS_7016
+
+:BUS_6640
+goto @BUS_6654
+
+:BUS_6647
+goto @BUS_7016
+
+:BUS_6654
+if
+  not Char.IsDead($RANDOM_BUSPED3)
+goto_if_false @BUS_6678
+Char.SetObjLeaveCar($RANDOM_BUSPED3, $BUS1)
+
+:BUS_6678
+goto @BUS_6692
+
+:BUS_6685
+goto @BUS_7016
+
+:BUS_6692
+wait 4700
+if
+  $ONMISSION == 0
+goto_if_false @BUS_6858
+if
+  not Char.IsDead($RANDOM_BUSPED3)
+goto_if_false @BUS_6742
+Char.SetObjGotoCoordOnFoot($RANDOM_BUSPED3, $PED_WALKX, $PED_WALKY)
+
+:BUS_6742
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_6844
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_6837
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_6837
+goto @BUS_7016
+
+:BUS_6837
+goto @BUS_6851
+
+:BUS_6844
+goto @BUS_7016
+
+:BUS_6851
+goto @BUS_6865
+
+:BUS_6858
+goto @BUS_7016
+
+:BUS_6865
+wait 3300
+if
+  $ONMISSION == 0
+goto_if_false @BUS_7004
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_6990
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_6983
+$BUSX, $BUSY, $BUSZ = Car.GetCoordinates($BUS1)
+if
+  not Player.LocateAnyMeans3D($PLAYER1, $BUSX, $BUSY, $BUSZ, 180.0, 180.0, 180.0, False)
+goto_if_false @BUS_6983
+goto @BUS_7016
+
+:BUS_6983
+goto @BUS_6997
+
+:BUS_6990
+goto @BUS_7016
+
+:BUS_6997
+goto @BUS_7011
+
+:BUS_7004
+goto @BUS_7016
+
+:BUS_7011
+wait 5000
+
+:BUS_7016
+if
+  $WHERE_BUS == 1
+goto_if_false @BUS_7059
+if
+  $BUS_POSITION > 17
+goto_if_false @BUS_7059
+$BUS_POSITION = 1
+
+:BUS_7059
+if
+  $WHERE_BUS == 2
+goto_if_false @BUS_7102
+if
+  $BUS_POSITION > 13
+goto_if_false @BUS_7102
+$BUS_POSITION = 1
+
+:BUS_7102
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED1)
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED2)
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED3)
+$BUS_CAN_GO = 0
+return
+
+:BUS_7126
+if
+  not Car.IsDead($BUS1)
+goto_if_false @BUS_7194
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @BUS_7194
+if
+  not Player.IsInCar($PLAYER1, $BUS1)
+goto_if_false @BUS_7194
+Car.SetDrivingStyle($BUS1, DrivingMode.AvoidCars)
+Car.SetCruiseSpeed($BUS1, 15.0)
+
+:BUS_7194
+Car.MarkAsNoLongerNeeded($BUS1)
+Char.MarkAsNoLongerNeeded($BUS_DRIVER)
+Streaming.MarkModelAsNoLongerNeeded(#COACH)
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED1)
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED2)
+Char.MarkAsNoLongerNeeded($RANDOM_BUSPED3)
+$BUS_CREATED = 0
+return
+

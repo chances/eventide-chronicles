@@ -1,0 +1,17 @@
+:Music
+script_name 'Music'
+
+:Music_10
+wait 0
+if
+    Pad.IsKeyPressed(KeyCode.M)
+then
+    stop_audio_stream_1channel
+    goto @Music_20
+else
+    goto @Music_20
+end
+
+:Music_20
+goto @Music_10
+

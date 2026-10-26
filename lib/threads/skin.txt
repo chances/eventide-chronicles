@@ -1,0 +1,53 @@
+:Skin
+script_name 'Skin'
+
+:Skin_10
+wait 0
+if
+    Player.IsPlaying($PLAYER1)
+then
+    goto @Skin_10
+else
+    goto @Skin_20
+end
+
+:Skin_20
+wait 0
+if
+    not Player.IsPlaying($PLAYER1)
+then
+    goto @Skin_30
+else
+    goto @Skin_10
+end
+
+:Skin_30
+Camera.SetFadingColor(0, 0, 0)
+Camera.DoFade(500, Fade.Out)
+wait 0
+if or
+  Player.LocateAnyMeans3D($PLAYER1, -108.3, -974.4, 9.4, 5.0, 5.0, 5.0, False)
+  Player.LocateAnyMeans3D($PLAYER1, 508.9, 506.8, 10.3, 5.0, 5.0, 5.0, False)
+  Player.LocateAnyMeans3D($PLAYER1, -822.6161, 1149.8101, 12.4111, 5.0, 5.0, 5.0, False)
+  Player.LocateAnyMeans3D($PLAYER1, 398.8, -469.7, 10.7, 5.0, 5.0, 5.0, False)
+  Player.LocateAnyMeans3D($PLAYER1, -872.1807, -683.3898, 11.2224, 5.0, 5.0, 5.0, False)
+  Player.LocateAnyMeans3D($PLAYER1, -885.54, -470.9882, 13.1107, 5.0, 5.0, 5.0, False)
+then
+    goto @Skin_40
+else
+    goto @Skin_30
+end
+
+:Skin_40
+Camera.SetFadingColor(0, 0, 0)
+Camera.DoFade(500, Fade.Out)
+wait 500
+Char.Undress($scplayer, 'PLAYER')
+wait 250
+Streaming.LoadAllModelsNow
+wait 250
+Char.Dress($scplayer)
+Camera.DoFade(500, Fade.In)
+wait 500
+goto @Skin_10
+

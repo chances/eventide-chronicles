@@ -1,0 +1,286 @@
+:Help
+script_name 'Help'
+
+:Help_10
+wait 250
+if
+    Pickup.HasBeenCollected($PhoneHelp)
+then
+    goto @Help_71
+else
+    if
+        Pickup.HasBeenCollected($PhoneHelp)
+    then
+        goto @Help_400
+    else
+        if
+            Pickup.HasBeenCollected($BUSTED_HELP1)
+        then
+            goto @Help_400
+        else
+            if
+                Pickup.HasBeenCollected($WASTED_HELP1)
+            then
+                goto @Help_682
+            else
+                if
+                    Pickup.HasBeenCollected($BeachJettyInfo)
+                then
+                    goto @Help_777
+                else
+                    if or
+                        Pickup.HasBeenCollected($BeachBribe1)
+                        Pickup.HasBeenCollected($HavanaBribe)
+                        Pickup.HasBeenCollected($BeachBribe2)
+                        Pickup.HasBeenCollected($StarfishBribe)
+                        Pickup.HasBeenCollected($ViceportBribe)
+                        Pickup.HasBeenCollected($VicePointBribe)
+                    then
+                        goto @Help_3184
+                    else
+                        if
+                            Pickup.HasBeenCollected($MarinaHelp)
+                        then
+                            goto @Help_3698
+                        else
+                            if
+                                Pickup.HasBeenCollected($BarrierHelp)
+                            then
+                                goto @Help_4210
+                            else
+                                if
+                                    $Barrier1 == 1
+                                then
+                                    goto @Help_5210
+                                else
+                                    if
+                                        $Barrier2 == 1
+                                    then
+                                        goto @Help_5420
+                                    else
+                                        if
+                                            Player.IsOnAnyBike($PLAYER1)
+                                        then
+                                            goto @Help_5600
+                                        else
+                                            if
+                                                $PRINT_CAR_HELP == 0
+                                            then
+                                                goto @Help_5800
+                                            else
+                                                if and
+                                                    $Barrier1Done == 1
+                                                    $Barrier2Done == 1
+                                                then
+                                                    $HelpDone == 1
+                                                    goto @Help_6000
+                                                else
+                                                    goto @Help_10
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+:Help_71
+wait 0
+$BossPhone = Phone.Grab(524.11, 761.70)
+Player.SetControl($PLAYER1, False)
+wait 500
+Phone.TurnOn($BossPhone)
+Camera.SetFixedPosition(520.0441, 761.8709, 11.3758, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(524.11, 761.70, 11.0412, SwitchType.JumpCut)
+Text.PrintHelp('PHONE_1')
+wait 4000
+Text.PrintHelp('PHONE_2')
+wait 3000
+Text.PrintHelp('PHONE_3')
+wait 3000
+Camera.RestoreJumpcut
+Phone.TurnOff($BossPhone)
+Player.SetControl($PLAYER1, True)
+$PhoneHelpDone = 1
+goto @Help_10
+
+:Help_400
+wait 0
+Help_HoldView()
+wait 3000
+Help_HoldView()
+Text.PrintHelp('WANTA')
+wait 5000
+Help_HoldView()
+Text.PrintHelp('WANTB')
+wait 7000
+Help_HoldView()
+Text.PrintHelp('WANTC')
+wait 8000
+Help_HoldView()
+Text.PrintHelp('WANTD')
+wait 9000
+Camera.RestoreJumpcut
+Player.SetControl($PLAYER1, True)
+$BustedHelpDone = 1
+goto @Help_10
+
+:Help_HoldView
+Player.SetControl($PLAYER1, False)
+Camera.SetFixedPosition(406.4554, -460.4517, 15.1183, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(395.4785, -474.2657, 12.3432, SwitchType.JumpCut)
+return
+
+:Help_682
+wait 0
+Player.SetControl($PLAYER1, False)
+Camera.SetFixedPosition(-105.7926, -974.2606, 10.4634, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(-115.195, -976.145, 11.1609, SwitchType.JumpCut)
+wait 1000
+Text.PrintHelp('HOSPA')
+Hud.FlashObject(HudObject.Health)
+wait 5000
+Hud.FlashObject(0)
+Text.PrintHelp('HOSPB')
+wait 5000
+Text.PrintHelp('HOSPC')
+wait 5000
+Text.PrintHelp('HOSPD')
+Camera.RestoreJumpcut
+Player.SetControl($PLAYER1, True)
+$WastedHelpDone = 1
+goto @Help_10
+
+:Help_777
+wait 0
+Text.PrintHelp('TOSJET')
+wait 5000
+$BeachJettyPickedUp = 1
+goto @Help_10
+
+:Help_3184
+wait 0
+if
+    $WANTED_HELP_PLAYED == 0
+then
+    Text.PrintHelp('BRIBE1')
+    $WANTED_HELP_PLAYED = 1
+    goto @Help_10
+else
+    goto @Help_10
+end
+
+:Help_3698
+wait 0
+Player.SetControl($PLAYER1, False)
+Camera.SetFixedPosition(-243.73, -1301.8501, 15.113, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(-229.1279, -1300.6226, 15.113, SwitchType.JumpCut)
+Text.PrintHelp('MARIN_1')
+wait 5000
+Text.PrintHelp('MARIN_2')
+wait 5000
+Text.PrintHelp('MARIN_3')
+wait 5000
+Text.PrintHelp('MARIN_4')
+Camera.RestoreJumpcut()
+Player.SetControl($PLAYER1, True)
+wait 5000
+Text.ClearHelp()
+$MarinaHelpDone = 1
+goto @Help_10
+
+:Help_4210
+wait 0
+Text.PrintHelp('BARAIR1')
+wait 5000
+Text.PrintHelp('BARAIR2')
+wait 5000
+Text.PrintHelp('BARAIR3')
+wait 5000
+Text.ClearHelp()
+$BarrierHelpDone = 1
+$HelpDone = 1
+goto @Help_10
+
+:Help_5210
+wait 0
+Text.ClearHelp()
+Text.PrintHelp('BAROFF1')
+wait 5000
+Text.PrintHelp('BAROFF2')
+wait 5000
+Text.PrintHelp('BAROFF3')
+$Barrier1 = 0
+$Barrier1Done = 1
+goto @Help_10
+
+:Help_5420
+wait 0
+Object.Delete($GOLF_ROADBLOCK)
+Text.PrintHelp('GF_BAR1')
+Weather.Force(WeatherType.Cloudy)
+wait 5000
+Text.PrintHelp('GF_BAR2')
+wait 5000
+Text.PrintHelp('GF_BAR3')
+wait 60000
+Weather.Release()
+Text.PrintHelp('GF_BAR4')
+$Barrier2 = 0
+$Barrier2Done = 1
+goto @Help_10
+
+:Help_5600
+wait 0
+if
+    $BikeHelpDone == 0
+then
+    Text.PrintHelp('BIKE')
+    $BikeHelpDone = 1
+    goto @Help_10
+else
+    goto @Help_10
+end
+
+:Help_5800
+wait 0
+if
+    $PRINT_CAR_HELP == 0
+then
+    if and
+        not Player.IsInAnyCar($PLAYER1)
+        Player.LocateAnyMeans3D($PLAYER1, 417.4987, 104.506, 11.275, 25.0, 25.0, 15.0, False)
+    then
+        Text.PrintHelp('HELP21') // Press the ~h~~k~~VEHICLE_ENTER_EXIT~ ~w~button to enter or exit a vehicle.
+        Blip.AddForCar($Admiral, $AdmiralBlip)
+        Blip.ChangeDisplay($AdmiralBlip, BlipDisplay.Both)
+        $PRINT_CAR_HELP = 1
+        goto @Help_5900
+    else
+        goto @Help_10
+    end
+else
+    goto @Help_10
+end
+
+:Help_5900
+while not Player.IsInCar($PLAYER1, $Admiral)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $Admiral)
+    then
+        Audio.SetRadioChannel(RadioChannel.Wildstyle, 0)
+        Blip.Remove($AdmiralBlip)
+        goto @Help_10
+    end
+end
+
+:Help_6000
+terminate_this_script
+

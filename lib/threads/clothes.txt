@@ -1,0 +1,201 @@
+:Clothes
+script_name 'Clothes'
+
+:Clothes_10
+wait 250
+if
+    $CasualOn == 0
+then
+    if
+        Pickup.HasBeenCollected($Casual)
+    then
+        if
+            not Player.IsWantedLevelGreater($PLAYER1, 0)
+        then
+            if
+                Player.IsScoreGreater($PLAYER1, 99)
+            then
+                goto @Clothes_92
+            else
+                goto @Clothes_228
+            end
+        else
+            goto @Clothes_187
+        end
+    else
+        goto @Clothes_297
+    end
+else
+    goto @Clothes_581
+end
+
+:Clothes_92
+$CasualOn = 1
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(500, Fade.Out)
+wait 500
+Char.Undress($scplayer, 'PLAYER5')
+wait 250
+Streaming.LoadAllModelsNow
+wait 250
+Char.Dress($scplayer)
+Camera.DoFade(500, Fade.In)
+wait 500
+Stat.AddMoneySpentOnClothes(100)
+Player.AddScore($PLAYER1, -100)
+Text.PrintHelp('CLOHELP')
+Player.SetControl($PLAYER1, True)
+goto @Clothes_655
+
+:Clothes_187
+Text.PrintHelpString("Lose the heat first!")
+wait 3000
+goto @Clothes_10
+
+:Clothes_228
+wait 250
+if
+    not Player.IsScoreGreater($PLAYER1, 99)
+then
+    goto @Clothes_10
+else
+    Text.PrintHelp('NOMONEY')
+    goto @Clothes_655
+end
+
+:Clothes_297
+wait 250
+if
+    $SuitOn == 0
+then
+    if
+        Pickup.HasBeenCollected($Suit)
+    then
+        if
+            not Player.IsWantedLevelGreater($PLAYER1, 0)
+        then
+            if
+                Player.IsScoreGreater($PLAYER1, 499)
+            then
+                goto @Clothes_380
+            else
+                goto @Clothes_518
+            end
+        else
+            goto @Clothes_477
+        end
+    else
+        goto @Clothes_620
+    end
+else
+    goto @Clothes_618
+end
+
+:Clothes_380
+$SuitOn = 1
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(500, Fade.Out)
+wait 500
+Char.Undress($scplayer, 'PLAYER2')
+wait 250
+Streaming.LoadAllModelsNow
+wait 250
+Char.Dress($scplayer)
+Camera.DoFade(500, Fade.In)
+wait 500
+Stat.AddMoneySpentOnClothes(500)
+Player.AddScore($PLAYER1, -500)
+Text.PrintHelp('CLOHELP')
+Player.SetControl($PLAYER1, True)
+goto @Clothes_655
+
+:Clothes_477
+Text.PrintHelpString("Lose the heat first!")
+wait 3000
+goto @Clothes_297
+
+:Clothes_518
+wait 250
+if
+    not Player.IsScoreGreater($PLAYER1, 499)
+then
+    Text.PrintHelp('NOMONEY')
+end
+goto @Clothes_297
+
+:Clothes_581
+wait 250
+if
+    $CasualOn == 1
+then
+    $CasualOn = 0
+end
+goto @Clothes_10
+
+:Clothes_618
+wait 250
+if
+    $SuitOn == 1
+then
+    $SuitOn = 0
+end
+goto @Clothes_297
+
+:Clothes_620
+wait 250
+if
+    $JogOn == 0
+then
+    if
+        Pickup.HasBeenCollected($Jog)
+    then
+        if
+            not Player.IsWantedLevelGreater($PLAYER1, 0)
+        then
+            if
+                Player.IsScoreGreater($PLAYER1, 199)
+            then
+                goto @Clothes_630
+            else
+                goto @Clothes_518
+            end
+        else
+            goto @Clothes_477
+        end
+    else
+        goto @Clothes_655
+    end
+else
+    goto @Clothes_625
+end
+
+:Clothes_625
+wait 250
+if
+    $JogOn == 1
+then
+    $JogOn = 0
+end
+goto @Clothes_620
+
+:Clothes_630
+$JogOn = 1
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(500, Fade.Out)
+wait 500
+Char.Undress($scplayer, 'PLAYER3')
+wait 250
+Streaming.LoadAllModelsNow
+wait 250
+Char.Dress($scplayer)
+Camera.DoFade(500, Fade.In)
+wait 500
+Stat.AddMoneySpentOnClothes(200)
+Player.AddScore($PLAYER1, -200)
+Text.PrintHelp('CLOHELP')
+Player.SetControl($PLAYER1, True)
+goto @Clothes_655
+
+:Clothes_655
+goto @Clothes_10
+

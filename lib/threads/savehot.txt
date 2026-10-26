@@ -1,0 +1,81 @@
+:SaveHot
+script_name 'SaveHot'
+
+:SaveHot_10
+wait 250
+if
+  $ONMISSION == 0
+then
+    if
+        Player.CanStartMission($PLAYER1)
+    then
+        if
+            Player.IsPlaying($PLAYER1)
+        then
+            if
+                $OVTCreated == 0
+            then
+                $OceanViewTape = Pickup.Create(#PICKUPSAVE, PickupType.OnStreetSlow, 230.6527, -1264.1475, 20.1118)
+                $OVTCreated = 1
+                goto @SaveHot_20
+            else
+                goto @SaveHot_114
+            end
+        else
+            goto @SaveHot_277
+        end
+    else
+        goto @SaveHot_277
+    end
+else
+    goto @SaveHot_277
+end
+
+:SaveHot_20
+wait 250
+if
+    Pickup.HasBeenCollected($OceanViewTape)
+then
+    Player.SetControl($PLAYER1, False)
+    Game.ActivateSaveMenu
+    Pickup.Remove($OceanViewTape)
+    Player.SetHealth($PLAYER1, 100)
+    Player.ClearWantedLevel($PLAYER1)
+    wait 500
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    goto @SaveHot_30
+else
+    goto @SaveHot_20
+end
+
+:SaveHot_30
+wait 0
+if
+    Game.HasSaveGameFinished()
+then
+    Player.SetCoordinates($PLAYER1, 230.07, -1268.06, 20.11)
+    wait 500
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Player.SetControl($PLAYER1, True)
+    goto @SaveHot_114
+else
+    goto @SaveHot_114
+end
+
+:SaveHot_114
+wait 250
+if
+    $OVTCreated == 1
+then
+    Pickup.Remove($OceanViewTape)
+    $OVTCreated = 0
+    goto @SaveHot_277
+else
+    goto @SaveHot_10
+end
+
+:SaveHot_277
+goto @SaveHot_10
+

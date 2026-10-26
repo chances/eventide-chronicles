@@ -1,0 +1,337 @@
+:Barrier
+script_name 'Barrier'
+
+:Barrier_10
+wait 0
+if
+    Player.IsPlaying($PLAYER1)
+then
+    if
+        $HomeSafe == 1
+    then
+        if
+            $Tool_Mission_Passed == 1
+        then
+            if
+                $Limey_Passed == 1
+            then
+                if
+                    $Boss_Killed == 1
+                then
+                    goto @Barrier_900
+                else
+                    goto @Barrier_600
+                end
+            else
+                goto @Barrier_470
+            end
+        else
+            goto @Barrier_300
+        end
+    else
+        goto @Barrier_15
+    end
+else
+    goto @Barrier_1000
+end
+
+// ============================================================================
+// STAGE 1: Early Game / Lockdown ($HomeSafe == 0)  0.2 Density
+// ============================================================================
+:Barrier_15
+wait 0
+if
+    $HomeSafe == 0
+then
+    World.SetCarDensityMultiplier(0.2)
+    World.SetPedDensityMultiplier(0.2)
+
+    if or
+        Player.IsInZone($PLAYER1, 'DTOWN')
+        Player.IsInZone($PLAYER1, 'HAVANA')
+        Player.IsInZone($PLAYER1, 'HAITI')
+        Player.IsInZone($PLAYER1, 'PORNI')
+        Player.IsInZone($PLAYER1, 'A_PORT')
+        Player.IsInZone($PLAYER1, 'GOLFC')
+    then
+        $PlayerOutside = 1
+        goto @Barrier_16
+    else
+        goto @Barrier_200
+    end
+else
+    goto @Barrier_10
+end
+
+:Barrier_16
+Text.PrintHelpString("Leave this area at once!")
+$PlayerHealth = Player.GetHealth($PLAYER1)
+if
+    $PlayerHealth > 20
+then
+    $PlayerHealth -= 10
+else
+    $PlayerHealth -= 1
+end
+Player.SetHealth($PLAYER1, $PlayerHealth)
+wait 1000
+if
+    $PlayerHealth < 5
+then
+    goto @Barrier_500
+else
+    goto @Barrier_10
+end
+
+:Barrier_200
+wait 0
+if or
+    Player.IsInZone($PLAYER1, 'BEACH1')
+    Player.IsInZone($PLAYER1, 'BEACH2')
+    Player.IsInZone($PLAYER1, 'BEACH3')
+    Player.IsInZone($PLAYER1, 'STARI')
+then
+    $PlayerOutside = 0
+    Player.SetHealth($PLAYER1, 100)
+    goto @Barrier_10
+else
+    goto @Barrier_15
+end
+
+// ============================================================================
+// STAGE 2: Post-Mission 2 ($HomeSafe == 1)  0.4 Density
+// ============================================================================
+:Barrier_300
+wait 0
+World.SetCarDensityMultiplier(0.4)
+World.SetPedDensityMultiplier(0.4)
+
+if or
+    Player.IsInZone($PLAYER1, 'BEACH1')
+    Player.IsInZone($PLAYER1, 'BEACH2')
+    Player.IsInZone($PLAYER1, 'BEACH3')
+    Player.IsInZone($PLAYER1, 'STARI')
+    Player.IsInZone($PLAYER1, 'HAVANA')
+    Player.IsInZone($PLAYER1, 'DOCKS')
+then
+    Player.SetHealth($PLAYER1, 100)
+    $PlayerOutside = 0
+    goto @Barrier_10
+else
+    goto @Barrier_400
+end
+
+:Barrier_400
+wait 2000
+if or
+    Player.IsInZone($PLAYER1, 'DTOWN')
+    Player.IsInZone($PLAYER1, 'HAITI')
+    Player.IsInZone($PLAYER1, 'PORNI')
+    Player.IsInZone($PLAYER1, 'GOLFC')
+    Player.IsInZone($PLAYER1, 'A_PORT')
+then
+    Text.PrintHelpString("Leave this area at once!")
+    $PlayerOutside = 1
+    goto @Barrier_450
+else
+    goto @Barrier_300
+end
+
+:Barrier_450
+wait 1000
+$PlayerHealth = Player.GetHealth($PLAYER1)
+if
+    $PlayerHealth > 20
+then
+    $PlayerHealth -= 10
+else
+    $PlayerHealth -= 1
+end
+Player.SetHealth($PLAYER1, $PlayerHealth)
+if
+    $PlayerHealth < 5
+then
+    goto @Barrier_500
+else
+    goto @Barrier_400
+end
+
+// ============================================================================
+// STAGE 3: Intermission / Pre-Mission 3 ($Intermission_Passed == 1)  0.6 Density
+// ============================================================================
+:Barrier_470
+wait 0
+if
+    $Limey_Passed == 0
+then
+    World.SetCarDensityMultiplier(0.6)
+    World.SetPedDensityMultiplier(0.6)
+
+    if or
+        Player.IsInZone($PLAYER1, 'BEACH1')
+        Player.IsInZone($PLAYER1, 'BEACH2')
+        Player.IsInZone($PLAYER1, 'BEACH3')
+        Player.IsInZone($PLAYER1, 'STARI')
+        Player.IsInZone($PLAYER1, 'HAVANA')
+        Player.IsInZone($PLAYER1, 'DOCKS')
+    then
+        Player.SetHealth($PLAYER1, 100)
+        $PlayerOutside = 0
+        goto @Barrier_10
+    else
+        goto @Barrier_400
+    end
+else
+    goto @Barrier_10
+end
+
+// ============================================================================
+// PUNISHMENT / WARP SEQUENCE
+// ============================================================================
+:Barrier_500
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(500, Fade.Out)
+wait 1000
+if
+    Player.IsInAnyCar($PLAYER1)
+then
+    goto @Barrier_550
+else
+    goto @Barrier_560
+end
+
+:Barrier_550
+Weather.Force(WeatherType.Foggy)
+Player.WarpFromCarToCoord($PLAYER1, 422.55, 85.14, 24.00)
+Camera.DoFade(1000, Fade.In)
+wait 1000
+Text.PrintHelpString("Do not set foot on our lands again!")
+wait 1000
+Player.SetControl($PLAYER1, True)
+wait 250
+Player.ExplodeHead($PLAYER1)
+goto @Barrier_10
+
+:Barrier_560
+Weather.Force(WeatherType.Foggy)
+Player.SetCoordinates($PLAYER1, 422.55, 85.14, 24.00)
+wait 1000
+Camera.DoFade(1000, Fade.In)
+wait 1000
+Text.PrintHelpString("Do not set foot on our lands again!")
+Player.SetControl($PLAYER1, True)
+wait 500
+Player.ExplodeHead($PLAYER1)
+goto @Barrier_10
+
+// ============================================================================
+// STAGE 4: Post-Mission 3 ($Limey_Passed == 1)  0.8 Density
+// ============================================================================
+:Barrier_600
+wait 3000
+if
+    $Boss_Killed == 0
+then
+    World.SetCarDensityMultiplier(2.0)
+    World.SetPedDensityMultiplier(2.0)
+
+    if or
+        Player.IsInZone($PLAYER1, 'HAITI')
+        Player.IsInZone($PLAYER1, 'HAVANA')
+        Player.IsInZone($PLAYER1, 'GOLFC')
+    then
+        Weather.Release()
+        $PlayerOutside = 0
+        goto @Barrier_10
+    else
+        goto @Barrier_700
+    end
+else
+    goto @Barrier_10
+end
+
+:Barrier_700
+wait 1000
+if or
+    Player.IsInZone($PLAYER1, 'BEACH1')
+    Player.IsInZone($PLAYER1, 'BEACH2')
+    Player.IsInZone($PLAYER1, 'BEACH3')
+    Player.IsInZone($PLAYER1, 'STARI')
+then
+    $PlayerOutside = 0
+    goto @Barrier_10
+else
+    goto @Barrier_750
+end
+
+:Barrier_750
+if or
+    Player.IsInZone($PLAYER1, 'DTOWN')
+    Player.IsInZone($PLAYER1, 'PORNI')
+    Player.IsInZone($PLAYER1, 'A_PORT')
+then
+    Weather.Force(WeatherType.Foggy)
+    Text.PrintHelpString("Leave this area at once!")
+    $PlayerOutside = 1
+    goto @Barrier_800
+else
+    goto @Barrier_600
+end
+
+:Barrier_800
+wait 4000
+if or
+    Player.IsInZone($PLAYER1, 'DTOWN')
+    Player.IsInZone($PLAYER1, 'PORNI')
+    Player.IsInZone($PLAYER1, 'A_PORT')
+then
+    $PlayerHealth = Player.GetHealth($PLAYER1)
+    if
+        $PlayerHealth > 20
+    then
+        $PlayerHealth -= 10
+    else
+        $PlayerHealth -= 1
+    end
+else
+    goto @Barrier_600
+end
+Player.SetHealth($PLAYER1, $PlayerHealth)
+wait 1000
+if
+    $PlayerHealth < 5
+then
+    goto @Barrier_500
+else
+    goto @Barrier_700
+end
+
+// ============================================================================
+// STAGE 5: Story Completed ($Boss_Killed == 1)  1.0 Density Restored
+// ============================================================================
+:Barrier_900
+wait 3000
+World.SetCarDensityMultiplier(4.0)
+World.SetPedDensityMultiplier(4.0)
+Weather.Release()
+$PlayerOutside = 0
+goto @Barrier_10
+
+// ============================================================================
+// SCRIPT RESTART / CLEANUP
+// ============================================================================
+:Barrier_1000
+wait 0
+if
+    not Player.IsPlaying($PLAYER1)
+then
+    wait 5000
+    start_new_script @Barrier
+    terminate_this_script
+else
+    goto @Barrier_10
+end
+
+:Barrier_6666
+terminate_this_script
+

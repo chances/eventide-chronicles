@@ -1,0 +1,41 @@
+:Lazlow
+script_name 'Lazlow'
+
+:Lazlow_10
+wait 0
+if
+    Player.IsInCar($PLAYER1, $Faggio)
+then
+    Audio.SetRadioChannel(RadioChannel.KChat, 0)
+    Text.ClearHelp()
+    wait 500
+    Text.PrintHelp('FATASS')
+    wait 6000
+    Text.PrintHelp('IMSTPR')
+    $LazlowHelpDone = 1
+    wait 6000
+    goto @Lazlow_30
+else
+    goto @Lazlow_20
+end
+
+:Lazlow_20
+goto @Lazlow_10
+
+:Lazlow_30
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CADDY)
+then
+    Audio.SetRadioChannel(RadioChannel.KChat, 50000)
+    goto @Lazlow_50
+else
+    goto @Lazlow_40
+end
+
+:Lazlow_40
+goto @Lazlow_30
+
+:Lazlow_50
+terminate_this_script
+

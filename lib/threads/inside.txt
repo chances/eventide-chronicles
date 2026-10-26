@@ -1,0 +1,80 @@
+:Inside
+script_name 'Inside'
+
+:Inside_10
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 227.5918, -1277.4335, 12.0718, 2.0, 2.0, 1.0, False)
+then
+    Player.SetControl($PLAYER1, False)
+    Camera.DoFade(1500, Fade.Out)
+    wait 1500
+    Streaming.SetAreaVisible(Interior.Hotel)
+    World.SwitchRubbish(False)
+    $OceanViewSphere = Sphere.Create(217.0141, -1271.9843, 12.091, 1.5)
+    Player.SetCoordinates($PLAYER1, 223.7967, -1276.8853, 12.0781)
+    Player.SetHeading($PLAYER1, 80.0)
+    wait 500
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Text.PrintBig('OCNVW', 3000, TextStyle.BottomRight)
+    Player.SetControl($PLAYER1, True)
+    goto @Inside_100
+else
+    goto @Inside_300
+end
+
+:Inside_100
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 217.042, -1272.1327, 12.0909, 1.0, 1.0, 1.0, False)
+then
+    Player.SetControl($PLAYER1, False)
+    Camera.DoFade(1500, Fade.Out)
+    wait 1500
+    Sphere.Remove($OceanViewSphere)
+    Streaming.SetAreaVisible(Interior.MainMap)
+    World.ClearArea(233.5, -1278.45, 11.0, 1.0, False)
+    Streaming.LoadScene(233.5, -1278.45, 11.0)
+    Player.SetCoordinates($PLAYER1, 199.1444, -1287.0688, 12.0712)
+    Player.SetHeading($PLAYER1, 82.79)
+    wait 500
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Text.PrintBig('BEACH1', 3000, TextStyle.BottomRight)
+    Player.SetControl($PLAYER1, True)
+    goto @Inside_300
+else
+    goto @Inside_200
+end
+
+:Inside_200
+wait 0
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 226.95, -1277.20, 12.07, 1.0, 1.0, 1.0, False)
+then
+    wait 500
+    goto @Inside_400
+else
+    goto @Inside_10
+end
+
+:Inside_300
+wait 0
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 217.042, -1272.1327, 12.0909, 1.0, 1.0, 1.0, False)
+then
+    wait 500
+    goto @Inside_500
+else
+    goto @Inside_100
+end
+
+:Inside_400
+goto @Inside_10
+
+:Inside_500
+goto @Inside_100
+
+// Spheres
+

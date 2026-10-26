@@ -1,0 +1,3271 @@
+:ringu
+script_name 'ringu'
+
+:ringu_30
+wait 250
+if
+    $LighthouseDone == 1
+then
+    goto @ringu_9335
+else
+    goto @ringu_40
+end
+
+:ringu_40
+wait 250
+if
+    not Player.IsPlaying($PLAYER1)
+then
+    goto @ringu_9000
+end
+
+if
+    not $ONMISSION == 0
+then
+    goto @ringu_666
+end
+
+if
+    Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 1.0, False)
+then
+    if
+        $LighthausTutorial == 0
+    then
+        goto @ringu_124
+    else
+        goto @ringu_693
+    end
+else
+    goto @ringu_40
+end
+
+:ringu_124
+$ONMISSION = 1
+Blip.Remove($LighthausBlip)
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+
+:ringu_167
+wait 250
+if
+    Player.IsInAnyCar($PLAYER1)
+then
+    Player.WarpFromCarToCoord($PLAYER1, 479.55, -1718.59, 14.72)
+else
+    Player.SetCoordinates($PLAYER1, 479.55, -1718.59, 14.72)
+end
+
+:ringu_274
+Camera.SetFixedPosition(463.787, -1680.23, 6.5, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(474.34, -1718.64, 30.6, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Text.Print('HAUS_1', 5000, 0)
+wait 5000
+Camera.SetFixedPosition(479.55, -1720.59, 20.72, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(481.4, -1727.124, 8.24, SwitchType.JumpCut)
+Text.Print('HAUS_2', 5000, 0)
+wait 5000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+$LighthausBlip = Blip.AddSpriteForCoord(481.4, -1727.124, 8.24, RadarSprite.Biker)
+$ONMISSION = 0
+$LighthausTutorial = 1
+Camera.RestoreJumpcut
+wait 1000
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+start_new_script @Telport
+goto @ringu_666
+
+:ringu_666
+wait 0
+if and
+    $ONMISSION == 1
+    Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 1.0, False)
+then
+    Text.PrintBig('BUSY', 3000, TextStyle.BlueMiddleSmaller)
+    wait 3000
+    goto @ringu_40
+else
+    goto @ringu_693
+end
+
+:ringu_693
+wait 0
+if
+    not $LighthausTutorial == 1
+then
+    goto @ringu_40
+end
+
+if
+    not $ONMISSION == 0
+then
+    goto @ringu_666
+end
+
+if
+    not $Hauslist == 0
+then
+    goto @ringu_9130
+end
+
+$LighthausBlip = Blip.AddSpriteForCoord(481.4, -1727.124, 8.24, RadarSprite.Biker)
+$LighthausWaterSphere = Sphere.Create(486.8695, -1749.6641, 8.0551, 5.0)
+goto @ringu_check_player_state
+
+
+:ringu_check_player_state
+wait 250
+if
+    Player.LocateOnFoot3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 1.0, False)
+then
+    Text.PrintHelp('GET_VEH')
+    wait 2000
+    goto @ringu_check_player_state
+end
+
+if
+    Player.IsOnFoot($PLAYER1)
+then
+    goto @ringu_check_player_state
+end
+
+if
+    Player.IsInAnyBoat($PLAYER1)
+then
+    goto @ringu_900
+else
+    Blip.Remove($LighthausWaterBlip)
+    goto @ringu_900
+end
+
+:ringu_900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #AMBULAN)
+then
+    if
+        $AmbulanceDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_901
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_902
+end
+
+:ringu_901
+wait 0
+if
+    Player.IsInModel($PLAYER1, #AMBULAN)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $AmbulanceDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBig('AMB_DEL', 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_901
+    end
+else
+    goto @ringu_902
+end
+
+:ringu_902
+wait 0
+if
+    Player.IsInCar($PLAYER1, $AdmiralHaus)
+then
+    if
+        $AdmiralDelivered == 0
+    then
+        Text.Print('AD_BEN', 5000, 0)
+        Blip.Remove($LighthausWaterBlip)
+        wait 5000
+        goto @ringu_1059
+    else
+        goto @ringu_already_delivered
+    end
+end
+
+if
+    Player.IsInModel($PLAYER1, #ADMIRAL)
+then
+    if
+        $AdmiralDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_1058
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1100
+end
+
+:ringu_1058
+wait 0
+if
+    Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+then
+    goto @ringu_1060
+else
+    goto @ringu_1058
+end
+
+:ringu_1059
+wait 0
+if
+    Player.IsInCar($PLAYER1, $AdmiralHaus)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        goto @ringu_1061
+    else
+        goto @ringu_1059
+    end
+else
+    goto @ringu_1200
+end
+
+:ringu_1060
+Player.SetControl($PLAYER1, False)
+$AdmiralDelivered = 1
+$Hauslist += 1
+Camera.DoFade(500, Fade.Out)
+wait 500
+Player.WarpFromCarToCoord($PLAYER1, 479.55, -1718.59, 14.72)
+Car.Delete($AdmiralHaus)
+wait 250
+$AdmiralHaus = CarGenerator.Create(450.739, -1642.425, 14.6, 180, #ADMIRAL, 10, 15, False, 45, 10, 0, 10000)
+CarGenerator.Switch($AdmiralHaus, 101)
+wait 500
+World.ClearAreaOfCars(475.03, -1700.0601, 4.0, 550.23, -1780.1899, 12.0)
+Camera.DoFade(500, Fade.In)
+wait 500
+Text.PrintBigString("Admiral Delivered!", 3000, TextStyle.MiddleSmaller)
+Sound.AddOneOffSound(479.55, -1718.59, 14.72, ScriptSound.SoundPartMissionComplete)
+Player.AddScore($PLAYER1, 3000)
+Player.SetControl($PLAYER1, True)
+goto @ringu_1100
+
+:ringu_1061
+Player.SetControl($PLAYER1, False)
+$AdmiralDelivered = 1
+$Hauslist += 1
+Camera.DoFade(500, Fade.Out)
+wait 500
+Player.WarpFromCarToCoord($PLAYER1, 479.55, -1718.59, 14.72)
+wait 50
+if
+    not Car.IsDead($AdmiralHaus)
+then
+    Car.Delete($AdmiralHaus)
+end
+
+Streaming.RequestModel(#ADMIRAL)
+wait 0
+while not Streaming.IsModelAvailable(#ADMIRAL)
+    wait 0
+end
+
+wait 250
+$AdmiralHaus = CarGenerator.Create(450.739, -1642.425, 14.6, 180, #ADMIRAL, 10, 15, False, 45, 10, 0, 10000)
+CarGenerator.Switch($AdmiralHaus, 101)
+
+Streaming.MarkModelAsNoLongerNeeded(#ADMIRAL)
+wait 250
+World.ClearAreaOfCars(475.03, -1700.0601, 4.0, 550.23, -1780.1899, 12.0)
+Camera.DoFade(500, Fade.In)
+wait 500
+Text.PrintBigString("Admiral Delivered!", 3000, TextStyle.MiddleSmaller)
+Sound.AddOneOffSound(479.55, -1718.59, 14.72, ScriptSound.SoundAmmunationBuyWeaponDenied)
+Player.AddScore($PLAYER1, 500)
+Player.SetControl($PLAYER1, True)
+goto @ringu_1100
+
+:ringu_1100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #ANGEL)
+then
+    if
+        $AngelDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1200
+end
+
+:ringu_1150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #ANGEL)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $AngelDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Angel Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1150
+    end
+else
+    goto @ringu_1200
+end
+
+:ringu_1200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BANSHEE)
+then
+    if
+        $BansheeDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1237
+end
+
+:ringu_1238
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BANSHEE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BansheeDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Banshee Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1238
+    end
+else
+    goto @ringu_1237
+end
+
+:ringu_1237
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BARRACKS)
+then
+    if
+        $BarracksDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1300
+end
+
+:ringu_1250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BARRACKS)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BarracksDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Barracks OL Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1250
+    end
+else
+    goto @ringu_1300
+end
+
+:ringu_1300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BENSON)
+then
+    if
+        $BensonDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1393
+end
+
+:ringu_1350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BENSON)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BensonDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Benson Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1350
+    end
+else
+    goto @ringu_1393
+end
+
+:ringu_1393
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BFINJECT)
+then
+    if
+        $BFDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1395
+end
+
+:ringu_1394
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BFINJECT)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BFDelivered = 1
+        $RewardScore = 6000
+        Text.PrintBigString("BF Injection Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1394
+    end
+else
+    goto @ringu_1395
+end
+
+:ringu_1395
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BOXVILLE)
+then
+    if
+        $BoxvilleDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1397
+end
+
+:ringu_1396
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BOXVILLE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BoxvilleDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Boxville Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1396
+    end
+else
+    goto @ringu_1397
+end
+
+:ringu_1397
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BLISTAC)
+then
+    if
+        $BlistaDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1399
+end
+
+:ringu_1398
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BLISTAC)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        Blip.Remove($LighthausBlip)
+        Sphere.Remove($LighthausSphere)
+        $BlistaDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Blista Compact Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1398
+    end
+else
+    goto @ringu_1399
+end
+
+:ringu_1399
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BOBCAT)
+then
+    if
+        $BobcatDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1500
+end
+
+:ringu_1400
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BOBCAT)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BobcatDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Bobcat Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1400
+    end
+else
+    goto @ringu_1500
+end
+
+:ringu_1500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BURRITO)
+then
+    if
+        $BurritoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1606
+end
+
+:ringu_1560
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BURRITO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BurritoDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Burrito Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1560
+    end
+else
+    goto @ringu_1606
+end
+
+:ringu_1606
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BUS)
+then
+    if
+        $BusDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1700
+end
+
+:ringu_1650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #BUS)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $BusDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Bus Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1650
+    end
+else
+    goto @ringu_1700
+end
+
+:ringu_1700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CABBIE)
+then
+    if
+        $CabbieDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1800
+end
+
+:ringu_1750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CABBIE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CabbieDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Cabbie Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1750
+    end
+else
+    goto @ringu_1800
+end
+
+:ringu_1800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CADDY)
+then
+    if
+        $CaddyDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_1900
+end
+
+:ringu_1850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CADDY)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CaddyDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Caddy Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1850
+    end
+else
+    goto @ringu_1900
+end
+
+:ringu_1900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CHEETAH)
+then
+    if
+        $CheetahDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2000
+end
+
+:ringu_1950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CHEETAH)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CheetahDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Cheetah Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_1950
+    end
+else
+    goto @ringu_2000
+end
+
+:ringu_2000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #COACH)
+then
+    if
+        $CoachDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2100
+end
+
+:ringu_2050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #COACH)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CoachDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Coach Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2050
+    end
+else
+    goto @ringu_2100
+end
+
+:ringu_2100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #COMET)
+then
+    if
+        $CometDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2200
+end
+
+:ringu_2150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #COMET)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CometDelivered = 1
+        $RewardScore = 7000
+        Text.PrintBigString("Comet Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2150
+    end
+else
+    goto @ringu_2200
+end
+
+:ringu_2200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CUBAN)
+then
+    if
+        $CubanDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2300
+end
+
+:ringu_2250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #CUBAN)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $CubanDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Cuban Hermes Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2250
+    end
+else
+    goto @ringu_2300
+end
+
+:ringu_2300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #DELUXO)
+then
+    if
+        $DeluxoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2400
+end
+
+:ringu_2350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #DELUXO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $DeluxoDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Deluxo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2350
+    end
+else
+    goto @ringu_2400
+end
+
+:ringu_2400
+wait 0
+if
+    Player.IsInModel($PLAYER1, #DINGHY)
+then
+    if
+        $DinghyDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2500
+end
+
+:ringu_2450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #DINGHY)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 486.6451, -1748.4435, 6.5505, 3.0, 3.0, 3.0, False)
+    then
+        $DinghyDelivered = 1
+        $RewardScore = 1000
+        Text.PrintBigString("Dinghy Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2450
+    end
+else
+    goto @ringu_2500
+end
+
+:ringu_2500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #ESPERANT)
+then
+    if
+        $EsperantoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2600
+end
+
+:ringu_2550
+wait 0
+if
+    Player.IsInModel($PLAYER1, #ESPERANT)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $EsperantoDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Esperanto Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2550
+    end
+else
+    goto @ringu_2600
+end
+
+:ringu_2600
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FAGGIO)
+then
+    if
+        $FaggioDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2660
+end
+
+:ringu_2650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FAGGIO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $FaggioDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Faggio Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2650
+    end
+else
+    goto @ringu_2660
+end
+
+:ringu_2660
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FIRETRUK)
+then
+    if
+        $FiretruckDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2700
+end
+
+:ringu_2670
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FIRETRUK)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $FiretruckDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Firetruck Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2670
+    end
+else
+    goto @ringu_2700
+end
+
+:ringu_2700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FLATBED)
+then
+    if
+        $FlatbedDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2800
+end
+
+:ringu_2750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FLATBED)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $FlatbedDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Flatbed Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2750
+    end
+else
+    goto @ringu_2800
+end
+
+:ringu_2800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FREEWAY)
+then
+    if
+        $FreewayDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_2900
+end
+
+:ringu_2850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #FREEWAY)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $FreewayDelivered = 1
+        $RewardScore = 6000
+        Text.PrintBigString("Freeway Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2850
+    end
+else
+    goto @ringu_2900
+end
+
+:ringu_2900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GANGBUR)
+then
+    if
+        $GangBurDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3000
+end
+
+:ringu_2950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GANGBUR)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $GangBurDelivered = 1
+        $RewardScore = 20000
+        Text.PrintBigString("Gang Burrito Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_2950
+    end
+else
+    goto @ringu_3000
+end
+
+:ringu_3000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GLENDALE)
+then
+    if
+        $GlendaleDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3100
+end
+
+:ringu_3050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GLENDALE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $GlendaleDelivered = 1
+        $RewardScore = 3000
+        Text.PrintBigString("Glendale Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3050
+    end
+else
+    goto @ringu_3100
+end
+
+:ringu_3100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GREENWOO)
+then
+    if
+        $GreenwoodDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3200
+end
+
+:ringu_3150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #GREENWOO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $GreenwoodDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Greenwood Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3150
+    end
+else
+    goto @ringu_3200
+end
+
+:ringu_3200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #HERMES)
+then
+    if
+        $HermesDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3300
+end
+
+:ringu_3250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #HERMES)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $HermesDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Hermes Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3250
+    end
+else
+    goto @ringu_3300
+end
+
+:ringu_3300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #IDAHO)
+then
+    if
+        $IdahoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3400
+end
+
+:ringu_3350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #IDAHO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $IdahoDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Idaho Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3350
+    end
+else
+    goto @ringu_3400
+end
+
+:ringu_3400
+wait 0
+if
+    Player.IsInModel($PLAYER1, #INFERNUS)
+then
+    if
+        $InfernusDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3500
+end
+
+:ringu_3450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #INFERNUS)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $InfernusDelivered = 1
+        $RewardScore = 6000
+        Text.PrintBigString("Infernus Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3450
+    end
+else
+    goto @ringu_3500
+end
+
+:ringu_3500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #JETMAX)
+then
+    if
+        $JetmaxDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3600
+end
+
+:ringu_3550
+wait 0
+if
+    Player.IsInModel($PLAYER1, #JETMAX)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $JetmaxDelivered = 1
+        $RewardScore = 8000
+        Text.PrintBigString("Jetmax Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3550
+    end
+else
+    goto @ringu_3600
+end
+
+:ringu_3600
+wait 0
+if
+    Player.IsInModel($PLAYER1, #KAUFMAN)
+then
+    if
+        $KaufmanDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3700
+end
+
+:ringu_3650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #KAUFMAN)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $KaufmanDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Kaufman Cab Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3650
+    end
+else
+    goto @ringu_3700
+end
+
+:ringu_3700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #LANDSTAL)
+then
+    if
+        $LandstalkerDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3800
+end
+
+:ringu_3750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #LANDSTAL)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $LandstalkerDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Landstalker Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3750
+    end
+else
+    goto @ringu_3800
+end
+
+:ringu_3800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #LINERUN)
+then
+    if
+        $LinerunnerDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_3900
+end
+
+:ringu_3850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #LINERUN)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $LinerunnerDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Linerunner Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3850
+    end
+else
+    goto @ringu_3900
+end
+
+:ringu_3900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MANANA)
+then
+    if
+        $MananaDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4000
+end
+
+:ringu_3950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MANANA)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $MananaDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Manana Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_3950
+    end
+else
+    goto @ringu_4000
+end
+
+:ringu_4000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MARQUIS)
+then
+    if
+        $MarquisDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4100
+end
+
+:ringu_4050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MARQUIS)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $MarquisDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Marquis Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4050
+    end
+else
+    goto @ringu_4100
+end
+
+:ringu_4100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MAVERICK)
+then
+    if
+        $MaverickDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4200
+end
+
+:ringu_4150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MAVERICK)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 15.0, 15.0, 5.0, False)
+    then
+        $MaverickDelivered = 1
+        $RewardScore = 15000
+        Text.PrintBigString("Maverick Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4150
+    end
+else
+    goto @ringu_4200
+end
+
+:ringu_4200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MESA)
+then
+    if
+        $MesaDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4300
+end
+
+:ringu_4250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MESA)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $MesaDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Mesa Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4250
+    end
+else
+    goto @ringu_4300
+end
+
+:ringu_4300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MOONBEAM)
+then
+    if
+        $MoonbeamDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4400
+end
+
+:ringu_4350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MOONBEAM)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $MoonbeamDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Moonbeam Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4350
+    end
+else
+    goto @ringu_4400
+end
+
+:ringu_4400
+wait 250
+if
+    Player.IsInModel($PLAYER1, #MRWHOOP)
+then
+    if
+        $IceDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4500
+end
+
+:ringu_4450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MRWHOOP)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $IceDelivered = 1
+        $RewardScore = 20000
+        Text.PrintBigString("Ice Cream Truck Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4450
+    end
+else
+    goto @ringu_4500
+end
+
+:ringu_4500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MULE)
+then
+    if
+        $MuleDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4600
+end
+
+:ringu_4550
+wait 0
+if
+    Player.IsInModel($PLAYER1, #MULE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $MuleDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Mule Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4550
+    end
+else
+    goto @ringu_4600
+end
+
+:ringu_4600
+wait 0
+if
+    Player.IsInModel($PLAYER1, #OCEANIC)
+then
+    if
+        $OceanicDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4700
+end
+
+:ringu_4650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #OCEANIC)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $OceanicDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Oceanic Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4650
+    end
+else
+    goto @ringu_4700
+end
+
+:ringu_4700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PACKER)
+then
+    if
+        $PackerDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4800
+end
+
+:ringu_4750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PACKER)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PackerDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Packer Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4750
+    end
+else
+    goto @ringu_4800
+end
+
+:ringu_4800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PCJ600)
+then
+    if
+        $PCJDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_4900
+end
+
+:ringu_4850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PCJ600)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PCJDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("PCJ 600 Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4850
+    end
+else
+    goto @ringu_4900
+end
+
+:ringu_4900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PEREN)
+then
+    if
+        $PerrenialDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5000
+end
+
+:ringu_4950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PEREN)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PerrenialDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Perrenial Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_4950
+    end
+else
+    goto @ringu_5000
+end
+
+:ringu_5000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PHEONIX)
+then
+    if
+        $PheonixDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5100
+end
+
+:ringu_5050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PHEONIX)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PheonixDelivered = 1
+        $RewardScore = 6000
+        Text.PrintBigString("Pheonix Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5050
+    end
+else
+    goto @ringu_5100
+end
+
+:ringu_5060
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PIZZABOY)
+then
+    if
+        $PizzaBikeDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5100
+end
+
+:ringu_5070
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PIZZABOY)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PizzaBikeDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Pizza Boy Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5070
+    end
+else
+    goto @ringu_5100
+end
+
+:ringu_5100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #POLICE)
+then
+    if
+        $PoliceCarDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5151
+end
+
+:ringu_5150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #POLICE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PoliceCarDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Police Car Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5150
+    end
+else
+    goto @ringu_5151
+end
+
+:ringu_5151
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PREDATOR)
+then
+    if
+        $PredatorDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5200
+end
+
+:ringu_5152
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PREDATOR)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $PredatorDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Predator Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5152
+    end
+else
+    goto @ringu_5200
+end
+
+:ringu_5200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PONY)
+then
+    if
+        $PonyDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5300
+end
+
+:ringu_5250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #PONY)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $PonyDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Pony Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5250
+    end
+else
+    goto @ringu_5300
+end
+
+:ringu_5300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RANCHER)
+then
+    if
+        $RancherDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5400
+end
+
+:ringu_5350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RANCHER)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $RancherDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Rancher Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5350
+    end
+else
+    goto @ringu_5400
+end
+
+:ringu_5400
+wait 0
+if
+    Player.IsInModel($PLAYER1, #REEFER)
+then
+    if
+        $ReeferDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5500
+end
+
+:ringu_5450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #REEFER)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $ReeferDelivered = 1
+        $RewardScore = 3000
+        Text.PrintBigString("Reefer Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5450
+    end
+else
+    goto @ringu_5500
+end
+
+:ringu_5500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #REGINA)
+then
+    if
+        $ReginaDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5600
+end
+
+:ringu_5550
+wait 0
+if
+    Player.IsInModel($PLAYER1, #REGINA)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $ReginaDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Regina Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5550
+    end
+else
+    goto @ringu_5600
+end
+
+:ringu_5600
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RIO)
+then
+    if
+        $RioDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+    else
+        goto @ringu_already_delivered
+    end
+else
+    goto @ringu_5700
+end
+
+:ringu_5650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RIO)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $RioDelivered = 1
+        $RewardScore = 3000
+        Text.PrintHelpString("Rio Delivered!")
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5650
+    end
+else
+    goto @ringu_5700
+end
+
+:ringu_5700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RUMPO)
+then
+    if
+        $RumpoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_5750
+    else
+        goto @ringu_already_delivered
+    end
+end
+
+:ringu_5750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #RUMPO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $RumpoDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Rumpo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5750
+    end
+end
+
+:ringu_5800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SABRE)
+then
+    if
+        $SabreDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_5850
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_5900
+
+:ringu_5850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SABRE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SabreDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Sabre Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5850
+    end
+end
+
+:ringu_5900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SABRETUR)
+then
+    if
+        $SabreTurDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_5950
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6000
+
+:ringu_5950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SABRETUR)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SabreTurDelivered = 1
+        $RewardScore = 10000
+        Text.PrintBigString("Sanbre Turbo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_5950
+    end
+end
+
+:ringu_6000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SANCHEZ)
+then
+    if
+        $SanchezDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6050
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6100
+
+:ringu_6050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SANCHEZ)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SanchezDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Sanchez Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6050
+    end
+end
+
+:ringu_6100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SANDKING)
+then
+    if
+        $SandkingDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6150
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6200
+
+:ringu_6150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SANDKING)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SandkingDelivered = 1
+        $RewardScore = 15000
+        Text.PrintBigString("Sandking Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6150
+    end
+end
+
+:ringu_6200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SECURICA)
+then
+    if
+        $SecuricarDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6250
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6300
+
+:ringu_6250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SECURICA)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SecuricarDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Securicar Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6250
+    end
+end
+
+:ringu_6300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SENTINEL)
+then
+    if
+        $SentinelDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6350
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6400
+
+:ringu_6350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SENTINEL)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SentinelDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Sentinel Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6350
+    end
+end
+
+:ringu_6400
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SENTXS)
+then
+    if
+        $SentinelXSDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6450
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6500
+
+:ringu_6450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SENTXS)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SentinelXSDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Sentinel XS Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6450
+    end
+end
+
+:ringu_6500
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPEEDER)
+then
+    if
+        $SpeederDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        goto @ringu_6550
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6600
+
+:ringu_6550
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPEEDER)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $SpeederDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Speeder Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6550
+    end
+end
+
+:ringu_6600
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SQUALO)
+then
+    if
+        $SqualoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+        goto @ringu_6650
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6700
+
+:ringu_6650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SQUALO)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 486.8695, -1749.6641, 8.0551, 3.0, 3.0, 3.0, False)
+    then
+        $SqualoDelivered = 1
+        $RewardScore = 6000
+        Text.PrintBigString("Squalo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6650
+    end
+end
+
+:ringu_6700
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPAND)
+then
+    if
+        $SpandexDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6750
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6800
+
+:ringu_6750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPAND)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $SpandexDelivered = 1
+        $RewardScore = 3000
+        Text.PrintBigString("Spandex Express Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6750
+    end
+end
+
+:ringu_6800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPARROW)
+then
+    if
+        $SparrowDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6850
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_6900
+
+:ringu_6850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #SPARROW)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 15.0, 15.0, 5.0, False)
+    then
+        $SparrowDelivered = 1
+        $RewardScore = 4000
+        Text.PrintBigString("Sparrow Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6850
+    end
+end
+
+:ringu_6900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STALLION)
+then
+    if
+        $StallionDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_6950
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7000
+
+:ringu_6950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STALLION)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $StallionDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Stallion Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_6950
+    end
+end
+
+:ringu_7000
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STINGER)
+then
+    if
+        $StingerDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7050
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7100
+
+:ringu_7050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STINGER)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $StingerDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Stinger Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7050
+    end
+end
+
+:ringu_7100
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STRETCH)
+then
+    if
+        $LimoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7150
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7200
+
+:ringu_7150
+wait 0
+if
+    Player.IsInModel($PLAYER1, #STRETCH)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $LimoDelivered = 1
+        $RewardScore = 3000
+        Text.PrintBigString("Stretch Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7150
+    end
+end
+
+:ringu_7200
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TAXI)
+then
+    if
+        $TaxiDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7250
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7260
+
+:ringu_7250
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TAXI)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $TaxiDelivered = 1
+        $RewardScore = 2000
+        Text.PrintBigString("Taxi Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7250
+    end
+end
+
+:ringu_7260
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TRASH)
+then
+    if
+        $TrashmasterDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7270
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7271
+
+:ringu_7270
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TRASH)
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $TrashmasterDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Trashmaster Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7270
+    end
+end
+
+:ringu_7271
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TROPIC)
+then
+    if
+        $TropicDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        $LighthausWaterBlip = Blip.AddForCoord(486.8695, -1749.6641, 8.0551)
+        Blip.ChangeColor($LighthausWaterBlip, BlipColor.Yellow)
+        goto @ringu_7272
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7275
+
+:ringu_7272
+wait 0
+if
+    Player.IsInModel($PLAYER1, #TROPIC)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 10.0, False)
+    then
+        $TropicDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Tropic Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 1
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7272
+    end
+end
+
+:ringu_7275
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VICECHEE)
+then
+    if
+        $ViceCheetahDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7276
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7300
+
+:ringu_7276
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VICECHEE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $ViceCheetahDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Vice Cheetah Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7276
+    end
+end
+
+:ringu_7300
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VCNMAV)
+then
+    if
+        $VCNMavDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7350
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7400
+
+:ringu_7350
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VCNMAV)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $VCNMavDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("VCN Maverick Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7350
+    end
+end
+
+:ringu_7400
+wait 250
+if
+    Player.IsInModel($PLAYER1, #VIRGO)
+then
+    if
+        $VirgoDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7450
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7500
+
+:ringu_7450
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VIRGO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $VirgoDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Virgo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7450
+    end
+end
+
+:ringu_7500
+wait 250
+if
+    Player.IsInModel($PLAYER1, #VOODOO)
+then
+    if
+        $VoodooDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7650
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7700
+
+:ringu_7650
+wait 0
+if
+    Player.IsInModel($PLAYER1, #VOODOO)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $VoodooDelivered = 1
+        $RewardScore = 20000
+        Text.PrintBigString("Voodoo Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7650
+    end
+end
+
+:ringu_7700
+wait 250
+if
+    Player.IsInModel($PLAYER1, #WALTON)
+then
+    if
+        $WaltonDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7750
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7800
+
+:ringu_7750
+wait 0
+if
+    Player.IsInModel($PLAYER1, #WALTON)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $WaltonDelivered = 1
+        $RewardScore = 5000
+        Text.PrintBigString("Walton Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7750
+    end
+end
+
+:ringu_7800
+wait 0
+if
+    Player.IsInModel($PLAYER1, #WASHING)
+then
+    if
+        $WashingtonDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7850
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_7900
+
+:ringu_7850
+wait 0
+if
+    Player.IsInModel($PLAYER1, #WASHING)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $WashingtonDelivered = 1
+        $RewardScore = 7000
+        Text.PrintBigString("Washington Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7850
+    end
+end
+
+:ringu_7900
+wait 0
+if
+    Player.IsInModel($PLAYER1, #YANKEE)
+then
+    if
+        $YankeeDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_7950
+    else
+        goto @ringu_already_delivered
+    end
+end
+goto @ringu_8000
+
+:ringu_7950
+wait 0
+if
+    Player.IsInModel($PLAYER1, #YANKEE)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $YankeeDelivered = 1
+        $RewardScore = 7000
+        Text.PrintBigString("Yankee Delivered!", 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_7950
+    end
+end
+
+:ringu_8000
+wait 250
+if
+    Player.IsInModel($PLAYER1, #ZEBRA)
+then
+    if
+        $ZebraDelivered == 0
+    then
+        Text.PrintHelp('DEL_VEH')
+        Blip.Remove($LighthausWaterBlip)
+        goto @ringu_8050
+    else
+        goto @ringu_already_delivered // Direct, clear jump
+    end
+end
+goto @ringu_check_player_state
+
+:ringu_8050
+wait 0
+if
+    Player.IsInModel($PLAYER1, #ZEBRA)
+then
+    if
+        Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    then
+        $ZebraDelivered = 1
+        $RewardScore = 50000
+        Text.PrintBig('ZEB_DEL', 3000, TextStyle.MiddleSmaller)
+        $IsWaterVehicle = 0
+        goto @ringu_deliver_success
+    else
+        goto @ringu_8050
+    end
+end
+
+:ringu_already_delivered
+wait 0
+if and
+    Player.LocateInCar3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 6.0, False)
+    Player.IsInAnyCar($PLAYER1)
+then
+    Text.PrintHelpString("This car has already been delivered!")
+    wait 2000
+end
+goto @ringu_check_player_state
+
+// ==========================================
+// SHARED DELIVERY HANDLING ROUTINE
+// ==========================================
+
+:ringu_deliver_success
+Player.SetControl($PLAYER1, False)
+$Hauslist += 1
+Camera.DoFade(500, Fade.Out)
+wait 500
+
+if
+    $IsWaterVehicle == 1
+then
+    Blip.Remove($LighthausWaterBlip)
+    Player.WarpFromCarToCoord($PLAYER1, 479.55, -1718.59, 14.72)
+    wait 500
+    World.ClearAreaOfCars(400.03, -1600.0601, 4.0, 500.23, -1800.1899, 12.0)
+else
+    Player.WarpFromCarToCoord($PLAYER1, 479.55, -1718.59, 14.72)
+    wait 500
+    World.ClearAreaOfCars(475.03, -1700.0601, 4.0, 550.23, -1780.1899, 12.0)
+end
+
+Camera.DoFade(500, Fade.In)
+wait 500
+Sound.AddOneOffSound(479.55, -1718.59, 14.72, ScriptSound.SoundPartMissionComplete)
+Player.AddScore($PLAYER1, $RewardScore)
+Player.SetControl($PLAYER1, True)
+wait 3000
+goto @ringu_693
+
+
+// ==========================================
+// TERMINATION & COMPLETION
+// ==========================================
+
+:ringu_9000
+wait 250
+if
+    not Player.IsPlaying($PLAYER1)
+then
+    start_new_script @ringu
+    terminate_this_script
+else
+    goto @ringu_40
+end
+
+:ringu_9130
+wait 0
+if
+    $Hauslist == 80
+then
+    $LighthouseDone = 1
+    goto @ringu_9131
+else
+    goto @ringu_check_player_state
+end
+
+:ringu_9131
+wait 250
+if
+    $LighthouseDone == 1
+then
+    Blip.Remove($LighthausBlip)
+    Sphere.Remove($LighthausSphere)
+    Blip.Remove($LighthausWaterBlip)
+    Sphere.Remove($LighthausWaterSphere)
+    Text.PrintBigString("Nice! That's all the cars!", 3000, TextStyle.MiddleSmaller)
+    play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+    Player.AddScore($PLAYER1, 1000000)
+    Player.SetControl($PLAYER1, True)
+    Game.SetAllCarsCanBeDamaged(False)
+    wait 3000
+    Text.PrintHelpString("Every vehicle is now impervious to damage!")
+    terminate_this_script
+else
+    goto @ringu_9130
+end
+
+:ringu_9335
+Blip.Remove($LighthausBlip)
+Sphere.Remove($LighthausSphere)
+terminate_this_script
+

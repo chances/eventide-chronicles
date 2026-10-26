@@ -72,7 +72,7 @@ Measured on `main.txt` as of 2026-10-18, with `lib/alloc.txt`, `lib/init.txt`, a
 | File | Responsibility |
 | --- | --- |
 | `main.txt` | Mission 0 (`INIT`, the opening cutscene and radar tutorial), the threads that nothing in mission 0 starts, and one `{$INCLUDE}` line per mission and per started thread. |
-| `lib/threads/<name>.txt` | One file per thread that mission 0 starts: `pizza`, `bus`, `barrier`, `bath`, `clothes`, `fae`, `help`, `inside`, `jewelryrobbery`, `lazlow`, `mystery`, `music`, `replay`, `ringu`, `rooftop`, `savehot`, `skin`, `sphere`, `swim`, `water`, `vehheal`. |
+| `lib/threads/<name>.txt` | One file per thread that mission 0 starts: `pizza`, `bus`, `barrier`, `bath`, `clothes`, `fae`, `help`, `inside`, `jewelryrobbery`, `lazlow`, `mystery`, `music`, `replay`, `ringu`, `rooftop`, `savehot`, `skin`, `sphere`, `swim`, `water`, `car-health`. |
 | `lib/init.txt` | Gains the one-time global resets from `INIT_00` (Task 7). |
 | `missions/intro.txt` | Mission 1, `Intro`. |
 | `missions/cop.txt` | Mission 2, `Cop`. |
@@ -109,22 +109,21 @@ deno eval 'const K = 9, NAME = "hell"; const lines = new TextDecoder("latin1").d
 
 - [x] **Step 2:** Create the `missions` folder first with `mkdir -p missions`. Read the first and last lines of `missions/<name>.txt`, and read the `{$INCLUDE}` line in `main.txt`.
 - [x] **Step 3:** Run `deno task build`, then `md5sum main.scm`. The hash must equal the baseline. A different hash means the block boundary is wrong. Run `git restore main.txt` and try again. Hash `57cebd5330f87648653b260b1a8e2069` after each of the nine passes.
-- [ ] **Step 4:** Update the test that reads the moved code. Only `intro` needs it, in Task 3.
+- [x] **Step 4:** Update the test that reads the moved code. Only `intro` needs it, in Task 3.
 
 ### Task 2: Extract the Started Threads, One per Pass
 
 Repeat for the 21 threads in descending line order, so earlier line numbers do not move. Take the line numbers from `main.txt` at the time, because Task 1 changes them: the thread starts at its label line (`:Pizza`, `:Fae`, and so on) and ends at the line before the next thread's label, found by the next `script_name` line and the label above it. Keep blank lines with the block they follow.
 
-- [ ] **Step 1:** Adapt the Task 1 command: take the block from the thread's label to the line before the next thread's label, write it to `lib/threads/<name>.txt`, and replace it in `main.txt` with `{$INCLUDE lib/threads/<name>.txt}` and a blank line.
-- [ ] **Step 2:** Create `lib/threads` with `mkdir -p lib/threads` first. Read the first and last lines of the new file and the `{$INCLUDE}` line.
-- [ ] **Step 3:** Run `deno task build`, then `md5sum main.scm`. The hash must equal the baseline. A different hash means a wrong boundary, so run `git restore main.txt` and try again.
-- [ ] **Step 4:** Tests that read moved code are updated in Task 3.
-
+- [x] **Step 1:** Adapt the Task 1 command: take the block from the thread's label to the line before the next thread's label, write it to `lib/threads/<name>.txt`, and replace it in `main.txt` with `{$INCLUDE lib/threads/<name>.txt}` and a blank line.
+- [x] **Step 2:** Create `lib/threads` with `mkdir -p lib/threads` first. Read the first and last lines of the new file and the `{$INCLUDE}` line.
+- [x] **Step 3:** Run `deno task build`, then `md5sum main.scm`. The hash must equal the baseline. A different hash means a wrong boundary, so run `git restore main.txt` and try again. **New baseline hash: `59b84a1ef1fcb701f376768ab64f7512`, after the permanent `car-health` rename.**
+- [x] **Step 4:** Tests that read moved code are updated in Task 3.
 ### Task 3: Point the Tests at the Moved Code
 
-- [ ] **Step 1:** In `scripts/intro-pickup.test.ts`, change `new URL("../main.txt", import.meta.url)` to read `missions/intro.txt`, with the same byte-faithful decoding as `scripts/clothes-stores.test.ts`.
-- [ ] **Step 2:** In `scripts/clothes-stores.test.ts`, read `lib/threads/clothes.txt` where it reads the clothes pickups.
-- [ ] **Step 3:** Run `deno test --allow-read scripts/intro-pickup.test.ts scripts/clothes-stores.test.ts`. Both pass.
+- [x] **Step 1:** In `scripts/intro-pickup.test.ts`, change `new URL("../main.txt", import.meta.url)` to read `missions/intro.txt`, with the same byte-faithful decoding as `scripts/clothes-stores.test.ts`.
+- [x] **Step 2:** In `scripts/clothes-stores.test.ts`, read `lib/threads/clothes.txt` where it reads the clothes pickups.
+- [x] **Step 3:** Run `deno test --allow-read scripts/intro-pickup.test.ts scripts/clothes-stores.test.ts`. Both pass.
 
 ### Task 4: Scan Every Source File for Fall-Through
 

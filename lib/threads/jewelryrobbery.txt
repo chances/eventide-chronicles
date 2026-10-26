@@ -1,0 +1,132 @@
+:JewelryRobbery
+script_name 'Jewelry'
+
+:Jewelry_Init
+wait 0
+Streaming.LoadSpecialCharacter(16, 'S_KEEP')
+Streaming.RequestModel(#SPECIAL16)
+
+:Jewelry_LoadModel
+wait 0
+if
+    Streaming.HasSpecialCharacterLoaded(16)
+then
+    $JewelryClerk = Char.Create(PedType.CivMale, #SPECIAL16, 379.6753, 210.1892, 11.3862)
+    Char.SetHeading($JewelryClerk, 268.67)
+    Char.SetHealth($JewelryClerk, 100)
+    $AimStartTime = 0
+    $RobberyMoney = 0
+    goto @Jewelry_MainLoop
+else
+    goto @Jewelry_LoadModel
+end
+
+:Jewelry_MainLoop
+wait 0
+
+if
+    Char.IsDead($JewelryClerk)
+then
+    goto @Jewelry_TriggerAlarm
+end
+
+if
+    Player.LocateAnyMeans3D($PLAYER1, 379.6753, 210.1892, 11.3862, 15.0, 15.0, 5.0, False)
+then
+    if
+        Player.IsTargetingChar($PLAYER1, $JewelryClerk)
+    then
+        goto @Jewelry_AimingAtClerk
+    else
+        $AimStartTime = 0
+        $RobberyMoney = 0
+    end
+else
+    $AimStartTime = 0
+    $RobberyMoney = 0
+end
+
+goto @Jewelry_MainLoop
+
+:Jewelry_AimingAtClerk
+wait 0
+// Capture starting game time on first frame of aiming
+if
+    $AimStartTime == 0
+then
+    Clock.GetGameTimer($AimStartTime)
+    Char.SetCrouch($JewelryClerk, True, 9999999)
+end
+
+Clock.GetGameTimer($CurrentTime)
+set_var_int_to_var_int $ElapsedTime = $CurrentTime
+sub_int_var_from_int_var $ElapsedTime -= $AimStartTime
+
+// Award compounding score every 1000ms (1 second) of aiming
+if
+    $ElapsedTime >= 1000
+then
+    $RobberyMoney += 50
+    Player.AddScore($PLAYER1, 50)
+    Text.PrintBigString("+$50", 1000, TextStyle.MiddleSmaller)
+    Sound.AddOneOffSound(0.0, 0.0, 0.0, ScriptSound.SoundPartMissionComplete)
+    // Reset timer anchor for the next interval
+    Clock.GetGameTimer($AimStartTime)
+end
+
+// Trigger alarm if player holds aim for 10+ seconds OR stops aiming after starting
+if or
+    $RobberyMoney >= 500
+    not Player.IsTargetingChar($PLAYER1, $JewelryClerk)
+then
+    goto @Jewelry_TriggerAlarm
+else
+    goto @Jewelry_AimingAtClerk
+end
+
+:Jewelry_TriggerAlarm
+Text.PrintHelpString("He called the cops! Lose the heat!")
+Player.AlterWantedLevel($PLAYER1, 2)
+
+if
+    $AlarmOn == 0
+then
+    $JewelryAlarm = Sound.AddContinuous(379.6753, 210.1892, 11.3862, ScriptSound.SoundBankAlarmLoop)
+    $AlarmOn = 1
+end
+
+if
+    not Char.IsDead($JewelryClerk)
+then
+    Char.SetCrouch($JewelryClerk, True, 9999999)
+end
+
+:Jewelry_AlarmLoop
+wait 0
+if or
+    not Player.IsWantedLevelGreater($PLAYER1, 0)
+    Hud.AreWantedStarsFlashing()
+then
+    Sound.Remove($JewelryAlarm)
+    $AlarmOn = 0
+    $AimStartTime = 0
+    $RobberyMoney = 0
+    goto @Jewelry_ResetWait
+else
+    goto @Jewelry_AlarmLoop
+end
+
+:Jewelry_ResetWait
+wait 1000
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 379.6753, 210.1892, 11.3862, 30.0, 30.0, 10.0, False)
+then
+    Char.Delete($JewelryClerk)
+    $JewelryClerk = Char.Create(PedType.CivMale, #SPECIAL16, 379.6753, 210.1892, 11.3862)
+    Char.SetHeading($JewelryClerk, 268.67)
+    Char.SetHealth($JewelryClerk, 100)
+    goto @Jewelry_MainLoop
+else
+    goto @Jewelry_ResetWait
+end
+
