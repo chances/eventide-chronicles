@@ -58,12 +58,12 @@ Each attribute has a practical meaning, a common misreading to avoid, and an exa
 
 Tone adapts to context while the voice above stays fixed.
 
-- **Dark comedy**: comedy in this project comes from the story itself, from characters whose plans collapse in ways the reader can see coming. It is never announced. The narration does not laugh at itself, and the player is expected to find the funny things. Characters may laugh at happenstance, and the line between comedy and tragedy stays thin.
+- **Dark comedy**: comedy in this project comes from the story itself, from characters whose plans collapse in ways the reader can see coming. Narration may be tongue-in-cheek, but it never announces a joke, and the player is expected to find the funny things. Characters may laugh at happenstance, and the line between comedy and tragedy stays thin.
 - **System text** (menus, prompts, help): the grim register applies here too. No humor is planned for system text.
 
 ## Narration and Dialogue Style
 
-**Open.** The writing rules for in-game narration and dialogue differ, and they will be defined separately after the grilling of the lore and brand is complete. Until then, contributors should apply the voice attributes above to both and flag any line that feels out of place for revision.
+Narration uses third person past tense, consistently across the game. Dialogue stays in character and prints no speaker name. Help text fits on one line.
 
 ## Style Rules
 
@@ -141,5 +141,4 @@ The repository is licensed under the GNU General Public License v3.0 (GPL-3.0). 
 ## Open Items
 
 1. Visual identity: title mark, which waits for the Enbenite mineral. See [visual-identity.md](visual-identity.md).
-2. Narration and dialogue style: writing rules for each, to be defined after the grilling.
-3. Book 2 text: required before the mod-specific story sections of [lore.md](lore.md) can be completed.
+2. Book 2 text: required before the mod-specific story sections of [lore.md](lore.md) can be completed.

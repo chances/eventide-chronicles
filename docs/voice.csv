@@ -2,15 +2,15 @@ line,context,kind,speaker,text,flags,file
 106,Star,Mission title,System,Answering the Call to Abandon...,ellipsis,main.txt
 1123,Police,Mission title,System,Model Citizens Get Stitches...,ellipsis,
 1157,HOT,Mission title,System,Born of Dirt,,
-217,Boss,Mission title,System,"Behind The Mask, Another Mask!",exclamation;capitalization,main.txt
+217,Boss,Mission title,System,"Behind the Mask, Another Mask!",exclamation,main.txt
 251,Golf,Mission title,System,Takin' Out the Competition...,ellipsis;dialect-spelling,main.txt
 281,Kill,Mission title,System,Burying the Evidence...,ellipsis,main.txt
-312,End,Mission title,System,The End Is Simply The Beginning...,ellipsis;capitalization,main.txt
+312,End,Mission title,System,The End Is Simply the Beginning...,ellipsis,main.txt
 51,Fae,Time card,System,Three Days Later...,ellipsis,lib/threads/fae.txt
 31,Fae,Help text,System,Come back once you have completed ~g~Born of Dirt.,direct-address,lib/threads/fae.txt
 28,Bathe,Help text,Narrator,It looks like Poseidon isn't too keen on letting you into his family's penthouse.,direct-address;contraction,lib/threads/bath.txt
 30,Bathe,Help text,Narrator,I'd be on the lookout for golf-ball sized hail or a biblical plague soon.,first-person;contraction,lib/threads/bath.txt
-32,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before tresspassing, eh?",typo;direct-address;contraction,lib/threads/bath.txt
+32,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before trespassing, eh?",direct-address;contraction,lib/threads/bath.txt
 1701,Barrier,Help text,Unknown,Leave this area at once!,exclamation;direct-address,
 1767,Barrier,Help text,Unknown,Leave this area at once!,exclamation;direct-address,
 1842,Barrier,Help text,Unknown,Do not set foot on our lands again!,exclamation;first-person-plural,

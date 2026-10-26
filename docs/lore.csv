@@ -5,7 +5,7 @@ L003,Canon Precedence,Mod canon wins conflicts with Book 2,Mod,Grilling decision
 L004,Open Ground,Unwritten Book 2 material is defined by the mod,Mod,Grilling decision,,Each filled gap gets its own row
 L005,Tone and Narration,Grim and serious register,Mod,Grilling decision,,Applies to narration and system text
 L006,Tone and Narration,Unreliable narrators,Mod,Grilling decision,,Each unreliable account needs a discoverable truth or clear reason it misleads
-L007,Tone and Narration,Dark comedy emerges from story events,Mod,Grilling decision,,Narration never announces jokes or laughs at itself
+L007,Tone and Narration,Dark comedy emerges from story events,Mod,Grilling decision,,Narration may be tongue-in-cheek but never announces a joke
 L008,World and Setting,Enbenite mineral: name and role,Open,Pending Book 2 text,,Set Book or Mod once defined
 L009,World and Setting,Setting geography and factions,Open,Pending Book 2 text,,Set Book or Mod once defined
 L010,Characters,Character roster and portrayal,Open,Pending Book 2 text,,One row per character once defined
@@ -27,3 +27,8 @@ L025,World and Setting,Barrier is a set of physical blockers in the world,Mod,Gr
 L026,Tone and Narration,Hidden premise behind the world,Mod,Grilling decision,,Spoiler. See spoilers.md
 L027,Tone and Narration,Mood system: Ember and Cold Twilight and Gold,Mod,Grilling decision,,Defined in visual-identity.md
 L028,Tone and Narration,Coherence system: Stable and Unstable and Broken,Mod,Grilling decision,,Defined in visual-identity.md
+L029,World and Setting,Barrier: the player cannot die inside it and dies only when leaving,Mod,Grilling decision,,Verified against lib/threads/barrier.txt lines 212 and 224
+L030,Characters,The Fairy is a mod-only character,Mod,Grilling decision,,Character row that extends L010
+L031,Tone and Narration,The opening narrator is unreliable throughout,Mod,Grilling decision,,Its account is false in the ways spoilers.md describes. Extends L006
+L032,Characters,Protagonist condition is defined in spoilers.md,Mod,Grilling decision,,Spoiler. See spoilers.md. Extends L023 and L026
+L033,Relationship to Book 2,Narration uses third person past while Book 2 switches tenses,Mod,Grilling decision,Book 2 switches tenses between chapters,Style departure from Book 2 recorded under L003

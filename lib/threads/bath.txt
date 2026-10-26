@@ -29,7 +29,7 @@ Text.PrintHelpString("It looks like Poseidon isn't too keen on letting you into 
 wait 5000
 Text.PrintHelpString("I'd be on the lookout for golf-ball sized hail or a biblical plague soon.")
 wait 5000
-Text.PrintHelpString("Maybe next time, you'll think twice before tresspassing, eh?")
+Text.PrintHelpString("Maybe next time, you'll think twice before trespassing, eh?")
 Hud.DisplayTimer($TIMER, TimerDirection.Down)
 wait 120000
 Hud.ClearTimer($TIMER)

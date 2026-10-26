@@ -26,7 +26,8 @@
 
 | File | Responsibility |
 | --- | --- |
-| `main.txt` | The script. Task 1 and Task 2 change string literals in it. |
+| `lib/threads/bath.txt` | The Bathe help text. Task 1 changes the misspelling in it. |
+| `main.txt` | The script. Task 2 changes the mission title literals in it. |
 | `docs/voice.csv` | The string inventory. Task 3 syncs three rows with the script. |
 | `docs/voice.md` | The audit. No change. |
 
@@ -35,18 +36,18 @@
 The vehicle names "Perrenial", "Pheonix", and "Sanbre Turbo" in the delivery strings are not changed. They follow the names in the GTA Vice City game data, which ships "Pheonix" as written.
 
 **Files:**
-- Modify: `main.txt:1624`
+- Modify: `lib/threads/bath.txt:32`
 
 **Interfaces:**
 - Consumes: nothing.
-- Produces: the word "trespassing" in `main.txt`. Task 3 copies it into the CSV.
+- Produces: the word "trespassing" in `lib/threads/bath.txt`. Task 3 copies it into the CSV.
 
-- [ ] **Step 1: Show that the misspelling exists**
+- [x] **Step 1: Show that the misspelling exists**
 
-Run: `grep -c "tresspassing" main.txt`
+Run: `grep -c "tresspassing" lib/threads/bath.txt`
 Expected: `1`.
 
-- [ ] **Step 2: Replace the string byte by byte**
+- [x] **Step 2: Replace the string byte by byte**
 
 ```bash
 deno eval '
@@ -54,7 +55,7 @@ const pairs = [
   ["tresspassing", "trespassing"],
 ];
 const enc = new TextEncoder();
-let data = await Deno.readFile("main.txt");
+let data = await Deno.readFile("lib/threads/bath.txt");
 for (const [from, to] of pairs) {
   const f = enc.encode(from);
   const t = enc.encode(to);
@@ -72,34 +73,34 @@ for (const [from, to] of pairs) {
   console.log(from, "->", to, n);
   data = Uint8Array.from(out);
 }
-await Deno.writeFile("main.txt", data);
+await Deno.writeFile("lib/threads/bath.txt", data);
 '
 ```
 
 Expected: one line ending in `1`.
 
-- [ ] **Step 3: Show that the string is corrected**
+- [x] **Step 3: Show that the string is corrected**
 
-Run: `grep -c "tresspassing" main.txt; grep -c "trespassing" main.txt`
+Run: `grep -c "tresspassing" lib/threads/bath.txt; grep -c "trespassing" lib/threads/bath.txt`
 Expected: `0` and `1`.
 
 ## Task 2: Fix Mission Title Capitalization
 
 **Files:**
-- Modify: `main.txt:1199`, `main.txt:1290`
+- Modify: `main.txt:245`, `main.txt:340`
 
 **Interfaces:**
-- Consumes: the Task 1 script pattern. Run it again with new pairs.
+- Consumes: the Task 1 script pattern. Run it again on `main.txt` with new pairs.
 - Produces: the titles "Behind the Mask, Another Mask!" and "The End Is Simply the Beginning...". Task 3 copies them into the CSV.
 
-- [ ] **Step 1: Show that the old titles exist**
+- [x] **Step 1: Show that the old titles exist**
 
 Run: `grep -c '"Behind The Mask, Another Mask!"' main.txt; grep -c '"The End Is Simply The Beginning..."' main.txt`
 Expected: `1` and `1`.
 
-- [ ] **Step 2: Replace the strings**
+- [x] **Step 2: Replace the strings**
 
-Run the script from Task 1, Step 2, with this `pairs` array in place of the first one:
+Run the script from Task 1, Step 2, with `main.txt` in place of `lib/threads/bath.txt` and this `pairs` array in place of the first one:
 
 ```js
 const pairs = [
@@ -110,7 +111,7 @@ const pairs = [
 
 Expected: two lines, each ending in `1`.
 
-- [ ] **Step 3: Show that the titles are corrected**
+- [x] **Step 3: Show that the titles are corrected**
 
 Run: `grep -c '"Behind The Mask' main.txt; grep -c 'Simply The Beginning' main.txt`
 Expected: `0` and `0`.
@@ -125,44 +126,69 @@ Open `main.txt` in Sanny Builder 4.2.0 and compile it. The user runs this step, 
 ## Task 3: Sync the Voice Inventory
 
 **Files:**
-- Modify: `docs/voice.csv:5`, `docs/voice.csv:8`, `docs/voice.csv:13` (rows for source lines 1199, 1290, and 1624)
+- Modify: `docs/voice.csv:5`, `docs/voice.csv:8`, `docs/voice.csv:13` (rows for source lines 217, 312, and 32)
 
 **Interfaces:**
 - Consumes: the strings from Task 1 and Task 2.
 - Produces: an inventory whose text and flags match `main.txt`.
 
-- [ ] **Step 1: Show that the rows are out of date**
+- [x] **Step 1: Show that the rows are out of date**
 
-Run: `grep -n "^1199,\|^1290,\|^1624," docs/voice.csv`
-Expected: three rows. The 1199 and 1290 rows end in `capitalization`. The 1624 row contains `tresspassing` and the flag `typo`.
+Run: `grep -n "^217,\|^312,\|^32," docs/voice.csv`
+Expected: three rows. The 217 and 312 rows end in `capitalization`. The 32 row contains `tresspassing` and the flag `typo`.
 
-- [ ] **Step 2: Edit the 1199 row**
+- [x] **Step 2: Edit the 217 row**
 
-Replace `1199,Boss,Mission title,System,"Behind The Mask, Another Mask!",exclamation;capitalization` with `1199,Boss,Mission title,System,"Behind the Mask, Another Mask!",exclamation`.
+Replace `217,Boss,Mission title,System,"Behind The Mask, Another Mask!",exclamation;capitalization,main.txt` with `217,Boss,Mission title,System,"Behind the Mask, Another Mask!",exclamation,main.txt`.
 
-- [ ] **Step 3: Edit the 1290 row**
+- [x] **Step 3: Edit the 312 row**
 
-Replace `1290,End,Mission title,System,"The End Is Simply The Beginning...",ellipsis;capitalization` with `1290,End,Mission title,System,"The End Is Simply the Beginning...",ellipsis`.
+Replace `312,End,Mission title,System,The End Is Simply The Beginning...,ellipsis;capitalization,main.txt` with `312,End,Mission title,System,The End Is Simply the Beginning...,ellipsis,main.txt`.
 
-- [ ] **Step 4: Edit the 1624 row**
+- [x] **Step 4: Edit the 32 row**
 
-Replace `1624,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before tresspassing, eh?",typo;direct-address;contraction` with `1624,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before trespassing, eh?",direct-address;contraction`.
+Replace `32,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before tresspassing, eh?",typo;direct-address;contraction,lib/threads/bath.txt` with `32,Bathe,Help text,Narrator,"Maybe next time, you'll think twice before trespassing, eh?",direct-address;contraction,lib/threads/bath.txt`.
 
-- [ ] **Step 5: Show that the inventory is current**
+- [x] **Step 5: Show that the inventory is current**
 
 Run: `grep -c "capitalization\|typo\|tresspassing\|Simply The\|Behind The" docs/voice.csv`
 Expected: `0`.
 
+## Task 4: Record the New Canon in the Ledger
+
+**Files:**
+- Modify: `docs/lore.csv` (append rows L029 to L033)
+
+**Interfaces:**
+- Consumes: the Pending Decisions answers for the Barrier, the Fairy, the narrator, Toni's coma, and the tense departure.
+- Produces: five ledger rows that the later voice and lore work cites.
+
+- [x] **Step 1: Check the spoiler document**
+
+Read [docs/spoilers.md](../../docs/spoilers.md). Confirm that the coma and the deluded narrator rows do not state or hint at the hidden premise. Stop and ask if they do.
+
+- [x] **Step 2: Append the five rows**
+
+```csv
+L029,World and Setting,Barrier: the player cannot die inside it and dies only when leaving,Mod,Grilling decision,,Verify against lib/threads/barrier.txt lines 212 and 224
+L030,Characters,The Fairy is a mod-only character,Mod,Grilling decision,,Character row that extends L010
+L031,Tone and Narration,The opening narrator is a deluded god and unreliable throughout,Mod,Grilling decision,,Believes its account is authoritative on the story; extends L006
+L032,Characters,Toni Mueller is in a coma,Mod,Grilling decision,,Extends L023
+L033,Relationship to Book 2,Narration uses third person past while Book 2 switches tenses,Mod,Grilling decision,Book 2 switches tenses between chapters,Style departure from Book 2 recorded under L003
+```
+
+Expected: `docs/lore.csv` has 33 data rows and every row has seven fields.
+
 ## Pending Decisions
 
-These items need an answer from the author before any work can start. Each one names the file that records the answer. None of them is a task until the author decides.
+Each item is marked **Decided**, **Open**, or **Deferred**. Each one names the file that records the answer. An Open item is not a task until the author decides it.
 
-1. **Narration and dialogue rules.** [docs/branding.md](../../docs/branding.md) leaves these **Open**. The answer goes in its "Narration and Dialogue Style" section.
-2. **The Barrier claims.** Decide whether "you cannot die while inside it" is true, false, or a lie the narrator tells. The answer becomes a new row in [docs/lore.csv](../../docs/lore.csv). The death and bust handling in `main.txt` bears on it. See `.agents/bugs/death-and-bust-hazards.md`.
-3. **Who speaks the late text.** The Fairy and the opening narrator need a source in the story. Each becomes a character row in [docs/lore.csv](../../docs/lore.csv) once Book 2 is available. This extends row L010.
-4. **Joke handling.** Decide whether the announced jokes stay, change, or move to events. The answer goes in the "Dark Comedy" section of [docs/branding.md](../../docs/branding.md), and the affected strings are the rows in [docs/voice.csv](../../docs/voice.csv) for source lines 1620, 1622, 7858, 9378, and 9684.
-5. **GXT file.** Add the GXT source to the repository, then extend [docs/voice.csv](../../docs/voice.csv) with the 219 keyed strings.
-6. **Speaker labels.** Decide whether dialogue prints a speaker name. A yes changes every dialogue `Text.PrintString` and `Text.PrintStringNow` call in the Cart, BossDie, and Fairy scripts.
+1. **Narration and dialogue rules.** **Decided:** separate rules for narration and dialogue, in the "Narration and Dialogue Style" section of [docs/branding.md](../../docs/branding.md). Narration uses third person past, consistent across the game. Dialogue stays in character. Help text fits on one line.
+2. **The Barrier claims.** **Decided:** "you cannot die while inside it" is true. The player dies only when leaving the barrier, through the `Player.ExplodeHead` calls in `lib/threads/barrier.txt` at lines 212 and 224. Record a new row in [docs/lore.csv](../../docs/lore.csv). See `.agents/bugs/death-and-bust-hazards.md`.
+3. **Who speaks the late text.** **Decided:** the Fairy is a mod-only character, recorded as a new character row in [docs/lore.csv](../../docs/lore.csv) marked Mod. **Decided:** the opening narrator is a deluded god. It believes it is authoritative on the story, and it is unreliable throughout. **Decided:** Toni is in a coma, which is new canon to record as Mod in [docs/lore.csv](../../docs/lore.csv). The Book 2 draft, [docs/Turning_Darkness_Into.epub](../../docs/Turning_Darkness_Into.epub), is untracked, has eight drafted chapters, and names neither character. This extends row L010.
+4. **Joke handling.** **Decided:** the Poseidon help text and the "right tool for the wrong job" line are tongue-in-cheek and stay. The wooden sticks line is not a joke in the narrator's eyes and stays. The Popemobile line is misclassified, because a character (Toni) says it. **Decided:** amend the branding rule so the narration may be tongue-in-cheek, and it still never announces a joke. The source rows are in the "Dark Comedy" section of [docs/voice.md](../../docs/voice.md). The amended rule goes in [docs/branding.md](../../docs/branding.md), which has no "Dark Comedy" section yet.
+5. **GXT file.** **Deferred:** the GXT inventory is tracked separately. `strings.fxt` in the repository root holds 7 keyed strings, and the 219-string source is not in the repository.
+6. **Speaker labels.** **Decided:** dialogue prints no speaker name. The `Text.PrintString` and `Text.PrintStringNow` calls in the Cart, BossDie, and Fairy scripts stay as they are.
 
 ## Self-Review
 

@@ -38,7 +38,7 @@ These rules apply to every agent working in this repository.
 - A test plan stands alone. Never refer to the agent, to chat, or to anything outside the page, because a human may read only the plan. Each case starts with the exact command that prepares its build, unless an earlier case in the same plan already installed that build; then it starts from the game menu. Each case then says what to do in the game, and then says what the player sees.
 - Do not write a plan that has no human case.
 
-- Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css) and [confetti.js](.agents/testing/confetti.js). Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
+- Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css), [confetti.js](.agents/testing/confetti.js), and [test-plan.js](.agents/testing/test-plan.js). The script drives the progress bar, saves results in the viewer's browser, and marks a case Passed when every step in it is checked. Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
 - Preview a test plan through the `docs` server in `.claude/launch.json`. The Browser pane loads local files as `data:` documents, so relative links break.
 - A finished test case (Passed or Failed) collapses only its steps. The Expected result stays visible in a `fieldset.expected` group box whose `legend` sits on the border.
 - Test case internals use one flex `gap` in `.test-case` and no margins. Measure the visible-edge gaps in the running page after you add an element.

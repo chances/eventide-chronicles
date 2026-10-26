@@ -242,7 +242,7 @@ if
 goto_if_false @Boss_181
 Player.SetControl($PLAYER1, False)
 Sphere.Remove($SidewalkSphere)
-Text.PrintBigString("Behind The Mask, Another Mask!", 6000, TextStyle.BottomRight)
+Text.PrintBigString("Behind the Mask, Another Mask!", 6000, TextStyle.BottomRight)
 Camera.DoFade(1500, Fade.Out)
 wait 1500
 Player.SetCoordinates($PLAYER1, -73.011, -1608.668, 11.235)
@@ -337,7 +337,7 @@ while $Endgame == 0
             if
                 Player.LocateAnyMeans3D($PLAYER1, -535.6, -325.521, 13.56, 2.0, 2.0, 2.0, False)
             then
-                Text.PrintBigString("The End Is Simply The Beginning...", 6000, TextStyle.BottomRight)
+                Text.PrintBigString("The End Is Simply the Beginning...", 6000, TextStyle.BottomRight)
                 Mission.LoadAndLaunchInternal(7)
                 goto @End_10
             else
