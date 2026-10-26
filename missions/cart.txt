@@ -1,0 +1,182 @@
+//-------------Mission 4---------------
+
+:Cart
+Cart_36()
+if
+  has_deatharrest_been_executed
+goto_if_false @Cart_803
+goto @Cart_27
+
+:Cart_27
+Cart_847()
+terminate_this_script
+
+:Cart_36
+script_name 'Cart'
+$TIMER = 10000
+$ONMISSION = 1
+Stat.RegisterMissionGiven()
+wait 500
+Streaming.RequestModel(#CADDY)
+Streaming.RequestModel(#UZI)
+Streaming.RequestModel(#WFYG2)
+Streaming.LoadAllModelsNow
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Hud.SwitchWidescreen(True)
+$GolfCart = Car.Create(#CADDY, 106.2301, 241.5375, 21.8008)
+$MachineGun = Pickup.CreateWithAmmo(#UZI, PickupType.Once, 6000, 117.841, 268.747, 21.791)
+Camera.SetFixedPosition(119.747, 262.051, 25.791, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(117.841, 268.747, 21.791, SwitchType.JumpCut)
+wait 250
+Camera.SetGenerateCarsAround(False)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Text.Print('GOLFG1', 5000, 0)
+wait 3000
+Camera.DoFade(1500, Fade.Out)
+wait 750
+Hud.SwitchWidescreen(False)
+$Psycho = Char.CreateInsideCar($GolfCart, PedType.CivFemale, #WFYG2)
+Char.SetHealth($Psycho, 500)
+Char.SetCantBeDraggedOut($Psycho, False)
+Char.SetObjNoObj($Psycho)
+Char.SetCanBeShotInVehicle($Psycho, False)
+Char.SetOnlyDamagedByPlayer($Psycho, True)
+Camera.RestoreJumpcut
+wait 500
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+Player.SetControl($PLAYER1, True)
+
+:Cart_37
+while not Pickup.HasBeenCollected($MachineGun)
+    wait 0
+    if
+        Pickup.HasBeenCollected($MachineGun)
+    then
+        Hud.ClearTimer($TIMER)
+        break
+    end
+    if
+        $TIMER == 0
+    then
+        goto @Cart_847
+    end
+end
+
+:Cart_376
+$TIMER = 90000
+Text.Print('A1_A', 5000, 0)
+Char.SetObjEnterCarAsDriver($Psycho, $GolfCart)
+Car.SetOnlyDamagedByPlayer($GolfCart, True)
+Car.SetDrivingStyle($GolfCart, DrivingMode.AvoidCars)
+Car.SetCruiseSpeed($GolfCart, 70)
+Car.WanderRandomly($GolfCart)
+Blip.AddForChar($Psycho, $CopBlip)
+
+:Cart_380
+while not Char.IsDead($Psycho)
+    wait 0
+    if and
+        not Car.IsDead($GolfCart)
+        Char.IsDead($Psycho)
+    then
+        Hud.ClearTimer($TIMER)
+        wait 0
+        $TIMER = 30000
+        Text.Print('GOLFDST', 6000, 0)
+        Hud.DisplayTimer($TIMER, TimerDirection.Down)
+        goto @Cart_400
+    end
+
+    if
+        Car.IsDead($GolfCart)
+    then
+        goto @Cart_631
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Cart_631
+    end
+end
+
+:Cart_400
+while not Car.IsDead($GolfCart)
+wait 0
+    if
+        $TIMER == 0
+    then
+        goto @Cart_847
+    end
+    if
+        Car.IsDead($GolfCart)
+    then
+        break
+    end
+end
+
+:Cart_631
+Blip.Remove($GOLFBLIP)
+Hud.ClearTimer($TIMER)
+Stat.AddNumberOfAssassinations(1)
+Stat.PlayerMadeProgress(10)
+Stat.RegisterMissionPassed('TAKEOUT')
+Player.AddScore($PLAYER1, 10000)
+Text.PrintBig('ASS_1', 3000, TextStyle.Middle)
+Char.MarkAsNoLongerNeeded($Psycho)
+Car.MarkAsNoLongerNeeded($GolfCart)
+Streaming.MarkModelAsNoLongerNeeded(#CADDY)
+Streaming.MarkModelAsNoLongerNeeded(#WFYG2)
+play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+$PsychoDead = 1
+$ONMISSION = 0
+Blip.Remove($PhoneBlip)
+wait 250
+$PhoneBlip = Blip.AddSpriteForContactPoint(482.62, 244.073, 10.0, RadarSprite.Phone)
+$BossPhone = Phone.Grab(482.453, 244.221)
+Phone.TurnOn($BossPhone)
+wait 500
+start_new_script @Kill
+Mission.Finish
+terminate_this_script
+return
+
+:Cart_803
+Text.PrintBigString("Assassination Failed!", 3000, TextStyle.Middle)
+Blip.Remove($GOLFBLIP)
+Hud.ClearTimer($TIMER)
+wait 500
+if
+    Char.IsInCar($Psycho, $GolfCart)
+then
+    Char.RemoveElegantly($Psycho)
+    Car.MarkAsNoLongerNeeded($GolfCart)
+else
+    Car.Delete($GolfCart)
+end
+$ONMISSION = 0
+terminate_this_script
+return
+
+:Cart_847
+Text.PrintBigString("Assassination Failed!", 3000, TextStyle.Middle)
+Blip.Remove($GOLFBLIP)
+Hud.ClearTimer($TIMER)
+wait 500
+if
+    Char.IsInCar($Psycho, $GolfCart)
+then
+    Char.RemoveElegantly($Psycho)
+    Car.MarkAsNoLongerNeeded($GolfCart)
+else
+    Car.Delete($GolfCart)
+end
+$ONMISSION = 0
+terminate_this_script
+return
+

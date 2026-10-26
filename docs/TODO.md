@@ -87,3 +87,15 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 - "Are You There God? It's Me, Toni!"
 - "Random Violence": The two-line stub was removed from `main.txt`: `:RandomViolence` followed by `script_name 'Random'`.
+
+## 🧵 CLEO Threads
+
+**Open.** Port a mission to a CLEO thread only when a feature needs it, such as the hotel cutscene or a radio track. The [VC CLEO 2.2.0 opcode list](https://raw.githubusercontent.com/cleolibrary/III.VC.CLEO/master/source/CLEO_SDK/scm.txt) has `0A92` create_custom_thread and no `0A94` start_custom_mission, so a CLEO mission is a plain thread without the engine's death and bust check. Background is in [the modularize plan](../.agents/plans/modularize-spaghetti-code.md).
+
+- Confirm the `VC.CLEO.asi` version in the game folder (dated 2025-12-30). `0A92` must exist in that build.
+- Pilot candidates are `Fairy` (78 lines, 5 globals, no outside jump) and `Endgame` (117 lines, 6 globals, no outside jump). `Hotel` waits for a replacement for its jump to `Boss`.
+- The thread polls `Player.IsPlaying($PLAYER1)` and runs its fail path itself, clears `$ONMISSION`, removes its own pickups and blips, and ends with `end_custom_thread`.
+- A jump into `main.scm` such as `Police` becomes a global flag or `create_custom_thread`.
+- The thread includes `lib/alloc.txt` so each global keeps its offset.
+- `deno task build` compiles only `main.txt`. A CLEO script needs `{$CLEO .cs}` and a copy into the game's `CLEO` folder, added to the existing `deno task install`.
+- Compare `scrlog.log` for a death and a bust case with the `debug-missions` skill before accepting the port.

@@ -1,0 +1,596 @@
+//-------------Mission 2---------------
+
+:Cop
+Cop_20()
+wait 500
+if
+    has_deatharrest_been_executed
+then
+    Cop_4014()
+else
+    goto @Cop_15
+end
+
+:Cop_15
+Cop_4015()
+terminate_this_script
+
+:Cop_20
+script_name 'Cop'
+$ONMISSION = 1
+$TIMER = 60000
+Stat.RegisterMissionGiven()
+
+:Cop_25
+Streaming.RequestModel(#COP)
+Streaming.RequestModel(#FAGGIO)
+wait 500
+Streaming.LoadAllModelsNow()
+
+:Cop_30
+wait 500
+if
+    Streaming.HasModelLoaded(#COP)
+then
+    $Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)
+    $Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)
+    goto @Cop_80
+else
+    goto @COP_25
+end
+
+:Cop_80
+wait 500
+if
+    Char.DoesExist($Cop)
+then
+    goto @Cop_95
+else
+    goto @Cop_90
+end
+
+:Cop_90
+wait 500
+if
+    not Char.DoesExist($Cop)
+then
+    goto @Cop_20
+else
+    goto @Cop_80
+end
+
+:Cop_95
+Hud.SwitchWidescreen(True)
+Char.SetObjWaitOnFoot($Cop)
+wait 500
+Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+if
+    Char.IsOnScreen($Cop)
+then
+    play_audio_stream_1channel "Audio/SSA/ohshit.mp3" false, 0.5
+    Text.Print('OHSHIT', 1500, 0)
+    wait 1500
+    play_audio_stream_2channel "Audio/SSA/copcall.mp3", false, 0.5
+    Text.Print('COPCALL', 2000, 0)
+    wait 2000
+    Camera.DoFade(1500, Fade.Out)
+    wait 1500
+    Hud.SwitchWidescreen(False)
+    Camera.RestoreJumpcut()
+    wait 500
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Char.SetObjKillPlayerOnFoot($Cop, $PLAYER1)
+    Char.SetHealth($Cop, 50)
+    $CopBlip = Blip.AddForChar($Cop)
+    Text.Print('COPKILL', 5000, 0)
+    Hud.DisplayTimer($TIMER, TimerDirection.Down)
+    Player.SetControl($PLAYER1, True)
+    goto @Cop_96
+end
+
+:Cop_96
+while not Char.IsDead($Cop)
+wait 0
+    if
+        Char.IsDead($Cop)
+    then
+        goto @Cop_97
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Cop_4013
+    end
+
+    if
+        has_deatharrest_been_executed
+    then
+        goto @Cop_4013
+    end
+end
+
+:Cop_97
+Hud.ClearTimer($TIMER)
+Blip.Remove($CopBlip)
+Game.SetPoliceIgnorePlayer($PLAYER1, False)
+Char.RemoveElegantly($Cop)
+Streaming.MarkModelAsNoLongerNeeded(#COP)
+play_audio_stream_1channel "Audio/SSA/niceone.mp3", false, 0.5
+Text.Print('NICEONE', 1500, 0)
+wait 1500
+
+:Cop_100
+Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
+Game.SetFreeResprays(True)
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+
+:Cop_120
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+Player.AlterWantedLevelNoDrop($PLAYER1, 2)
+$FaggioBlip = Blip.AddForCar($Faggio)
+Blip.ChangeColor($FaggioBlip, BlipColor.Green)
+Text.PrintHelp('BIKE1')
+
+:Cop_260
+wait 0
+if
+    Player.IsInCar($PLAYER1, $Faggio)
+then
+    Audio.SetRadioChannel(RadioChannel.KChat, 0)
+    goto @Cop_262
+else
+    goto @Cop_260
+end
+
+:Cop_262
+Blip.Remove($FaggioBlip)
+Text.Print('COPLOSE', 3000, 0)
+$SPRAY_SHOP1 = Blip.AddSpriteForCoord(-3.8, -1265.8, 12.0, RadarSprite.Spray)
+wait 3000
+Text.Print('SPRAY', 5000, 0)
+
+:Cop_263
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, -23.1438, -1255.1295, 10.2443, 10.0, 10.0, 10.0, False)
+then
+    Text.PrintHelp('SPRAY2')
+    goto @Cop_322
+else
+    if
+        not Player.LocateAnyMeans3D($PLAYER1, -23.1438, -1255.1295, 10.2443, 10.0, 10.0, 10.0, False)
+    then
+        if
+            Player.IsWantedLevelGreater($PLAYER1, 0)
+        then
+            Text.Print('SPRAY', 5000, 0)
+            goto @Cop_264
+        else
+            goto @Cop_323
+        end
+    else
+        goto @Cop_322
+    end
+end
+
+:Cop_264
+wait 15000
+if
+    Player.IsWantedLevelGreater($PLAYER1, 0)
+then
+    Text.PrintHelp('SPRAY')
+    goto @Cop_264
+else
+    goto @Cop_323
+end
+
+:Cop_322
+wait 0
+if
+    Hud.AreWantedStarsFlashing()
+then
+    Game.SetFreeResprays(False)
+    Blip.Remove($SPRAY_SHOP1)
+    $SPRAY_SHOP1 = Blip.AddShortRangeSpriteForCoord(-3.8, -1265.8, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP2 = Blip.AddShortRangeSpriteForCoord(319.0, 441.3, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP3 = Blip.AddShortRangeSpriteForCoord(-903.0, -1261.1, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP4 = Blip.AddShortRangeSpriteForCoord(-839.8, -1490.5, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP5 = Blip.AddShortRangeSpriteForCoord(-876.2, -105.5, 12.0, RadarSprite.Spray)
+    Text.PrintHelp('SUSPAY1')
+    wait 5000
+    Text.PrintHelp('SUSPAY2')
+    wait 5000
+    Text.PrintHelp('SPRAY3')
+    wait 5000
+    goto @Cop_324
+else
+    goto @Cop_323
+end
+
+:Cop_323
+wait 0
+if
+    not Player.IsWantedLevelGreater($PLAYER1, 0)
+then
+    Game.SetFreeResprays(False)
+    Blip.Remove($SPRAY_SHOP1)
+    $SPRAY_SHOP1 = Blip.AddShortRangeSpriteForCoord(-3.8, -1265.8, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP2 = Blip.AddShortRangeSpriteForCoord(319.0, 441.3, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP3 = Blip.AddShortRangeSpriteForCoord(-903.0, -1261.1, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP4 = Blip.AddShortRangeSpriteForCoord(-839.8, -1490.5, 12.0, RadarSprite.Spray)
+    $SPRAY_SHOP5 = Blip.AddShortRangeSpriteForCoord(-876.2, -105.5, 12.0, RadarSprite.Spray)
+    Text.PrintHelp('WANTE')
+    wait 5000
+    Text.PrintHelp('WANTF')
+    wait 7000
+    Text.PrintHelp('SPRAY4')
+    wait 5000
+    goto @Cop_324
+else
+    goto @Cop_322
+end
+
+:Cop_324
+wait 0
+if
+    Pickup.HasBeenCollected($CellPhone)
+then
+    start_new_script @CELL
+    goto @Cop_397
+else
+    goto @Cop_387
+end
+
+:Cop_387
+$TIMER = 30000
+wait 500
+if
+    not Pickup.HasBeenCollected($CellPhone)
+then
+    $CellBlip = Blip.AddForPickup($CellPhone)
+    Blip.ChangeDisplay($CellBlip, BlipDisplay.Both)
+    Text.Print('CELL', 5000, 0)
+    Hud.DisplayTimer($TIMER, TimerDirection.Down)
+    goto @Cop_390
+end
+
+:Cop_390
+wait 0
+if
+    Pickup.HasBeenCollected($CellPhone)
+then
+    start_new_script @CELL
+    Blip.Remove($CellBlip)
+    Hud.ClearTimer($TIMER)
+    goto @Cop_397
+else
+    if
+        not Pickup.HasBeenCollected($CellPhone)
+    then
+        if
+            $TIMER == 0
+        then
+            goto @Cop_4013
+        else
+            goto @Cop_390
+        end
+    end
+end
+
+:Cop_397
+CarGenerator.Switch($GEN_CAR31, 101)
+wait 0
+$GOLFBLIP = Blip.AddForCoord(393.9, -1736.4, 8.8)
+Blip.ChangeColor($GOLFBLIP, BlipColor.Green)
+Text.Print('GCART', 5000, 0)
+
+:Cop_3434
+while not Player.IsInModel($PLAYER1, #CADDY)
+    wait 0
+    if
+        Player.IsInModel($PLAYER1, #CADDY)
+    then
+        Blip.Remove($GOLFBLIP)
+        wait 500
+        Object.Delete($STAR_GATE_2)
+        Player.ClearWantedLevel($PLAYER1)
+        Text.PrintHelp('GCART2')
+        wait 5000
+        break
+    end
+
+    if
+        $TIMER == 0
+    then
+        Blip.Remove($GOLFBLIP)
+        goto @Cop_4013
+    end
+end
+
+:Cop_3435
+$TIMER = 10000
+Blip.Remove($GOLFBLIP)
+Text.PrintHelp('GCART3')
+Blip.AddForCoord(-522.345, -348.141, 10.62, $StarfishBlip)
+$SidewalkSphere = Sphere.Create(-522.345, -348.141, 10.62, 3.0)
+wait 500
+Object.Delete($STAR_GATE_2)
+wait 500
+Path.SwitchPedRoadsOn(-230.0, -464.5, 10.0, 56.85, -459.8, 20.0)
+Path.SwitchRoadsOn(-230.0, -464.5, 10.0, 165.85, -459.8, 20.0)
+wait 500
+Object.Delete($STAR_GATE_2)
+goto @Cop_3756
+
+:Cop_3652
+Hud.ClearTimer($TIMER)
+$TIMER = 60000
+Text.Print('GCART4', 5000, 0)
+Player.AddScore($PLAYER1, -100)
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:Cop_3660
+wait 0
+if and
+    $TIMER == 0
+    not Player.IsInModel($PLAYER1, #CADDY)
+then
+    Blip.Remove($GOLFBLIP)
+    goto @Cop_4013
+else
+    if
+        Player.IsInModel($PLAYER1, #CADDY)
+    then
+        Hud.ClearTimer($TIMER)
+        goto @Cop_3435
+    else
+        goto @Cop_3660
+    end
+end
+
+:Cop_3756
+while not Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 3.0, 3.0, 3.0, False)
+    wait 0
+    if
+        Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 3.0, 3.0, 3.0, False)
+    then
+        if
+            Player.IsInModel($PLAYER1, #CADDY)
+        then
+            goto @Cop_4000
+        else
+            Text.Print('GCART5', 5000, 0)
+            Hud.DisplayTimer($TIMER, TimerDirection.Down)
+            goto @Cop_3757
+        end
+    end
+
+    if
+        not Player.IsInModel($PLAYER1, #CADDY)
+    then
+        Text.Print('GCART5', 5000, 0)
+        Hud.DisplayTimer($TIMER, TimerDirection.Down)
+        goto @Cop_3757
+    end
+end
+
+:Cop_3757
+while not $TIMER == 0
+    wait 0
+    if
+        $TIMER == 0
+    then
+        if
+            not Player.IsInModel($PLAYER1, #CADDY)
+        then
+            goto @Cop_4013
+        end
+    else
+        if
+            Player.IsInModel($PLAYER1, #CADDY)
+        then
+            Hud.ClearTimer($TIMER)
+            goto @Cop_3756
+        end
+    end
+end
+
+:Cop_4000
+World.ClearAreaOfCars(-500.20, -300.0., 10.0, -550.20, -200.0, 10.0)
+Sphere.Remove($SidewalkSphere)
+Blip.Remove($StarfishBlip)
+Player.ClearWantedLevel($PLAYER1)
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(2000, Fade.Out)
+wait 2000
+Camera.SetFixedPosition(-532.6, -325.521, 17.56, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(-535.64, -300.451, 12.29, SwitchType.JumpCut)
+Camera.DoFade(2000, Fade.In)
+wait 2000
+Text.PrintHelp('ROSES')
+Garage.ChangeType($StarfishGarage, GarageType.HideoutTwo)
+Garage.ChangeType($StarfishGarage2, GarageType.HideoutThree)
+wait 5000
+Camera.SetFixedPosition(-530.692, -310.928, 13.78, 0.0, 0.0, 0.0)
+Camera.PointAtPoint($COL_GarageX, $COL_GarageY, $COL_GarageZ, SwitchType.JumpCut)
+$AutoDealerBlip = Blip.AddSpriteForCoord($COL_GarageX, $COL_GarageY, $COL_GarageZ, RadarSprite.Sunyard)
+Text.ClearPrints
+Text.PrintHelp('SFGARG')
+wait 5000
+Blip.Remove($AutoDealerBlip)
+Camera.PointAtPoint(-527.692, -301.928, 10.62, SwitchType.JumpCut)
+Text.ClearPrints
+
+:Cop_4001
+wait 0
+if
+    $PRINT_SAVE_HELP == 0
+then
+    Text.PrintHelp('SAVE')
+    $PRINT_SAVE_HELP = 1
+    goto @Cop_4003
+else
+    goto @Cop_4002
+end
+
+:Cop_4002
+wait 0
+if
+    $PRINT_SAVE_HELP == 1
+then
+    goto @Cop_4003
+else
+    goto @Cop_4001
+end
+
+:Cop_4003
+$StarfishBlip = Blip.AddSpriteForCoord(-527.692, -301.928, 10.62, RadarSprite.Savehouse)
+wait 5000
+Text.PrintHelp('SAVE2')
+wait 5000
+Camera.DoFade(2000, Fade.Out)
+wait 2000
+goto @Cop_4046
+
+:Cop_4013
+Pickup.Remove($CellPhone)
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+wait 500
+Char.RemoveElegantly($Cop)
+Streaming.MarkModelAsNoLongerNeeded(#COP)
+Blip.Remove($BatBlip)
+Blip.Remove($FaggioBlip)
+Blip.Remove($CellBlip)
+Blip.Remove($CopBlip)
+Blip.Remove($GOLFBLIP)
+Blip.Remove($HomeBlip)
+Blip.Remove($StarfishBlip)
+Blip.Remove($SpazBlip)
+CarGenerator.Switch($Caddy, 0)
+CarGenerator.Switch($FaggioGen, 0)
+wait 500
+$CellPhone = Pickup.Create(#CELLPHONE, PickupType.Once, -3.632, -1416.0959, 10.6)
+Path.SwitchPedRoadsOff(-230.0, -464.5, 10.0, 56.85, -459.8, 20.0)
+Path.SwitchRoadsOff(-230.0, -464.5, 10.0, 165.85, -459.8, 20.0)
+$OceanViewBlip = Blip.AddForCoord(243.0885, -1277.1832, 10.9015)
+$SidewalkSphere = Sphere.Create(243.0885, -1277.1832, 10.9015, 2.0)
+terminate_this_script
+
+:Cop_4014
+Pickup.Remove($CellPhone)
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+wait 500
+Char.RemoveElegantly($Cop)
+Streaming.MarkModelAsNoLongerNeeded(#COP)
+Blip.Remove($BatBlip)
+Blip.Remove($FaggioBlip)
+Blip.Remove($CellBlip)
+Blip.Remove($CopBlip)
+Blip.Remove($GOLFBLIP)
+Blip.Remove($HomeBlip)
+Blip.Remove($StarfishBlip)
+Blip.Remove($SpazBlip)
+CarGenerator.Switch($Caddy, 0)
+CarGenerator.Switch($FaggioGen, 0)
+Car.Delete($Faggio)
+wait 500
+$CellPhone = Pickup.Create(#CELLPHONE, PickupType.Once, -3.632, -1416.0959, 10.6)
+Path.SwitchPedRoadsOff(-230.0, -464.5, 10.0, 56.85, -459.8, 20.0)
+Path.SwitchRoadsOff(-230.0, -464.5, 10.0, 165.85, -459.8, 20.0)
+$OceanViewBlip = Blip.AddForCoord(243.0885, -1277.1832, 10.9015)
+$SidewalkSphere = Sphere.Create(243.0885, -1277.1832, 10.9015, 2.0)
+terminate_this_script
+return
+
+:Cop_4015
+Pickup.Remove($CellPhone)
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+wait 500
+Char.RemoveElegantly($Cop)
+Streaming.MarkModelAsNoLongerNeeded(#COP)
+Blip.Remove($BatBlip)
+Blip.Remove($FaggioBlip)
+Blip.Remove($CellBlip)
+Blip.Remove($CopBlip)
+Blip.Remove($GOLFBLIP)
+Blip.Remove($HomeBlip)
+Blip.Remove($StarfishBlip)
+Blip.Remove($SpazBlip)
+CarGenerator.Switch($Caddy, 0)
+CarGenerator.Switch($FaggioGen, 0)
+Car.Delete($Faggio)
+wait 500
+$CellPhone = Pickup.Create(#CELLPHONE, PickupType.Once, -3.632, -1416.0959, 10.6)
+Path.SwitchPedRoadsOff(-230.0, -464.5, 10.0, 56.85, -459.8, 20.0)
+Path.SwitchRoadsOff(-230.0, -464.5, 10.0, 165.85, -459.8, 20.0)
+$SidewalkSphere = Sphere.Create(242.5886, -1280.6099, 10.9015, 2.0)
+terminate_this_script
+return
+
+:Cop_4046
+Streaming.MarkModelAsNoLongerNeeded(#SHOTGSPA)
+Streaming.MarkModelAsNoLongerNeeded(#GOLFCLUB)
+Blip.Remove($AdmiralBlip)
+Blip.Remove($BatBlip)
+Blip.Remove($FaggioBlip)
+Blip.Remove($GOLFBLIP)
+Blip.Remove($SpazBlip)
+Pickup.Remove($Spaz)
+Pickup.Remove($GUN_BEACH1)
+Sphere.Remove($SidewalkSphere)
+wait 250
+$Bat = Pickup.Create(#BAT, 2, 205.2552, 1231.957, 17.3998)
+$BatBlip = Blip.AddShortRangeSpriteForCoord(205.2552, 1231.957, 17.3998, 16)
+$FlamerBlip = Blip.AddShortRangeSpriteForCoord(-10.4092, -1422.4296, 10.459, 16)
+$GrenadeBlip = Blip.AddShortRangeSpriteForCoord(358.0369, 896.0801, 25.4659, 16)
+$KnifeBlip = Blip.AddShortRangeSpriteForCoord(597.8751, 884.6636, 22.529, 16)
+$MacTenBlip = Blip.AddShortRangeSpriteForCoord(156.6328, -1191.4419, 17.884, 16)
+$NitestickBlip = Blip.AddShortRangeSpriteForCoord(111.4223, -1341.892, 4.4396, 16)
+$RugerBlip = Blip.AddShortRangeSpriteForCoord(425.6707, 456.6242, 11.6517, 16)
+$ShotgunBlip = Blip.AddShortRangeSpriteForCoord(399.2008, -706.1506, 32.2459, 16)
+$SMGBlip = Blip.AddShortRangeSpriteForCoord(399.2008, -706.1506, 32.2459, 16)
+$StubbyBlip = Blip.AddShortRangeSpriteForCoord(454.2744, -63.6696, 11.4839, 16)
+$UziBlip = Blip.AddShortRangeSpriteForCoord(558.1175, 1137.585, 18.9701, 16)
+$MolotovBlip = Blip.AddShortRangeSpriteForCoord(-177.128, -983.8576, 10.4633, 16)
+$HomeBlip = Blip.AddForCoord(-524.0143, -347.3969, 11.1078)
+$GodsBlip = Blip.AddShortRangeSpriteForContactPoint(535.6343, 1123.8361, 18.9701, 37)
+$SidewalkSphere = Sphere.Create(-524.0143, -347.3969, 11.1078, 3.0)
+wait 250
+$Sabre = Car.Create(#SABRE, -542.10, -307.29, 10.36)
+Car.SetHeading($Sabre, 268)
+CarGenerator.Switch($FaggioGen, 101)
+Player.WarpFromCarToCoord($PLAYER1, -530.692, -315.928, 10.62)
+Camera.RestoreJumpcut
+wait 500
+World.ClearAreaOfCars(-528.824, -299.790, 10.80, -512.545, -351.51, 11.09)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+Text.PrintWithNumberBig('MISPASS', 500, 2000, TextStyle.Middle)
+play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+Stat.PlayerMadeProgress(5)
+Player.AddScore($PLAYER1, 500)
+wait 2000
+Text.PrintHelp('GUN')
+Stat.RegisterMissionPassed('STITCH') // Model Citizens Get Stitches...
+wait 3000
+$HomeSafe = 1
+$ONMISSION = 0
+
+:Cop_4092
+start_new_script @HOT
+terminate_this_script
+return
+

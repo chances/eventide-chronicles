@@ -1,0 +1,93 @@
+//-------------Mission 7---------------
+
+:Fairy
+$ONMISSION = 1
+Streaming.RequestModel(#WFYBE)
+Streaming.RequestModel(#WFYLG)
+Streaming.RequestModel(#WFYSH)
+Streaming.LoadAllModelsNow
+
+:Fairy_LoadWait
+wait 0
+if
+    Streaming.HasModelLoaded(#WFYBE)
+then
+    if
+        Streaming.HasModelLoaded(#WFYLG)
+    then
+        if
+            Streaming.HasModelLoaded(#WFYSH)
+        then
+            goto @Fairy_Start
+        else
+            goto @Fairy_LoadWait
+        end
+    else
+        goto @Fairy_LoadWait
+    end
+else
+    goto @Fairy_LoadWait
+end
+
+:Fairy_Start
+$Fairy1 = Char.Create(PedType.CivFemale, #WFYBE, -371.9346, -1750.0928, 11.6376)
+$Fairy2 = Char.Create(PedType.CivFemale, #WFYLG, -365.9346, -1750.0928, 11.6376)
+$Fairy3 = Char.Create(PedType.CivFemale, #WFYSH, -360.9346, -1750.0928, 11.6376)
+Char.TurnToFacePlayer($Fairy1, $PLAYER1)
+Char.TurnToFacePlayer($Fairy2, $PLAYER1)
+Char.TurnToFacePlayer($Fairy3, $PLAYER1)
+Char.TurnToFaceChar($PLAYER1, $Fairy1)
+Char.SetWaitState($Fairy1, WaitState.PlayAnimChat, 6789)
+wait 500
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Text.PrintString("Greetings, child.", 3000)
+wait 3000
+Text.PrintString("We have been waiting so long for your arrival...", 5000)
+wait 2000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+
+if
+    has_deatharrest_been_executed
+then
+    goto @Fairy_Fail
+end
+
+Char.RemoveElegantly($Fairy1)
+Char.RemoveElegantly($Fairy2)
+Char.RemoveElegantly($Fairy3)
+$ONMISSION = 0
+Streaming.MarkModelAsNoLongerNeeded(#WFYBE)
+Streaming.MarkModelAsNoLongerNeeded(#WFYLG)
+Streaming.MarkModelAsNoLongerNeeded(#WFYSH)
+wait 3000
+Camera.DoFade(1500, Fade.In)
+wait 1000
+Player.SetControl($PLAYER1, True)
+terminate_this_script
+
+:Fairy_Fail
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+if
+    Char.DoesExist($Fairy1)
+then
+    Char.RemoveElegantly($Fairy1)
+end
+if
+    Char.DoesExist($Fairy2)
+then
+    Char.RemoveElegantly($Fairy2)
+end
+if
+    Char.DoesExist($Fairy3)
+then
+    Char.RemoveElegantly($Fairy3)
+end
+Streaming.MarkModelAsNoLongerNeeded(#WFYBE)
+Streaming.MarkModelAsNoLongerNeeded(#WFYLG)
+Streaming.MarkModelAsNoLongerNeeded(#WFYSH)
+Player.SetControl($PLAYER1, True)
+terminate_this_script
+

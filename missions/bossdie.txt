@@ -1,0 +1,274 @@
+//-------------Mission 5---------------
+
+:BossDie
+BossDie_36()
+if
+  has_deatharrest_been_executed
+goto_if_false @BossDie_1400
+BossDie_27()
+
+:BossDie_27
+BossDie_1400()
+terminate_this_script
+
+:BossDie_36
+script_name 'BossDie'
+Stat.RegisterMissionGiven()
+Game.SetMaxWantedLevel(4)
+$TIMER = 30000
+$ONMISSION = 1
+wait 250
+Streaming.RequestModel(#HMOST)
+Streaming.LoadAllModelsNow
+while not Streaming.IsModelAvailable(#HMOST)
+    wait 0
+end
+wait 250
+$Boss = Char.Create(PedType.CivMale, #HMOST, -58.283, 78.199, 17.12)
+wait 250
+Phone.TurnOff($BossPhone)
+Player.SetControl($PLAYER1, False)
+Player.ShutUp($PLAYER1, True)
+Player.SetCurrentWeapon($PLAYER1, WeaponType.Unarmed)
+Player.SetHeading($PLAYER1, 0)
+Char.SetAnsweringMobile($scplayer, True)
+wait 1000
+Text.PrintString("Hey. This is your boss. Meet me on the Jetty east of the Golf Course.", 4000)
+wait 4000
+$JettyBlip = Blip.AddForChar($Boss)
+Blip.ChangeDisplay($JettyBlip, BlipDisplay.BlipOnly)
+Char.SetAnsweringMobile($scplayer, False)
+wait 1000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Camera.DoFade(1500, Fade.In)
+wait 1000
+Player.SetControl($PLAYER1, True)
+Text.PrintStringNow("Go meet your boss.", 3000)
+$SidewalkSphere = Sphere.Create(-60.361, 95.398, 16.642, 2.0)
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:BossDie_306
+while not Player.LocateOnFoot3D($PLAYER1, -60.361, 95.398, 16.642, 1.0, 1.0, 1.0, False)
+    wait 0
+    if
+        Player.LocateOnFoot3D($PLAYER1, -60.361, 95.398, 16.642, 1.0, 1.0, 1.0, False)
+    then
+        break
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @BossDie_1600
+    end
+end
+
+:BossDie_308
+Player.SetControl($PLAYER1, False)
+Blip.Remove($JettyBlip)
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Char.TurnToFacePlayer($Boss, $PLAYER1)
+Player.TurnToFaceChar($PLAYER1, $Boss)
+Camera.SetGenerateCarsAround(False)
+Char.GiveWeapon($Boss, WeaponType.Tec9, 9999)
+Camera.SetFixedPosition(-59.915, 86.492, 20.021, 0.0, 0.0, 0.0)
+Camera.PointAtChar($Boss, CameraMode.FollowPed, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Char.SetAnimGroup($Boss, AnimGroup.Tec)
+Char.SetWaitState($scplayer, WaitState.Surprise, 30000)
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 30000)
+
+:BossDie_310
+wait 1500
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+    Text.PrintString("Did you think I wouldn't find out?", 3000)
+    goto @BossDie_311
+else
+    goto @BossDie_320
+end
+
+:BossDie_311
+wait 3000
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+    Text.PrintString("Find what out?", 3000)
+    goto @BossDie_312
+else
+    goto @BossDie_320
+end
+
+:BossDie_312
+wait 3000
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+    Char.ShutUp($Boss, true)
+    Text.PrintString("You know damn well what!", 3500)
+    Char.SetObjAimGunAtChar($Boss, $scplayer)
+    goto @BossDie_313
+else
+    goto @BossDie_320
+end
+
+:BossDie_313
+wait 3500
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Text.PrintString("I know what you did with our client's daughter!", 5000)
+    goto @BossDie_314
+else
+    goto @BossDie_320
+end
+
+:BossDie_314
+wait 5000
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+    Text.PrintString("Boss, it wasn't like that! I swear!", 5000)
+    goto @BossDie_315
+else
+    goto @BossDie_320
+end
+
+:BossDie_315
+wait 5000
+if or
+    not Pad.IsKeyPressed(KeyCode.LeftShift)
+    not Pad.IsButtonPressed(PadId.Pad1, Button.Cross)
+then
+    Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+    Text.PrintString("Save your excuses for someone who gives a shit!", 5000)
+    wait 4000
+    goto @BossDie_320
+else
+    goto @BossDie_320
+end
+
+:BossDie_320
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Player.SetCoordinates($PLAYER1, -60.212, 86.2, 16.84)
+wait 500
+Camera.RestoreJumpcut
+$TIMER = 60000
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+Char.SetObjKillPlayerAnyMeans($Boss, $PLAYER1)
+Text.PrintStringNow("Kill your boss!", 5000)
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:BossDie_917
+while not Char.IsDead($Boss)
+wait 0
+    if
+        Char.IsDead($Boss)
+    then
+        Text.PrintStringNow("Go home.", 5000)
+        $HomeBlip = Blip.AddForCoord(-530.692, -315.928, 10.62)
+        $SidewalkSphere = Sphere.Create(-530.692, -315.928, 10.62, 3.0)
+        break
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @BossDie_1312
+    end
+end
+
+:BossDie_1137
+while not Player.LocateAnyMeans3D($PLAYER1, -530.692, -315.928, 10.62, 0.5, 0.5, 0.5, False)
+    wait 0
+    if
+        Player.LocateAnyMeans3D($PLAYER1, -530.692, -315.928, 10.62, 0.5, 0.5, 0.5, False)
+    then
+        Player.SetControl($PLAYER1, False)
+        Blip.Remove($HomeBlip)
+        Sphere.Remove($SidewalkSphere)
+        Camera.DoFade(1500, Fade.Out)
+        wait 1500
+        Player.WarpFromCarToCoord($PLAYER1, -535.6, -325.521, 13.56)
+        goto @BossDie_1600
+    end
+end
+
+:BossDie_1312
+Hud.ClearTimer($TIMER)
+$TIMER = 15000
+Text.PrintBigString("Gods, you're the worst!", 3000, TextStyle.MiddleSmaller)
+Player.SetHealth($PLAYER1, 35)
+Player.AddArmour($PLAYER1, -99)
+Player.RemoveAllWeapons($PLAYER1)
+wait 500
+Player.GiveWeapon($PLAYER1, WeaponType.SilencedIngram, 50)
+World.ClearAreaOfCars(-50.123, 0.0, 12.0, 150.598, 100.235, 25.0)
+Char.SetHealth($Boss, 500)
+Text.PrintHelpString("Good luck, sucker!")
+wait 500
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:BossDie_1313
+while not Char.IsDead($Boss)
+    wait 0
+    if
+        $TIMER == 0
+    then
+        Char.RemoveElegantly($Boss)
+        break
+    end
+
+    if
+        Char.IsDead($Boss)
+    then
+        goto @BossDie_1600
+    end
+end
+
+:BossDie_1400
+Game.SetMaxWantedLevel(3)
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+Hud.ClearTimer($TIMER)
+Blip.Remove($JettyBlip)
+Phone.TurnOn($BossPhone)
+terminate_this_script
+return
+
+:BossDie_1600
+Hud.ClearTimer($TIMER)
+Audio.LoadEndOfGameTune
+Char.MarkAsNoLongerNeeded($Boss)
+$Boss_Killed = 1
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.AddScore($PLAYER1, 100000)
+Text.PrintWithNumberBig('MISPASS', 100000, 2000, TextStyle.Middle)
+play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+Restart.AddHospital(-822.6161, 1149.8101, 12.4111, 2.57)
+Stat.RegisterMissionPassed('BURY')
+Stat.PlayerMadeProgress(15)
+$ONMISSION = 0
+Audio.LoadEndOfGameTune
+wait 500
+start_new_script @End
+terminate_this_script
+return
+

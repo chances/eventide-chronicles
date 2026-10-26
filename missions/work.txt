@@ -1,0 +1,470 @@
+//-------------Mission 3---------------
+
+:Work
+wait 0
+Work_40()
+if
+    has_deatharrest_been_executed
+then
+    goto @Work_31
+else
+    goto @Work_2674
+end
+
+:Work_31
+Work_2674()
+terminate_this_script
+
+:Work_40
+script_name 'Work'
+Stat.RegisterMissionGiven()
+Game.SetMaxWantedLevel(3)
+$TIMER = 10000
+$OffWorkBike = 0
+$ONMISSION = 1
+wait 250
+Streaming.RequestModel(#CADDY)
+Streaming.RequestModel(#HMOST)
+Streaming.RequestModel(#PCJ600)
+Streaming.RequestModel(#TEC9)
+Streaming.RequestModel(#UZI)
+Streaming.RequestModel(#WFYPR)
+Streaming.LoadAllModelsNow
+wait 250
+Clock.SetTimeOfDay(5, 30)
+$WorkBike = Car.Create(#PCJ600, -104.23, -1600.046, 9.507)
+Car.SetHeading($WorkBike, 180)
+$Boss = Char.Create(PedType.CivMale, #HMOST, -67.467, -1608.489, 11.235)
+Blip.Remove($LimeyBlip)
+Sphere.Remove($SidewalkSphere)
+Camera.SetFixedPosition(-69.315, -1600.188, 13.45, 0.0, 0.0, 0.0)
+Char.TurnToFacePlayer($Boss, $PLAYER1)
+Player.TurnToFaceChar($PLAYER1, $Boss)
+wait 500
+Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 2000
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 3000)
+Text.PrintString("Well look who it is... You're late! Where the hell have you been?!", 3000)
+wait 3000
+Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+Char.SetWaitState($scplayer, WaitState.PlayAnimChat, 1000)
+Text.PrintString("Oh, that... Well, I can explain-", 1000)
+wait 750
+Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 5000)
+Text.PrintString("Shove it. I don't care. We've got a client who wants you to deliver the bike out back.", 5000)
+wait 5000
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 3000)
+Text.PrintString("He's giving it to his daughter as a homecoming present.", 3000)
+wait 3000
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 5000)
+Text.PrintString("So make sure it's in mint condition. If you screw up one more time, I'm taking it out of your ass! Comprende?", 5000)
+wait 5000
+Char.SetWaitState($scplayer, WaitState.PlayAnimChat, 2000)
+Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintString("Yes, I unders-.", 2000)
+wait 2000
+Camera.PointAtChar($Boss, CameraMode.Fixed, SwitchType.JumpCut)
+Char.SetWaitState($Boss, WaitState.PlayAnimChat, 3000)
+Text.PrintString("You're still here?! Get going!", 3000)
+wait 3000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Player.SetCoordinates($PLAYER1, -110.839, -1616.427, 9.156)
+Camera.RestoreJumpcut
+Camera.SetBehindPlayer
+
+:Work_50
+$BikeBlip = Blip.AddForCar($WorkBike)
+Blip.ChangeDisplay($BikeBlip, BlipDisplay.Both)
+wait 500
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+Player.SetControl($PLAYER1, True)
+Text.PrintString("You have ten seconds to get on the ~b~bike.", 3000)
+
+:Work_902
+while not Player.IsInCar($PLAYER1, $WorkBike)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        Blip.Remove($BikeBlip)
+        Hud.ClearTimer($TIMER)
+        Text.PrintStringNow("Deliver the bike to the client's daughter.", 5000)
+        $DaughterBlip = Blip.AddForCoord(370.688, 991.698, 11.4)
+        Blip.ChangeColor($DaughterBlip, BlipColor.Cyan)
+        Blip.ChangeDisplay($DaughterBlip, BlipDisplay.Both)
+        $SidewalkSphere = Sphere.Create(370.688, 991.698, 11.4, 1.0)
+        goto @Work_1203
+    end
+    if
+        $TIMER == 0
+    then
+        goto @Work_2674
+    end
+end
+
+:Work_1203
+while not Player.LocateInCar3D($PLAYER1, 370.688, 991.698, 11.4, 1.0, 1.0, 1.0, False)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        Text.ClearThisPrint('IN_VEH')
+        if
+            Player.LocateInCar3D($PLAYER1, 370.688, 991.698, 11.4, 1.0, 1.0, 1.0, False)
+        then
+            if
+                not Car.IsHealthGreater($WorkBike, 800)
+            then
+                goto @Work_2630
+            else
+                Player.SetControl($PLAYER1, False)
+                Sphere.Remove($SidewalkSphere)
+                Camera.DoFade(1500, Fade.Out)
+                wait 1500
+                World.ClearAreaOfChars(360.235, 980.475, 8.0, 390.450, 995.560, 12.0)
+                Player.WarpFromCarToCoord($PLAYER1, 380.358, 991.462, 11.4)
+                goto @Work_1204
+            end
+        end
+    else
+        if
+            not Player.IsInCar($PLAYER1, $WorkBike)
+        then
+            Text.Print('IN_VEH', 5000, 0)
+        end
+
+        if
+            Car.IsDead($WorkBike)
+        then
+            goto @Work_2634
+        end
+    end
+end
+
+:Work_1204
+wait 500
+$Daughter = Char.Create(PedType.CivFemale, #WFYPR, 370.456, 984.123, 11.45)
+Stat.PlayerMadeProgress(5)
+Char.SetAsPlayerFriend($Daughter, $PLAYER1, True)
+Char.SetAnimGroup($Daughter, AnimGroup.SexyWoman)
+Char.SetRunning($Daughter, True)
+Char.SetHealth($Daughter, 500)
+Char.SetInPlayersGroupCanFight($Daughter, False)
+Char.SetUsePednodeSeek($Daughter, False)
+Player.SetCurrentWeapon($PLAYER1, WeaponType.Unarmed)
+Blip.Remove($DaughterBlip)
+Car.SetCoordinates($WorkBike, 380.211, 985.261, 10.95)
+Camera.SetFixedPosition(375.827, 991.111, 14.43, 0.0, 0.0, 0.0)
+Camera.PointAtChar($Daughter, CameraMode.FollowPed, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Char.SetObjGotoCoordOnFoot($Daughter, 370.688, 990.698)
+Text.PrintStringNow("Oh, cool! Is that my new bike?!", 3000)
+wait 3000
+Char.SetObjNoObj($Daughter)
+Char.TurnToFacePlayer($Daughter, $PLAYER1)
+Player.TurnToFaceChar($PLAYER1, $Daughter)
+wait 1500
+Char.SetWaitState($scplayer, WaitState.PlayAnimChat, 5000)
+Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintStringNow("No, it's the Popemobile. Yes, this is your bike.", 5000)
+wait 5000
+Char.SetWaitState($Daughter, WaitState.PlayAnimChat, 5000)
+Camera.PointAtChar($Daughter, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintStringNow("Haha, very funny. Say, could you take me for a ride? I want to see how fast it can go!", 5000)
+wait 5000
+Char.SetWaitState($scplayer, WaitState.PlayAnimChat, 5000)
+Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintStringNow("As long as you don't tell my boss, I'll take you anywhere your heart desires.", 5000)
+wait 5000
+Char.SetWaitState($Daughter, WaitState.PlayAnimChat, 3000)
+Camera.PointAtChar($Daughter, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintStringNow("Oh, yay! This is going to be so much fun!", 3000)
+wait 3000
+Char.SetWaitState($scplayer, WaitState.PlayAnimChat, 3000)
+Camera.PointAtPlayer($PLAYER1, CameraMode.Fixed, SwitchType.JumpCut)
+Text.PrintStringNow("Yeah... This'll be a riot.", 3000)
+wait 2500
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+World.ClearAreaOfChars(360.235, 980.475, 8.0, 390.450, 995.560, 12.0)
+if
+    not Char.IsDead($Daughter)
+then
+    if
+        not Car.IsDead($WorkBike)
+    then
+        Camera.PointAtChar($Daughter, CameraMode.FollowPed, SwitchType.JumpCut)
+        Camera.DoFade(1500, Fade.In)
+        wait 1500
+        goto @Work_2031
+    else
+        goto @Work_2634
+    end
+else
+    goto @Work_2582
+end
+
+:Work_2031
+Char.SetRunning($Daughter, True)
+Char.SetObjEnterCarAsPassenger($Daughter, $WorkBike)
+Char.SetStayInCarWhenJacked($Daughter, True)
+
+while not Char.IsInCar($Daughter, $WorkBike)
+    wait 0
+    if Char.IsDead($Daughter)
+    then
+        goto @Work_2582
+    end
+end
+
+Blip.Remove($DaughterBlip)
+Camera.RestoreJumpcut()
+Player.SetControl($PLAYER1, True)
+
+:Work_2147
+$TIMER = 30000
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+Text.PrintString("Take the bike for a spin around the city.", 5000)
+Blip.Remove($BikeBlip)
+goto @Work_2200
+
+:Work_2148
+while not Player.IsInCar($PLAYER1, $WorkBike)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        Hud.ClearTimer($TIMER)
+        goto @Work_2147
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Work_2634
+    end
+end
+
+:Work_2149
+while not Player.IsInCar($PLAYER1, $WorkBike)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        Blip.Remove($BikeBlip)
+        $OffWorkBike = 0
+        goto @Work_2436
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Work_2634
+    end
+end
+
+:Work_2200
+while true
+    wait 0
+    if
+        not Char.IsDead($Daughter)
+    then
+        if
+            Car.IsHealthGreater($WorkBike, 800)
+        then
+            if
+                not Car.IsDead($WorkBike)
+            then
+                if
+                    $TIMER == 0
+                then
+                    Text.PrintStringNow("OK, that's enough dilly-dallying. Take her home.", 5000)
+                    Hud.ClearTimer($TIMER)
+                    wait 100
+                    $DaughterHome = Blip.AddForCoord(304.747, 291.581, 15.238)
+                    $SidewalkSphere = Sphere.Create(304.747, 291.581, 15.238, 3.0)
+                    break
+                end
+            else
+                goto @Work_2634
+            end
+        else
+            goto @Work_2630
+        end
+    else
+        goto @Work_2582
+    end
+end
+
+:Work_2436
+while not Player.LocateAnyMeans3D($PLAYER1, 304.747, 291.581, 15.238, 1.0, 1.0, 1.0, False)
+    wait 0
+    if
+        not Char.IsDead($Daughter)
+    then
+        if
+            Car.IsHealthGreater($WorkBike, 800)
+        then
+            if
+                not Car.IsDead($WorkBike)
+            then
+                if
+                    Player.LocateAnyMeans3D($PLAYER1, 304.747, 291.581, 15.238, 1.0, 1.0, 1.0, False)
+                then
+                    Player.SetControl($PLAYER1, False)
+                    Blip.Remove($DaughterHome)
+                    Sphere.Remove($SidewalkSphere)
+                    Stat.PlayerMadeProgress(5)
+                    Camera.DoFade(1500, Fade.Out)
+                    Audio.LoadMissionAudio(1, 'MERC_39')
+                    goto @Work_2772
+                end
+            else
+                goto @Work_2634
+            end
+        else
+            goto @Work_2631
+        end
+    else
+        goto @Work_2582
+    end
+
+    if
+        not Char.IsInCar($Daughter, $WorkBike)
+    then
+        if
+            $DaughterBlip == 0
+        then
+            $DaughterBlip = Blip.AddForChar($Daughter)
+            Blip.ChangeColor($DaughterBlip, BlipColor.Cyan)
+            Blip.ChangeDisplay($DaughterBlip, BlipDisplay.Both)
+            Text.PrintStringNow("You've left her behind!", 3000)
+        end
+    else
+        Blip.Remove($DaughterBlip)
+        $DaughterBlip = 0
+    end
+
+    if
+        not Player.IsInCar($PLAYER1, $WorkBike)
+    then
+        $OffWorkBike = 1
+    end
+
+    if
+        $OffWorkBike == 1
+    then
+        $BikeBlip = Blip.AddForCar($WorkBike)
+        Blip.ChangeDisplay($BikeBlip, BlipDisplay.Both)
+        goto @Work_2149
+    else
+        Blip.Remove($BikeBlip)
+    end
+end
+
+:Work_2582
+Text.PrintStringNow("You killed the client's daughter!", 3000)
+goto @Work_2674
+
+:Work_2630
+Text.PrintString("The bike is trashed! Get it repaired!", 3000)
+Blip.AddSpriteForCoord(319.0, 441.3, 12.0, RadarSprite.Spray, $SprayBlip)
+while $CarHealth < 800
+    wait 0
+    Car.GetHealth($WorkBike, $CarHealth)
+    if
+        Car.IsHealthGreater($WorkBike, 800)
+    then
+        Blip.Remove($SprayBlip)
+        goto @Work_1203
+    end
+end
+
+:Work_2631
+Text.PrintString("The bike is trashed! Get it repaired!", 3000)
+Blip.AddSpriteForCoord(319.0, 441.3, 12.0, RadarSprite.Spray, $SprayBlip)
+while $CarHealth < 800
+    wait 0
+    Car.GetHealth($WorkBike, $CarHealth)
+    if
+        Car.IsHealthGreater($WorkBike, 800)
+    then
+        Blip.Remove($SprayBlip)
+        goto @Work_2436
+    end
+end
+
+:Work_2634
+Text.PrintStringNow("You wrecked the bike!", 3000)
+
+:Work_2674
+Hud.ClearTimer($TIMER)
+Game.SetMaxWantedLevel(2)
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+Blip.Remove($BikeBlip)
+Blip.Remove($DaughterHome)
+Blip.Remove($DaughterBlip)
+$ONMISSION = 0
+Streaming.MarkModelAsNoLongerNeeded(#CADDY)
+Streaming.MarkModelAsNoLongerNeeded(#PCJ600)
+Streaming.MarkModelAsNoLongerNeeded(#UZI)
+Streaming.MarkModelAsNoLongerNeeded(#WFYPR)
+wait 3000
+$LimeyBlip = Blip.AddSpriteForContactPoint(-103.874, -1604.519, 9.285, RadarSprite.Lawyer)
+Car.Delete($WorkBike)
+terminate_this_script
+return
+
+:Work_2772
+wait 500
+if
+    Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
+then
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Camera.SetFixedPosition(322.03, 290.981, 18.58, 0.0, 0.0, 0.0)
+    Camera.PointAtChar($Daughter, CameraMode.Fixed, SwitchType.JumpCut)
+    Char.SetRunning($Daughter, False)
+    Char.SetObjGotoCoordOnFoot($Daughter, 296.566, 290.581)
+    Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
+    Text.PrintStringNow("I'll see you later...", 3000)
+    wait 3000
+    Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
+    Camera.DoFade(1500, Fade.Out)
+    wait 1500
+    Char.RemoveElegantly($Daughter)
+    Char.Delete($Boss)
+    wait 500
+    Player.WarpFromCarToCoord($PLAYER1, 300.645, 295.896, 17.06)
+    Camera.RestoreJumpcut
+    Camera.SetBehindPlayer
+    wait 500
+    Car.Delete($WorkBike)
+    Camera.DoFade(1500, Fade.In)
+    wait 1500
+    Player.AddScore($PLAYER1, 1000)
+    Text.PrintWithNumberBig('MISPASS', 1000, 2000, TextStyle.Middle)
+    Stat.PlayerMadeProgress(10)
+    play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+    Stat.RegisterMissionPassed('MASK') // Behind The Mask, Another Mask
+    Player.SetControl($PLAYER1, True)
+    wait 3000
+    $Barrier2 = 1
+    $Limey_Passed = 1
+    $ONMISSION = 0
+    $PhoneBlip = Blip.AddSpriteForContactPoint(100.5953, 251.247, 20.729, RadarSprite.Lovefist)
+    terminate_all_scripts_with_this_name 'Golf'
+    start_new_script @Golf
+    Mission.Finish
+else
+    goto @Work_2772
+end
+terminate_this_script
+return
+

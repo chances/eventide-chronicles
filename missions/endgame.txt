@@ -1,0 +1,122 @@
+//-------------Mission 6---------------
+
+:Endgame
+script_name 'Endgame'
+
+:Endgame_LoadModels
+wait 250
+Streaming.RequestModel(#SABRE)
+Streaming.RequestModel(#WFYG1)
+
+:Endgame_WaitModels
+wait 0
+if and
+    Streaming.HasModelLoaded(#SABRE)
+    Streaming.HasModelLoaded(#WFYG1)
+then
+    Player.SetControl($PLAYER1, False)
+    $Sabre = Car.Create(#SABRE, -535.8, -323.328, 13.62)
+    wait 250
+    $EndOfGamePed = Char.Create(PedType.CivFemale, #WFYG1, -530.692, -315.928, 13.62)
+    wait 250
+else
+    goto @Endgame_WaitModels
+end
+
+Camera.PointAtChar($EndOfGamePed, CameraMode.FollowPed, SwitchType.JumpCut)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+
+:Endgame_Enter
+Char.SetObjEnterCarAsDriver($scplayer, $Sabre)
+Char.SetObjEnterCarAsPassenger($EndOfGamePed, $Sabre)
+
+:Endgame_CheckBoarding
+while not Char.IsInCar($EndOfGamePed, $Sabre)
+    wait 0
+    if
+        Char.IsInCar($EndOfGamePed, $Sabre)
+    then
+        if
+            Char.IsInCar($scplayer, $Sabre)
+        then
+            goto @Endgame_Go
+        end
+    end
+
+    if or
+        Char.IsStuck($EndOfGamePed)
+        Char.IsStuck($scplayer)
+    then
+        Char.SetCoordinates($EndOfGamePed, -530.692, -315.928, 13.62)
+        Char.SetCoordinates($scplayer, -535.6, -325.521, 13.56)
+        wait 500
+        goto @Endgame_Enter
+    end
+end
+
+goto @Endgame_CheckBoarding
+
+:Endgame_Go
+Camera.PointAtCar($Sabre, CameraMode.BehindCar, SwitchType.JumpCut)
+Car.AddUpsidedownCheck($Sabre)
+Car.GotoCoordinatesAccurate($Sabre, 240.4, -1280.2, 10.0)
+Audio.PlayEndOfGameTune()
+
+:Endgame_Stop
+while not Car.IsStoppedInArea2D($Sabre, 235.4, -1275.2, 245.6, -1285.6, False)
+    wait 0
+    if
+        Car.Locate2D($Sabre, 235.0, -1275.0, 10.0, 10.0, False)
+    then
+        Car.SetMission($Sabre, CarMission.None)
+        goto @Endgame_Finish
+    end
+    if or
+        Car.IsInWater($Sabre)
+        Car.IsUpsidedown($Sabre)
+    then
+        goto @Endgame_ResetCutscene
+    end
+end
+
+:Endgame_ResetCutscene
+$ONMISSION = 0
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+if
+    Char.DoesExist($EndOfGamePed)
+then
+    Char.Delete($EndOfGamePed)
+end
+
+if
+    not Car.IsDead($Sabre)
+then
+    Car.Delete($Sabre)
+end
+
+Char.SetCoordinates($scplayer, -535.6, -325.521, 13.56)
+goto @Endgame_LoadModels
+
+:Endgame_Finish
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Camera.PointAtChar($EndOfGamePed, CameraMode.FollowPed, SwitchType.JumpCut)
+Audio.StopEndOfGameTune()
+Char.SetObjLeaveCar($EndOfGamePed, $Sabre)
+Char.SetObjLeaveCar($scplayer, $Sabre)
+Stat.PlayerMadeProgress(20)
+$Endgame = 1
+$ONMISSION = 0
+
+wait 1000
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Char.SetObjDestroyCar($EndOfGamePed, $Sabre)
+Player.SetControl($PLAYER1, True)
+Text.Print('Endgame', 5000, 0) // Go watch the mindless destruction!
+Streaming.MarkModelAsNoLongerNeeded(#SABRE)
+Streaming.MarkModelAsNoLongerNeeded(#WFYG1)
+terminate_this_script
+
