@@ -49,7 +49,7 @@ Valid game actions (the busted text, "Mission Failed", the wanted level change, 
 - H5 concerns missions 9 and 10, which are prototypes and are out of scope for now.
 - H6 matches the reproduction: the `PACKAGE` thread runs invalid opcodes after the player is busted. After the fix, a bust and a wasted both respawn the player without a crash.
 - Whether H6 explains every crash is not yet known.
-- A temporary 2-star wanted level (`TEMP DEBUG`, `main.txt` line 348) supports bust testing. Remove it before release.
+- A 2-star wanted level at game start supports bust testing. `deno task install --debug-wanted` turns it on through `lib/debug.txt`, and a plain install leaves it off.
 
 ## Sources
 

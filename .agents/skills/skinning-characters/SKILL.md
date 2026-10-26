@@ -16,7 +16,7 @@ Read [visual-identity.md](../../../docs/visual-identity.md) before you paint. Co
 | Kind | Files in `gta3.img` | How the game uses it |
 |---|---|---|
 | Player outfits | `player`, `player2` to `player9`, `play10` to `play12` | The stock clothing-store outfits, each with one texture named like the model (`play12` has two): `player` Street, `player2` Raphael, `player3` Spandex, `player4` Golf, `player5` Cuban, `player6` Cop, `player7` The Job, `player8` Casual, `player9` Collars and Cuffs, `play10` Black Tracksuit, `play11` Wine Red Tracksuit, `play12` Frankie. `player.txd` is overridden by `models/generic/player.bmp` while that file exists. This install has it. |
-| Special characters | `IGxxx` in-game, `CSxxx` cutscene, `chef` | Loaded by name with `Char.Undress` or `Streaming.LoadSpecialCharacter`. None is in `default.ide`. The `Skin` thread uses `IGMERC`, `IGMERC2`, and `CHEF`. |
+| Special characters | `IGxxx` in-game, `CSxxx` cutscene, `chef` | Loaded by name with `Char.Undress` or `Streaming.LoadSpecialCharacter`. None is in `default.ide`. No script uses one now. `MAIN`, the `Skin` thread, and the clothing stores dress the player in the stock slots `PLAYER` to `PLAYER5`. |
 | Ordinary peds | `wmyri` and the rest of the `peds` section in `default.ide` | Spawned by model id. The IDE row names the `.dff` and `.txd`. |
 
 A character seen in play and in a cutscene has two models, such as `IGMerc` and `CSMerc`. Reskin both. A new model name works as a special character. It needs both files and a name of at most 7 characters, because Vice City script strings hold 7.

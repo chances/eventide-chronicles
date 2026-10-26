@@ -29,7 +29,7 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 ### Skins and Character Meshes
 
-**Open.** The `Skin` thread dresses the player in the `IGMERC` model at six locations. See [visual-identity.md](visual-identity.md).
+**Open.** `MAIN`, the `Skin` thread, and the Mystery scene dress the player in the `PLAYER` slot, which holds the default mockup outfit. See [visual-identity.md](visual-identity.md).
 
 - Replace the skin with the Mercedes character's skin.
 - Remodel the character mesh. The clothes do not fit it now.
