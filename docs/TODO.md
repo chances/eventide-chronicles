@@ -86,3 +86,4 @@ Open decisions and unfinished work that have no other home. Each item states wha
 **Open.**
 
 - "Are You There God? It's Me, Toni!"
+- "Random Violence": The two-line stub was removed from `main.txt`: `:RandomViolence` followed by `script_name 'Random'`.
