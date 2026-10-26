@@ -6,16 +6,9 @@ if (!vc) {
   Deno.exit(1);
 }
 
-// --debug-wanted starts the player at 2 stars. main.txt includes lib/debug.txt,
-// so the flag is written there before main.scm is built.
-const debugWanted = Deno.args.includes("--debug-wanted");
-await Deno.writeTextFile(
-  join(Deno.cwd(), "lib", "debug.txt"),
-  "// Written by scripts/install.ts. Pass --debug-wanted to turn the debug aids on.\r\n" +
-    `const DebugWantedLevel = ${debugWanted ? 2 : 0}\r\n`,
-);
+// Debug flags pass through to the build, which writes lib/debug.txt.
 const build = await new Deno.Command("deno", {
-  args: ["task", "build"],
+  args: ["task", "build", ...Deno.args],
   stdout: "inherit",
 }).output();
 if (!build.success) Deno.exit(1);

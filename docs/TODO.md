@@ -88,9 +88,14 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - "Are You There God? It's Me, Toni!"
 - "Random Violence": The two-line stub was removed from `main.txt`: `:RandomViolence` followed by `script_name 'Random'`.
 
+## 🧱 Script Split Leftovers
+
+- Threads that mission 0 does not start, such as `Star`, `Police`, `Cell`, and `PACKAGE`, still live in `main.txt`.
+- `DEFINE MISSION 10 AT @Heaven` has no `:Heaven` label, and `goto @Intro_1455` in `Intro` has no `:Intro_1455` label. `main.scm` builds with both.
+
 ## 🧵 CLEO Threads
 
-**Open.** Port a mission to a CLEO thread only when a feature needs it, such as the hotel cutscene or a radio track. The [VC CLEO 2.2.0 opcode list](https://raw.githubusercontent.com/cleolibrary/III.VC.CLEO/master/source/CLEO_SDK/scm.txt) has `0A92` create_custom_thread and no `0A94` start_custom_mission, so a CLEO mission is a plain thread without the engine's death and bust check. Background is in [the modularize plan](../.agents/plans/modularize-spaghetti-code.md).
+**Open.** Port a mission to a CLEO thread only when a feature needs it, such as the hotel cutscene or a radio track. The [VC CLEO 2.2.0 opcode list](https://raw.githubusercontent.com/cleolibrary/III.VC.CLEO/master/source/CLEO_SDK/scm.txt) has `0A92` create_custom_thread and no `0A94` start_custom_mission, so a CLEO mission is a plain thread without the engine's death and bust check. Mission scripts are in `missions/`, and mission 0's threads are in `lib/threads/`.
 
 - Confirm the `VC.CLEO.asi` version in the game folder (dated 2025-12-30). `0A92` must exist in that build.
 - Pilot candidates are `Fairy` (78 lines, 5 globals, no outside jump) and `Endgame` (117 lines, 6 globals, no outside jump). `Hotel` waits for a replacement for its jump to `Boss`.

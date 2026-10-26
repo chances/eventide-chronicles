@@ -35,7 +35,7 @@ These rules apply to every agent working in this repository.
 ## Test Plans
 
 - A test plan is for humans. Every case is something a person does and sees in the game or on a page. Keep commands, file hashes and sizes, exit codes, and output comparisons out of the plan. The agent runs those checks itself, through tests or scripts, and reports the results in chat.
-- A test plan stands alone. Never refer to the agent, to chat, or to anything outside the page, because a human may read only the plan. Each case starts with the exact command that prepares its build, then says what to do in the game, and then says what the player sees.
+- A test plan stands alone. Never refer to the agent, to chat, or to anything outside the page, because a human may read only the plan. Each case starts with the exact command that prepares its build, unless an earlier case in the same plan already installed that build; then it starts from the game menu. Each case then says what to do in the game, and then says what the player sees.
 - Do not write a plan that has no human case.
 
 - Test plan pages link the shared [test-plan.css](.agents/testing/test-plan.css) and [confetti.js](.agents/testing/confetti.js). Colors come from [docs/palette.csv](docs/palette.csv) through the stylesheet's custom properties.
@@ -56,9 +56,14 @@ These rules apply to every agent working in this repository.
 - `main.txt` is the source and `main.scm` is the compiled build. The game folder is `Sunshine Autos`, a sibling of `Projects`, and it holds a copy of both files in `data`. The game runs `gta-vc.exe` v1.0 with CLEO (`VC.CLEO.asi`) and `scrlog.asi`.
 - `main.txt` is Windows-1252, not UTF-8. Edit and Write refuse it. Change it with a command that keeps the encoding.
 - `main.txt` includes its source with `{$INCLUDE <path>}` lines: `lib/alloc.txt` holds the global `Alloc` lines, `lib/init.txt` holds the startup setup that follows `$ONMISSION = 0` in `MAIN`, `lib/debug.txt` holds the debug flags, `missions/<name>.txt` holds each mission from 1 to 9, and `lib/threads/<name>.txt` holds each thread that mission 0 starts. Include paths use forward slashes. A test or script that reads code from `main.txt` must also read the include file that holds that code, such as `missions/intro.txt` for mission 1.
-- `deno task install [--debug-wanted]` writes `lib/debug.txt` before it builds. Without the flag `DebugWantedLevel` is 0 and the player starts with no wanted level. With the flag it is 2. The flag goes on the existing `install` task, so do not add a task or script for it.
+- `deno task build [--debug-trace] [--debug-wanted]` writes `lib/debug.txt` before it compiles.
+
+     `--debug-trace` sets `DebugTrace` to 1, so MAIN and INIT write `trace.ini`. `deno task install` passes its flags through to the build. The flags go on existing tasks, so do not add a task or script for them.
+
+    Without `--debug-wanted` `DebugWantedLevel` is 0 and the player starts with no wanted level. With the flag it is 2.
+
 - `{$USE CLEO}` is set, but the `CLEO` folder holds only text sources and `cleo.log` is empty. The scripts that matter run from `main.scm`.
-- CLEO for Vice City 2.2.0 has `0A92` create_custom_thread and `0A93` end_custom_thread, and no `0A94` start_custom_mission. It cannot run a `.cm` custom mission, so a CLEO script is a plain thread without the engine's death and bust check. The plan to split `main.txt` into `missions/*.txt` and port missions to CLEO threads one at a time is [.agents/plans/modularize-spaghetti-code.md](.agents/plans/modularize-spaghetti-code.md).
+- CLEO for Vice City 2.2.0 has `0A92` create_custom_thread and `0A93` end_custom_thread, and no `0A94` start_custom_mission. It cannot run a `.cm` custom mission, so a CLEO script is a plain thread without the engine's death and bust check. Mission scripts live in `missions/*.txt`, and mission 0's threads live in `lib/threads/*.txt`. Porting missions to CLEO threads is tracked in [TODO.md](docs/TODO.md).
 - `DEFINE MISSION n AT @Label` lists the mission scripts: 0 `INIT`, 1 `Intro`, 2 `Cop`, 3 `Hotel`, 4 `Work`, 5 `Cart`, 6 `BossDie`, 7 `Endgame`, 8 `Fairy`. Missions 9 (`Hell`) and 10 (`Heaven`) are prototypes.
 - `MAIN` creates the player, launches mission 0 with `Mission.LoadAndLaunchInternal(0)`, starts `Star`, `Save`, `VPHotel`, and `PackageToggle`, and then terminates. `INIT` starts the free-roam threads, such as `Barrier`, `Pizza`, `Help`, and `VehHeal`.
 - The shop robbery mechanic lives in the `Jewelry` thread. Aiming at the store clerk pays $50 each second. After $500 or when the aim stops, the alarm sets the wanted level to 2 stars. No text tells the player a robbery has started. Whether to teach it is open in [docs/TODO.md](docs/TODO.md).

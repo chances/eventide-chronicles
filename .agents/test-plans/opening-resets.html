@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opening Resets Tests</title>
+  <link rel="stylesheet" href="../testing/test-plan.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to test cases</a>
+
+  <header class="page-header">
+    <p class="eyebrow">Test Plan</p>
+    <h1>Opening Resets Tests</h1>
+    <p class="intro">Play the opening of a new game, then check that the game still runs after a bust during the radar tutorial.</p>
+  </header>
+
+  <div class="test-progress">
+    <div class="progress-row">
+      <progress id="progress" max="9" value="0" aria-label="Steps done"></progress>
+      <span class="progress-count" id="count">0 of 9 steps done</span>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Test cases">
+    <h2>Test Cases</h2>
+    <ol>
+      <li><a href="#case-1">Play the Opening to the End of the Radar Tutorial</a></li>
+      <li><a href="#case-2">Get Busted During the Radar Tutorial</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section class="test-case" id="case-1">
+      <div class="test-case-title">
+        <h2>Play the Opening to the End of the Radar Tutorial</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Play the Opening</legend>
+          <label><input type="radio" name="case-1" value="passed">Passed</label>
+          <label><input type="radio" name="case-1" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> Close the game. In the project folder, run <code>deno task install</code> and wait for it to finish.</label></li>
+          <li><label><input type="checkbox"> In the project folder, run <code>deno task run</code> to start the game, then choose New Game.</label></li>
+          <li><label><input type="checkbox"> Let the opening narration play until the radar tutorial begins.</label></li>
+          <li><label><input type="checkbox"> Follow the radar tutorial until it ends.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The opening narration plays in order, and the radar tutorial starts and ends. The game does not crash, freeze, or show an error message. The player can move and drive throughout.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-2">
+      <div class="test-case-title">
+        <h2>Get Busted During the Radar Tutorial</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Get Busted During the Radar Tutorial</legend>
+          <label><input type="radio" name="case-2" value="passed">Passed</label>
+          <label><input type="radio" name="case-2" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> From the game menu, start a new game.</label></li>
+          <li><label><input type="checkbox"> Let the opening narration play until the radar tutorial begins.</label></li>
+          <li><label><input type="checkbox"> While the radar tutorial is still running, get the police to bust the player, for example by attacking a pedestrian where an officer can see it.</label></li>
+          <li><label><input type="checkbox"> Wait for the screen to fade and the game to reload.</label></li>
+          <li><label><input type="checkbox"> Play the opening again until the radar tutorial ends.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The screen fades out, and the opening starts again from its first scene. The game does not crash, freeze, or show an error message. The radar tutorial runs to its end the second time.</p>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer>
+    <p>Install with the game closed before the first case. Later cases use the same build.</p>
+  </footer>
+
+  <script src="../testing/confetti.js"></script>
+  <script>
+    (function () {
+      var stepBoxes = document.querySelectorAll('.steps input[type="checkbox"]');
+      var progress = document.getElementById("progress");
+      var count = document.getElementById("count");
+      var total = stepBoxes.length;
+
+      function update() {
+        var done = document.querySelectorAll('.steps input[type="checkbox"]:checked').length;
+        progress.value = done;
+        count.textContent = done + " of " + total + " steps done";
+      }
+
+      stepBoxes.forEach(function (box) {
+        box.addEventListener("change", update);
+      });
+
+      var storageKey = "test-plan:" + location.pathname;
+
+      function writeState() {
+        var state = { steps: {}, results: {} };
+        document.querySelectorAll(".test-case").forEach(function (section) {
+          section.querySelectorAll('.steps input[type="checkbox"]').forEach(function (box, i) {
+            state.steps[section.id + "/" + i] = box.checked;
+          });
+          var result = section.querySelector('.result-controls input[type="radio"]:checked');
+          state.results[section.id] = result ? result.value : null;
+        });
+        try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) { /* storage unavailable; results last only for this page view */ }
+      }
+
+      function restoreState() {
+        var state = {};
+        try { state = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch (e) { /* storage unavailable */ }
+        document.querySelectorAll(".test-case").forEach(function (section) {
+          section.querySelectorAll('.steps input[type="checkbox"]').forEach(function (box, i) {
+            box.checked = !!(state.steps && state.steps[section.id + "/" + i]);
+          });
+          var result = state.results && state.results[section.id];
+          var radio = result && section.querySelector('.result-controls input[value="' + result + '"]');
+          if (radio) radio.checked = true;
+        });
+      }
+
+      function syncCase(section) {
+        var boxes = section.querySelectorAll('.steps input[type="checkbox"]');
+        var done = Array.prototype.every.call(boxes, function (box) { return box.checked; });
+        var result = section.querySelector('.result-controls input[type="radio"]:checked');
+        section.querySelector(".test-case-details").open = !(done && result !== null);
+      }
+
+      document.querySelectorAll(".test-case").forEach(function (section) {
+        section.querySelectorAll('.steps input[type="checkbox"], .result-controls input[type="radio"]').forEach(function (input) {
+          input.addEventListener("change", function () { syncCase(section); writeState(); });
+        });
+      });
+
+      document.querySelectorAll('.result-controls input[value="passed"]').forEach(function (radio) {
+        radio.addEventListener("change", function () {
+          if (window.eventideConfetti) window.eventideConfetti(radio);
+        });
+      });
+      restoreState();
+      update();
+      document.querySelectorAll(".test-case").forEach(function (section) { syncCase(section); });
+    })();
+  </script>
+</body>
+</html>

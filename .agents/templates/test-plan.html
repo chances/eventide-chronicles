@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    AGENT INSTRUCTIONS. Delete this whole comment block in a filled test plan.
+
+    Create a test plan:
+    1. Copy this file to .agents/test-plans/<name>.html. Keep the relative links to ../testing/ as they are.
+    2. Replace the title, the eyebrow, and the intro with text for a human reader.
+    3. Write one section with class "test-case" per case. Give each a unique id (case-1, case-2, ...) and a unique radio name that matches it.
+    4. Each case has one "steps" list. Every item in it is one action a person does, followed by no more than one check. Every item gets a checkbox, and every checkbox counts toward the progress bar. The list collapses only after a result is chosen and every checkbox in it is checked.
+    5. The first step of a case is the exact command that prepares the build, such as "deno task install", then the launch step, such as "deno task run". A case that follows one that already installed the build starts from the game menu instead. Put nothing else in a command step.
+    6. Each case ends with one fieldset.expected whose legend reads "Expected Result". Say what the player sees.
+    7. Build the table of contents from the cases. Remove any unused case section.
+
+    Rules for the text:
+    - A test plan is for humans. Keep commands, file hashes, sizes, exit codes, and output comparisons out of everything except the build command in step 1.
+    - The plan stands alone. Never mention the agent, the chat, the task list, or anything outside the page.
+    - Title Case for headings, buttons, and labels. US English. Oxford commas. No em dashes.
+    - Do not state or hint at the hidden premise. Link to docs/spoilers.md instead if a case needs it.
+    - No storage, scripts, or network calls. Results live only in the viewer's page session.
+  -->
+  <title>Test Plan Title</title>
+  <link rel="stylesheet" href="../testing/test-plan.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to test cases</a>
+
+  <header class="page-header">
+    <!-- Short label for the area under test, such as "Opening Resets". -->
+    <p class="eyebrow">Test Plan</p>
+    <h1>Test Plan Title</h1>
+    <!-- One or two sentences: what the player does and what this plan checks. -->
+    <p class="intro">Describe what the player does and what this plan checks.</p>
+  </header>
+
+  <div class="test-progress">
+    <div class="progress-row">
+      <progress id="progress" max="1" value="0" aria-label="Steps done"></progress>
+      <span class="progress-count" id="count">0 of 1 steps done</span>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Test cases">
+    <h2>Test Cases</h2>
+    <!-- One list item per case. The href matches the case id. -->
+    <ol>
+      <li><a href="#case-1">Case One Title</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <!-- Repeat this section for each case. Keep the id, the radio name, and the legend in step. -->
+    <section class="test-case" id="case-1">
+      <div class="test-case-title">
+        <h2>Case One Title</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Case One Title</legend>
+          <label><input type="radio" name="case-1" value="passed">Passed</label>
+          <label><input type="radio" name="case-1" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <!-- One li per step. Step 1 is always the build command. Each step gets a checkbox. -->
+        <ol class="steps">
+          <li>
+            <label><input type="checkbox"> Close the game. In the project folder, run <code>deno task install</code> and wait for it to finish.</label>
+          </li>
+          <li>
+            <label><input type="checkbox"> In the project folder, run <code>deno task run</code> to start the game.</label>
+          </li>
+          <li>
+            <label><input type="checkbox"> Describe one action the player takes.</label>
+          </li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <!-- Say what the player sees. Do not describe the steps again. -->
+        <p>Describe what the player sees when the case passes.</p>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Optional. A line about install state or what to do when a case fails. -->
+    <p>Install with the game closed.</p>
+  </footer>
+
+  <script src="../testing/confetti.js"></script>
+  <script>
+    (function () {
+      var stepBoxes = document.querySelectorAll(".steps input[type=\"checkbox\"]");
+      var progress = document.getElementById("progress");
+      var count = document.getElementById("count");
+      var total = stepBoxes.length;
+      progress.max = total;
+
+      function update() {
+        var done = document.querySelectorAll(".steps input[type=\"checkbox\"]:checked").length;
+        progress.value = done;
+        count.textContent = done + " of " + total + " steps done";
+      }
+
+      stepBoxes.forEach(function (box) {
+        box.addEventListener("change", update);
+      });
+
+      var storageKey = "test-plan:" + location.pathname;
+
+      function writeState() {
+        var state = { steps: {}, results: {} };
+        document.querySelectorAll(".test-case").forEach(function (section) {
+          section.querySelectorAll(".steps input[type=\"checkbox\"]").forEach(function (box, i) {
+            state.steps[section.id + "/" + i] = box.checked;
+          });
+          var result = section.querySelector(".result-controls input[type=\"radio\"]:checked");
+          state.results[section.id] = result ? result.value : null;
+        });
+        try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) { /* storage unavailable; results last only for this page view */ }
+      }
+
+      function restoreState() {
+        var state = {};
+        try { state = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch (e) { /* storage unavailable */ }
+        document.querySelectorAll(".test-case").forEach(function (section) {
+          section.querySelectorAll(".steps input[type=\"checkbox\"]").forEach(function (box, i) {
+            box.checked = !!(state.steps && state.steps[section.id + "/" + i]);
+          });
+          var result = state.results && state.results[section.id];
+          var radio = result && section.querySelector(".result-controls input[value=\"" + result + "\"]");
+          if (radio) radio.checked = true;
+        });
+      }
+
+      function syncCase(section) {
+        var boxes = section.querySelectorAll(".steps input[type=\"checkbox\"]");
+        var done = Array.prototype.every.call(boxes, function (box) { return box.checked; });
+        var result = section.querySelector(".result-controls input[type=\"radio\"]:checked");
+        section.querySelector(".test-case-details").open = !(done && result !== null);
+      }
+
+      document.querySelectorAll(".test-case").forEach(function (section) {
+        section.querySelectorAll(".steps input[type=\"checkbox\"], .result-controls input[type=\"radio\"]").forEach(function (input) {
+          input.addEventListener("change", function () { syncCase(section); writeState(); });
+        });
+      });
+
+      document.querySelectorAll(".result-controls input[value=\"passed\"]").forEach(function (radio) {
+        radio.addEventListener("change", function () {
+          if (window.eventideConfetti) window.eventideConfetti(radio);
+        });
+      });
+
+      restoreState();
+      update();
+      document.querySelectorAll(".test-case").forEach(function (section) { syncCase(section); });
+    })();
+  </script>
+</body>
+</html>

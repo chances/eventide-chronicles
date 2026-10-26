@@ -1,2 +1,3 @@
-// Written by scripts/install.ts. Pass --debug-wanted to turn the debug aids on.
+// Written by scripts/build.ts. Pass `--debug-trace` or `--debug-wanted` to turn the debug aids on.
+const DebugTrace = 0
 const DebugWantedLevel = 0

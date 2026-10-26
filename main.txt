@@ -20,6 +20,7 @@ DEFINE MISSION 9 AT @Hell
 DEFINE MISSION 10 AT @Heaven
 
 {$USE CLEO}
+{$USE ini}
 {$USE Audio}
 {$INCLUDE lib/alloc.txt}
 {$INCLUDE lib/debug.txt}
@@ -29,10 +30,17 @@ var
     $CarHealth : int
     $PLAYER1: Player
     $scplayer: Char
+    $DebugTraceOn: int
 end
 
 //-------------MAIN---------------
 script_name 'MAIN'
+$DebugTraceOn = DebugTrace
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("MAIN start", "trace.ini", "Trace", "last")
+end
 Camera.DoFade(0, Fade.Out)
 Game.SetMaxWantedLevel(2)
 Clock.SetTimeOfDay(21, 0)
@@ -40,6 +48,11 @@ Streaming.RequestCollision(-535.64, -300.451)
 Streaming.LoadScene(-535.64, -300.451, 12.29)
 $PLAYER1 = Player.Create(0, 405.0, -905.0, 11.0712)
 $scplayer = Player.GetChar($PLAYER1)
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("player created", "trace.ini", "Trace", "last")
+end
 // Debug: debug.txt sets DebugWantedLevel, and 0 leaves the wanted level alone
 Player.AlterWantedLevelNoDrop($PLAYER1, DebugWantedLevel)
 Weather.ForceNow(WeatherType.Foggy)
@@ -48,13 +61,28 @@ declare_mission_flag $ONMISSION
 if
   not Char.IsDead($scplayer)
 goto_if_false @MAIN_DeadBust
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("before undress", "trace.ini", "Trace", "last")
+end
 Char.Undress($scplayer, 'PLAYER')
 Streaming.LoadAllModelsNow
 Char.Dress($scplayer)
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("after dress", "trace.ini", "Trace", "last")
+end
 $ONMISSION = 0
 
 // Initialize the game state
 {$INCLUDE lib/init.txt}
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("init include done", "trace.ini", "Trace", "last")
+end
 
 :MAIN_Start
 wait 250
@@ -1647,6 +1675,11 @@ goto @VPHotel_10
 
 :INIT
 script_name 'INIT'
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("INIT start", "trace.ini", "Trace", "last")
+end
 INIT_00()
 
 :INIT_DeadBust
@@ -1665,134 +1698,13 @@ end
 
 :INIT_00
 $ONMISSION = 0
-World.SetPedDensityMultiplier(0.5)
-World.SetCarDensityMultiplier(0.0)
-$Barrier1 = 0
-$Barrier2 = 0
-$BUS_CREATED = 0
-$CasualOn = 0
-$SuitOn = 0
-$AdmiralDelivered = 0
-$AmbulanceDelivered = 0
-$AngelDelivered = 0
-$BarracksDelivered = 0
-$BansheeDelivered = 0
-$BensonDelivered = 0
-$BFDelivered = 0
-$BlistaDelivered = 0
-$BobcatDelivered = 0
-$BoxvilleDelivered = 0
-$BurritoDelivered = 0
-$BusDelivered = 0
-$CabbieDelivered = 0
-$CaddyDelivered = 0
-$CheetahDelivered = 0
-$CometDelivered = 0
-$CoachDelivered = 0
-$CubanDelivered = 0
-$DinghyDelivered = 0
-$EnforcerDelivered = 0
-$EsperantoDelivered = 0
-$FaggioDelivered = 0
-$FiretruckDelivered = 0
-$FlatbedDelivered = 0
-$FreewayDelivered = 0
-$GangBurDelivered = 0
-$GlendaleDelivered = 0
-$GreenwoodDelivered = 0
-$HermesDelivered = 0
-$IceDelivered = 0
-$IdahoDelivered = 0
-$InfernusDelivered = 0
-$JetmaxDelivered = 0
-$KaufmanDelivered = 0
-$LandstalkerDelivered = 0
-$LinerunnerDelivered = 0
-$LimoDelivered = 0
-$MananaDelivered = 0
-$MarquisDelivered = 0
-$MaverickDelivered = 0
-$MesaDelivered = 0
-$MoonbeamDelivered = 0
-$MuleDelivered = 0
-$OceanicDelivered = 0
-$PackerDelivered = 0
-$PCJDelivered = 0
-$PheonixDelivered = 0
-$PizzaBikeDelivered = 0
-$PoliceCarDelivered = 0
-$PonyDelivered = 0
-$PredatorDelivered = 0
-$RancherDelivered = 0
-$RioDelivered = 0
-$ReeferDelivered = 0
-$ReginaDelivered = 0
-$RumpoDelivered = 0
-$SabreDelivered = 0
-$SabreTurDelivered = 0
-$SanchezDelivered = 0
-$SandkingDelivered = 0
-$SpandexDelivered = 0
-$SeaSparrowDelivered = 0
-$SecuricarDelivered = 0
-$SentinelDelivered = 0
-$SentinelXSDelivered = 0
-$SpeederDelivered = 0
-$SqualoDelivered = 0
-$SparrowDelivered = 0
-$StallionDelivered = 0
-$StingerDelivered = 0
-$TaxiDelivered = 0
-$TrashmasterDelivered = 0
-$TropicDelivered = 0
-$ViceCheetahDelivered = 0
-$VCNMavDelivered = 0
-$VirgoDelivered = 0
-$VoodooDelivered = 0
-$WaltonDelivered = 0
-$YankeeDelivered = 0
-$ZebraDelivered = 0
-$BeachJettyPickedUp = 0
-$BarrierHelpDone = 0
-$Barrier1Done = 0
-$Barrier2Done = 0
-$BarrierWater = 1
-$BikeHelpDone = 0
-$BustedHelpDone = 0
-$MarinaHelpDone = 0
-$PhoneHelpDone = 0
-$WastedHelpDone = 0
-$HelpDone = 0
-$SphereCreated = 0
-$WANTED_HELP_PLAYED = 0
-$Boss_Killed = 0
-$Endgame = 0
-$Intro_Passed = 0
-$HomeSafe = 0
-$Tool_Mission_Passed = 0
-$LazlowHelpDone = 0
-$LighthouseDone = 0
-$LighthausTutorial = 0
-$Limey_Passed = 0
-$FirstPackageTold = 0
-$OffWorkBike = 0
-$PackHunt = 0
-$PRINT_CAR_HELP = 0
-$PsychoDead = 0
-$HELI1X = -569.1451
-$HELI1Y = 851.0923
-$HELI1Z = 22.8402
-$HELI2X = 28.4463
-$HELI2Y = -1311.7614
-$HELI2Z = 16.4712
-$HELI3X = 375.845
-$HELI3Y = 332.9194
-$HELI3Z = 11.5155
-$HELI4X = -886.5938
-$HELI4Y = 236.5693
-$HELI4Z = 13.9773
 
 :INIT_02
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("INIT_02 intro narration", "trace.ini", "Trace", "last")
+end
 wait 250
 Player.SetCoordinates($PLAYER1, 416.9835, 168.6829, 16.1747)
 Player.SetHeading($PLAYER1, 4.13)
@@ -2042,6 +1954,11 @@ goto_if_false @INIT_27
 goto @INIT_6000
 
 :INIT_1000
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("INIT_1000 death path", "trace.ini", "Trace", "last")
+end
 Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
 $ONMISSION = 0
 $PRINT_CAR_HELP = 0
@@ -2057,6 +1974,11 @@ wait 500
 return
 
 :INIT_6000
+if
+    $DebugTraceOn == 1
+then
+    IniFile.WriteString("INIT_6000 radar tutorial", "trace.ini", "Trace", "last")
+end
 Text.ClearHelp()
 Text.ClearPrints()
 Camera.Restore()
@@ -2098,7 +2020,7 @@ start_new_script @Skin
 start_new_script @Sphere
 start_new_script @Swim
 start_new_script @Water
-start_new_script @CarHeal
+start_new_script @VehHeal
 
 :INIT_6660
 Text.Print('WALK', 5000, 0)
