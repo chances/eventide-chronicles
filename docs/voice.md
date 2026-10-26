@@ -57,7 +57,7 @@ The text appears on five surfaces. Each one has its own habits.
 ### Unreliable
 
 - **Branding rule:** each unreliable account has a discoverable truth or a clear reason it is false.
-- **In the text:** the opening narrator asserts that the player cannot die inside the Barrier. The script has no second account of this claim, and the ledger has no entry for it. See [voice-audit.md](../.agents/plans/voice-audit.md).
+- **In the text:** the opening narrator asserts that the player cannot die inside the Barrier. The script has no second account of this claim. The ledger records the Barrier rule in [lore.csv](lore.csv) row L029 and the narrator's unreliability in row L031.
 
 ### Dark Comedy
 
@@ -72,4 +72,4 @@ The text appears on five surfaces. Each one has its own habits.
 
 ## Follow-Up Work
 
-Text fixes and open items are tracked in [voice-audit.md](../.agents/plans/voice-audit.md).
+The text fixes from the audit are applied. The GXT file remains **Open** until it is added to the repository (see [Scope and Method](#scope-and-method)).
