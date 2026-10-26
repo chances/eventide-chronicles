@@ -127,20 +127,20 @@ Repeat for the 21 threads in descending line order, so earlier line numbers do n
 
 ### Task 4: Scan Every Source File for Fall-Through
 
-- [ ] **Step 1:** Change `fallthrough.ts` to accept several paths and treat them as one source in include order, so a label in one file may end where the next file begins.
-- [ ] **Step 2:** Run it on `main.txt`, `missions/*.txt` (without the Foundry files), and `lib/threads/*.txt`, and compare the hit list with `dist/baseline-fallthrough.txt`. The two lists must match apart from file names.
-- [ ] **Step 3:** Update step 4 of the `debug-missions` skill to name the new command.
+- [x] **Step 1:** Change `fallthrough.ts` to accept several paths and treat them as one source in include order, so a label in one file may end where the next file begins.
+- [x] **Step 2:** Run it on `main.txt`, `missions/*.txt` (without the Foundry files), and `lib/threads/*.txt`, and compare the hit list with `dist/baseline-fallthrough.txt`. The two lists must match apart from file names. Result: 9 hits in both lists, with the same labels.
+- [x] **Step 3:** Update step 4 of the `debug-missions` skill to name the new command.
 
 ### Task 5: Correct the Mission Markers
 
-- [ ] **Step 1:** In each `missions/<name>.txt`, change the first line to `//-------------Mission N---------------` with N from the `DEFINE MISSION` table above, so `Hotel` reads 3, `Work` reads 4, and so on. The two `Mission 3` markers stop colliding.
-- [ ] **Step 2:** Run `deno task build`. The hash equals the baseline, because a comment does not compile.
+- [x] **Step 1:** In each `missions/<name>.txt`, change the first line to `//-------------Mission N---------------` with N from the `DEFINE MISSION` table above, so `Hotel` reads 3, `Work` reads 4, and so on. The two `Mission 3` markers stop colliding.
+- [x] **Step 2:** Run `deno task build`. The hash equals the baseline, because a comment does not compile. Result: `59b84a1ef1fcb701f376768ab64f7512`, unchanged.
 
 ### Task 6: Update the Documents
 
-- [ ] **Step 1:** In `AGENTS.md`, add `missions/<name>.txt` and `lib/threads/<name>.txt` to the includes bullet, and say that a script reading mission or thread code reads the matching file.
-- [ ] **Step 2:** In `.agents/lessons/mission-script-safety.md`, change "Editing the File" to name `main.txt`, `missions/*.txt`, and `lib/threads/*.txt`.
-- [ ] **Step 3:** Re-key `docs/voice.csv`. Add a `file` column, and set each row's `line` from a search for its `text` in `main.txt`, `lib/init.txt`, `missions/*.txt`, and `lib/threads/*.txt`. List any row with no match or several matches for the user instead of guessing. This task also repairs the line numbers that the `lib/` extractions broke.
+- [x] **Step 1:** In `AGENTS.md`, add `missions/<name>.txt` and `lib/threads/<name>.txt` to the includes bullet, and say that a script reading mission or thread code reads the matching file.
+- [x] **Step 2:** In `.agents/lessons/mission-script-safety.md`, change "Editing the File" to name `main.txt`, `missions/*.txt`, and `lib/threads/*.txt`.
+- [x] **Step 3:** Re-key `docs/voice.csv`. Add a `file` column, and set each row's `line` from a search for its `text` in `main.txt`, `lib/init.txt`, `missions/*.txt`, and `lib/threads/*.txt`. List any row with no match or several matches for the user instead of guessing. This task also repairs the line numbers that the `lib/` extractions broke. Result: 80 rows matched once and were re-keyed. The other 20 are listed in [voice-unmatched.md](../../dist/voice-unmatched.md), and their cells were left unchanged.
 
 ### Task 7: Move the One-Time Resets
 

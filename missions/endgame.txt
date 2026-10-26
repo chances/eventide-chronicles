@@ -1,4 +1,4 @@
-//-------------Mission 6---------------
+//-------------Mission 7---------------
 
 :Endgame
 script_name 'Endgame'

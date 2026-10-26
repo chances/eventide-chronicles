@@ -43,4 +43,4 @@ Follow these rules when you edit `main.txt` to avoid the crashes found so far. T
 
 ## Editing the File
 
-- `main.txt` is Windows-1252 with CRLF line endings. Edit and Write refuse it, and a UTF-8 save corrupts it. Change it with a script that reads and writes bytes.
+- `main.txt`, `missions/*.txt`, and `lib/threads/*.txt` use CRLF line endings. `main.txt` is Windows-1252, and Edit and Write refuse it, so a UTF-8 save corrupts it. Change `main.txt` with a script that reads and writes bytes.
