@@ -1,0 +1,81 @@
+{$CLEO .cm}
+{$INCLUDE ../variables.txt}
+{$INCLUDE ../constants.txt}
+{$INCLUDE ../utils/geography.txt}
+
+// GENERATED from missions/0_tutorial.fsm.json by lib/fsm/generate.ts. Edit the table, then run `deno task build`.
+
+//============================================================================
+// Teach the player how to pick-up things, drive, and dump cars in the ocean
+//============================================================================
+
+const STATE_INTRO = 0
+const STATE_WIN = 1
+const STATE_LOSE = 2
+
+// Mission-private state is CLEO locals, which need no global slot (16 per script)
+int state = STATE_INTRO
+
+$onMission = true
+
+while true
+  wait 0
+
+  if
+    state == STATE_INTRO
+  then
+    stateIntro()
+  end
+
+  if
+    state == STATE_WIN
+  then
+    stateWin()
+  end
+
+  if
+    state == STATE_LOSE
+  then
+    stateLose()
+  end
+end
+
+// Never reached: the loop above runs until finishMission() terminates the thread
+05DC: terminate_custom_thread
+
+:stateIntro
+  TIMERA = 0
+  Text.PrintString("Mission started.", 3000)
+  TIMERA = 0
+  while TIMERA < 1000
+    wait 0
+    failCheck()
+    if
+      state == STATE_LOSE
+    then
+      return
+    end
+  end
+  state = STATE_WIN
+  return
+
+:stateWin
+  TIMERA = 0
+  finishMission()
+  return
+
+:stateLose
+  TIMERA = 0
+  Text.PrintBig('M_FAIL', 3500, TextStyle.Middle)
+  wait 3000
+  state = STATE_INTRO
+  return
+
+:failCheck
+  if
+    Player.HasBeenArrested($player)
+  then
+    state = STATE_LOSE
+  end
+  return
+

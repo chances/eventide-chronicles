@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "mission": {
+    "header": [
+      "Answering the Call to Abandon",
+      ""
+    ],
+    "includes": [],
+    "start": "INTRO",
+    "onFail": "LOSE",
+    "fail": [
+      {
+        "test": "Player.IsDead($player)"
+      },
+      {
+        "test": "Player.HasBeenArrested($player)"
+      }
+    ],
+    "states": {
+      "INTRO": {
+        "kind": "cutscene",
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintString(\"Wait here for instructions.\", 3000)"
+              ]
+            ],
+            "wait": 2000
+          }
+        ],
+        "next": "GO_TO_DESTINATION"
+      },
+      "GO_TO_DESTINATION": {
+        "kind": "objective",
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintString(\"Head to the rendezvous point.\", 4000)"
+              ]
+            ],
+            "wait": 1000
+          }
+        ],
+        "until": [
+          {
+            "test": "Player.LocateAnyMeans3D($player, 873.0, -309.0, 9.0, 4.0, 4.0, 4.0, true)"
+          }
+        ],
+        "next": "WIN"
+      },
+      "WIN": {
+        "kind": "ending",
+        "fail": false,
+        "beats": [
+          {
+            "do": [
+              [
+                "Audio.PlayMissionPassedTune(1)"
+              ],
+              [
+                "Text.PrintWithNumberBig('M_PASS', 1000, 5000, TextStyle.Middle)"
+              ]
+            ],
+            "wait": 5000
+          }
+        ],
+        "finish": true
+      },
+      "LOSE": {
+        "kind": "ending",
+        "fail": false,
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintBig('M_FAIL', 3500, TextStyle.Middle)"
+              ]
+            ],
+            "wait": 3000
+          }
+        ],
+        "next": "INTRO"
+      }
+    }
+  },
+  "layout": {
+    "INTRO": {
+      "x": 0,
+      "y": 0
+    },
+    "GO_TO_DESTINATION": {
+      "x": 0,
+      "y": 96
+    },
+    "WIN": {
+      "x": 0,
+      "y": 192
+    },
+    "LOSE": {
+      "x": 208,
+      "y": 0
+    }
+  }
+}
