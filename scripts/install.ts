@@ -23,3 +23,18 @@ try {
   throw error;
 }
 console.log(`Installed ${source} to ${destination}`);
+
+const fxtSource = join(Deno.cwd(), "strings.fxt");
+const fxtFolder = join(vc, "CLEO", "CLEO_TEXT");
+const fxtDestination = join(fxtFolder, "strings.fxt");
+
+// Alternative if CLEO_TEXT does not load: a startup thread calls 0ADF
+// add_dynamic_GXT_entry for each key instead. Parameters are unverified on PC VC.
+await Deno.mkdir(fxtFolder, { recursive: true });
+try {
+  await Deno.copyFile(fxtSource, fxtDestination);
+} catch (error) {
+  console.error(`Failed to install ${fxtSource} to ${fxtDestination}`);
+  throw error;
+}
+console.log(`Installed ${fxtSource} to ${fxtDestination}`);
