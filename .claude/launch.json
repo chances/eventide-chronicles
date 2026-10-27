@@ -13,6 +13,19 @@
         "4173"
       ],
       "port": 4173
+    },
+    {
+      "name": "tools",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "-A",
+        "jsr:@std/http/file-server",
+        "tools",
+        "--port",
+        "4174"
+      ],
+      "port": 4174
     }
   ]
 }

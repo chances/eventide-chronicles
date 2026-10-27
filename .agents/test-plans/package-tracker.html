@@ -40,9 +40,9 @@
     <h3>How the Tracker Works</h3>
     <ul>
       <li><code>MAIN</code> starts the <code>PackageToggle</code> thread. The tracker itself starts off.</li>
-      <li><kbd>P</kbd> turns it on and starts the <code>PACKAGE</code> thread. <kbd>O</kbd> turns it off and ends that thread.</li>
+      <li><kbd>O</kbd> turns it on and starts the <code>PACKAGE</code> thread. <kbd>O</kbd> again turns it off and ends that thread.</li>
       <li>A red blip marks the current package. Coming within 3.5 units moves it to the next location.</li>
-      <li><kbd>O</kbd> then <kbd>P</kbd> starts again at the first location.</li>
+      <li><kbd>O</kbd> twice starts again at the first location.</li>
       <li>After a death or bust, both threads wait and resume instead of running into <code>Get_Package_Coords</code>.</li>
     </ul>
   </div>
@@ -79,7 +79,7 @@
           <li><label><input type="checkbox"> Close the game. In the project folder, run <code>deno task install</code> and wait for it to finish.</label></li>
           <li><label><input type="checkbox"> In the project folder, run <code>deno task run</code> to start the game, then choose New Game.</label></li>
           <li><label><input type="checkbox"> Let the opening tutorial end. The temporary two-star wanted level makes the cops chase you from the start.</label></li>
-          <li><label><input type="checkbox"> Press P.</label></li>
+          <li><label><input type="checkbox"> Press O.</label></li>
         </ol>
       </details>
 
@@ -151,7 +151,7 @@
       <details class="test-case-details" open>
         <summary>Steps</summary>
         <ol class="steps">
-          <li><label><input type="checkbox"> In the same game session, press P again.</label></li>
+          <li><label><input type="checkbox"> In the same game session, press O again.</label></li>
         </ol>
       </details>
 

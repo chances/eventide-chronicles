@@ -654,36 +654,31 @@ while Player.IsPlaying($PLAYER1)
 
     // --- TRACKER TOGGLE CONTROLS ---
     if
-        not $Packages >= 88
+        Pad.IsKeyPressed(KeyCode.O)
     then
-        // Press 'O' to turn OFF radar tracker
         if
-            Pad.IsKeyPressed(KeyCode.O)
+            not $Packages >= 88
         then
-            Text.PrintHelp('PACKOFF')
-            $PackHunt = 0
-            Blip.Remove($CurrentPackBlip)
-            terminate_all_scripts_with_this_name 'PACKAGE'
-            wait 500
-        else
-        // Press 'P' to turn ON radar tracker
-            if Pad.IsKeyPressed(KeyCode.P)
+            if
+                $PackHunt == 1
             then
+                // Press 'O' to turn OFF radar tracker
+                Text.PrintHelp('PACKOFF')
+                $PackHunt = 0
+                Blip.Remove($CurrentPackBlip)
+                terminate_all_scripts_with_this_name 'PACKAGE'
+            else
+                // Press 'O' to turn ON radar tracker
                 $PackHunt = 1
                 Text.PrintHelp('PACKON')
                 wait 0
                 start_new_script @PACKAGE
-                wait 500
             end
-        end
-    else
-        // Player pressed toggle after collecting everything
-        if or
-            Pad.IsKeyPressed(KeyCode.O)
-            Pad.IsKeyPressed(KeyCode.P)
-        then
+        else
+            // Player pressed toggle after collecting everything
             Text.PrintHelp('PACKDON')
         end
+        wait 500
     end
 end
 

@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ringtone Editor</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --base: #0d0b1e;
+    --surface: #17142e;
+    --text: #f2efff;
+    --muted: #c4bfe6;
+    --border: #7f7aa8;
+    --primary: #ff7a1a;
+    --secondary: #b88aff;
+    --pass: #00d9a3;
+    --fail: #ff4a2b;
+    --on-primary: #0d0b1e;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --base: #fbf8f1;
+      --surface: #f0ebfa;
+      --text: #17142e;
+      --muted: #4a4572;
+      --border: #6b6690;
+      --primary: #b84300;
+      --secondary: #6b2fd6;
+      --pass: #00755a;
+      --fail: #c42a0a;
+      --on-primary: #fbf8f1;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--base);
+    color: var(--text);
+    font: 16px/1.5 system-ui, sans-serif;
+  }
+  main {
+    max-inline-size: 1100px;
+    margin-inline: auto;
+    padding-block: 24px;
+    padding-inline: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  h1, h2 { margin: 0; line-height: 1.2; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.1rem; color: var(--secondary); }
+  p.hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
+  label.inline { flex-direction: row; align-items: center; gap: 8px; }
+  input[type="text"], input[type="number"], select {
+    background: var(--base);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding-block: 6px;
+    padding-inline: 8px;
+    font: inherit;
+    min-block-size: 36px;
+  }
+  input[type="range"] { accent-color: var(--primary); min-block-size: 36px; }
+  button {
+    background: var(--base);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding-block: 6px;
+    padding-inline: 14px;
+    font: inherit;
+    min-block-size: 36px;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--primary); }
+  button.primary { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 600; }
+  button.danger { border-color: var(--fail); }
+  :focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+  .roll {
+    overflow: auto;
+    max-block-size: 70vh;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--base);
+  }
+  canvas { display: block; touch-action: none; }
+  output { color: var(--text); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Ringtone Editor</h1>
+    <p class="hint">Click an empty cell to add a note. Drag a note to move it, drag its right edge to resize it, and right-click or press Delete to remove it. Space plays and stops.</p>
+  </header>
+
+  <section aria-labelledby="h-templates">
+    <h2 id="h-templates">Templates</h2>
+    <div class="row">
+      <label>Load Template
+        <select id="template"></select>
+      </label>
+      <label>Name
+        <input type="text" id="name" value="ringtone" maxlength="32">
+      </label>
+      <label>Length
+        <select id="bars">
+          <option value="1">1 Bar</option>
+          <option value="2">2 Bars</option>
+          <option value="3">3 Bars</option>
+          <option value="4">4 Bars</option>
+        </select>
+      </label>
+      <label>Tempo
+        <span class="row" style="gap:8px;align-items:center">
+          <input type="range" id="bpm" min="60" max="220" value="150">
+          <output id="bpmOut">150 BPM</output>
+        </span>
+      </label>
+    </div>
+    <div class="row">
+      <label>Waveform
+        <select id="wave">
+          <option value="square">Square</option>
+          <option value="triangle">Triangle</option>
+          <option value="sawtooth">Sawtooth</option>
+          <option value="sine">Sine</option>
+        </select>
+      </label>
+      <label>Release
+        <span class="row" style="gap:8px;align-items:center">
+          <input type="range" id="release" min="5" max="400" value="40">
+          <output id="releaseOut">40 ms</output>
+        </span>
+      </label>
+      <label>Volume
+        <span class="row" style="gap:8px;align-items:center">
+          <input type="range" id="volume" min="5" max="100" value="40">
+          <output id="volumeOut">40%</output>
+        </span>
+      </label>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-roll">
+    <h2 id="h-roll">Piano Roll</h2>
+    <div class="row">
+      <button type="button" class="primary" id="play">Play</button>
+      <button type="button" id="stop">Stop</button>
+      <label class="inline"><input type="checkbox" id="loop"> Loop</label>
+      <button type="button" class="danger" id="clear">Clear Notes</button>
+      <button type="button" id="exportWav">Export WAV</button>
+      <button type="button" id="saveJson">Save JSON</button>
+      <button type="button" id="loadJson">Load JSON</button>
+      <input type="file" id="file" accept="application/json,.json" hidden>
+    </div>
+    <div class="roll" id="roll"><canvas id="canvas" aria-label="Piano roll"></canvas></div>
+    <p class="hint">WAV export is mono, 16-bit, 44.1 kHz. The game plays it from the Audio folder with the script audio stream command.</p>
+  </section>
+
+  <section aria-labelledby="h-ref">
+    <h2 id="h-ref">Reference Tones</h2>
+    <div class="row">
+      <button type="button" id="refRing">Play US Ringback</button>
+      <button type="button" id="refBusy">Play US Busy</button>
+    </div>
+    <p class="hint">US ringback is 440 Hz plus 480 Hz, 2 seconds on and 4 seconds off. US busy is 480 Hz plus 620 Hz, 0.5 seconds on and 0.5 seconds off.</p>
+  </section>
+</main>
+
+<script>
+const LOW = 55;
+const HIGH = 88;
+const ROW_H = 14;
+const STEP_W = 26;
+const GUTTER = 46;
+const STEPS_PER_BAR = 16;
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const STORE_KEY = "eventide-ringtone-editor";
+
+// Notes are [step, length in steps, MIDI pitch] on a 16th-note grid. All melodies are original.
+const TEMPLATES = [
+  { name: "Pocket Trill", bpm: 150, bars: 1, wave: "square", notes: [[0,1,72],[1,1,76],[2,1,79],[3,1,84],[4,2,79],[6,2,76],[8,1,74],[9,1,77],[10,1,81],[11,1,77],[12,4,74]] },
+  { name: "Bright Alert", bpm: 170, bars: 1, wave: "square", notes: [[0,2,81],[2,2,76],[4,2,81],[6,2,76],[8,4,84]] },
+  { name: "Waltz Hop", bpm: 132, bars: 2, wave: "triangle", notes: [[0,2,67],[2,2,71],[4,2,74],[6,2,71],[8,2,69],[10,2,72],[12,2,76],[14,2,72],[16,2,71],[18,2,74],[20,2,78],[22,2,74],[24,4,79],[28,4,67]] },
+  { name: "Rising Steps", bpm: 140, bars: 1, wave: "sine", notes: [[0,2,60],[2,2,64],[4,2,67],[6,2,72],[8,2,64],[10,2,67],[12,2,72],[14,2,76]] },
+  { name: "Night Drive", bpm: 100, bars: 2, wave: "triangle", notes: [[0,3,69],[4,2,72],[6,2,76],[8,6,74],[16,3,69],[20,2,72],[22,2,79],[24,8,76]] },
+];
+
+const $ = (id) => document.getElementById(id);
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+class RingtoneEditor {
+  #notes = [];
+  #bars = 1;
+  #audio = null;
+  #canvas = $("canvas");
+  #g = $("canvas").getContext("2d");
+  #t0 = 0;
+  #playing = false;
+  #raf = 0;
+  #drag = null;
+  #selected = null;
+  #lastLen = 2;
+
+  constructor() {
+    for (const t of TEMPLATES) {
+      $("template").add(new Option(t.name, t.name));
+    }
+    $("template").add(new Option("Load Template...", ""), 0);
+    $("template").selectedIndex = 0;
+
+    $("template").addEventListener("change", () => {
+      const t = TEMPLATES.find((x) => x.name === $("template").value);
+      if (t) this.#loadTemplate(t);
+      $("template").selectedIndex = 0;
+    });
+    $("bars").addEventListener("change", () => this.#setBars(Number($("bars").value)));
+    for (const id of ["bpm", "release", "volume"]) $(id).addEventListener("input", () => this.#syncOutputs());
+    $("wave").addEventListener("change", () => this.#save());
+    $("name").addEventListener("input", () => this.#save());
+    $("play").addEventListener("click", () => this.#play());
+    $("stop").addEventListener("click", () => this.#stop());
+    $("clear").addEventListener("click", () => { this.#notes = []; this.#selected = null; this.#changed(); });
+    $("exportWav").addEventListener("click", () => this.#exportWav());
+    $("saveJson").addEventListener("click", () => this.#exportJson());
+    $("loadJson").addEventListener("click", () => $("file").click());
+    $("file").addEventListener("change", () => this.#importJson());
+    $("refRing").addEventListener("click", () => this.#tones([440, 480], 2, 4, 1));
+    $("refBusy").addEventListener("click", () => this.#tones([480, 620], 0.5, 0.5, 4));
+
+    const c = this.#canvas;
+    c.addEventListener("pointerdown", (e) => this.#down(e));
+    c.addEventListener("pointermove", (e) => this.#move(e));
+    c.addEventListener("pointerup", () => { this.#drag = null; this.#save(); });
+    c.addEventListener("contextmenu", (e) => { e.preventDefault(); this.#removeAt(e); });
+    document.addEventListener("keydown", (e) => this.#key(e));
+    matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => this.#draw());
+
+    if (!this.#restore()) this.#loadTemplate(TEMPLATES[0]);
+  }
+
+  get #steps() { return this.#bars * STEPS_PER_BAR; }
+  get #stepSec() { return 60 / Number($("bpm").value) / 4; }
+
+  #loadTemplate(t) {
+    $("name").value = t.name.toLowerCase().replaceAll(" ", "-");
+    $("bpm").value = t.bpm;
+    $("wave").value = t.wave;
+    this.#bars = t.bars;
+    $("bars").value = t.bars;
+    this.#notes = t.notes.map(([step, len, midi]) => ({ step, len, midi }));
+    this.#selected = null;
+    this.#changed();
+  }
+
+  #setBars(bars) {
+    this.#bars = bars;
+    this.#notes = this.#notes.filter((n) => n.step < this.#steps);
+    for (const n of this.#notes) n.len = Math.min(n.len, this.#steps - n.step);
+    this.#changed();
+  }
+
+  #syncOutputs() {
+    $("bpmOut").textContent = `${$("bpm").value} BPM`;
+    $("releaseOut").textContent = `${$("release").value} ms`;
+    $("volumeOut").textContent = `${$("volume").value}%`;
+    this.#save();
+  }
+
+  #changed() {
+    this.#syncOutputs();
+    this.#layout();
+    this.#draw();
+  }
+
+  #layout() {
+    const w = GUTTER + this.#steps * STEP_W;
+    const h = (HIGH - LOW + 1) * ROW_H;
+    const dpr = window.devicePixelRatio || 1;
+    this.#canvas.width = w * dpr;
+    this.#canvas.height = h * dpr;
+    this.#canvas.style.inlineSize = `${w}px`;
+    this.#canvas.style.blockSize = `${h}px`;
+    this.#g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  #draw(playStep = this.#playing ? this.#playPos() : -1) {
+    const g = this.#g;
+    const w = GUTTER + this.#steps * STEP_W;
+    const h = (HIGH - LOW + 1) * ROW_H;
+    const border = cssVar("--border");
+    g.clearRect(0, 0, w, h);
+    g.font = "10px system-ui, sans-serif";
+    g.textBaseline = "middle";
+    for (let midi = HIGH; midi >= LOW; midi--) {
+      const y = (HIGH - midi) * ROW_H;
+      const pc = midi % 12;
+      const black = [1, 3, 6, 8, 10].includes(pc);
+      g.fillStyle = black ? cssVar("--base") : cssVar("--surface");
+      g.fillRect(GUTTER, y, w - GUTTER, ROW_H);
+      g.fillStyle = black ? cssVar("--surface") : cssVar("--muted");
+      g.fillRect(0, y, GUTTER, ROW_H);
+      g.fillStyle = black ? cssVar("--text") : cssVar("--base");
+      g.fillText(`${NOTE_NAMES[pc]}${Math.floor(midi / 12) - 1}`, 6, y + ROW_H / 2);
+      g.strokeStyle = border;
+      g.globalAlpha = pc === 0 ? 0.8 : 0.2;
+      g.beginPath();
+      g.moveTo(0, y + ROW_H - 0.5);
+      g.lineTo(w, y + ROW_H - 0.5);
+      g.stroke();
+      g.globalAlpha = 1;
+    }
+    for (let s = 0; s <= this.#steps; s++) {
+      const x = GUTTER + s * STEP_W + 0.5;
+      g.strokeStyle = border;
+      g.globalAlpha = s % STEPS_PER_BAR === 0 ? 0.9 : s % 4 === 0 ? 0.5 : 0.15;
+      g.beginPath();
+      g.moveTo(x, 0);
+      g.lineTo(x, h);
+      g.stroke();
+    }
+    g.globalAlpha = 1;
+    for (const n of this.#notes) {
+      const x = GUTTER + n.step * STEP_W;
+      const y = (HIGH - n.midi) * ROW_H;
+      g.fillStyle = n === this.#selected ? cssVar("--secondary") : cssVar("--primary");
+      g.beginPath();
+      g.roundRect(x + 1, y + 1, n.len * STEP_W - 2, ROW_H - 2, 3);
+      g.fill();
+      g.fillStyle = cssVar("--base");
+      g.fillRect(x + n.len * STEP_W - 5, y + 3, 2, ROW_H - 6);
+    }
+    if (playStep >= 0) {
+      const x = GUTTER + playStep * STEP_W;
+      g.strokeStyle = cssVar("--pass");
+      g.lineWidth = 2;
+      g.beginPath();
+      g.moveTo(x, 0);
+      g.lineTo(x, h);
+      g.stroke();
+      g.lineWidth = 1;
+    }
+  }
+
+  #pointer(e) {
+    const r = this.#canvas.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    return { x, y, midi: HIGH - Math.floor(y / ROW_H), step: Math.floor((x - GUTTER) / STEP_W) };
+  }
+
+  #noteAt(p) {
+    return [...this.#notes].reverse().find((n) => n.midi === p.midi && p.step >= n.step && p.step < n.step + n.len);
+  }
+
+  #onEdge(n, p) {
+    return Math.abs(p.x - (GUTTER + (n.step + n.len) * STEP_W)) <= 7;
+  }
+
+  #down(e) {
+    const p = this.#pointer(e);
+    if (e.button !== 0 || p.midi < LOW || p.midi > HIGH) return;
+    if (p.x < GUTTER) { this.#preview(p.midi); return; }
+    if (p.step < 0 || p.step >= this.#steps) return;
+    let n = this.#noteAt(p);
+    this.#canvas.setPointerCapture(e.pointerId);
+    if (n) {
+      this.#selected = n;
+      this.#drag = this.#onEdge(n, p) ? { mode: "resize", n } : { mode: "move", n, dx: p.step - n.step };
+    } else {
+      n = { step: p.step, len: Math.min(this.#lastLen, this.#steps - p.step), midi: p.midi };
+      this.#notes.push(n);
+      this.#selected = n;
+      this.#drag = { mode: "move", n, dx: 0 };
+    }
+    this.#preview(n.midi);
+    this.#draw();
+  }
+
+  #move(e) {
+    const p = this.#pointer(e);
+    const d = this.#drag;
+    if (!d) {
+      const n = this.#noteAt(p);
+      this.#canvas.style.cursor = n && this.#onEdge(n, p) ? "ew-resize" : n ? "grab" : "crosshair";
+      return;
+    }
+    const n = d.n;
+    if (d.mode === "resize") {
+      n.len = clamp(p.step - n.step + 1, 1, this.#steps - n.step);
+      this.#lastLen = n.len;
+    } else {
+      const midi = clamp(p.midi, LOW, HIGH);
+      if (midi !== n.midi) this.#preview(midi);
+      n.midi = midi;
+      n.step = clamp(p.step - d.dx, 0, this.#steps - n.len);
+    }
+    this.#draw();
+  }
+
+  #removeAt(e) {
+    const n = this.#noteAt(this.#pointer(e));
+    if (!n) return;
+    this.#notes = this.#notes.filter((x) => x !== n);
+    this.#selected = null;
+    this.#draw();
+    this.#save();
+  }
+
+  #key(e) {
+    const tag = document.activeElement?.tagName;
+    const typing = tag === "INPUT" || tag === "SELECT" || tag === "BUTTON";
+    if (e.code === "Space" && !typing) {
+      e.preventDefault();
+      this.#playing ? this.#stop() : this.#play();
+    } else if ((e.key === "Delete" || e.key === "Backspace") && this.#selected && tag !== "INPUT") {
+      this.#notes = this.#notes.filter((x) => x !== this.#selected);
+      this.#selected = null;
+      this.#draw();
+      this.#save();
+    }
+  }
+
+  #context() {
+    this.#audio ??= new AudioContext();
+    this.#audio.resume();
+    return this.#audio;
+  }
+
+  /** Schedules every note on `ctx` starting at `t0`, ending at `dest`. */
+  #schedule(ctx, dest, t0) {
+    const sec = this.#stepSec;
+    const vol = Number($("volume").value) / 100 * 0.5;
+    const rel = Number($("release").value) / 1000;
+    for (const n of this.#notes) {
+      if (n.step >= this.#steps) continue;
+      const start = t0 + n.step * sec;
+      const len = Math.min(n.len, this.#steps - n.step) * sec;
+      const osc = ctx.createOscillator();
+      osc.type = $("wave").value;
+      osc.frequency.value = 440 * 2 ** ((n.midi - 69) / 12);
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(vol, start + 0.004);
+      gain.gain.setValueAtTime(vol, start + len);
+      gain.gain.linearRampToValueAtTime(0, start + len + rel);
+      osc.connect(gain).connect(dest);
+      osc.start(start);
+      osc.stop(start + len + rel + 0.02);
+    }
+  }
+
+  #preview(midi) {
+    const ctx = this.#context();
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = $("wave").value;
+    osc.frequency.value = 440 * 2 ** ((midi - 69) / 12);
+    const gain = ctx.createGain();
+    const vol = Number($("volume").value) / 100 * 0.5;
+    gain.gain.setValueAtTime(vol, t);
+    gain.gain.linearRampToValueAtTime(0, t + 0.2);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.22);
+  }
+
+  #play() {
+    this.#stop();
+    const ctx = this.#context();
+    this.#t0 = ctx.currentTime + 0.05;
+    this.#schedule(ctx, ctx.destination, this.#t0);
+    this.#playing = true;
+    const tick = () => {
+      if (!this.#playing) return;
+      const pos = this.#playPos();
+      if (pos >= this.#steps) {
+        if ($("loop").checked) {
+          this.#play();
+          return;
+        }
+        this.#stop();
+        return;
+      }
+      this.#draw(pos);
+      this.#raf = requestAnimationFrame(tick);
+    };
+    this.#raf = requestAnimationFrame(tick);
+  }
+
+  #playPos() {
+    return (this.#audio.currentTime - this.#t0) / this.#stepSec;
+  }
+
+  #stop() {
+    this.#playing = false;
+    cancelAnimationFrame(this.#raf);
+    if (this.#audio) {
+      this.#audio.close();
+      this.#audio = null;
+    }
+    this.#draw(-1);
+  }
+
+  /** Reference tones: `freqs` sound together for `on` seconds, then rest for `off`, `cycles` times. */
+  #tones(freqs, on, off, cycles) {
+    this.#stop();
+    const ctx = this.#context();
+    for (let i = 0; i < cycles; i++) {
+      const t = ctx.currentTime + 0.05 + i * (on + off);
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.15, t + 0.01);
+      gain.gain.setValueAtTime(0.15, t + on);
+      gain.gain.linearRampToValueAtTime(0, t + on + 0.01);
+      gain.connect(ctx.destination);
+      for (const f of freqs) {
+        const osc = ctx.createOscillator();
+        osc.frequency.value = f;
+        osc.connect(gain);
+        osc.start(t);
+        osc.stop(t + on + 0.02);
+      }
+    }
+  }
+
+  async #exportWav() {
+    const rate = 44100;
+    const seconds = this.#steps * this.#stepSec + Number($("release").value) / 1000 + 0.1;
+    const offline = new OfflineAudioContext(1, Math.ceil(rate * seconds), rate);
+    this.#schedule(offline, offline.destination, 0);
+    const data = (await offline.startRendering()).getChannelData(0);
+    const view = new DataView(new ArrayBuffer(44 + data.length * 2));
+    const text = (at, s) => [...s].forEach((ch, i) => view.setUint8(at + i, ch.charCodeAt(0)));
+    text(0, "RIFF");
+    view.setUint32(4, 36 + data.length * 2, true);
+    text(8, "WAVEfmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, rate, true);
+    view.setUint32(28, rate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    text(36, "data");
+    view.setUint32(40, data.length * 2, true);
+    data.forEach((s, i) => view.setInt16(44 + i * 2, Math.round(clamp(s, -1, 1) * 32767), true));
+    this.#download(new Blob([view], { type: "audio/wav" }), `${this.#slug()}.wav`);
+  }
+
+  #slug() {
+    return $("name").value.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-") || "ringtone";
+  }
+
+  #download(blob, filename) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  #state() {
+    return {
+      name: $("name").value,
+      bpm: Number($("bpm").value),
+      bars: this.#bars,
+      wave: $("wave").value,
+      release: Number($("release").value),
+      volume: Number($("volume").value),
+      notes: this.#notes.map(({ step, len, midi }) => ({ step, len, midi })),
+    };
+  }
+
+  #apply(s) {
+    $("name").value = s.name ?? "ringtone";
+    $("bpm").value = s.bpm ?? 150;
+    this.#bars = clamp(s.bars ?? 1, 1, 4);
+    $("bars").value = this.#bars;
+    $("wave").value = s.wave ?? "square";
+    $("release").value = s.release ?? 40;
+    $("volume").value = s.volume ?? 40;
+    this.#notes = (s.notes ?? []).map((n) => ({ step: n.step, len: n.len, midi: clamp(n.midi, LOW, HIGH) }));
+    this.#selected = null;
+    this.#changed();
+  }
+
+  #exportJson() {
+    this.#download(new Blob([JSON.stringify(this.#state(), null, 2)], { type: "application/json" }), `${this.#slug()}.json`);
+  }
+
+  async #importJson() {
+    const file = $("file").files[0];
+    if (!file) return;
+    try {
+      this.#apply(JSON.parse(await file.text()));
+    } catch {
+      alert("That file is not a ringtone JSON.");
+    }
+    $("file").value = "";
+  }
+
+  #save() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(this.#state()));
+    } catch { /* storage can be unavailable */ }
+  }
+
+  #restore() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return false;
+      this.#apply(JSON.parse(raw));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+}
+
+new RingtoneEditor();
+</script>
+</body>
+</html>
