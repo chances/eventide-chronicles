@@ -51,6 +51,7 @@ Sizes are in mockup pixels.
 - The navigation cluster has two soft keys (24 px tall, each with a 12 by 2 px dash), a 76 px round D-pad with four triangle arrows and a base-colored center, an answer key (handset icon in the pass color `#00d9a3`), and a hang-up key (handset icon in the fail color `#ff4a2b`).
 - The keypad is 3 by 4 pill keys, 34 px tall with 8 px gaps. Keys 2 to 9 carry letters (ITU E.161), key 1 carries the voicemail symbol, and the bottom row is `*`, `0`, and `#`.
 - Keys are raised rubber: a top highlight, a 4 px lip in the base color under each key, and a faint Ember glow (`0 0 4px` at 0.2 opacity) while lit.
+- Pressed, a key (and the D-pad) sinks 4 px into its lip, the top highlight turns to shade, and the lip shadow goes. A lit pressed key's glyph glows brighter. It holds while the key is down.
 - Lit, keys and digits are Ember, and the call keys keep their pass and fail colors. Unlit, keys dim to 30% and the LCD digits to 18% of the muted color.
 - The backlight is on when the phone is raised. It goes dark 5 seconds after the last key press, or 5 seconds after raising if no key is pressed.
 - The phone sits at the bottom of the HUD, with its last key row 13 px above the screen edge and its bottom edge cut off by the screen. Raising slides it up from below the screen edge over 0.55 s, and lowering slides it back down.
@@ -786,27 +787,28 @@ Do not run `git add` or `git commit`. The user alone commits.
 - Consumes: nothing from earlier tasks.
 - Produces: where `0390` finds a TXD, the sprite coordinate space, and whether the GXT digit text works. Tasks 6 and 7 depend on these.
 
-- [ ] **Step 1: Pack one test texture**
+- [x] **Step 1: Pack one test texture**
 
-Read the usage header of `scripts/import-skin.ts`, then pack one PNG into `phtest.txd` with `deno task import-skin`.
+Read the usage header of `scripts/import-skin.ts`, then pack one PNG into `phtest.txd` with `deno task import-skin`. Packed into `dist/phtest/phtest.txd` (64 by 64). Test it in isolation with `deno task probe sprites`, which runs `tests/sprites-probe.txt` as the only main script and restores the game's `main.scm` afterward.
 
-- [ ] **Step 2: Find where `0390` loads a TXD from**
+- [x] **Step 2: Find where `0390` loads a TXD from**
 
 In a throwaway thread, call `0390: load_texture_dictionary 'phtest'`, `038F: load_sprite 1 'phtest'`, and `038D: draw_sprite 1 at 320.0 240.0 size 64.0 64.0 RGBA 255 255 255 255` every frame. Try the TXD in the locations the game reads (start with `models\txd\`, then inside `gta3.img` through `deno task install:skins`). Read `scrlog.log` and ask the user what the screen shows. Record the working location.
 
-- [ ] **Step 3: Record the coordinate space and text**
+- [x] **Step 3: Record the coordinate space and text**
 
 Record whether the sprite position uses a 640 by 480 space, how it behaves in widescreen, and the longest texture name that loads. Also draw one digit with a GXT key (`PHDIG` holding `~1~`) through `DISPLAY_TEXT_WITH_NUMBER`. The `strings.fxt` loader in VC is unverified, so record whether the key resolves.
 
-- [ ] **Step 4: Gate**
+- [x] **Step 4: Gate**
 
 If `0390` cannot load a TXD, Task 6 is replaced by a face built from `038E DRAW_RECT` boxes in palette colors, with no textures.
 
 **Spike Findings:**
-- TXD location: not yet checked.
-- Coordinate space and widescreen: not yet checked.
-- GXT digit text: not yet checked.
-- Gate: not yet decided.
+- TXD location: `models\phtest.txd` in the game folder loads and draws (reported). `models\txd\` does not exist in this install.
+- Texture names: `0390` and `038F` take 8-byte labels (single quotes). A double-quoted name froze the game inside `0390`. A name over 7 characters was not tested, so keep texture names within 7.
+- Coordinate space and widescreen: a 640 by 480 space. In the 1194 by 586 window the green corner marks sit at the screen edges, so x spans the full width. The magenta marks sit on the sprite's corners, so x and y are the sprite's center. A 64 by 64 sprite draws wider than tall, so widescreen stretches x and the HUD art must be authored with that in mind.
+- GXT digit text: with `PHDIG ~1~` in `strings.fxt`, `DisplayWithNumber` with a single-quoted key draws the digit (a 7 appears near the top center in the screenshot).
+- Gate: `0390` loads a TXD, so Task 6 keeps textures.
 
 ## Task 6: Render the Phone Textures
 
@@ -817,7 +819,7 @@ If `0390` cannot load a TXD, Task 6 is replaced by a face built from `038E DRAW_
 
 **Interfaces:**
 - Consumes: [cellphone-mockup.html](../../docs/specimens/cellphone-mockup.html) and the install location from Task 5.
-- Produces: one PNG per part, in lit and unlit states where the part has two looks: `body`, `speaker`, `lcd`, `soft`, `dpad`, `answer`, `hangup`, `key0` to `key9`, `keystar`, and `keyhash`, each with a `_u` or `_l` suffix except `body`, `speaker`, and `lcd`.
+- Produces: one PNG per part, in unlit, lit, and pressed states where the part has them: `body`, `speak`, `lcd`, `soft`, `dpad`, `ans`, `hang`, `key0` to `key9`, `keyst`, and `keyhs`, each with a `_u`, `_l`, or `_p` suffix except `body`, `speak`, and `lcd`. Every name with its suffix stays within 7 characters (the longest are `keyst_u` and `keyhs_u`), because the Task 5 spike did not test an 8-character name.
 
 - [ ] **Step 1: Add the dependency**
 
@@ -825,7 +827,7 @@ Run `deno add npm:puppeteer-core`. Set `CHROME` in `.env` to the path of an inst
 
 - [ ] **Step 2: Write the render script**
 
-The script opens the mockup, waits for the raise slide, then for each part selector sets the `lit` class on `.phone` (lit) or removes it (unlit), waits 500 ms for the color transition, and screenshots the element with a transparent background at 2x. The body shot hides `.earpiece`, `.lcd`, `.nav`, and `.keys` first. Read the `import-skin.ts` usage header, then pack the PNGs into `phone.txd`.
+The script opens the mockup, waits for the raise slide, then for each part selector sets the `lit` class on `.phone` (lit) or removes it (unlit), waits 500 ms for the color transition, and screenshots the element with a transparent background at 2x. Each key and the D-pad get a third shot with `lit` on `.phone` and the `pressed` class on the element, waiting 150 ms for the sink. The body shot hides `.earpiece`, `.lcd`, `.nav`, and `.keys` first. Read the `import-skin.ts` usage header, then pack the PNGs into `phone.txd`.
 
 - [ ] **Step 3: Install the TXD**
 
@@ -880,7 +882,7 @@ Create `lib/threads/cellphone.txt`. Opcode names come from Task 2, and the sprit
 - Wait for `Pickup.HasBeenCollected($CellPhone)`, because the phone is owned for good once picked up.
 - Every frame, read one key and call `0B40: key blocked`. The key is `13` on P, `0` to `9` on the number row and numpad, `10` on Backspace, `11` on Enter, `12` on Escape, and `14` on Tab. The blocked flag is 1 while the player is in a vehicle or `$onCutscene` is set.
 - Copy the outputs to `$PhoneState`, `$PhoneEvent`, and `$PhoneNumber`. Call `Player.SetControl($PLAYER1, False)` while the state is 1, 2, 3, or 5, and `True` otherwise.
-- Draw: while the state is raised, ringing out, dialed, or connected, or `animating` is 1, draw the body, speaker, LCD frame, keys, D-pad, and call keys with `038D` using the lit or unlit texture from `lit`, and each LCD digit with the `PHDIG` text. During the slide the thread offsets every sprite by `(550 - TIMERA) / 550` of the phone height, with `TIMERA` reset to 0 when the state changes between lowered and up.
+- Draw: while the state is raised, ringing out, dialed, or connected, or `animating` is 1, draw the body, speaker, LCD frame, keys, D-pad, and call keys with `038D` using the lit or unlit texture from `lit` (the `_p` texture while that key is held), and each LCD digit with the `PHDIG` text. During the slide the thread offsets every sprite by `(550 - TIMERA) / 550` of the phone height, with `TIMERA` reset to 0 when the state changes between lowered and up.
 
 - [ ] **Step 4: Run the test to verify it passes**
 

@@ -128,7 +128,7 @@
     color: rgba(196, 191, 230, 0.3);
     font-size: 1rem;
     cursor: pointer;
-    transition: color 0.4s, box-shadow 0.4s, text-shadow 0.4s;
+    transition: color 0.4s, box-shadow 0.4s, text-shadow 0.4s, transform 0.08s;
   }
   .key.answer { color: rgba(0, 217, 163, 0.3); }
   .key.hangup { color: rgba(255, 74, 43, 0.3); }
@@ -152,7 +152,7 @@
     background: linear-gradient(180deg, rgba(242, 239, 255, 0.1), transparent 55%), var(--surface);
     box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base);
     cursor: pointer;
-    transition: box-shadow 0.4s;
+    transition: box-shadow 0.4s, transform 0.08s;
   }
   .dpad .ok {
     position: absolute;
@@ -183,6 +183,23 @@
   .lit .key.hangup { color: var(--fail); }
   .lit .dpad { box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base), 0 0 4px rgba(255, 122, 26, 0.2); }
   .lit .dpad i { color: var(--ember); }
+  /* Pressed: the key sinks into its 4 px lip, the top highlight turns to shade, and a lit glyph brightens. */
+  .key:active, .key.pressed, .dpad:active, .dpad.pressed {
+    transform: translateY(4px);
+    transition-duration: 0.06s;
+  }
+  .key:active, .key.pressed {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 55%), var(--surface);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.55), 0 0 0 var(--base);
+  }
+  .dpad:active, .dpad.pressed {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 55%), var(--surface);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.55), 0 0 0 var(--base);
+  }
+  .lit .key:active, .lit .key.pressed {
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.55), 0 0 0 var(--base), 0 0 8px rgba(255, 122, 26, 0.45);
+    text-shadow: 0 0 10px rgba(255, 122, 26, 0.95);
+  }
   .status { color: var(--muted); font-size: 0.9rem; }
   button {
     padding-block: 8px;
@@ -230,9 +247,9 @@
         <span class="key" data-digit="7"><span class="cap"><span class="digit">7</span><span class="letters">PQRS</span></span></span>
         <span class="key" data-digit="8"><span class="cap"><span class="digit">8</span><span class="letters">TUV</span></span></span>
         <span class="key" data-digit="9"><span class="cap"><span class="digit">9</span><span class="letters">WXYZ</span></span></span>
-        <span class="key"><span class="cap"><span class="digit">*</span></span></span>
+        <span class="key" data-key="*"><span class="cap"><span class="digit">*</span></span></span>
         <span class="key" data-digit="0"><span class="cap"><span class="digit">0</span></span></span>
-        <span class="key"><span class="cap"><span class="digit">#</span></span></span>
+        <span class="key" data-key="#"><span class="cap"><span class="digit">#</span></span></span>
       </div>
     </div>
   </div>
@@ -302,6 +319,7 @@
     render();
     clearTimeout(timer);
     phone.classList.remove("up", "lit");
+    phone.querySelectorAll(".pressed").forEach((key) => key.classList.remove("pressed"));
     toggle.textContent = "Raise Phone";
     showStatus();
   }
@@ -313,6 +331,15 @@
       else light();
     })
   );
+  // A typed digit, *, or # presses its key cap until the key comes back up.
+  function capFor(event) {
+    const name = /^Numpad[0-9]$/.test(event.code) ? event.code.slice(-1) : event.key;
+    return /^[0-9*#]$/.test(name) ? phone.querySelector(`[data-digit="${name}"], [data-key="${name}"]`) : null;
+  }
+  document.addEventListener("keydown", (event) => {
+    if (up && !event.ctrlKey && !event.metaKey && !event.altKey) capFor(event)?.classList.add("pressed");
+  });
+  document.addEventListener("keyup", (event) => capFor(event)?.classList.remove("pressed"));
   document.addEventListener("keydown", (event) => {
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.repeat && event.key !== "Backspace") return;

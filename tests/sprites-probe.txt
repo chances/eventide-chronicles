@@ -1,0 +1,128 @@
+DEFINE MISSIONS 0
+
+{$USE CLEO}
+{$USE ini}
+
+// DEBUG: Task 5 sprite spike in .agents/plans/cell-phone.md. Draws one sprite from phtest.txd, one
+// DRAW_RECT for reference, and one GXT digit. Writes every step to sprites-probe.ini in the game folder.
+// Expect a 64 by 64 sprite at screen center and a Ember rect at the top left for 20 seconds.
+
+var
+  $player1: Player
+  $scplayer: Char
+  $frames: int
+end
+
+//-------------MAIN---------------
+// Startup follows Sanny Builder's data\vc_sbl\stripped.txt
+script_name 'MAIN'
+Camera.DoFade(0, Fade.Out)
+Game.SetMaxWantedLevel(0)
+set_deatharrest_state 0
+Clock.SetTimeOfDay(12, 0)
+Streaming.RequestCollision(468.7745, -1298.623)
+Streaming.LoadScene(468.7745, -1298.623, 11.0712)
+$player1 = Player.Create(0, 468.7745, -1298.623, 11.0712)
+$scplayer = $player1.GetChar
+Weather.ForceNow(WeatherType.Sunny)
+
+wait 0
+declare_mission_flag $ONMISSION
+
+if
+    not $scplayer.IsDead
+then
+    $scplayer.Undress('PLAYER')
+    Streaming.LoadAllModelsNow
+    $scplayer.Dress
+end
+
+Camera.DoFade(1000, Fade.In)
+
+if
+    $player1.IsPlaying
+then
+    Streaming.SetAreaVisible(Interior.MainMap)
+    $player1.SetControl(True)
+    Weather.Release
+end
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "1_player_created")
+
+// 2: Rect only, no TXD. If the orange rect shows for 3 seconds, drawing works and any hang is in a later step.
+$frames = 0
+while $frames < 180
+  wait 0
+  $frames += 1
+  Text.UseCommands(true)
+  Hud.DrawRect(40.0, 30.0, 60.0, 30.0, 255, 122, 26, 255)
+end
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "2_rect_drawn")
+
+// 3: Control. Load the game's own hud.txd by name and draw its fist icon. Slot 2.
+// Names are 8-byte labels (single quotes), so a texture name over 7 characters cannot be addressed.
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "3a_before_hud_dictionary")
+Txd.LoadDictionary('hud')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "3b_hud_dictionary_called")
+Txd.LoadSprite(2, 'fist')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "3c_hud_sprite_called")
+
+$frames = 0
+while $frames < 180
+  wait 0
+  $frames += 1
+  Text.UseCommands(true)
+  Hud.DrawRect(40.0, 30.0, 60.0, 30.0, 255, 122, 26, 255)
+  Hud.DrawSprite(2, 320.0, 240.0, 64.0, 64.0, 255, 255, 255, 255)
+end
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "3d_hud_sprite_drawn")
+
+// 4: The test texture. models\phtest.txd must exist; the log shows no error either way.
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4a_before_phtest_dictionary")
+Txd.LoadDictionary('phtest')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4b_phtest_dictionary_called")
+Txd.LoadSprite(1, 'phtest')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4c_phtest_sprite_called")
+
+$frames = 0
+while $frames < 1200
+  wait 0
+  $frames += 1
+
+  Text.UseCommands(true)
+
+  // Reference: a plain rect in Ember at the top left, which draws without any TXD
+  Hud.DrawRect(40.0, 30.0, 60.0, 30.0, 255, 122, 26, 255)
+
+  // The sprite under test, 64 by 64 at the center of a 640 by 480 space
+  Hud.DrawSprite(1, 320.0, 240.0, 64.0, 64.0, 255, 255, 255, 255)
+
+  // A second sprite at the bottom right corner, to read the widescreen behavior
+  Hud.DrawSprite(1, 600.0, 440.0, 64.0, 64.0, 255, 255, 255, 255)
+
+  // GXT digit: PHDIG holds ~1~ in strings.fxt
+  Text.SetScale(0.6, 1.4)
+  Text.SetColor(255, 122, 26, 255)
+  Text.DisplayWithNumber(320.0, 100.0, 'PHDIG', 7)
+
+  // Corner marks. Green on the 640 by 480 screen corners; magenta where a center-anchored 64 by 64
+  // sprite at (320, 240) would have its corners. If the marks sit on the sprite's corners, x and y are the center.
+  Hud.DrawRect(4.0, 4.0, 8.0, 8.0, 0, 255, 0, 255)
+  Hud.DrawRect(636.0, 4.0, 8.0, 8.0, 0, 255, 0, 255)
+  Hud.DrawRect(4.0, 476.0, 8.0, 8.0, 0, 255, 0, 255)
+  Hud.DrawRect(636.0, 476.0, 8.0, 8.0, 0, 255, 0, 255)
+  Hud.DrawRect(288.0, 208.0, 6.0, 6.0, 255, 0, 255, 255)
+  Hud.DrawRect(352.0, 208.0, 6.0, 6.0, 255, 0, 255, 255)
+  Hud.DrawRect(288.0, 272.0, 6.0, 6.0, 255, 0, 255, 255)
+  Hud.DrawRect(352.0, 272.0, 6.0, 6.0, 255, 0, 255, 255)
+
+  if $frames == 1
+  then
+    IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4_first_frame_drawn")
+  end
+end
+
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "5_draw_loop_done")
+
+while true
+  wait 1000
+end
