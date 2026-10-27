@@ -2,8 +2,8 @@
  * @file cell-phone.cpp
  * @brief CLEO plugin for the Eventide Chronicles cell phone, Vice City.
  *
- * Wraps the PhoneMachine state machine in three opcodes. Beep playback is not built yet, so the
- * machine's beep requests are drained and dropped.
+ * Wraps the PhoneMachine state machine in three opcodes and plays its ringback and busy tones through
+ * PhoneSound. The incoming ringtone is a WAV that the script plays, so the machine's ring beats are dropped.
  */
 
 #define WIN32_LEAN_AND_MEAN
@@ -11,6 +11,7 @@
 
 #include "VC.CLEO.h"
 #include "phone_machine.h"
+#include "sound.h"
 
 // CLEO_GetVersion() packs v2.0.0.6 as 0x00020006, so the minimum is 2.0.0 as 0x00020000
 #define CLEO_VERSION_MIN 0x00020000u
@@ -19,6 +20,7 @@
 static tScriptVar *Params;
 
 static PhoneMachine g_phone;
+static PhoneSound g_sound;
 
 /**
  * @brief Opcode 0B40: run one frame of the phone.
@@ -31,7 +33,9 @@ eOpcodeResult WINAPI OPCODE_0B40(CScript *script)
     const int key = Params[0].nVar;
     const bool blocked = Params[1].nVar != 0;
     const PhoneView view = g_phone.Tick(GetTickCount(), key, blocked);
-    g_phone.TakeBeep();
+    g_sound.OnState(view.state);
+    g_sound.OnBeep(g_phone.TakeBeep());
+    g_sound.OnDigit(g_phone.TakeDigit());
     Params[0].nVar = view.state;
     Params[1].nVar = view.lit;
     Params[2].nVar = view.animating;
@@ -46,7 +50,6 @@ eOpcodeResult WINAPI OPCODE_0B40(CScript *script)
 eOpcodeResult WINAPI OPCODE_0B41(CScript *script)
 {
     g_phone.RingIncoming(GetTickCount());
-    g_phone.TakeBeep();
     return OR_CONTINUE;
 }
 
@@ -55,7 +58,6 @@ eOpcodeResult WINAPI OPCODE_0B42(CScript *script)
 {
     script->Collect(1);
     g_phone.Resolve(GetTickCount(), Params[0].nVar);
-    g_phone.TakeBeep();
     return OR_CONTINUE;
 }
 

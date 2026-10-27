@@ -41,7 +41,7 @@
 - Oakdale rental, `555-7653`: a recorded message plays about the apartment. Between 9 am and 5 pm, the player is prompted to buy it if funds allow. Outside those hours, the message plays only. If already owned, the message plays only.
 - Zit hotline, `555-0100`: a pager-style text message names the track now playing on the radio. When the player is not driving or the radio is off, the busy tone plays instead. The station-and-time track table is out of scope for this plan.
 - Mission numbers: only when unlocked. Which missions can be dialed is **TBD**, expected to be side missions outside the story arc.
-- Any other number: busy tone.
+- Any other number: the call connects and the timer runs. After 3 quiet seconds the busy tone plays for 4 seconds with the timer still running, then the call drops back to number entry with the digits cleared. P ends the call at any point.
 
 ### HUD
 
@@ -121,7 +121,8 @@ flowchart LR
 - Create: `plugins/cell-phone/CMakeLists.txt` (CMake, Win32, a test target, and the plugin target)
 - Create: `plugins/cell-phone/phone_machine.h` (the `PhoneMachine` state machine, header only)
 - Create: `plugins/cell-phone/tests/phone_machine_test.cpp` (native test for `PhoneMachine`)
-- Create: `plugins/cell-phone/cell-phone.cpp` (opcodes `0B40` to `0B42`, beep)
+- Create: `plugins/cell-phone/cell-phone.cpp` (opcodes `0B40` to `0B42`)
+- Create: `plugins/cell-phone/tones.h` (the tone cadences and DTMF table, with no Windows includes so the state machine can share them), `plugins/cell-phone/sound.h`, `plugins/cell-phone/sound.cpp` (tone synthesis and playback, game sound effects volume), `plugins/cell-phone/tests/sound_test.cpp`, `plugins/cell-phone/tests/check.h`
 - Create: `scripts/render-phone-textures.ts` (renders the mockup parts to PNG for the TXD)
 - Create: `plugins/cell-phone/sdk/VC.CLEO.h` and `plugins/cell-phone/sdk/VC.CLEO.lib` (fetched from upstream)
 - Create: `plugins/cell-phone/.gitignore` (`build/`)
@@ -973,24 +974,7 @@ Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add`
 
 ## Task 11: Oakdale Rental (555-7653) and Zit Hotline (555-0100)
 
-**Files:**
-- Modify: `lib/threads/cellphone.txt`
-
-**Interfaces:**
-- Consumes: the dispatch label from Task 8, the time and money names from Task 2, and the radio names from Task 2.
-- Produces: `@CellPhone_Oakdale` and `@CellPhone_Zit`.
-
-- [ ] **Step 1: Oakdale rental**
-
-`@CellPhone_Oakdale` plays a recorded message about the apartment. Between 9 am and 5 pm, when the player has enough cash, it also prompts the player to buy the apartment. Outside those hours, or when the player already owns it, the message plays only. The buy prompt waits on the property Open item below. Until that item is settled, the prompt is not built.
-
-- [ ] **Step 2: Zit hotline**
-
-`@CellPhone_Zit` sends a pager-style text message, the way the GTA III pager does. When the player is in a vehicle with the radio on, the message names the track. Otherwise the hotline gives the busy tone. The track name comes from a station-and-time table, which is out of scope for this plan. The text until that table exists is an Open item below.
-
-- [ ] **Step 3: Run the tests and stop**
-
-Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add` or `git commit`.
+**Deferred.** Both numbers wait on open decisions, so Task 11 moved to the Cellphone section of [TODO.md](../../docs/TODO.md). Until it is built, `CellPhone_DialDone` answers both numbers with the busy tone.
 
 ## Task 12: Install the Plugin
 
@@ -1001,7 +985,7 @@ Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add`
 - Consumes: `plugins/cell-phone/build/Release/cell-phone.cleo` from Task 4.
 - Produces: the plugin copied into `<VC>\CLEO\`.
 
-- [ ] **Step 1: Add the copy after the `strings.fxt` copy**
+- [x] **Step 1: Add the copy after the `strings.fxt` copy**
 
 Append to `scripts/install.ts`:
 
@@ -1038,7 +1022,7 @@ Run `ctest --test-dir plugins/cell-phone/build -C Release --output-on-failure`. 
 
 - [ ] **Step 3: Hand the in-game checks to the user**
 
-The agent cannot see the game. Ask the user to run the game and report: P raises and lowers the phone, digits type up to seven, Enter gives the busy tone for an unknown number, 555-7653 plays the Oakdale message, 555-0100 sends the hotline text, and the taxi arrives. Record each result the user reports in this file.
+The agent cannot see the game. Ask the user to run the game and report: P raises and lowers the phone, digits type up to seven, Enter gives the busy tone for an unknown number, the taxi arrives, and the pizza rider walks up and delivers. Record each result the user reports in this file.
 
 ## Open Questions
 
@@ -1046,9 +1030,6 @@ The agent cannot see the game. Ask the user to run the game and report: P raises
 - The taxi driver's ped model. `#HMOST` is a placeholder from the boss missions.
 - Whether the plugin's timers should pause with the game. They use wall-clock time (`GetTickCount`).
 - The incoming-call ring lasts 20 seconds before it counts as missed. That value is a placeholder choice.
-
-- Which existing sale property the Oakdale number refers to. `init.txt` lists six `CreateForSaleProperty` pickups, and Oakdale is not among them. Task 11's buy prompt waits on this.
-- What the Zit hotline text says until the radio track table exists. The table is out of scope for this plan.
 - Whether the left-hand key-pushing pose needs a custom animation or uses an existing one.
 - Which missions can be dialed. The answer is TBD, and the likely set is side missions outside the story arc.
 - The Oakdale sign prints `555-76530`, eight digits, and the rental number is `555-7653`. The sign's extra digit is logged in [TODO.md](../../docs/TODO.md).

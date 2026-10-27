@@ -3,10 +3,12 @@
 #include <cstdint>
 #include <string>
 
+#include "tones.h"
+
 enum PhoneKey { KeyNone = -1, KeyBackspace = 10, KeyDial = 11, KeyEscape = 12, KeyToggle = 13, KeyAnswer = 14 };
 enum PhoneState { StateLowered, StateRaised, StateRingingOut, StateDialed, StateRingingIn, StateConnected };
 enum PhoneEvent { EventNone, EventDialDone, EventAnswered, EventHungUp, EventMissed, EventDeclined };
-enum PhoneBeep { BeepNone, BeepRing, BeepBusy };
+enum PhoneBeep { BeepNone, BeepRing, BeepRingback, BeepBusy };
 enum PhoneResult { ResultConnected = 1, ResultBusy = 2, ResultOver = 3 };
 
 /** @brief What the script reads each frame. `animating` is 1 while the phone slides up or down. */
@@ -28,9 +30,12 @@ public:
     static constexpr uint32_t kBacklightMs = 5000;
     static constexpr uint32_t kSlideMs = 550;
     static constexpr uint32_t kRingOutMs = 3000;
-    static constexpr uint32_t kRingOutBeatMs = 1000;
     static constexpr uint32_t kRingInMs = 20000;
     static constexpr uint32_t kRingInBeatMs = 2000;
+    // A number with no handler connects, goes quiet for kBusyDelayMs, plays the busy tone for kBusyToneMs,
+    // and then the call drops back to number entry.
+    static constexpr uint32_t kBusyDelayMs = 2000;
+    static constexpr uint32_t kBusyToneMs = ToneDurationMs(kBusy);
 
     /** @brief Handles one key (or KeyNone), then runs the timers. A blocked phone lowers and ignores keys. */
     PhoneView Tick(uint32_t now, int key, bool blocked)
@@ -50,10 +55,10 @@ public:
         }
         if (m_state == StateRingingOut)
         {
-            if (now >= m_nextBeat && now < m_phaseStart + kRingOutMs)
+            if (m_nextBeat && now >= m_nextBeat)
             {
-                m_beep = BeepRing;
-                m_nextBeat += kRingOutBeatMs;
+                m_beep = BeepRingback;
+                m_nextBeat = 0;
             }
             if (now >= m_phaseStart + kRingOutMs)
             {
@@ -75,6 +80,18 @@ public:
                 Lower(now);
                 event = EventMissed;
             }
+        }
+        if (m_busyAt && now >= m_busyAt)
+        {
+            m_busyAt = 0;
+            m_beep = BeepBusy;
+        }
+        else if (m_busyEnd && now >= m_busyEnd)
+        {
+            m_busyEnd = 0;
+            m_state = StateRaised;
+            m_digits.clear();
+            Light(now);
         }
         int number = 0;
         for (char c : m_digits)
@@ -110,14 +127,24 @@ public:
         }
         else if (result == ResultBusy && m_state == StateDialed)
         {
-            m_state = StateRaised;
-            m_beep = BeepBusy;
+            // The call connects like any other, so the HUD keeps its timer while the busy tone plays
+            m_state = StateConnected;
+            m_busyAt = now + kBusyDelayMs;
+            m_busyEnd = m_busyAt + kBusyToneMs;
             Light(now);
         }
         else if (result == ResultOver && (m_state == StateDialed || m_state == StateConnected))
         {
             Lower(now);
         }
+    }
+
+    /** @brief Returns the digit key pressed since the last call, 0 to 9, or -1 for none, and clears it. */
+    int TakeDigit()
+    {
+        const int digit = m_digit;
+        m_digit = -1;
+        return digit;
     }
 
     /** @brief Returns the beep to play now and clears it. */
@@ -142,6 +169,7 @@ private:
         case StateRaised:
             if (key >= 0 && key <= 9)
             {
+                m_digit = key;
                 if (static_cast<int>(m_digits.size()) < kMaxDigits)
                 {
                     m_digits.push_back(static_cast<char>('0' + key));
@@ -160,8 +188,7 @@ private:
             {
                 m_state = StateRingingOut;
                 m_phaseStart = now;
-                m_nextBeat = now + kRingOutBeatMs;
-                m_beep = BeepRing;
+                m_nextBeat = now + kRingbackDelayMs;
                 Light(now);
             }
             else if (key == KeyToggle || key == KeyEscape)
@@ -222,11 +249,16 @@ private:
         m_state = StateLowered;
         m_digits.clear();
         m_litUntil = 0;
+        m_busyAt = 0;
+        m_busyEnd = 0;
         StartSlide(now);
     }
 
     PhoneState m_state = StateLowered;
     PhoneBeep m_beep = BeepNone;
+    int m_digit = -1;
+    uint32_t m_busyAt = 0;
+    uint32_t m_busyEnd = 0;
     std::string m_digits;
     uint32_t m_litUntil = 0;
     uint32_t m_phaseStart = 0;

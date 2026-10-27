@@ -37,9 +37,10 @@ The repo uses `#TAXI` and `#CABBIE` in `lib/threads/ringu.txt`, and `#PIZZABOY` 
 | Sound | Source | Detail |
 |---|---|---|
 | Incoming ringtone | WAV from the [ringtone editor](../../tools/phone/ringtone-editor.html), played by the script's audio stream command | Changes with mission progress. The mapping from missions to templates is **Open**. |
-| Outgoing ring | Plugin mixes a tone buffer | US ringback, 440 Hz plus 480 Hz, as two short bursts inside the 3 second dial. |
-| Busy tone | Plugin mixes a tone buffer | US busy, 480 Hz plus 620 Hz, 0.5 seconds on and 0.5 seconds off. |
-| Digit keys | Plugin mixes a tone buffer | Standard DTMF pairs, short. Other keys are silent. |
+| Outgoing ring | `sound.cpp` renders a PCM buffer and plays it with `waveOut` | US ringback from the [ringtone editor](../../tools/phone/ringtone-editor.html)'s reference tones: 440 Hz plus 480 Hz, one 2 second burst that starts 0.5 seconds into the 3 second dial, when the HUD swaps the dialed number for the call timer. It stops when the dial ends or the phone lowers. |
+| Busy tone | `sound.cpp`, as above | US busy, 480 Hz plus 620 Hz, four bursts of 0.5 seconds with 0.5 seconds between. It plays 3 seconds into a connected call to a number with no handler, while the timer keeps running, and the call then drops back to number entry. It stops when the phone lowers. |
+| Volume | `ReadSfxVolume` in `sound.cpp` | Both tones scale by the game's sound effects slider, read live as the byte at `0x869659` (the front end menu manager at `0x869630`, offset `0x29`; 0 to 127) in gta-vc.exe v1.0. An unreadable or out-of-range byte falls back to 102, the game's default. The address comes from [GTAMods](https://gtamods.com/wiki/Memory_Addresses_(VC)) and is unverified in the game. The layout of `gta_vc.set` is not documented, so the settings file is not read. |
+| Digit keys | `sound.cpp`, as above | Standard DTMF pairs, 100 ms, on every digit press in the raised phone, even when the seven digits are full. A new press cuts the previous tone. Other keys are silent. |
 | Missed call | Help text after the 20 second ring | `Missed call. Press ~g~P~w~ to call back.` P then dials the stored number of the last caller. |
 
 The ringtone templates are original melodies, not the Nokia tune, which is a registered sound mark.

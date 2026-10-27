@@ -28,7 +28,23 @@ async function compile(inputPath: string, outputPath: string) {
   }
 }
 
+/** Runs a command and exits the build when it fails. */
+async function run(command: string, args: string[]) {
+  const { success } = await new Deno.Command(command, { args, stdout: "inherit" }).output();
+  if (!success) {
+    console.error(`Failed: ${command} ${args.join(" ")}`);
+    Deno.exit(1);
+  }
+}
+
 const cwd = Deno.cwd();
+
+// The phone plugin (gta-vc.exe is 32-bit, so Win32). `deno task install` copies the built cell-phone.cleo.
+const pluginDir = join("plugins", "cell-phone");
+const pluginBuildDir = join(pluginDir, "build");
+console.log("Building cell-phone plugin...");
+await run("cmake", ["-S", pluginDir, "-B", pluginBuildDir, "-A", "Win32"]);
+await run("cmake", ["--build", pluginBuildDir, "--config", "Release"]);
 
 // --debug-trace writes trace.ini at each MAIN and INIT step
 // --debug-wanted starts the player at 2 stars

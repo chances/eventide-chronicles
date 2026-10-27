@@ -1,16 +1,6 @@
 #include "phone_machine.h"
 
-#include <cstdio>
-
-#define CHECK(condition)                                                              \
-    do                                                                                \
-    {                                                                                 \
-        if (!(condition))                                                             \
-        {                                                                             \
-            std::fprintf(stderr, "FAILED %s:%d: %s\n", __FILE__, __LINE__, #condition); \
-            return 1;                                                                 \
-        }                                                                             \
-    } while (0)
+#include "check.h"
 
 static PhoneView Tick(PhoneMachine &m, uint32_t now, int key = KeyNone, bool blocked = false)
 {
@@ -49,14 +39,35 @@ int main()
         Tick(m, 0, KeyToggle);
         TypeNumber(m, 100, "5557653");
         CHECK(Tick(m, 1000, KeyDial).state == StateRingingOut);
-        CHECK(m.TakeBeep() == BeepRing);
-        CHECK(Tick(m, 3999).event == EventNone);
+        // The ringback starts kRingbackDelayMs after the dial, once, and the dial ends after kRingOutMs
+        CHECK(m.TakeBeep() == BeepNone);
+        CHECK(Tick(m, 1000 + kRingbackDelayMs - 1).state == StateRingingOut && m.TakeBeep() == BeepNone);
+        CHECK(Tick(m, 1000 + kRingbackDelayMs).state == StateRingingOut && m.TakeBeep() == BeepRingback);
+        CHECK(Tick(m, 3999).event == EventNone && m.TakeBeep() == BeepNone);
         PhoneView v = Tick(m, 4000);
         CHECK(v.state == StateDialed && v.event == EventDialDone && v.number == 5557653);
+        // A busy number connects, is quiet for kBusyDelayMs, plays the busy tone for kBusyToneMs, then returns to entry
+        const uint32_t toneAt = 4100 + PhoneMachine::kBusyDelayMs;
+        const uint32_t endAt = toneAt + PhoneMachine::kBusyToneMs;
         m.Resolve(4100, ResultBusy);
-        CHECK(m.TakeBeep() == BeepBusy);
-        v = Tick(m, 4200);
-        CHECK(v.state == StateRaised && v.digitCount == 7);
+        CHECK(m.TakeBeep() == BeepNone);
+        CHECK(Tick(m, 4200).state == StateConnected);
+        CHECK(Tick(m, toneAt - 1).state == StateConnected && m.TakeBeep() == BeepNone);
+        CHECK(Tick(m, toneAt).state == StateConnected && m.TakeBeep() == BeepBusy);
+        CHECK(Tick(m, endAt - 1).state == StateConnected && m.TakeBeep() == BeepNone);
+        v = Tick(m, endAt);
+        CHECK(v.state == StateRaised && v.digitCount == 0 && v.lit == 1);
+    }
+    {
+        // Hanging up during the busy tone lowers the phone, and the call does not come back
+        PhoneMachine m;
+        Tick(m, 0, KeyToggle);
+        TypeNumber(m, 100, "5551234");
+        Tick(m, 200, KeyDial);
+        Tick(m, 3200);
+        m.Resolve(3300, ResultBusy);
+        CHECK(Tick(m, 7000, KeyToggle).state == StateLowered);
+        CHECK(Tick(m, 20000).state == StateLowered);
     }
     {
         PhoneMachine m;
@@ -75,6 +86,22 @@ int main()
         Tick(m, 3000, 5);
         CHECK(Tick(m, 7999).lit == 1);
         CHECK(Tick(m, 8000).lit == 0);
+    }
+    {
+        // A digit key reports its digit once, even when the buffer is full, and other keys report none
+        PhoneMachine m;
+        CHECK(m.TakeDigit() == -1);
+        Tick(m, 0, KeyToggle);
+        CHECK(m.TakeDigit() == -1);
+        Tick(m, 100, 5);
+        CHECK(m.TakeDigit() == 5);
+        CHECK(m.TakeDigit() == -1);
+        TypeNumber(m, 200, "1234567");
+        m.TakeDigit();
+        Tick(m, 300, 9);
+        CHECK(m.TakeDigit() == 9);
+        Tick(m, 400, KeyBackspace);
+        CHECK(m.TakeDigit() == -1);
     }
     {
         PhoneMachine m;

@@ -48,3 +48,13 @@ if (await Deno.stat(txdSource).then(() => true, () => false)) {
 } else {
   console.warn(`Skipped ${txdSource}, which is not built. Run deno task render-phone.`);
 }
+
+// The phone plugin is built with CMake (plugins/cell-phone). Without it the phone thread's opcodes 0B40 to 0B42 do nothing.
+const pluginSource = join(Deno.cwd(), "plugins", "cell-phone", "build", "Release", "cell-phone.cleo");
+const pluginDestination = join(vc, "CLEO", "cell-phone.cleo");
+if (await Deno.stat(pluginSource).then(() => true, () => false)) {
+  await Deno.copyFile(pluginSource, pluginDestination);
+  console.log(`Installed ${pluginSource} to ${pluginDestination}`);
+} else {
+  console.warn(`Skipped ${pluginSource}, which is not built. Build it with CMake first.`);
+}

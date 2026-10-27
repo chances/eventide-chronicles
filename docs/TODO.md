@@ -16,6 +16,22 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 - Pedestrians and the public also carry credit cards in addition to cash. Credit cards can be used at ATMs and payphones.
 
+## 📞 Cellphone
+
+**Open.** Two dialed numbers wait for decisions. Until they are built, `CellPhone_DialDone` in `lib/threads/cellphone.txt` answers both with the busy tone. The rest of the phone is in the [cell-phone plan](../.agents/plans/cell-phone.md).
+
+### Oakdale Rental, 555-7653
+
+- A recorded message plays about the apartment. Between 9 am and 5 pm, the player is prompted to buy it if funds allow. Outside those hours, or when the player already owns it, the message plays only.
+- Which existing sale property the number refers to is undecided. `lib/init.txt` lists six `Pickup.CreateForSaleProperty` pickups, and Oakdale is not among them. The buy prompt waits on this.
+- The recording itself is not written.
+
+### Zit Hotline, 555-0100
+
+- A pager-style text message names the track now playing on the radio, the way the GTA III pager does. When the player is not driving or the radio is off, the busy tone plays instead.
+- The base game cannot read the radio state or the current station. `GET_RADIO_CHANNEL` (`051E`) is unsupported in Vice City, and the only setter is `Audio.SetRadioChannel` (`041E`). See [README.md](../plugins/cell-phone/README.md).
+- The station-and-time track table does not exist. What the text says until it does is undecided.
+
 ## 💅 Visual Identity Assets
 
 **Open.** Work after the first two priorities in [visual-identity-assets.csv](visual-identity-assets.csv).
