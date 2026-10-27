@@ -1,5 +1,5 @@
 // Cell phone thread. Reads keys, drives cell-phone.cleo (0B40 to 0B42), and draws the phone with sprites.
-// Needs lib/phone.txt and lib/threads/cellphone-layout.txt included first. The design is in .agents/plans/cell-phone.md.
+// Needs lib/phone.txt and lib/threads/cellphone-layout.txt included first. The design is in plugins/cell-phone/README.md.
 // Screen units are the 640 by 448 space of the sprite commands. PHONE_TOP puts the last key row 13 mockup px
 // above the bottom edge: 448 - (378 + 13) * PHONE_SY.
 const PHONE_SX = 0.45
@@ -709,7 +709,8 @@ CellPhone_Sprite()
 
 // The LCD shows the number or the call timer, never both. A dialed call keeps its number on screen for the
 // first half second, then the timer replaces it. A call with no number on screen, such as an answered one,
-// shows the timer at once.
+// shows the timer at once. The plugin starts the ringback at the same moment (kRingbackDelayMs in
+// plugins/cell-phone/tones.h), so the two 500 ms values change together.
 $ShowTimer = 0
 if or
     $PhoneState == 2

@@ -18,7 +18,7 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 ## 📞 Cellphone
 
-**Open.** Two dialed numbers wait for decisions. Until they are built, `CellPhone_DialDone` in `lib/threads/cellphone.txt` answers both with the busy tone. The rest of the phone is in the [cell-phone plan](../.agents/plans/cell-phone.md).
+**Open.** Two dialed numbers wait for decisions. Until they are built, `CellPhone_DialDone` in `lib/threads/cellphone.txt` answers both with the busy tone. The rest of the phone is in the [cell phone README](../plugins/cell-phone/README.md).
 
 ### Oakdale Rental, 555-7653
 
@@ -32,6 +32,17 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - The base game cannot read the radio state or the current station. `GET_RADIO_CHANNEL` (`051E`) is unsupported in Vice City, and the only setter is `Audio.SetRadioChannel` (`041E`). See [README.md](../plugins/cell-phone/README.md).
 - The station-and-time track table does not exist. What the text says until it does is undecided.
 
+### Other Open Items
+
+- Which missions can be dialed. Expected to be side missions outside the story arc, and only once unlocked.
+- The taxi driver's ped model is `#HMOST`, a placeholder from the boss missions.
+- The plugin's timers use wall-clock time (`GetTickCount`), so they keep running while the game is paused.
+- The incoming ring lasts 20 seconds before it counts as missed. That value is a placeholder.
+- Whether the left-hand key-pushing pose needs a custom animation or uses an existing one.
+- Incoming ringtones are WAVs from the [ringtone editor](../tools/phone/ringtone-editor.html). Which template plays at which point in the story is undecided.
+- The tones are synthesized again on every play, and the wave device opens and closes per tone. Caching the full-volume buffers and keeping the device open would remove the per-event cost.
+- The sound effects volume byte at `0x869659` comes from a wiki and is unverified against the game's slider.
+
 ## 💅 Visual Identity Assets
 
 **Open.** Work after the first two priorities in [visual-identity-assets.csv](visual-identity-assets.csv).
@@ -40,7 +51,7 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - Title mark, which waits for the Enbenite mineral (L008).
 - Signs and billboards with unstable text, and vehicle liveries.
 - Retexture the Oakdale "To Let" sign. Its number has eight digits, but the cell phone accepts seven. New number: 555-7653
-- Remodel the brick cell phone in the game's models. Out of scope for the cell-phone plugin, whose phone face is drawn on the HUD. See the [cell-phone plan](../.agents/plans/cell-phone.md).
+- Remodel the brick cell phone in the game's models. Out of scope for the cell-phone plugin, whose phone face is drawn on the HUD. See the [cell phone README](../plugins/cell-phone/README.md).
 - The custom `timecyc` data file, one grade per mood.
 - Camera shake and FOV blur, within the effect limits in [visual-identity.md](visual-identity.md).
 - Script support for the mood, the coherence stage, and the ini switch that reduces effects.

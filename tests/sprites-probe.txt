@@ -3,7 +3,7 @@ DEFINE MISSIONS 0
 {$USE CLEO}
 {$USE ini}
 
-// DEBUG: Task 5 sprite spike in .agents/plans/cell-phone.md. Draws one sprite from phtest.txd, one
+// DEBUG: sprite spike for the cell phone HUD, findings in .agents/lessons/cell-phone-hud.md. Draws one sprite from phtest.txd, one
 // DRAW_RECT for reference, and one GXT digit. Writes every step to sprites-probe.ini in the game folder.
 // Expect a 64 by 64 sprite at screen center and a Ember rect at the top left for 20 seconds.
 

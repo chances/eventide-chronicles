@@ -22,7 +22,15 @@ struct PhoneView
     int event;
 };
 
-/** @brief The phone's state, digits, and timers. Time is passed in, so tests need no clock. */
+/**
+ * @brief The phone's state, digits, and timers. Time is passed in, so tests need no clock.
+ *
+ * @remarks Beeps and digit presses are one-shot requests that the plugin drains each frame with `TakeBeep` and
+ * `TakeDigit`. `BeepRing` marks an incoming ring beat that the plugin ignores, because the script plays the
+ * ringtone WAV. `BeepRingback` fires once, `kRingbackDelayMs` after the dial. A busy call stays in
+ * `StateConnected`, so the HUD keeps its timer, and `m_busyAt` and `m_busyEnd` (0 when unset) schedule its
+ * tone and its drop back to number entry. Any exit from `StateConnected` goes through `Lower`, which clears them.
+ */
 class PhoneMachine
 {
 public:
