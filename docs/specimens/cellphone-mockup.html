@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cell Phone Mockup</title>
+<style>
+  :root {
+    --base: #0d0b1e;
+    --text: #f2efff;
+    --muted: #c4bfe6;
+    --ember: #ff7a1a;
+    --cold: #4d94ff;
+    --gold: #ffc61a;
+    --surface: #17142e;
+    --pass: #00d9a3;
+    --fail: #ff4a2b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --base: #0d0b1e; --text: #f2efff; --muted: #c4bfe6; }
+  }
+  :root[data-theme="dark"] { --base: #0d0b1e; --text: #f2efff; --muted: #c4bfe6; }
+  body {
+    margin: 0;
+    padding: 16px;
+    background: var(--base);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  h1 { font-size: 1.25rem; margin: 0 0 16px; }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .option {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 32px;
+    align-items: start;
+    max-inline-size: 720px;
+  }
+  .info { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .info h2 { margin: 0; font-size: 1rem; }
+  .reference { max-inline-size: 36ch; margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
+  .reference a { color: var(--cold); }
+  @media (max-width: 640px) {
+    .option { grid-template-columns: 1fr; }
+    .screen { order: -1; }
+  }
+  .screen {
+    width: 280px;
+    padding-block-start: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(196, 191, 230, 0.3);
+    background: var(--base);
+  }
+  .phone {
+    width: 200px;
+    margin-inline: auto;
+    margin-block-end: -9px;
+    padding-block: 24px 22px;
+    padding-inline: 18px;
+    border-radius: 22px 22px 0 0;
+    background: var(--surface);
+    box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.12);
+    transform: translateY(110%);
+    transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .phone.up { transform: translateY(0); }
+  .earpiece {
+    display: block;
+    width: 52px;
+    height: 6px;
+    margin-inline: auto;
+    margin-block-end: 14px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: var(--base);
+    box-shadow: inset 0 2px 1px rgba(0,0,0,0.25);
+  }
+  .lcd {
+    color: rgba(196, 191, 230, 0.18);
+    height: 60px;
+    padding-inline: 12px;
+    border: 2px solid var(--cold);
+    border-radius: 6px;
+    background: var(--base);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    font-family: "Courier New", monospace;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: color 0.4s, text-shadow 0.4s;
+  }
+  .lit .lcd {
+    color: var(--ember);
+    text-shadow: 0 0 6px rgba(255, 122, 26, 0.6);
+  }
+  .nav {
+    margin-block-start: 16px;
+    display: grid;
+    grid-template-columns: 1fr 76px 1fr;
+    grid-template-rows: repeat(2, 34px);
+    gap: 8px;
+    align-items: center;
+  }
+  .nav .l { grid-column: 1; }
+  .nav .r { grid-column: 3; }
+  .nav .soft { grid-row: 1; align-self: start; height: 24px; }
+  .nav .answer, .nav .hangup { grid-row: 2; align-self: end; }
+  .keys {
+    margin-block-start: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .key {
+    display: grid;
+    place-items: center;
+    height: 34px;
+    border-radius: 17px;
+    background: linear-gradient(180deg, rgba(242, 239, 255, 0.1), transparent 55%), var(--surface);
+    box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base);
+    color: rgba(196, 191, 230, 0.3);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.4s, box-shadow 0.4s, text-shadow 0.4s;
+  }
+  .key.answer { color: rgba(0, 217, 163, 0.3); }
+  .key.hangup { color: rgba(255, 74, 43, 0.3); }
+  .cap { display: flex; align-items: baseline; gap: 4px; }
+  .letters { font-size: 0.55rem; letter-spacing: 0.04em; }
+  .cap svg { translate: 0 5px; }
+  .soft::after {
+    content: "";
+    width: 12px;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+  }
+  .dpad {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(242, 239, 255, 0.1), transparent 55%), var(--surface);
+    box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base);
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+  }
+  .dpad .ok {
+    position: absolute;
+    inset: 24px;
+    border-radius: 50%;
+    background: var(--base);
+    box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.12);
+  }
+  .dpad i {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 6px;
+    margin-inline-start: -5px;
+    border-inline: 5px solid transparent;
+    border-block-end: 7px solid currentColor;
+    color: rgba(196, 191, 230, 0.3);
+    transition: color 0.4s;
+  }
+  .dpad .s { inset-block-start: auto; inset-block-end: 6px; rotate: 180deg; }
+  .dpad .w { inset-inline-start: 6px; inset-block-start: 50%; margin-inline-start: 0; margin-block-start: -4px; rotate: -90deg; }
+  .dpad .e { inset-inline-start: auto; inset-inline-end: 6px; inset-block-start: 50%; margin-inline-start: 0; margin-block-start: -4px; rotate: 90deg; }
+  .lit .key {
+    color: var(--ember);
+    box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base), 0 0 4px rgba(255, 122, 26, 0.2);
+    text-shadow: 0 0 6px rgba(255, 122, 26, 0.7);
+  }
+  .lit .key.answer { color: var(--pass); }
+  .lit .key.hangup { color: var(--fail); }
+  .lit .dpad { box-shadow: inset 0 1px 0 rgba(242, 239, 255, 0.18), 0 4px 0 var(--base), 0 0 4px rgba(255, 122, 26, 0.2); }
+  .lit .dpad i { color: var(--ember); }
+  .status { color: var(--muted); font-size: 0.9rem; }
+  button {
+    padding-block: 8px;
+    padding-inline: 16px;
+    border: 2px solid var(--cold);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lcd, .key, .dpad, .dpad i, .phone { transition: none; }
+  }
+</style>
+</head>
+<body>
+<h1>Cell Phone Mockup</h1>
+<div class="option">
+  <div class="info">
+    <h2>Reference</h2>
+    <p class="reference">A 2010 candy-bar phone, modeled on the <a href="https://wikipedia.com/wiki/Nokia_1280">Nokia 1280</a>: two soft keys, a D-pad, answer and hang-up keys, then a 12-key keypad with letters on keys 2-9, and a voicemail symbol on key 1.</p>
+    <div class="status" id="status" role="status">Phone raised, backlight on</div>
+    <button type="button" id="raise">Lower Phone</button>
+  </div>
+  <div class="screen">
+    <div class="phone">
+      <span class="earpiece"></span>
+      <div class="lcd"></div>
+      <div class="nav">
+        <span class="key soft l"></span>
+        <span class="dpad"><i class="n"></i><i class="s"></i><i class="w"></i><i class="e"></i><span class="ok"></span></span>
+        <span class="key soft r"></span>
+        <span class="key answer l" role="button" title="Answer Call" aria-label="Answer the incoming call"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M9 15L6 13L5 10L5 6L6 3L9 1L11 1L11 4L9 4L8 6L8 10L9 12L11 12L11 15Z"/></svg></span>
+        <span class="key hangup r" role="button" title="Hang Up" aria-label="End the current call"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M1 9L3 6L6 5L10 5L13 6L15 9L15 11L12 11L12 9L10 8L6 8L4 9L4 11L1 11Z"/></svg></span>
+      </div>
+      <!-- Letters follow ITU E.161. See https://pkg.go.dev/github.com/tecnickcom/nurago@v1.152.0/pkg/phonekeypad -->
+      <div class="keys">
+        <span class="key" data-digit="1"><span class="cap"><span class="digit">1</span><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M 4 10.5 A 2.5 2.5 0 1 0 4 5 A 2.5 2.5 0 1 0 4 10.5 Z M 12 10.5 A 2.5 2.5 0 1 0 12 5 A 2.5 2.5 0 1 0 12 10.5 Z M 4 10.5 L 12 10.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="butt" stroke-linejoin="miter"/></svg></span></span>
+        <span class="key" data-digit="2"><span class="cap"><span class="digit">2</span><span class="letters">ABC</span></span></span>
+        <span class="key" data-digit="3"><span class="cap"><span class="digit">3</span><span class="letters">DEF</span></span></span>
+        <span class="key" data-digit="4"><span class="cap"><span class="digit">4</span><span class="letters">GHI</span></span></span>
+        <span class="key" data-digit="5"><span class="cap"><span class="digit">5</span><span class="letters">JKL</span></span></span>
+        <span class="key" data-digit="6"><span class="cap"><span class="digit">6</span><span class="letters">MNO</span></span></span>
+        <span class="key" data-digit="7"><span class="cap"><span class="digit">7</span><span class="letters">PQRS</span></span></span>
+        <span class="key" data-digit="8"><span class="cap"><span class="digit">8</span><span class="letters">TUV</span></span></span>
+        <span class="key" data-digit="9"><span class="cap"><span class="digit">9</span><span class="letters">WXYZ</span></span></span>
+        <span class="key"><span class="cap"><span class="digit">*</span></span></span>
+        <span class="key" data-digit="0"><span class="cap"><span class="digit">0</span></span></span>
+        <span class="key"><span class="cap"><span class="digit">#</span></span></span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const phone = document.querySelector(".phone");
+  const status = document.getElementById("status");
+  const toggle = document.getElementById("raise");
+  const lcd = document.querySelector(".lcd");
+  const BACKLIGHT_MS = 5000;
+  const MAX_DIGITS = 7;
+  let up = false;
+  let timer;
+  let digits = "";
+
+  function showStatus() {
+    if (!up) {
+      status.textContent = "Phone lowered";
+    } else {
+      status.textContent = phone.classList.contains("lit") ? "Phone raised, backlight on" : "Phone raised, backlight off";
+    }
+  }
+
+  // The LCD shows the typed digits as 555-7653.
+  function render() {
+    lcd.textContent = digits.length > 3 ? digits.slice(0, 3) + "-" + digits.slice(3) : digits;
+  }
+
+  function typeDigit(digit) {
+    if (!up) return;
+    if (digits.length < MAX_DIGITS) digits += digit;
+    render();
+    light();
+  }
+
+  function backspace() {
+    if (!up) return;
+    digits = digits.slice(0, -1);
+    render();
+    light();
+  }
+
+  // A raise or a key press lights the backlight and restarts the 5-second timeout.
+  function light() {
+    if (!up) return;
+    phone.classList.add("lit");
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      phone.classList.remove("lit");
+      showStatus();
+    }, BACKLIGHT_MS);
+    showStatus();
+  }
+
+  function raise() {
+    up = true;
+    digits = "";
+    render();
+    phone.classList.add("up");
+    toggle.textContent = "Lower Phone";
+    light();
+  }
+
+  function lower() {
+    up = false;
+    digits = "";
+    render();
+    clearTimeout(timer);
+    phone.classList.remove("up", "lit");
+    toggle.textContent = "Raise Phone";
+    showStatus();
+  }
+
+  toggle.addEventListener("click", () => (up ? lower() : raise()));
+  phone.querySelectorAll(".key, .dpad").forEach((key) =>
+    key.addEventListener("click", () => {
+      if (key.dataset.digit) typeDigit(key.dataset.digit);
+      else light();
+    })
+  );
+  document.addEventListener("keydown", (event) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.repeat && event.key !== "Backspace") return;
+    if (event.key === "p" || event.key === "P") {
+      up ? lower() : raise();
+    } else if (event.key === "Escape") {
+      lower();
+    } else if (event.key === "Backspace") {
+      backspace();
+    } else {
+      // The number row and the numpad report digits as key "0" to "9". With NumLock off the numpad reports another mode, often arrows, so the numpad code is the fallback.
+      // See https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#numeric_keypad_keys
+      const digit = /^[0-9]$/.test(event.key) ? event.key : /^Numpad[0-9]$/.test(event.code) ? event.code.slice(-1) : null;
+      if (digit !== null) typeDigit(digit);
+      else if (/^[*#]$/.test(event.key)) light();
+    }
+  });
+  requestAnimationFrame(() => requestAnimationFrame(raise));
+</script>
+</body>
+</html>

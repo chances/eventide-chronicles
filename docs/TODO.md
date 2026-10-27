@@ -23,6 +23,8 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - Key art, with an empty street in fog first.
 - Title mark, which waits for the Enbenite mineral (L008).
 - Signs and billboards with unstable text, and vehicle liveries.
+- Retexture the Oakdale "To Let" sign. Its number has eight digits, but the cell phone accepts seven. New number: 555-7653
+- Remodel the brick cell phone in the game's models. Out of scope for the cell-phone plugin, whose phone face is drawn on the HUD. See the [cell-phone plan](../.agents/plans/cell-phone.md).
 - The custom `timecyc` data file, one grade per mood.
 - Camera shake and FOV blur, within the effect limits in [visual-identity.md](visual-identity.md).
 - Script support for the mood, the coherence stage, and the ini switch that reduces effects.
