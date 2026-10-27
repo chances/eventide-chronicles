@@ -83,6 +83,14 @@ IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4b_phtest_dictionary_called")
 Txd.LoadSprite(1, 'phtest')
 IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "4c_phtest_sprite_called")
 
+// 5: The phone TXD from deno task render-phone, copied to models\phone.txd. Slot 3 body, slot 4 pressed 5 key.
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "5a_before_phone_dictionary")
+Txd.LoadDictionary('phone')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "5b_phone_dictionary_called")
+Txd.LoadSprite(3, 'body')
+Txd.LoadSprite(4, 'key5_p')
+IniFile.WriteInt(1, "sprites-probe.ini", "Probe", "5c_phone_sprites_called")
+
 $frames = 0
 while $frames < 1200
   wait 0
@@ -95,6 +103,10 @@ while $frames < 1200
 
   // The sprite under test, 64 by 64 at the center of a 640 by 480 space
   Hud.DrawSprite(1, 320.0, 240.0, 64.0, 64.0, 255, 255, 255, 255)
+
+  // The phone body (512 by 1024 texture, content 496 by 824 at 2x) and a pressed key, at half size
+  Hud.DrawSprite(3, 120.0, 300.0, 128.0, 256.0, 255, 255, 255, 255)
+  Hud.DrawSprite(4, 520.0, 300.0, 128.0, 64.0, 255, 255, 255, 255)
 
   // A second sprite at the bottom right corner, to read the widescreen behavior
   Hud.DrawSprite(1, 600.0, 440.0, 64.0, 64.0, 255, 255, 255, 255)

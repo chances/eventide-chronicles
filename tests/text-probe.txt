@@ -1,0 +1,104 @@
+DEFINE MISSIONS 0
+
+{$USE CLEO}
+{$USE ini}
+
+// DEBUG: Draws the phone's seven digits (cells 9.5 units apart, starting at x 539, as lib/threads/cellphone.txt does)
+// under six text style combinations, one row each, to find which keep the digits on one line. Row label at the left.
+//   Row 1: no style           Row 2: SetWrapX(1000)           Row 3: SetWrapX(1000) and SetCenter
+//   Row 4: SetCenter only     Row 5: SetWrapX(100)            Row 6: SetCenter and SetWrapX(1000), scale 0.42 0.85
+// Needs strings.fxt (PHDIG) in <VC>\CLEO\CLEO_TEXT.
+
+var
+  $PLAYER1: Player
+  $scplayer: Char
+  $Row: int
+  $Col: int
+  $Y: float
+  $X: float
+end
+
+//-------------MAIN---------------
+// Startup follows Sanny Builder's data\vc_sbl\stripped.txt
+script_name 'MAIN'
+Camera.DoFade(0, Fade.Out)
+Game.SetMaxWantedLevel(0)
+set_deatharrest_state 0
+Clock.SetTimeOfDay(12, 0)
+Streaming.RequestCollision(468.7745, -1298.623)
+Streaming.LoadScene(468.7745, -1298.623, 11.0712)
+$PLAYER1 = Player.Create(0, 468.7745, -1298.623, 11.0712)
+$scplayer = $PLAYER1.GetChar
+Weather.ForceNow(WeatherType.Sunny)
+
+wait 0
+declare_mission_flag $ONMISSION
+
+if
+    not $scplayer.IsDead
+then
+    $scplayer.Undress('PLAYER')
+    Streaming.LoadAllModelsNow
+    $scplayer.Dress
+end
+
+Camera.DoFade(1000, Fade.In)
+
+if
+    $PLAYER1.IsPlaying
+then
+    Streaming.SetAreaVisible(Interior.MainMap)
+    $PLAYER1.SetControl(True)
+    Weather.Release
+end
+IniFile.WriteInt(1, "text-probe.ini", "Probe", "1_player_created")
+
+while true
+    wait 0
+    Text.UseCommands(True)
+    $Row = 1
+    $Y = 120.0
+    while $Row <= 6
+        // The row label, in the default style
+        Text.DisplayWithNumber(440.0, $Y, 'PHDIG', $Row)
+
+        $Col = 0
+        $X = 543.75
+        while $Col < 7
+            Text.SetScale(0.42, 0.85)
+            Text.SetColor(255, 122, 26, 255)
+            if
+                $Row == 2
+            then
+                Text.SetWrapX(1000.0)
+            end
+            if
+                $Row == 3
+            then
+                Text.SetWrapX(1000.0)
+                Text.SetCenter(True)
+            end
+            if
+                $Row == 4
+            then
+                Text.SetCenter(True)
+            end
+            if
+                $Row == 5
+            then
+                Text.SetWrapX(100.0)
+            end
+            if
+                $Row == 6
+            then
+                Text.SetCenter(True)
+                Text.SetWrapX(1000.0)
+            end
+            Text.DisplayWithNumber($X, $Y, 'PHDIG', $Col)
+            $X += 9.5
+            $Col += 1
+        end
+        $Y += 24.0
+        $Row += 1
+    end
+end

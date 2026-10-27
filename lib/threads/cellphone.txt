@@ -1,0 +1,802 @@
+// Cell phone thread. Reads keys, drives cell-phone.cleo (0B40 to 0B42), and draws the phone with sprites.
+// Needs lib/phone.txt and lib/threads/cellphone-layout.txt included first. The design is in .agents/plans/cell-phone.md.
+// Screen units are the 640 by 448 space of the sprite commands. PHONE_TOP puts the last key row 13 mockup px
+// above the bottom edge: 448 - (378 + 13) * PHONE_SY.
+const PHONE_SX = 0.45
+const PHONE_SY = 0.6
+const PHONE_LEFT = 520.0
+const PHONE_TOP = 213.4
+const PHONE_SLIDE = 260.0
+const PHONE_SLIDE_MS = 550
+
+:CellPhone
+set_deatharrest_state 0
+script_name 'CPHONE'
+
+// The phone is owned for good once the pickup is collected
+while $PhoneOwned == 0
+    wait 250
+    if
+        Pickup.HasBeenCollected($CellPhone)
+    then
+        $PhoneOwned = 1
+    end
+end
+
+Txd.LoadDictionary('phone')
+CellPhone_Sprites()
+timera = 0
+$PhoneUpPrev = 0
+$PhonePrev = -1
+$PhoneControlOff = 0
+
+while true
+    wait 0
+    CellPhone_Input()
+    CellPhone_Tick()
+    CellPhone_Draw()
+end
+
+// One key per frame. A held key sends once, so $PhoneHeld keeps it for the pressed look.
+:CellPhone_Input
+$PhoneKey = -1
+if or
+    Pad.IsKeyPressed(KeyCode.Num0)
+    Pad.IsKeyPressed(KeyCode.NumPad0)
+then
+    $PhoneKey = 0
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num1)
+    Pad.IsKeyPressed(KeyCode.NumPad1)
+then
+    $PhoneKey = 1
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num2)
+    Pad.IsKeyPressed(KeyCode.NumPad2)
+then
+    $PhoneKey = 2
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num3)
+    Pad.IsKeyPressed(KeyCode.NumPad3)
+then
+    $PhoneKey = 3
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num4)
+    Pad.IsKeyPressed(KeyCode.NumPad4)
+then
+    $PhoneKey = 4
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num5)
+    Pad.IsKeyPressed(KeyCode.NumPad5)
+then
+    $PhoneKey = 5
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num6)
+    Pad.IsKeyPressed(KeyCode.NumPad6)
+then
+    $PhoneKey = 6
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num7)
+    Pad.IsKeyPressed(KeyCode.NumPad7)
+then
+    $PhoneKey = 7
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num8)
+    Pad.IsKeyPressed(KeyCode.NumPad8)
+then
+    $PhoneKey = 8
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Num9)
+    Pad.IsKeyPressed(KeyCode.NumPad9)
+then
+    $PhoneKey = 9
+end
+if
+    Pad.IsKeyPressed(KeyCode.Back)
+then
+    $PhoneKey = 10
+end
+if
+    Pad.IsKeyPressed(KeyCode.Return)
+then
+    $PhoneKey = 11
+end
+if
+    Pad.IsKeyPressed(KeyCode.P)
+then
+    $PhoneKey = 13
+end
+if or
+    Pad.IsKeyPressed(KeyCode.Tab)
+    Pad.IsKeyPressed(KeyCode.A)
+then
+    $PhoneKey = 14
+end
+$PhoneHeld = $PhoneKey
+$PhoneSend = $PhoneKey
+if
+    $PhoneKey == $PhonePrev
+then
+    $PhoneSend = -1
+end
+$PhonePrev = $PhoneKey
+// A script can press a key for the phone: it stores the key code plus one in $PhoneInject, and 0 means none.
+// The probe uses it for scripted calls. The pressed look does not follow an injected key.
+if
+    $PhoneInject > 0
+then
+    $PhoneSend = $PhoneInject
+    $PhoneSend -= 1
+    $PhoneInject = 0
+end
+return
+
+// Runs the plugin for one frame, then mirrors its state into the globals other scripts read.
+:CellPhone_Tick
+$PhoneBlocked = 0
+if
+    Player.IsInAnyCar($PLAYER1)
+then
+    $PhoneBlocked = 1
+end
+if
+    not Player.IsPlaying($PLAYER1)
+then
+    $PhoneBlocked = 1
+end
+if
+    $onCutscene == 1
+then
+    $PhoneBlocked = 1
+end
+0B40: $PhoneSend $PhoneBlocked $PhoneState $PhoneLit $PhoneAnim $PhoneCount $PhoneNumber $PhoneEvent
+
+// Up (shown) while raised, dialing, ringing in, or in a call. The slide restarts when that flips.
+$PhoneUp = 0
+if or
+    $PhoneState == 1
+    $PhoneState == 2
+    $PhoneState == 3
+    $PhoneState == 4
+    $PhoneState == 5
+then
+    $PhoneUp = 1
+end
+if
+    not $PhoneUp == $PhoneUpPrev
+then
+    timera = 0
+    $PhoneUpPrev = $PhoneUp
+end
+
+// The player cannot move while the player is using the phone. A ringing phone leaves control alone.
+$PhoneBusy = 0
+if or
+    $PhoneState == 1
+    $PhoneState == 2
+    $PhoneState == 3
+    $PhoneState == 5
+then
+    $PhoneBusy = 1
+end
+if
+    not $PhoneBusy == $PhoneControlOff
+then
+    if
+        $PhoneBusy == 1
+    then
+        Player.SetControl($PLAYER1, False)
+    else
+        Player.SetControl($PLAYER1, True)
+    end
+    $PhoneControlOff = $PhoneBusy
+end
+
+// An incoming call: the caller's number flashes and a help text names the keys. $PhoneCaller holds the
+// caller's seven digits, set by whoever calls cell_phone_ring_incoming.
+if
+    not $PhoneState == $PhoneStatePrev
+then
+    if
+        $PhoneState == 4
+    then
+        timerb = 0
+        $PhoneFlash = 1
+        Text.PrintHelpForever('PHRING')
+    end
+    if
+        $PhoneStatePrev == 4
+    then
+        Text.ClearHelp()
+    end
+    // A call is timed from the moment it is dialed, or from the moment it is answered when it rang in. A dialed
+    // call keeps its clock when it connects.
+    if
+        $PhoneState == 2
+    then
+        timerb = 0
+        $CallSeconds = 0
+    end
+    if
+        $PhoneState == 5
+    then
+        if
+            $PhoneStatePrev == 4
+        then
+            timerb = 0
+            $CallSeconds = 0
+        end
+    end
+    $PhoneStatePrev = $PhoneState
+end
+
+// Whole seconds of the call (dialing, dialed, or connected), counted from timerb with its remainder kept, so
+// the clock does not drift
+if or
+    $PhoneState == 2
+    $PhoneState == 3
+    $PhoneState == 5
+then
+    if
+        timerb >= 1000
+    then
+        $CallMs = timerb
+        $CallMs -= 1000
+        timerb = $CallMs
+        $CallSeconds += 1
+    end
+end
+return
+
+:CellPhone_Draw
+if
+    $PhoneUp == 0
+then
+    if
+        $PhoneAnim == 0
+    then
+        return
+    end
+end
+
+// The caller's number flashes: it shows for 400 ms, hides for 400 ms
+if
+    $PhoneState == 4
+then
+    if
+        timerb > 400
+    then
+        timerb = 0
+        if
+            $PhoneFlash == 1
+        then
+            $PhoneFlash = 0
+        else
+            $PhoneFlash = 1
+        end
+    end
+end
+
+// Slide offset in screen units: PHONE_SLIDE below the resting spot when lowered, 0 when raised
+$PhoneT = timera
+if
+    $PhoneT > PHONE_SLIDE_MS
+then
+    $PhoneT = PHONE_SLIDE_MS
+end
+008D: $PhoneSlide = $PhoneT
+$PhoneSlide /= 550.0
+if
+    $PhoneUp == 1
+then
+    $PhoneSlide *= -1.0
+    $PhoneSlide += 1.0
+end
+$PhoneSlide *= PHONE_SLIDE
+
+Text.UseCommands(True)
+
+$PSlot = 1
+$PX = PH_BODY_X
+$PY = PH_BODY_Y
+$PW = PH_BODY_W
+$PH = PH_BODY_H
+CellPhone_Sprite()
+
+$PSlot = 2
+$PSlot += $PhoneLit
+$PX = PH_SOFTL_X
+$PY = PH_SOFTL_Y
+$PW = PH_SOFTL_W
+$PH = PH_SOFTL_H
+CellPhone_Sprite()
+
+$PSlot = 2
+$PSlot += $PhoneLit
+$PX = PH_SOFTR_X
+$PY = PH_SOFTR_Y
+$PW = PH_SOFTR_W
+$PH = PH_SOFTR_H
+CellPhone_Sprite()
+
+$PSlot = 5
+$PSlot += $PhoneLit
+$PX = PH_DPAD_X
+$PY = PH_DPAD_Y
+$PW = PH_DPAD_W
+$PH = PH_DPAD_H
+CellPhone_Sprite()
+
+$PSlot = 8
+$PSlot += $PhoneLit
+$PX = PH_ANS_X
+$PY = PH_ANS_Y
+$PW = PH_ANS_W
+$PH = PH_ANS_H
+CellPhone_Sprite()
+
+$PSlot = 11
+$PSlot += $PhoneLit
+$PX = PH_HANG_X
+$PY = PH_HANG_Y
+$PW = PH_HANG_W
+$PH = PH_HANG_H
+CellPhone_Sprite()
+
+// Keys: unlit, lit, then pressed while the player holds the key
+$PSlot = 14
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 0
+then
+    $PSlot = 16
+end
+$PX = PH_K0_X
+$PY = PH_K0_Y
+$PW = PH_K0_W
+$PH = PH_K0_H
+CellPhone_Sprite()
+
+$PSlot = 17
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 1
+then
+    $PSlot = 19
+end
+$PX = PH_K1_X
+$PY = PH_K1_Y
+$PW = PH_K1_W
+$PH = PH_K1_H
+CellPhone_Sprite()
+
+$PSlot = 20
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 2
+then
+    $PSlot = 22
+end
+$PX = PH_K2_X
+$PY = PH_K2_Y
+$PW = PH_K2_W
+$PH = PH_K2_H
+CellPhone_Sprite()
+
+$PSlot = 23
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 3
+then
+    $PSlot = 25
+end
+$PX = PH_K3_X
+$PY = PH_K3_Y
+$PW = PH_K3_W
+$PH = PH_K3_H
+CellPhone_Sprite()
+
+$PSlot = 26
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 4
+then
+    $PSlot = 28
+end
+$PX = PH_K4_X
+$PY = PH_K4_Y
+$PW = PH_K4_W
+$PH = PH_K4_H
+CellPhone_Sprite()
+
+$PSlot = 29
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 5
+then
+    $PSlot = 31
+end
+$PX = PH_K5_X
+$PY = PH_K5_Y
+$PW = PH_K5_W
+$PH = PH_K5_H
+CellPhone_Sprite()
+
+$PSlot = 32
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 6
+then
+    $PSlot = 34
+end
+$PX = PH_K6_X
+$PY = PH_K6_Y
+$PW = PH_K6_W
+$PH = PH_K6_H
+CellPhone_Sprite()
+
+$PSlot = 35
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 7
+then
+    $PSlot = 37
+end
+$PX = PH_K7_X
+$PY = PH_K7_Y
+$PW = PH_K7_W
+$PH = PH_K7_H
+CellPhone_Sprite()
+
+$PSlot = 38
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 8
+then
+    $PSlot = 40
+end
+$PX = PH_K8_X
+$PY = PH_K8_Y
+$PW = PH_K8_W
+$PH = PH_K8_H
+CellPhone_Sprite()
+
+$PSlot = 41
+$PSlot += $PhoneLit
+if
+    $PhoneHeld == 9
+then
+    $PSlot = 43
+end
+$PX = PH_K9_X
+$PY = PH_K9_Y
+$PW = PH_K9_W
+$PH = PH_K9_H
+CellPhone_Sprite()
+
+$PSlot = 44
+$PSlot += $PhoneLit
+$PX = PH_KST_X
+$PY = PH_KST_Y
+$PW = PH_KST_W
+$PH = PH_KST_H
+CellPhone_Sprite()
+
+$PSlot = 47
+$PSlot += $PhoneLit
+$PX = PH_KHS_X
+$PY = PH_KHS_Y
+$PW = PH_KHS_W
+$PH = PH_KHS_H
+CellPhone_Sprite()
+
+// The LCD shows the number or the call timer, never both. A dialed call keeps its number on screen for the
+// first half second, then the timer replaces it. A call with no number on screen, such as an answered one,
+// shows the timer at once.
+$ShowTimer = 0
+if or
+    $PhoneState == 2
+    $PhoneState == 3
+    $PhoneState == 5
+then
+    $ShowTimer = 1
+    if
+        $PhoneCount > 0
+    then
+        if
+            $CallSeconds == 0
+        then
+            if
+                timerb < 500
+            then
+                $ShowTimer = 0
+            end
+        end
+    end
+end
+if
+    $ShowTimer == 1
+then
+    CellPhone_Timer()
+else
+    CellPhone_Digits()
+end
+return
+
+// Draws the sprite in $PSlot. $PX and $PY are the center in mockup px, $PW and $PH the quad.
+:CellPhone_Sprite
+$PX *= PHONE_SX
+$PX += PHONE_LEFT
+$PY *= PHONE_SY
+$PY += PHONE_TOP
+$PY += $PhoneSlide
+$PW *= PHONE_SX
+$PH *= PHONE_SY
+Hud.DrawSprite($PSlot, $PX, $PY, $PW, $PH, 255, 255, 255, 255)
+return
+
+// The typed digits, left aligned on the LCD, with a dash after the third. Leading zeros stay because the
+// plugin reports how many digits were typed. The game has no monospaced font and its text wrapped the digits,
+// so each glyph is a sprite of the mockup's Courier New (slots 50 to 59 for 0 to 9, 60 for the dash). The
+// glyphs are white, and the sprite color tints them: Ember when lit, the muted color at 18% alpha when not.
+:CellPhone_Digits
+$TCount = $PhoneCount
+$TRest = $PhoneNumber
+if
+    $PhoneState == 4
+then
+    // Ringing in: the caller's seven digits, flashing
+    if
+        $PhoneFlash == 0
+    then
+        return
+    end
+    $TCount = 7
+    $TRest = $PhoneCaller
+end
+if
+    $TCount == 0
+then
+    return
+end
+CellPhone_GlyphColor()
+CellPhone_GlyphMetrics()
+$TextX = PH_GLYPH_LEFT
+$TextX += PH_GLYPH_CX
+$TextX *= PHONE_SX
+$TextX += PHONE_LEFT
+$TX = $TextX
+$TIndex = 0
+while $TIndex < $TCount
+    if
+        $TIndex == 3
+    then
+        Hud.DrawSprite(60, $TX, $TextY, $TW, $TH, $GR, $GG, $GB, $GA)
+        $TX += $TAdv
+    end
+
+    // Place value of this digit: 10 to the power of (count - 1 - index)
+    $TExp = $TCount
+    $TExp -= 1
+    $TExp -= $TIndex
+    $TPlace = 1
+    if
+        $TExp == 1
+    then
+        $TPlace = 10
+    end
+    if
+        $TExp == 2
+    then
+        $TPlace = 100
+    end
+    if
+        $TExp == 3
+    then
+        $TPlace = 1000
+    end
+    if
+        $TExp == 4
+    then
+        $TPlace = 10000
+    end
+    if
+        $TExp == 5
+    then
+        $TPlace = 100000
+    end
+    if
+        $TExp == 6
+    then
+        $TPlace = 1000000
+    end
+    $TDigit = 0
+    while $TRest >= $TPlace
+        $TRest -= $TPlace
+        $TDigit += 1
+    end
+
+    $PSlot = 50
+    $PSlot += $TDigit
+    Hud.DrawSprite($PSlot, $TX, $TextY, $TW, $TH, $GR, $GG, $GB, $GA)
+    $TX += $TAdv
+    $TIndex += 1
+end
+return
+
+// The color the glyphs are tinted with: Ember when lit, the muted color at 18% alpha when not.
+:CellPhone_GlyphColor
+if
+    $PhoneLit == 1
+then
+    $GR = 255
+    $GG = 122
+    $GB = 26
+    $GA = 255
+else
+    $GR = 196
+    $GG = 191
+    $GB = 230
+    $GA = 46
+end
+return
+
+// The glyph row's screen y (with the slide), the quad size, and the advance between cells.
+:CellPhone_GlyphMetrics
+$TextY = PH_GLYPH_TOP
+$TextY += PH_GLYPH_CY
+$TextY *= PHONE_SY
+$TextY += PHONE_TOP
+$TextY += $PhoneSlide
+$TW = PH_GLYPH_W
+$TW *= PHONE_SX
+$TH = PH_GLYPH_H
+$TH *= PHONE_SY
+$TAdv = PH_GLYPH_ADV
+$TAdv *= PHONE_SX
+return
+
+// Draws the glyph in $PSlot at $TX, then moves $TX one cell right.
+:CellPhone_Glyph
+Hud.DrawSprite($PSlot, $TX, $TextY, $TW, $TH, $GR, $GG, $GB, $GA)
+$TX += $TAdv
+return
+
+// The elapsed time of a call (dialing, dialed, or connected) as m:ss, right aligned on the LCD (slot 61 is the colon). The minutes
+// take a second digit from 10 and stop at 99. $CallSeconds is counted in CellPhone_Tick.
+:CellPhone_Timer
+CellPhone_GlyphColor()
+CellPhone_GlyphMetrics()
+$TMin = 0
+$TSec = $CallSeconds
+while $TSec >= 60
+    $TSec -= 60
+    $TMin += 1
+end
+if
+    $TMin > 99
+then
+    $TMin = 99
+end
+$TTens = 0
+while $TSec >= 10
+    $TSec -= 10
+    $TTens += 1
+end
+$TM10 = 0
+while $TMin >= 10
+    $TMin -= 10
+    $TM10 += 1
+end
+
+// Four cells, or five when the minutes have two digits. The row ends at the LCD's padding edge.
+$TWide = PH_GLYPH_ADV
+$TWide *= 4.0
+if
+    $TM10 > 0
+then
+    $TWide = PH_GLYPH_ADV
+    $TWide *= 5.0
+end
+$TextX = PH_LCDBOX_X
+$TextX += PH_LCDBOX_W
+$TextX -= 14.0
+$TextX -= $TWide
+$TextX += PH_GLYPH_CX
+$TextX *= PHONE_SX
+$TextX += PHONE_LEFT
+$TX = $TextX
+if
+    $TM10 > 0
+then
+    $PSlot = 50
+    $PSlot += $TM10
+    CellPhone_Glyph()
+end
+$PSlot = 50
+$PSlot += $TMin
+CellPhone_Glyph()
+$PSlot = 61
+CellPhone_Glyph()
+$PSlot = 50
+$PSlot += $TTens
+CellPhone_Glyph()
+$PSlot = 50
+$PSlot += $TSec
+CellPhone_Glyph()
+return
+
+// One slot per texture: the body (which carries the speaker slot and the LCD frame) is 1, then unlit, lit,
+// and pressed for each part that has them.
+:CellPhone_Sprites
+Txd.LoadSprite(1, 'body')
+Txd.LoadSprite(2, 'soft_u')
+Txd.LoadSprite(3, 'soft_l')
+Txd.LoadSprite(4, 'soft_p')
+Txd.LoadSprite(5, 'dpad_u')
+Txd.LoadSprite(6, 'dpad_l')
+Txd.LoadSprite(7, 'dpad_p')
+Txd.LoadSprite(8, 'ans_u')
+Txd.LoadSprite(9, 'ans_l')
+Txd.LoadSprite(10, 'ans_p')
+Txd.LoadSprite(11, 'hang_u')
+Txd.LoadSprite(12, 'hang_l')
+Txd.LoadSprite(13, 'hang_p')
+Txd.LoadSprite(14, 'key0_u')
+Txd.LoadSprite(15, 'key0_l')
+Txd.LoadSprite(16, 'key0_p')
+Txd.LoadSprite(17, 'key1_u')
+Txd.LoadSprite(18, 'key1_l')
+Txd.LoadSprite(19, 'key1_p')
+Txd.LoadSprite(20, 'key2_u')
+Txd.LoadSprite(21, 'key2_l')
+Txd.LoadSprite(22, 'key2_p')
+Txd.LoadSprite(23, 'key3_u')
+Txd.LoadSprite(24, 'key3_l')
+Txd.LoadSprite(25, 'key3_p')
+Txd.LoadSprite(26, 'key4_u')
+Txd.LoadSprite(27, 'key4_l')
+Txd.LoadSprite(28, 'key4_p')
+Txd.LoadSprite(29, 'key5_u')
+Txd.LoadSprite(30, 'key5_l')
+Txd.LoadSprite(31, 'key5_p')
+Txd.LoadSprite(32, 'key6_u')
+Txd.LoadSprite(33, 'key6_l')
+Txd.LoadSprite(34, 'key6_p')
+Txd.LoadSprite(35, 'key7_u')
+Txd.LoadSprite(36, 'key7_l')
+Txd.LoadSprite(37, 'key7_p')
+Txd.LoadSprite(38, 'key8_u')
+Txd.LoadSprite(39, 'key8_l')
+Txd.LoadSprite(40, 'key8_p')
+Txd.LoadSprite(41, 'key9_u')
+Txd.LoadSprite(42, 'key9_l')
+Txd.LoadSprite(43, 'key9_p')
+Txd.LoadSprite(44, 'keyst_u')
+Txd.LoadSprite(45, 'keyst_l')
+Txd.LoadSprite(46, 'keyst_p')
+Txd.LoadSprite(47, 'keyhs_u')
+Txd.LoadSprite(48, 'keyhs_l')
+Txd.LoadSprite(49, 'keyhs_p')
+Txd.LoadSprite(50, 'dig0')
+Txd.LoadSprite(51, 'dig1')
+Txd.LoadSprite(52, 'dig2')
+Txd.LoadSprite(53, 'dig3')
+Txd.LoadSprite(54, 'dig4')
+Txd.LoadSprite(55, 'dig5')
+Txd.LoadSprite(56, 'dig6')
+Txd.LoadSprite(57, 'dig7')
+Txd.LoadSprite(58, 'dig8')
+Txd.LoadSprite(59, 'dig9')
+Txd.LoadSprite(60, 'digdsh')
+Txd.LoadSprite(61, 'digcol')
+return

@@ -1,0 +1,10 @@
+id,pattern,symptom,check,fix
+P1,Probe start without the stripped template,"The game hangs on the loading screen with the probe as main.scm","Diff the probe's startup against data\vc_sbl\stripped.txt","Add declare_mission_flag, the dress calls, Streaming.SetAreaVisible, and SetControl"
+P2,Double-quoted texture name,"Txd.LoadDictionary freezes the game, and the ini stops before the next step","The name is in double quotes","Use single quotes, at most 7 characters"
+P3,Sprite space read as 640 by 480,"The last key row sits off the bottom edge by about one row","PHONE_TOP assumes 480","Use 448: PHONE_TOP = 448 - (378 + 13) * PHONE_SY"
+P4,Plugin version packed wrongly,"""An incorrect version of CLEO was loaded"" and every 0B40 logs an incorrect opcode","cleo.log says Failed to load plugin cell-phone.cleo","Require 0x00020000, not 2 << 24"
+P5,ASI Loader error 126,"Unable to load X.asi, a dependency is missing","Dependencies.exe -imports <asi> lists the direct imports","Find the import DLL that is not in the game folder, then check what it needs"
+P6,Game text for the LCD digits,"The number wraps onto a second line after five digits","Order of SetCenter and SetWrapX does not change it","Draw the digits as glyph sprites"
+P7,EasyFont crashes the game,"The game dies about 4 s after launch, before cleo.log writes","EasyFont.VC.asi and rwd3d9.dll are in the game folder","Keep EasyFont out; it sits in .easyfont-backup in the game folder"
+P8,Stale textures repacked,"A manual import-skin over dist/phone/*.png packs textures an earlier render left behind","dist/phone holds more PNGs than sizes.csv has rows","Run deno task render-phone, which packs only its own list"
+P9,Long task piped into Select-Object -First,"The pack step of render-phone never runs, and the TXD is stale","The output was piped to Select-Object -First N","Pipe to Select-Object -Last N, or do not pipe"

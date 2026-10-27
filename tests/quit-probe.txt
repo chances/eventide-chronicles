@@ -1,0 +1,53 @@
+DEFINE MISSIONS 0
+
+{$USE CLEO}
+{$USE ini}
+
+// DEBUG: The stripped starting script and nothing else, no phone thread and no sprites. Quit through the pause
+// menu (Esc, Quit Game), then read tests/results/quit-*.md. It shows how a normal quit looks in the exit code and
+// the SCRLog footer, without the phone's scripts running. cell-phone.cleo still loads, because CLEO loads every
+// plugin in its folder.
+
+var
+  $PLAYER1: Player
+  $scplayer: Char
+end
+
+//-------------MAIN---------------
+// Startup follows Sanny Builder's data\vc_sbl\stripped.txt
+script_name 'MAIN'
+Camera.DoFade(0, Fade.Out)
+Game.SetMaxWantedLevel(0)
+set_deatharrest_state 0
+Clock.SetTimeOfDay(12, 0)
+Streaming.RequestCollision(468.7745, -1298.623)
+Streaming.LoadScene(468.7745, -1298.623, 11.0712)
+$PLAYER1 = Player.Create(0, 468.7745, -1298.623, 11.0712)
+$scplayer = $PLAYER1.GetChar
+Weather.ForceNow(WeatherType.Sunny)
+
+wait 0
+declare_mission_flag $ONMISSION
+
+if
+    not $scplayer.IsDead
+then
+    $scplayer.Undress('PLAYER')
+    Streaming.LoadAllModelsNow
+    $scplayer.Dress
+end
+
+Camera.DoFade(1000, Fade.In)
+
+if
+    $PLAYER1.IsPlaying
+then
+    Streaming.SetAreaVisible(Interior.MainMap)
+    $PLAYER1.SetControl(True)
+    Weather.Release
+end
+IniFile.WriteInt(1, "quit-probe.ini", "Probe", "1_player_created")
+
+while true
+    wait 250
+end

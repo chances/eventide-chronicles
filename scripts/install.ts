@@ -38,3 +38,13 @@ try {
   throw error;
 }
 console.log(`Installed ${fxtSource} to ${fxtDestination}`);
+
+// 0390 loads `phone` from <VC>\models. `deno task render-phone` builds the TXD.
+const txdSource = join(Deno.cwd(), "dist", "phone", "phone.txd");
+const txdDestination = join(vc, "models", "phone.txd");
+if (await Deno.stat(txdSource).then(() => true, () => false)) {
+  await Deno.copyFile(txdSource, txdDestination);
+  console.log(`Installed ${txdSource} to ${txdDestination}`);
+} else {
+  console.warn(`Skipped ${txdSource}, which is not built. Run deno task render-phone.`);
+}

@@ -1,0 +1,219 @@
+DEFINE MISSIONS 0
+
+{$USE CLEO}
+{$USE ini}
+
+// DEBUG: Runs the real cell phone thread (lib/threads/cellphone.txt) with nothing else from the mod.
+// Needs cell-phone.cleo in <VC>\CLEO, phone.txd in <VC>\models, and strings.fxt in <VC>\CLEO\CLEO_TEXT.
+// Keys: P raises and lowers (and hangs up a call), 0 to 9 type, Backspace deletes, Enter dials.
+// Hotkeys: R runs a scripted outgoing call (raises the phone, types 5557653, dials). I rings in from 555-0100:
+// the phone slides up, the number flashes, and a help text shows. A or Tab answers, P declines, and an unanswered
+// call is missed after 20 seconds. Player control stays on while it rings.
+// Dialing 5557653 connects for 8 seconds and then ends the call, and the LCD shows the call's m:ss timer at the
+// right. An answered incoming call keeps its timer until P hangs up. Any other number gets the busy tone.
+// The top left shows the plugin state, the last event, and the dialed number. Every event goes to phone-probe.ini,
+// with the time since the ring started: dial_ring_ms (expect about 3000), answered_after_ms, missed_after_ms
+// (expect about 20000).
+
+{$INCLUDE ../lib/phone.txt}
+{$INCLUDE ../lib/threads/cellphone-layout.txt}
+
+var
+  $PLAYER1: Player
+  $scplayer: Char
+  $Events: int
+  $RingHeld: int
+  $AutoHeld: int
+  $KeyLogged: int
+  $StatePrev: int
+end
+
+//-------------MAIN---------------
+// Startup follows Sanny Builder's data\vc_sbl\stripped.txt
+script_name 'MAIN'
+Camera.DoFade(0, Fade.Out)
+Game.SetMaxWantedLevel(0)
+set_deatharrest_state 0
+Clock.SetTimeOfDay(12, 0)
+Streaming.RequestCollision(468.7745, -1298.623)
+Streaming.LoadScene(468.7745, -1298.623, 11.0712)
+$PLAYER1 = Player.Create(0, 468.7745, -1298.623, 11.0712)
+$scplayer = $PLAYER1.GetChar
+Weather.ForceNow(WeatherType.Sunny)
+
+wait 0
+declare_mission_flag $ONMISSION
+
+if
+    not $scplayer.IsDead
+then
+    $scplayer.Undress('PLAYER')
+    Streaming.LoadAllModelsNow
+    $scplayer.Dress
+end
+
+Camera.DoFade(1000, Fade.In)
+
+if
+    $PLAYER1.IsPlaying
+then
+    Streaming.SetAreaVisible(Interior.MainMap)
+    $PLAYER1.SetControl(True)
+    Weather.Release
+end
+IniFile.WriteInt(1, "phone-probe.ini", "Probe", "1_player_created")
+
+// The phone is owned from the start, as if the pickup was collected
+$PhoneOwned = 1
+$onCutscene = 0
+start_new_script @CellPhone
+IniFile.WriteInt(1, "phone-probe.ini", "Probe", "2_phone_thread_started")
+
+$Events = 0
+$RingHeld = 0
+while true
+    wait 0
+
+    // Debug readout: state, last event, dialed number. States: 0 lowered, 1 raised, 2 ringing out, 3 dialed, 4 ringing in, 5 connected.
+    Text.UseCommands(True)
+    Text.SetScale(0.5, 1.1)
+    Text.SetColor(255, 255, 255, 255)
+    Text.DisplayWithNumber(20.0, 100.0, 'PHDIG', $PhoneState)
+    Text.SetScale(0.5, 1.1)
+    Text.SetColor(255, 198, 26, 255)
+    Text.DisplayWithNumber(40.0, 100.0, 'PHDIG', $PhoneEvent)
+    Text.SetScale(0.5, 1.1)
+    Text.SetColor(0, 217, 163, 255)
+    Text.DisplayWithNumber(60.0, 100.0, 'PHDIG', $PhoneCount)
+
+    // The key the thread read this frame (-1 none, 10 Backspace, 11 Enter, 13 P, 14 Tab or A) at the far right,
+    // and the last physical key and the last key sent to the plugin in the ini
+    Text.SetScale(0.5, 1.1)
+    Text.SetColor(255, 122, 26, 255)
+    Text.DisplayWithNumber(80.0, 100.0, 'PHDIG', $PhoneKey)
+    if
+        not $PhoneKey == $KeyLogged
+    then
+        $KeyLogged = $PhoneKey
+        if
+            $PhoneKey > -1
+        then
+            IniFile.WriteInt($PhoneKey, "phone-probe.ini", "Probe", "last_key_read")
+        end
+    end
+    if
+        $PhoneSend > -1
+    then
+        IniFile.WriteInt($PhoneSend, "phone-probe.ini", "Probe", "last_key_sent")
+    end
+
+    // I starts an incoming call, once per press
+    if
+        Pad.IsKeyPressed(KeyCode.I)
+    then
+        if
+            $RingHeld == 0
+        then
+            $PhoneCaller = 5550100
+            0B41:
+            $RingHeld = 1
+            IniFile.WriteInt(1, "phone-probe.ini", "Probe", "incoming_call_started")
+        end
+    else
+        $RingHeld = 0
+    end
+
+    // R runs a scripted call: raise the phone if it is lowered, type 5557653, and dial. Each key waits for a frame.
+    // Injected keys are the key code plus one, see $PhoneInject in lib/threads/cellphone.txt.
+    if
+        Pad.IsKeyPressed(KeyCode.R)
+    then
+        if
+            $AutoHeld == 0
+        then
+            $AutoHeld = 1
+            IniFile.WriteInt(1, "phone-probe.ini", "Probe", "scripted_call_started")
+            if
+                $PhoneState == 0
+            then
+                $PhoneInject = 14
+                wait 700
+            end
+            $PhoneInject = 6
+            wait 150
+            $PhoneInject = 6
+            wait 150
+            $PhoneInject = 6
+            wait 150
+            $PhoneInject = 8
+            wait 150
+            $PhoneInject = 7
+            wait 150
+            $PhoneInject = 6
+            wait 150
+            $PhoneInject = 4
+            wait 150
+            $PhoneInject = 12
+        end
+    else
+        $AutoHeld = 0
+    end
+
+    // Time each ring from the moment the state turns to ringing out (2) or ringing in (4)
+    if
+        not $PhoneState == $StatePrev
+    then
+        if or
+            $PhoneState == 2
+            $PhoneState == 4
+        then
+            timerb = 0
+        end
+        $StatePrev = $PhoneState
+    end
+
+    if
+        not $PhoneEvent == 0
+    then
+        $Events += 1
+        IniFile.WriteInt($PhoneEvent, "phone-probe.ini", "Probe", "last_event")
+        IniFile.WriteInt($Events, "phone-probe.ini", "Probe", "event_count")
+        if
+            $PhoneEvent == 2
+        then
+            IniFile.WriteInt(timerb, "phone-probe.ini", "Probe", "answered_after_ms")
+        end
+        if
+            $PhoneEvent == 3
+        then
+            IniFile.WriteInt(1, "phone-probe.ini", "Probe", "hung_up")
+        end
+        if
+            $PhoneEvent == 5
+        then
+            IniFile.WriteInt(timerb, "phone-probe.ini", "Probe", "declined_after_ms")
+        end
+        if
+            $PhoneEvent == 4
+        then
+            IniFile.WriteInt(timerb, "phone-probe.ini", "Probe", "missed_after_ms")
+        end
+        if
+            $PhoneEvent == 1
+        then
+            IniFile.WriteInt(timerb, "phone-probe.ini", "Probe", "dial_ring_ms")
+            IniFile.WriteInt($PhoneNumber, "phone-probe.ini", "Probe", "last_dialed")
+            if
+                $PhoneNumber == 5557653
+            then
+                0B42: 1
+                wait 8000
+                0B42: 3
+            else
+                0B42: 2
+            end
+        end
+    end
+end
+
+{$INCLUDE ../lib/threads/cellphone.txt}

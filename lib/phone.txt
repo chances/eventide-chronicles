@@ -1,0 +1,59 @@
+// Cell phone declarations shared by main.txt and tests/phone-probe.txt. The thread is lib/threads/cellphone.txt.
+// Opcodes 0B40 to 0B42 come from plugins/cell-phone/cell-phone.cleo, so the Vice City library does not list them.
+{$OPCODE 0B40=8,cell_phone_tick key %1d% blocked %2d% state %3d% lit %4d% animating %5d% digits %6d% number %7d% event %8d%}
+{$OPCODE 0B41=0,cell_phone_ring_incoming}
+{$OPCODE 0B42=1,cell_phone_resolve %1d%}
+
+var
+    $PhoneOwned: int
+    $PhoneState: int
+    $PhoneLit: int
+    $PhoneAnim: int
+    $PhoneCount: int
+    $PhoneNumber: int
+    $PhoneEvent: int
+    $PhoneKey: int
+    $PhoneSend: int
+    $PhoneInject: int
+    $PhoneCaller: int
+    $PhoneBusy: int
+    $PhoneStatePrev: int
+    $PhoneFlash: int
+    $TCount: int
+    $ShowTimer: int
+    $CallSeconds: int
+    $CallMs: int
+    $TMin: int
+    $TM10: int
+    $TSec: int
+    $TTens: int
+    $TWide: float
+    $PhoneHeld: int
+    $PhonePrev: int
+    $PhoneBlocked: int
+    $PhoneUp: int
+    $PhoneUpPrev: int
+    $PhoneControlOff: int
+    $PhoneT: int
+    $PhoneSlide: float
+    $PSlot: int
+    $PX: float
+    $PY: float
+    $PW: float
+    $PH: float
+    $TextX: float
+    $TextY: float
+    $TX: float
+    $TDigit: int
+    $TIndex: int
+    $TRest: int
+    $TPlace: int
+    $TExp: int
+    $TW: float
+    $TH: float
+    $TAdv: float
+    $GR: int
+    $GG: int
+    $GB: int
+    $GA: int
+end

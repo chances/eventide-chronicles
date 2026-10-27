@@ -12,10 +12,8 @@
 #include "VC.CLEO.h"
 #include "phone_machine.h"
 
-#define CLEO_VERSION_MAIN 2
-#define CLEO_VERSION_MAJOR 1
-#define CLEO_VERSION_MINOR 0
-#define CLEO_VERSION ((CLEO_VERSION_MAIN << 24) | (CLEO_VERSION_MAJOR << 16) | (CLEO_VERSION_MINOR << 8))
+// CLEO_GetVersion() packs v2.0.0.6 as 0x00020006, so the minimum is 2.0.0 as 0x00020000
+#define CLEO_VERSION_MIN 0x00020000u
 
 /** @brief Pointer to the CLEO parameter buffer shared with the calling script. */
 static tScriptVar *Params;
@@ -66,7 +64,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 {
     if (reason == DLL_PROCESS_ATTACH)
     {
-        if (CLEO_GetVersion() < CLEO_VERSION)
+        if (CLEO_GetVersion() < CLEO_VERSION_MIN)
         {
             MessageBox(HWND_DESKTOP, "An incorrect version of CLEO was loaded.", "cell-phone.cleo", MB_ICONERROR);
             return FALSE;

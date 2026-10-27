@@ -7,7 +7,8 @@
     "probe": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run scripts/install-probe.ts",
     "run":"deno task install && deno run --env-file=.env --allow-env --allow-read --allow-run scripts/run.ts",
     "extract-skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/extract-skins.ts",
-    "import-skin": "deno run --allow-env --allow-read --allow-write scripts/import-skin.ts",
+    "render-phone": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run --allow-net=127.0.0.1 --allow-sys scripts/render-phone-textures.ts",
+    "import-skin":"deno run --allow-env --allow-read --allow-write scripts/import-skin.ts",
     "slice-sheet": "deno run --allow-env --allow-read --allow-write scripts/slice-sheet.ts",
     "clean": "deno run --allow-write scripts/clean.ts"
   },
@@ -16,8 +17,10 @@
     "@nktkas/bmp": "jsr:@nktkas/bmp@^5.0.0",
     "@std/cli": "jsr:@std/cli@^1.0.32",
     "@std/csv": "jsr:@std/csv@^1.0.6",
+    "@std/fs": "jsr:@std/fs@^1.0.24",
     "@std/path": "jsr:@std/path@^1.1.4",
     "dxtn": "npm:dxtn@^1.0.0",
+    "puppeteer-core": "npm:puppeteer-core@^25.16.0",
     "rw-parser-ng": "npm:rw-parser-ng@^2.3.0",
     "@std/assert": "jsr:@std/assert@^1.0.19"
   }

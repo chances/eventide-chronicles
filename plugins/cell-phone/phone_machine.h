@@ -5,7 +5,7 @@
 
 enum PhoneKey { KeyNone = -1, KeyBackspace = 10, KeyDial = 11, KeyEscape = 12, KeyToggle = 13, KeyAnswer = 14 };
 enum PhoneState { StateLowered, StateRaised, StateRingingOut, StateDialed, StateRingingIn, StateConnected };
-enum PhoneEvent { EventNone, EventDialDone, EventAnswered, EventHungUp, EventMissed };
+enum PhoneEvent { EventNone, EventDialDone, EventAnswered, EventHungUp, EventMissed, EventDeclined };
 enum PhoneBeep { BeepNone, BeepRing, BeepBusy };
 enum PhoneResult { ResultConnected = 1, ResultBusy = 2, ResultOver = 3 };
 
@@ -63,6 +63,8 @@ public:
         }
         else if (m_state == StateRingingIn)
         {
+            // The phone is shown and backlit for the whole ring, so the backlight does not time out
+            Light(now);
             if (now >= m_nextBeat)
             {
                 m_beep = BeepRing;
@@ -70,7 +72,7 @@ public:
             }
             if (now >= m_phaseStart + kRingInMs)
             {
-                m_state = StateLowered;
+                Lower(now);
                 event = EventMissed;
             }
         }
@@ -83,7 +85,7 @@ public:
                          static_cast<int>(m_digits.size()), number, event};
     }
 
-    /** @brief Starts an incoming ring. Ignored unless the phone is lowered. */
+    /** @brief Starts an incoming ring, and the phone slides up. Ignored unless the phone is lowered. */
     void RingIncoming(uint32_t now)
     {
         if (m_state != StateLowered)
@@ -94,6 +96,8 @@ public:
         m_phaseStart = now;
         m_nextBeat = now + kRingInBeatMs;
         m_beep = BeepRing;
+        StartSlide(now);
+        Light(now);
     }
 
     /** @brief The script's answer to a dialed number (state Dialed), or the end of a connected call. */
@@ -179,6 +183,11 @@ private:
                 StartSlide(now);
                 Light(now);
                 return EventAnswered;
+            }
+            if (key == KeyToggle)
+            {
+                Lower(now);
+                return EventDeclined;
             }
             break;
         case StateConnected:

@@ -132,11 +132,13 @@ const problems = (text: string) =>
   ).slice(-20);
 const block = (lines: string[]) => lines.length ? lines.join("\n") : "(none)";
 
+// The exit code and the SCRLog footer do not tell a crash from a quit here: WinMain returns the wParam of the
+// last window message, and normal quits have ended with arbitrary codes and with no footer. Both are reported
+// for reference and neither fails a probe.
 const scrClean = /Logging finished/.test(scrLog);
 
 // A probe key named `..._expect_N` (or `_expect_minusN`) states the value the game should write
 const failures: string[] = [];
-if (!scrClean) failures.push("SCRLog footer missing (likely a crash)");
 for (const line of ini.split(/\r?\n/)) {
   const match = line.match(/^(.*_expect_(minus)?(\d+))=(-?\d+)\s*$/);
   if (!match) continue;
@@ -154,8 +156,8 @@ const report = `# Probe: ${probeName}
 | Result | ${passed ? "pass" : "fail"} |
 | Started | ${stamp} |
 | Duration | ${seconds} s |
-| Exit code | ${exitCode} |
-| SCRLog footer | ${scrClean ? "present" : "missing (likely a crash)"} |
+| Exit code (not a crash signal) | ${exitCode} |
+| SCRLog footer (not a crash signal) | ${scrClean ? "present" : "missing"} |
 | Backups | ${relative(vc, backupDir)} |
 
 ## Failures

@@ -98,5 +98,23 @@ int main()
         PhoneView v = Tick(m, 20000);
         CHECK(v.state == StateLowered && v.event == EventMissed);
     }
+    {
+        // An incoming ring raises the phone, keeps it lit past the 5 second backlight, and P declines it
+        PhoneMachine m;
+        m.RingIncoming(0);
+        PhoneView v = Tick(m, 1);
+        CHECK(v.state == StateRingingIn && v.animating == 1 && v.lit == 1);
+        CHECK(Tick(m, 12000).lit == 1);
+        v = Tick(m, 12100, KeyToggle);
+        CHECK(v.state == StateLowered && v.event == EventDeclined && v.animating == 1);
+        CHECK(Tick(m, 12200, KeyAnswer).event == EventNone);
+    }
+    {
+        // A missed call slides the phone away
+        PhoneMachine m;
+        m.RingIncoming(0);
+        PhoneView v = Tick(m, 20000);
+        CHECK(v.state == StateLowered && v.event == EventMissed && v.animating == 1);
+    }
     return 0;
 }

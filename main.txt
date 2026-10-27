@@ -24,6 +24,8 @@ DEFINE MISSION 10 AT @Heaven
 {$USE Audio}
 {$INCLUDE lib/alloc.txt}
 {$INCLUDE lib/debug.txt}
+{$INCLUDE lib/phone.txt}
+{$INCLUDE lib/threads/cellphone-layout.txt}
 
 var
     $CarHealthBar: int
@@ -368,6 +370,8 @@ terminate_this_script
 {$INCLUDE lib/threads/barrier.txt}
 
 {$INCLUDE lib/threads/bus.txt}
+
+{$INCLUDE lib/threads/cellphone.txt}
 
 :Cell
 script_name 'Cell'
@@ -1998,6 +2002,7 @@ $FaeBlip = Blip.AddShortRangeSpriteForContactPoint(602.3546, -1700.3068, 6.2431,
 start_new_script @Pizza
 start_new_script @Bus
 start_new_script @Barrier
+start_new_script @CellPhone
 start_new_script @Bath
 start_new_script @Clothes
 start_new_script @Fae
