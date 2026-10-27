@@ -82,3 +82,32 @@ Deno.test("The phone probe includes the real thread and the same header", async 
     if (!probe.includes(`{$INCLUDE ${include}}`)) throw new Error(`phone-probe.txt must include ${include}`);
   }
 });
+
+Deno.test("A dialed number finishes with a resolve, and the taxi number spawns off screen", async () => {
+  const source = await decode(sourcePath);
+  const dialDone = source.slice(source.indexOf(":CellPhone_DialDone"), source.indexOf(":CellPhone_Taxi\n"));
+  if (!dialDone.includes("$PhoneNumber == PHONE_TAXI")) throw new Error("DialDone must branch on the taxi number");
+  if (!dialDone.includes("0B42: 2")) throw new Error("An unhandled number must resolve busy");
+  if (!/const PHONE_TAXI = 5558294/.test(source)) throw new Error("The taxi number must be 555-8294");
+  if (!source.includes("not Camera.IsPointOnScreen")) throw new Error("The taxi must spawn out of camera view");
+  if (!source.includes("Car.GotoCoordinatesAccurate($TaxiCar")) throw new Error("The taxi must drive to the player");
+  if (!source.includes("CarMission.StopForever")) throw new Error("The taxi must park");
+});
+
+Deno.test("The pizza number dials a moped rider who heals the player for $10", async () => {
+  const source = await decode(sourcePath);
+  const pizza = await decode(new URL("../lib/threads/pizza.txt", import.meta.url));
+  const strings = await decode(new URL("../strings.fxt", import.meta.url));
+  if (!/const PHONE_PIZZA = 5557492/.test(source)) throw new Error("The pizza number must be 555-7492");
+  if (!source.includes("Pizza_Dial()") || !source.includes("Pizza_DialTick()")) throw new Error("The phone thread must run the pizza dispatch");
+  for (const part of ["#PIZZABOY", "#HMOBE", "not Camera.IsPointOnScreen", "Player.AddScore($PLAYER1, -10)", "Player.SetHealth($PLAYER1, 100)"]) {
+    if (!pizza.includes(part)) throw new Error(`pizza.txt must contain ${part}`);
+  }
+  const order = ["Char.SetObjLeaveCar", "Char.SetObjGotoPlayerOnFoot", "Player.AddScore($PLAYER1, -10)"].map((part) => pizza.indexOf(part));
+  if (order.some((at) => at < 0) || order[0] > order[1] || order[1] > order[2]) {
+    throw new Error("The rider must get off the moped and walk to the player before the handover");
+  }
+  for (const key of ["PIZZAOK", "PIZZANO"]) {
+    if (!strings.includes(`${key} `)) throw new Error(`strings.fxt must define ${key}`);
+  }
+});

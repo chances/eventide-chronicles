@@ -56,4 +56,37 @@ var
     $GG: int
     $GB: int
     $GA: int
+    $PhoneDialed: int
+    $TaxiStage: int
+    $TaxiDir: int
+    $TaxiFrames: int
+    $TaxiCar: int
+    $TaxiDriver: int
+    $TaxiPX: float
+    $TaxiPY: float
+    $TaxiPZ: float
+    $TaxiX: float
+    $TaxiY: float
+    $TaxiNX: float
+    $TaxiNY: float
+    $TaxiNZ: float
+    $TaxiDX: float
+    $TaxiDY: float
+    $TaxiD2: float
+    $PizzaStage: int
+    $PizzaDir: int
+    $PizzaFrames: int
+    $PizzaCar: int
+    $PizzaRider: int
+    $PizzaPX: float
+    $PizzaPY: float
+    $PizzaPZ: float
+    $PizzaX: float
+    $PizzaY: float
+    $PizzaNX: float
+    $PizzaNY: float
+    $PizzaNZ: float
+    $PizzaDX: float
+    $PizzaDY: float
+    $PizzaD2: float
 end

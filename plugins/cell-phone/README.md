@@ -30,7 +30,7 @@ The `KeyCode` enum has `Num0` to `Num9` for the number row, `NumPad0` to `NumPad
 
 ## Models
 
-The repo uses `#TAXI` and `#CABBIE` in `lib/threads/ringu.txt`, and `#PIZZABOY` as the pizza moped in `lib/init.txt`. The rider's ped model is not in the library, which lists model slots as `model_char` without names. It stays open for Task 10.
+The repo uses `#TAXI` and `#CABBIE` in `lib/threads/ringu.txt`, and `#PIZZABOY` as the pizza moped in `lib/init.txt`. The pizza rider is `#HMOBE`, picked from the [Vice City ped catalog](https://claude.ai/artifact/XBWMsVjWWffD7pgb9iXtWf).
 
 ## Sound Decisions
 

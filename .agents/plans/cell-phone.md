@@ -916,15 +916,15 @@ Do not run `git add` or `git commit`. The user alone commits.
 
 The plugin knows nothing about numbers or business hours. It reports `dial done` with the number, and the script answers with `resolve`. Every rule about a number, including the Oakdale 9 am to 5 pm window, lives in that number's handler.
 
-- [ ] **Step 1: Branch on the event**
+- [x] **Step 1: Branch on the event**
 
-When `$PhoneEvent == 1` (dial done), jump to `:CellPhone_DialDone`. Compare `$PhoneNumber` to `5557653` (Oakdale rental) and `5550100` (Zit hotline), and add a branch per number as Tasks 9 to 11 add them. Any other number calls `0B42: 2` (busy) and returns to typing.
+When `$PhoneEvent == 1` (dial done), jump to `:CellPhone_DialDone`. Compare `$PhoneNumber` to `5557653` (Oakdale rental) and `5550100` (Zit hotline), and add a branch per number as Tasks 9 to 11 add them. Any other number calls `0B42: 2` (busy) and returns to typing. Built: `CellPhone_DialDone` branches on the taxi number `5558294` only, so the Oakdale and Zit numbers give the busy tone until Task 11 adds their branches.
 
-- [ ] **Step 2: Resolve from each handler**
+- [x] **Step 2: Resolve from each handler**
 
 A handler calls `0B42: 1` when the number connects, runs its effect, and calls `0B42: 3` when the call is over. A number that refuses (for example the Zit hotline when the player is not driving) calls `0B42: 2`. The Oakdale handler always calls `0B42: 1`, plays the message, and only then reads the clock: between 9 am and 5 pm with enough cash it shows the buy prompt, and otherwise it ends the call.
 
-- [ ] **Step 3: Run the tests and stop**
+- [x] **Step 3: Run the tests and stop**
 
 Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add` or `git commit`.
 
@@ -937,15 +937,15 @@ Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add`
 - Consumes: the dispatch label from Task 8, and the names confirmed in Task 2 for the road node, the car creation, the drive-to, and the camera check.
 - Produces: label `@CellPhone_Taxi`.
 
-- [ ] **Step 1: Spawn the taxi out of view**
+- [x] **Step 1: Spawn the taxi out of view**
 
 Find a road node 40 to 80 metres from the player, and spawn a `#TAXI` there with `Car.Create`. Skip the spawn while the point is visible to the camera, so the taxi appears out of the camera's view. The `#TAXI` model name is used in `lib/threads/ringu.txt`.
 
-- [ ] **Step 2: Drive to the player and park**
+- [x] **Step 2: Drive to the player and park**
 
 Order the taxi to drive to the player's position, wait until it is within 8 metres, then stop it. Use the drive and stop commands confirmed in Task 2.
 
-- [ ] **Step 3: Run the tests and stop**
+- [x] **Step 3: Run the tests and stop**
 
 Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add` or `git commit`.
 
@@ -959,15 +959,15 @@ Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add`
 - Consumes: the dispatch label from Task 8.
 - Produces: `:Pizza_Dial`, which spawns a moped with a delivery NPC that drives to the player.
 
-- [ ] **Step 1: Confirm the moped and NPC models**
+- [x] **Step 1: Confirm the moped and NPC models**
 
 Look up the moped model name in the Sanny Builder Library, and the pedestrian model for the rider. Record both in Task 2's list.
 
-- [ ] **Step 2: Spawn and drive**
+- [x] **Step 2: Spawn and drive**
 
-`:Pizza_Dial` spawns the moped and rider beyond camera view, orders the moped to the player, and has the rider hand over the pizza when the player is within reach. The existing `:Pizza` label that waits for the player's heading is left as it is.
+`:Pizza_Dial` spawns the moped and rider beyond camera view, orders the moped to the player, and has the rider hand over the pizza when the player is within reach. The existing `:Pizza` label that waits for the player's heading is left as it is. Built: `:Pizza_Dial` starts the delivery and `:Pizza_DialTick` runs it each frame from the phone thread. The moped is `#PIZZABOY` and the rider is `#HMOBE`.
 
-- [ ] **Step 3: Run the tests and stop**
+- [x] **Step 3: Run the tests and stop**
 
 Run `deno test scripts/cell-phone.test.ts`. Expected: PASS. Do not run `git add` or `git commit`.
 
@@ -1042,7 +1042,8 @@ The agent cannot see the game. Ask the user to run the game and report: P raises
 
 ## Open Questions
 
-- The taxi and pizza phone numbers. The design names the services but never gave their numbers, so Tasks 9 and 10 cannot add their branches yet.
+- The taxi number is `555-8294` (`PHONE_TAXI` in `lib/threads/cellphone.txt`) and the pizza number is `555-7492`. The pizza handover heals the player and charges $10, which needs a new help string.
+- The taxi driver's ped model. `#HMOST` is a placeholder from the boss missions.
 - Whether the plugin's timers should pause with the game. They use wall-clock time (`GetTickCount`).
 - The incoming-call ring lasts 20 seconds before it counts as missed. That value is a placeholder choice.
 

@@ -8,6 +8,10 @@ const PHONE_LEFT = 520.0
 const PHONE_TOP = 213.4
 const PHONE_SLIDE = 260.0
 const PHONE_SLIDE_MS = 550
+const PHONE_TAXI = 5558294
+const PHONE_PIZZA = 5557492
+const TAXI_SPAWN_DISTANCE = 60.0
+const TAXI_ARRIVE_D2 = 64.0
 
 :CellPhone
 set_deatharrest_state 0
@@ -34,8 +38,206 @@ while true
     wait 0
     CellPhone_Input()
     CellPhone_Tick()
+    CellPhone_Events()
     CellPhone_Draw()
 end
+
+// Reacts to the plugin's events and runs the dispatches a dialed number started.
+:CellPhone_Events
+if
+    $PhoneEvent == 1
+then
+    CellPhone_DialDone()
+end
+CellPhone_TaxiTick()
+Pizza_DialTick()
+return
+
+// A dialed number finished ringing. The plugin knows nothing about numbers, so each number's handler answers
+// with 0B42: 1 connected, 2 busy, 3 call over. A number with no handler gets the busy tone.
+:CellPhone_DialDone
+$PhoneDialed = 0
+if
+    $PhoneNumber == PHONE_TAXI
+then
+    $PhoneDialed = 1
+    0B42: 1
+    CellPhone_Taxi()
+    0B42: 3
+end
+if
+    $PhoneNumber == PHONE_PIZZA
+then
+    $PhoneDialed = 1
+    0B42: 1
+    Pizza_Dial()
+    0B42: 3
+end
+if
+    $PhoneDialed == 0
+then
+    0B42: 2
+end
+return
+
+// Dispatches a taxi. A second call while one is on its way connects and changes nothing.
+:CellPhone_Taxi
+if
+    $TaxiStage == 0
+then
+    $TaxiStage = 1
+    $TaxiDir = 0
+end
+return
+
+// One step per frame. Stages: 1 request models, 2 wait for them, 3 find a road node out of camera view and
+// spawn, 4 drive to the player, 5 park.
+:CellPhone_TaxiTick
+if
+    $TaxiStage == 0
+then
+    return
+end
+if
+    $TaxiStage == 1
+then
+    Streaming.RequestModel(#TAXI)
+    Streaming.RequestModel(#HMOST)
+    $TaxiStage = 2
+    return
+end
+if
+    $TaxiStage == 2
+then
+    if and
+        Streaming.HasModelLoaded(#TAXI)
+        Streaming.HasModelLoaded(#HMOST)
+    then
+        $TaxiStage = 3
+    end
+    return
+end
+if
+    $TaxiStage == 3
+then
+    // Try one side of the player per frame (east, west, north, south) until its road node is off screen
+    $TaxiPX, $TaxiPY, $TaxiPZ = Char.GetCoordinates($scplayer)
+    $TaxiX = $TaxiPX
+    $TaxiY = $TaxiPY
+    if
+        $TaxiDir == 0
+    then
+        $TaxiX += TAXI_SPAWN_DISTANCE
+    end
+    if
+        $TaxiDir == 1
+    then
+        $TaxiX -= TAXI_SPAWN_DISTANCE
+    end
+    if
+        $TaxiDir == 2
+    then
+        $TaxiY += TAXI_SPAWN_DISTANCE
+    end
+    if
+        $TaxiDir == 3
+    then
+        $TaxiY -= TAXI_SPAWN_DISTANCE
+    end
+    $TaxiNX, $TaxiNY, $TaxiNZ = Path.GetClosestCarNode($TaxiX, $TaxiY, $TaxiPZ)
+    $TaxiDir += 1
+    if
+        $TaxiDir > 3
+    then
+        $TaxiDir = 0
+    end
+    if
+        not Camera.IsPointOnScreen($TaxiNX, $TaxiNY, $TaxiNZ, 5.0)
+    then
+        $TaxiCar = Car.Create(#TAXI, $TaxiNX, $TaxiNY, $TaxiNZ)
+        $TaxiDriver = Char.CreateInsideCar($TaxiCar, PedType.CivMale, #HMOST)
+        Car.SetDrivingStyle($TaxiCar, DrivingMode.AvoidCars)
+        Car.SetCruiseSpeed($TaxiCar, 20.0)
+        Streaming.MarkModelAsNoLongerNeeded(#TAXI)
+        Streaming.MarkModelAsNoLongerNeeded(#HMOST)
+        $TaxiFrames = 0
+        $TaxiStage = 4
+    end
+    return
+end
+if
+    $TaxiStage == 4
+then
+    if
+        Car.IsDead($TaxiCar)
+    then
+        Car.MarkAsNoLongerNeeded($TaxiCar)
+        Char.MarkAsNoLongerNeeded($TaxiDriver)
+        $TaxiStage = 0
+        return
+    end
+    $TaxiPX, $TaxiPY, $TaxiPZ = Char.GetCoordinates($scplayer)
+    $TaxiNX, $TaxiNY, $TaxiNZ = Car.GetCoordinates($TaxiCar)
+    $TaxiDX = $TaxiNX
+    $TaxiDX -= $TaxiPX
+    $TaxiDY = $TaxiNY
+    $TaxiDY -= $TaxiPY
+    $TaxiDX *= $TaxiDX
+    $TaxiDY *= $TaxiDY
+    $TaxiD2 = $TaxiDX
+    $TaxiD2 += $TaxiDY
+    if
+        $TaxiD2 < TAXI_ARRIVE_D2
+    then
+        // The car stays owned while it waits: marking it no longer needed hands it to the traffic system,
+        // which clears the stop order and drives it off.
+        Car.SetMission($TaxiCar, CarMission.StopForever)
+        $TaxiStage = 5
+        return
+    end
+    // Slow down on the approach so the stop order catches the car near the player
+    if
+        $TaxiD2 < 900.0
+    then
+        Car.SetCruiseSpeed($TaxiCar, 8.0)
+    end
+    // The order is repeated about once a second, because the player moves
+    if
+        $TaxiFrames == 0
+    then
+        Car.GotoCoordinatesAccurate($TaxiCar, $TaxiPX, $TaxiPY, $TaxiPZ)
+        $TaxiFrames = 60
+    end
+    $TaxiFrames -= 1
+    return
+end
+// Stage 5: parked. The taxi is released when it is wrecked or the player is 100 m away.
+if
+    Car.IsDead($TaxiCar)
+then
+    Car.MarkAsNoLongerNeeded($TaxiCar)
+    Char.MarkAsNoLongerNeeded($TaxiDriver)
+    $TaxiStage = 0
+    return
+end
+$TaxiPX, $TaxiPY, $TaxiPZ = Char.GetCoordinates($scplayer)
+$TaxiNX, $TaxiNY, $TaxiNZ = Car.GetCoordinates($TaxiCar)
+$TaxiDX = $TaxiNX
+$TaxiDX -= $TaxiPX
+$TaxiDY = $TaxiNY
+$TaxiDY -= $TaxiPY
+$TaxiDX *= $TaxiDX
+$TaxiDY *= $TaxiDY
+$TaxiD2 = $TaxiDX
+$TaxiD2 += $TaxiDY
+if
+    $TaxiD2 > 10000.0
+then
+    Car.MarkAsNoLongerNeeded($TaxiCar)
+    Char.MarkAsNoLongerNeeded($TaxiDriver)
+    $TaxiStage = 0
+end
+return
 
 // One key per frame. A held key sends once, so $PhoneHeld keeps it for the pressed look.
 :CellPhone_Input

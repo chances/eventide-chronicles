@@ -217,3 +217,4 @@ while true
 end
 
 {$INCLUDE ../lib/threads/cellphone.txt}
+{$INCLUDE ../lib/threads/pizza.txt}

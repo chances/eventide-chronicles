@@ -20,3 +20,207 @@ then
 else
     goto @Pizza_10
 end
+
+// A dialed pizza (cell phone, lib/threads/cellphone.txt). A second call while a delivery is on its way changes nothing.
+:Pizza_Dial
+if
+    $PizzaStage == 0
+then
+    $PizzaStage = 1
+    $PizzaDir = 0
+end
+return
+
+// One step per frame, called from the phone thread. Stages: 1 request models, 2 wait for them, 3 find a road node
+// out of camera view and spawn the moped with its rider, 4 drive to the player and park, 5 the rider gets off,
+// 6 the rider walks to the player and hands over the pizza, 7 the rider walks away until the frame budget ends,
+// then the traffic system takes the moped and the rider.
+:Pizza_DialTick
+if
+    $PizzaStage == 0
+then
+    return
+end
+if
+    $PizzaStage == 1
+then
+    Streaming.RequestModel(#PIZZABOY)
+    Streaming.RequestModel(#HMOBE)
+    $PizzaStage = 2
+    return
+end
+if
+    $PizzaStage == 2
+then
+    if and
+        Streaming.HasModelLoaded(#PIZZABOY)
+        Streaming.HasModelLoaded(#HMOBE)
+    then
+        $PizzaStage = 3
+    end
+    return
+end
+if
+    $PizzaStage == 3
+then
+    // Try one side of the player per frame (east, west, north, south) until its road node is off screen
+    $PizzaPX, $PizzaPY, $PizzaPZ = Char.GetCoordinates($scplayer)
+    $PizzaX = $PizzaPX
+    $PizzaY = $PizzaPY
+    if
+        $PizzaDir == 0
+    then
+        $PizzaX += 60.0
+    end
+    if
+        $PizzaDir == 1
+    then
+        $PizzaX -= 60.0
+    end
+    if
+        $PizzaDir == 2
+    then
+        $PizzaY += 60.0
+    end
+    if
+        $PizzaDir == 3
+    then
+        $PizzaY -= 60.0
+    end
+    $PizzaNX, $PizzaNY, $PizzaNZ = Path.GetClosestCarNode($PizzaX, $PizzaY, $PizzaPZ)
+    $PizzaDir += 1
+    if
+        $PizzaDir > 3
+    then
+        $PizzaDir = 0
+    end
+    if
+        not Camera.IsPointOnScreen($PizzaNX, $PizzaNY, $PizzaNZ, 5.0)
+    then
+        $PizzaCar = Car.Create(#PIZZABOY, $PizzaNX, $PizzaNY, $PizzaNZ)
+        $PizzaRider = Char.CreateInsideCar($PizzaCar, PedType.CivMale, #HMOBE)
+        Car.SetDrivingStyle($PizzaCar, DrivingMode.AvoidCars)
+        Car.SetCruiseSpeed($PizzaCar, 20.0)
+        Streaming.MarkModelAsNoLongerNeeded(#PIZZABOY)
+        Streaming.MarkModelAsNoLongerNeeded(#HMOBE)
+        $PizzaFrames = 0
+        $PizzaStage = 4
+    end
+    return
+end
+if
+    $PizzaStage == 4
+then
+    if
+        Car.IsDead($PizzaCar)
+    then
+        Car.MarkAsNoLongerNeeded($PizzaCar)
+        Char.MarkAsNoLongerNeeded($PizzaRider)
+        $PizzaStage = 0
+        return
+    end
+    $PizzaPX, $PizzaPY, $PizzaPZ = Char.GetCoordinates($scplayer)
+    $PizzaNX, $PizzaNY, $PizzaNZ = Car.GetCoordinates($PizzaCar)
+    $PizzaDX = $PizzaNX
+    $PizzaDX -= $PizzaPX
+    $PizzaDY = $PizzaNY
+    $PizzaDY -= $PizzaPY
+    $PizzaDX *= $PizzaDX
+    $PizzaDY *= $PizzaDY
+    $PizzaD2 = $PizzaDX
+    $PizzaD2 += $PizzaDY
+    if
+        $PizzaD2 < 64.0
+    then
+        // The moped parks and the rider gets off. About ten seconds is allowed for the dismount.
+        Car.SetMission($PizzaCar, CarMission.StopForever)
+        Char.SetObjLeaveCar($PizzaRider, $PizzaCar)
+        $PizzaFrames = 600
+        $PizzaStage = 5
+        return
+    end
+    // Slow down on the approach so the stop order catches the moped near the player
+    if
+        $PizzaD2 < 900.0
+    then
+        Car.SetCruiseSpeed($PizzaCar, 8.0)
+    end
+    // The order is repeated about once a second, because the player moves
+    if
+        $PizzaFrames == 0
+    then
+        Car.GotoCoordinatesAccurate($PizzaCar, $PizzaPX, $PizzaPY, $PizzaPZ)
+        $PizzaFrames = 60
+    end
+    $PizzaFrames -= 1
+    return
+end
+// Stages 5 to 7 end early when the rider dies or the frame budget in $PizzaFrames runs out
+if
+    Char.IsDead($PizzaRider)
+then
+    Pizza_Release()
+    return
+end
+$PizzaFrames -= 1
+if
+    $PizzaFrames <= 0
+then
+    Pizza_Release()
+    return
+end
+// Stage 5: the rider gets off the moped, then walks to the player
+if
+    $PizzaStage == 5
+then
+    if
+        not Char.IsInAnyCar($PizzaRider)
+    then
+        Char.SetObjGotoPlayerOnFoot($PizzaRider, $PLAYER1)
+        $PizzaFrames = 900
+        $PizzaStage = 6
+    end
+    return
+end
+// Stage 6: when the rider is within 2 m the pizza heals the player for $10, or the rider walks off when the
+// player cannot pay
+if
+    $PizzaStage == 6
+then
+    $PizzaPX, $PizzaPY, $PizzaPZ = Char.GetCoordinates($scplayer)
+    $PizzaNX, $PizzaNY, $PizzaNZ = Char.GetCoordinates($PizzaRider)
+    $PizzaDX = $PizzaNX
+    $PizzaDX -= $PizzaPX
+    $PizzaDY = $PizzaNY
+    $PizzaDY -= $PizzaPY
+    $PizzaDX *= $PizzaDX
+    $PizzaDY *= $PizzaDY
+    $PizzaD2 = $PizzaDX
+    $PizzaD2 += $PizzaDY
+    if
+        $PizzaD2 < 4.0
+    then
+        if
+            Player.IsScoreGreater($PLAYER1, 9)
+        then
+            Player.AddScore($PLAYER1, -10)
+            Player.SetHealth($PLAYER1, 100)
+            Text.PrintHelp('PIZZAOK')
+        else
+            Text.PrintHelp('PIZZANO')
+        end
+        Char.SetObjFleePlayerOnFootAlways($PizzaRider, $PLAYER1)
+        $PizzaFrames = 300
+        $PizzaStage = 7
+    end
+    return
+end
+// Stage 7: the rider walks away, then the traffic system takes the moped and the rider
+return
+
+// Releases the moped and the rider to the game and ends the delivery.
+:Pizza_Release
+Car.MarkAsNoLongerNeeded($PizzaCar)
+Char.MarkAsNoLongerNeeded($PizzaRider)
+$PizzaStage = 0
+return
