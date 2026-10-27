@@ -5,10 +5,12 @@ import { parse } from "@std/csv/parse";
 // outfit with a store is the model that store's branch gives the player, and
 // the outfit in the player slot is the model the game starts in.
 
-// main.txt includes lib/init.txt, where the clothes pickups are created.
+// main.txt includes lib/init.txt, where the clothes pickups are created, and lib/threads/clothes.txt, which
+// holds the Clothes thread.
 const decoder = new TextDecoder("windows-1252");
 const source = decoder.decode(await Deno.readFile("main.txt")) +
-  decoder.decode(await Deno.readFile("lib/init.txt"));
+  decoder.decode(await Deno.readFile("lib/init.txt")) +
+  decoder.decode(await Deno.readFile("lib/threads/clothes.txt"));
 const outfits = parse(await Deno.readTextFile("skins/outfits.csv"), {
   skipFirstRow: true,
 });

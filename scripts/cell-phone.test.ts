@@ -49,7 +49,7 @@ Deno.test("Every sprite the phone draws uses the slot that holds its own texture
 
   const draws = [
     ...source.matchAll(
-      /\$PSlot = (\d+)\n(\$PSlot \+= \$PhoneLit\n)?(?:if\n\s+\$PhoneHeld == \d\nthen\n\s+\$PSlot = (\d+)\nend\n)?\$PX = PH_(\w+)_X/g,
+      /\$PSlot = (\d+)\n(\$PSlot \+= \$PhoneLit\n)?(?:if\n\s+\$PhoneHeld == \d+\nthen\n\s+\$PSlot = (\d+)\nend\n)?\$PX = PH_(\w+)_X/g,
     ),
   ];
   if (draws.length !== 18) throw new Error(`Expected 18 sprite draws, found ${draws.length}`);
@@ -106,6 +106,16 @@ Deno.test("The pizza number dials a moped rider who heals the player for $10", a
   const order = ["Char.SetObjLeaveCar", "Char.SetObjGotoPlayerOnFoot", "Player.AddScore($PLAYER1, -10)"].map((part) => pizza.indexOf(part));
   if (order.some((at) => at < 0) || order[0] > order[1] || order[1] > order[2]) {
     throw new Error("The rider must get off the moped and walk to the player before the handover");
+  }
+  // Earlier stages also release the moped on failure, so the release that ends the delivery is the last one
+  const leave = [
+    pizza.indexOf("Player.AddScore($PLAYER1, -10)"),
+    pizza.indexOf("Char.SetObjEnterCarAsDriver"),
+    pizza.indexOf("CarMission.Cruise"),
+    pizza.lastIndexOf("Pizza_Release()"),
+  ];
+  if (leave.some((at) => at < 0) || leave.some((at, i) => i > 0 && at < leave[i - 1])) {
+    throw new Error("After the handover the rider must get back on the moped, cruise off, and be released");
   }
   for (const key of ["PIZZAOK", "PIZZANO"]) {
     if (!strings.includes(`${key} `)) throw new Error(`strings.fxt must define ${key}`);

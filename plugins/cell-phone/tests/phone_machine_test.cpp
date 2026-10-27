@@ -88,6 +88,19 @@ int main()
         CHECK(Tick(m, 8000).lit == 0);
     }
     {
+        // During a call the backlight times out, and any key press brings it back
+        PhoneMachine m;
+        Tick(m, 0, KeyToggle);
+        TypeNumber(m, 100, "5550100");
+        Tick(m, 200, KeyDial);
+        Tick(m, 3200);
+        m.Resolve(3300, ResultConnected);
+        CHECK(Tick(m, 3400).state == StateConnected);
+        CHECK(Tick(m, 3300 + PhoneMachine::kBacklightMs).lit == 0);
+        CHECK(Tick(m, 9000, 5).lit == 1);
+        CHECK(Tick(m, 9000 + PhoneMachine::kBacklightMs).lit == 0);
+    }
+    {
         // A digit key reports its digit once, even when the buffer is full, and other keys report none
         PhoneMachine m;
         CHECK(m.TakeDigit() == -1);

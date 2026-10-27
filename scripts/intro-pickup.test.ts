@@ -1,4 +1,5 @@
-const missionSourcePath = new URL("../main.txt", import.meta.url);
+// main.txt includes the Intro mission from missions/intro.txt
+const missionSourcePath = new URL("../missions/intro.txt", import.meta.url);
 
 Deno.test("Intro death retry recreates the bat pickup", async () => {
   const source = new TextDecoder("windows-1252").decode(

@@ -33,8 +33,8 @@ return
 
 // One step per frame, called from the phone thread. Stages: 1 request models, 2 wait for them, 3 find a road node
 // out of camera view and spawn the moped with its rider, 4 drive to the player and park, 5 the rider gets off,
-// 6 the rider walks to the player and hands over the pizza, 7 the rider walks away until the frame budget ends,
-// then the traffic system takes the moped and the rider.
+// 6 the rider walks to the player and hands over the pizza, 7 the rider gets back on the moped and drives off,
+// then the pop cycle takes the moped and the rider.
 :Pizza_DialTick
 if
     $PizzaStage == 0
@@ -155,7 +155,8 @@ then
     $PizzaFrames -= 1
     return
 end
-// Stages 5 to 7 end early when the rider dies or the frame budget in $PizzaFrames runs out
+// Stages 5 to 7 end early when the rider dies or the frame budget in $PizzaFrames runs out, which releases the
+// moped and the rider where they stand
 if
     Char.IsDead($PizzaRider)
 then
@@ -209,13 +210,20 @@ then
         else
             Text.PrintHelp('PIZZANO')
         end
-        Char.SetObjFleePlayerOnFootAlways($PizzaRider, $PLAYER1)
-        $PizzaFrames = 300
+        Char.SetObjEnterCarAsDriver($PizzaRider, $PizzaCar)
+        $PizzaFrames = 900
         $PizzaStage = 7
     end
     return
 end
-// Stage 7: the rider walks away, then the traffic system takes the moped and the rider
+// Stage 7: once the rider sits on the moped he cruises off, and the pop cycle takes over the moped and the rider
+if
+    Char.IsSittingInCar($PizzaRider, $PizzaCar)
+then
+    Car.SetMission($PizzaCar, CarMission.Cruise)
+    Car.SetCruiseSpeed($PizzaCar, 15.0)
+    Pizza_Release()
+end
 return
 
 // Releases the moped and the rider to the game and ends the delivery.

@@ -52,6 +52,11 @@ public:
         else
         {
             event = HandleKey(now, key);
+            // Any key press wakes the backlight, including during a call, where the keys otherwise do nothing
+            if (key != KeyNone && m_state != StateLowered)
+            {
+                Light(now);
+            }
         }
         if (m_state == StateRingingOut)
         {

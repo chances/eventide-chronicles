@@ -60,7 +60,7 @@ Sizes are in mockup pixels.
 - The navigation cluster has two soft keys (24 px tall, each with a 12 by 2 px dash), a 76 px round D-pad with four triangle arrows and a base-colored center, an answer key (handset icon in the pass color `#00d9a3`), and a hang-up key (handset icon in the fail color `#ff4a2b`).
 - The keypad is 3 by 4 pill keys, 34 px tall with 8 px gaps. Keys 2 to 9 carry letters (ITU E.161), key 1 carries the voicemail symbol, and the bottom row is `*`, `0`, and `#`.
 - Keys are raised rubber: a top highlight, a 4 px lip in the base color under each key, and a faint Ember glow (`0 0 4px` at 0.2 opacity) while lit.
-- Pressed, a key (and the D-pad) sinks 4 px into its lip, the top highlight turns to shade, and the lip shadow goes. A lit pressed key's glyph glows brighter. It holds while the key is down.
+- Pressed, a key (and the D-pad) sinks 4 px into its lip, and the answer key sinks while Enter is held, the top highlight turns to shade, and the lip shadow goes. A lit pressed key's glyph glows brighter. It holds while the key is down.
 - Lit, keys and digits are Ember, and the call keys keep their pass and fail colors. Unlit, keys dim to 30% and the LCD digits to 18% of the muted color.
 - The backlight is on when the phone is raised. It goes dark 5 seconds after the last key press, or 5 seconds after raising if no key is pressed.
 - The phone sits at the bottom of the HUD, with its last key row 13 px above the screen edge and its bottom edge cut off by the screen. Raising slides it up from below the screen edge over 0.55 s, and lowering slides it back down.
@@ -1002,27 +1002,41 @@ if (await Deno.stat(pluginSource).then(() => true, () => false)) {
 }
 ```
 
-- [ ] **Step 2: Run the install and confirm**
+- [x] **Step 2: Run the install and confirm**
 
 Run `deno task install`, with `VC` set in `.env`. Expected: the install log shows the plugin line, and the file exists in `<VC>\CLEO\`. Read the file back to confirm it is present.
 
-- [ ] **Step 3: Stop**
+- [x] **Step 3: Stop**
 
 Do not run `git add` or `git commit`. The user alone commits.
 
 ## Task 13: Verify and Report
 
-- [ ] **Step 1: Run every Deno test**
+- [x] **Step 1: Run every Deno test**
 
 Run `deno test scripts/`. Expected: every test passes, including the new `cell-phone-keys.test.ts` and `cell-phone.test.ts`.
 
-- [ ] **Step 2: Run the native test**
+Result: 32 passed and 0 failed. `intro-pickup.test.ts` and `clothes-stores.test.ts` had read `main.txt` for code that moved to `missions/intro.txt` and `lib/threads/clothes.txt`, and now read those files.
+
+- [x] **Step 2: Run the native test**
 
 Run `ctest --test-dir plugins/cell-phone/build -C Release --output-on-failure`. Expected: `phone_machine` passes.
 
-- [ ] **Step 3: Hand the in-game checks to the user**
+- [x] **Step 3: Hand the in-game checks to the user**
 
 The agent cannot see the game. Ask the user to run the game and report: P raises and lowers the phone, digits type up to seven, Enter gives the busy tone for an unknown number, the taxi arrives, and the pizza rider walks up and delivers. Record each result the user reports in this file.
+
+Reported so far:
+
+- In `phone-probe`, a dialed number plays the ringback, the call connects with the timer running, the busy tone plays over the running timer, and the phone returns to number entry. The digit tones work, and the probe still works after the simplification.
+- The taxi stops next to the player.
+- The pizza delivery works: the rider gets off the moped, walks up, delivers, gets back on, and rides off.
+
+- P raises and lowers the phone in the game.
+- The pizza no-cash path works.
+- The missed call works.
+
+- The pressed-key look is fine.
 
 ## Open Questions
 

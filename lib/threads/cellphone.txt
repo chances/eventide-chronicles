@@ -538,8 +538,14 @@ $PW = PH_DPAD_W
 $PH = PH_DPAD_H
 CellPhone_Sprite()
 
+// The call key sinks while Enter is held, which dials
 $PSlot = 8
 $PSlot += $PhoneLit
+if
+    $PhoneHeld == 11
+then
+    $PSlot = 10
+end
 $PX = PH_ANS_X
 $PY = PH_ANS_Y
 $PW = PH_ANS_W
