@@ -61,9 +61,11 @@ Story facts the player must not learn from public material are in [spoilers.md](
 
 ## Mission Structure
 
-The mod's scripts define eleven mission labels, including the initialization label. The ten story labels are Intro, Cop, Hotel, Work, Cart, BossDie, Endgame, Fairy, Hell, and Heaven. Each label is listed in the ledger with its script source. The labels are Mod, because the mod defines them. The story beat each one carries is **Open**, pending the Book 2 text and the mod's own plotting.
+The mod's scripts define eleven mission labels, including the initialization label. The ten story labels are Intro, Cop, Hotel, Work, Cart, BossDie, Endgame, Fairy, Hell, and Heaven. Each label is listed in the ledger with its script source. The labels are Mod, because the mod defines them.
 
-The labels suggest a late arc that moves from the mortal world into something supernatural, but that reading is not yet confirmed by any story text.
+The opening causal bridge is now defined. In `Intro`, Toni is directed to destroy or dump a car carrying unexplained evidence from an earlier incident. A witness calls the police while she does so, gives Toni's description, and causes the `Cop` encounter. The responding officers recognize the description from an older, incomplete file, although Toni cannot explain why she is already known to them. The evidence in the car, the older case, and Toni's missing understanding remain open story questions.
+
+The remaining mission beats are still **Open**, pending the Book 2 text and the mod's own plotting. The labels suggest a late arc that moves from the mortal world into something supernatural, but that reading is not yet confirmed by any story text.
 
 ## Out of Scope
 

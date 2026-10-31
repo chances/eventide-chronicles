@@ -31,4 +31,6 @@ L029,World and Setting,Barrier: the player cannot die inside it and dies only wh
 L030,Characters,The Fairy is a mod-only character,Mod,Grilling decision,,Character row that extends L010
 L031,Tone and Narration,The opening narrator is unreliable throughout,Mod,Grilling decision,,Its account is false in the ways spoilers.md describes. Extends L006
 L032,Characters,Protagonist condition is defined in spoilers.md,Mod,Grilling decision,,Spoiler. See spoilers.md. Extends L023 and L026
-L033,Relationship to Book 2,Narration uses third person past while Book 2 switches tenses,Mod,Grilling decision,Book 2 switches tenses between chapters,Style departure from Book 2 recorded under L003
+L033,Relationship to Book 2,Narration uses third person past while Book 2 switches tenses,Mod,Book 2 switches tenses between chapters,Style departure from Book 2 recorded under L003
+L034,Mission Structure,Intro: Toni is directed to destroy or dump a car carrying unexplained evidence,Mod,docs/story.md and missions/intro.txt,,The car's contents and connection to Toni remain unexplained; the sequence teaches pickups and vehicle health
+L035,Mission Structure,Cop: a witness calls the police while Toni handles the car,Mod,docs/story.md and missions/cop.txt,,The caller gives Toni's description; police recognize it from an older incomplete file that Toni cannot explain
