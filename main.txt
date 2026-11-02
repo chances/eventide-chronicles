@@ -114,8 +114,11 @@ start_new_script @VPHotel
 start_new_script @PackageToggle
 terminate_this_script
 
-//---------- Mission Triggers ----------
+//_____________________________________
+//--------- Mission Triggers ----------
+//-------------------------------------
 
+//------------ Mission 1 --------------
 :Star
 script_name 'Star'
 
@@ -147,9 +150,11 @@ Camera.DoFade(1500, Fade.Out)
 wait 3000
 Mission.LoadAndLaunchInternal(1)
 
+// FIXME: Ugh, just use a loop! 🙄
 :Star_159
 goto @Star_10
 
+//-------------Mission 2---------------
 :Police
 script_name 'Police'
 
@@ -185,6 +190,7 @@ Mission.LoadAndLaunchInternal(2)
 :Police_159
 goto @Police_10
 
+//------------ Mission 3 --------------
 :HOT
 script_name 'HOT'
 
@@ -227,6 +233,7 @@ goto_if_false @HOT_114
 start_new_script @HOT
 terminate_this_script
 
+//------------ Mission 4 --------------
 :Boss
 script_name 'Boss'
 
@@ -262,6 +269,7 @@ Mission.LoadAndLaunchInternal(4)
 :Boss_181
 goto @Boss_10
 
+//------------ Mission 5 --------------
 :Golf
 script_name 'Golf'
 
@@ -293,6 +301,7 @@ Mission.LoadAndLaunchInternal(5)
 :Golf_142
 goto @Golf_10
 
+//------------ Mission 6 --------------
 :Kill
 script_name 'Kill'
 
@@ -323,6 +332,7 @@ Mission.LoadAndLaunchInternal(6)
 :Kill_142
 goto @Kill_10
 
+//------------ Mission 7 --------------
 :End
 script_name 'End'
 
@@ -378,6 +388,7 @@ terminate_this_script
 {$INCLUDE lib/threads/swim.txt}
 {$INCLUDE lib/threads/skin.txt}
 
+//-------- Cellphone Shenanigans ---------
 :Cell
 script_name 'Cell'
 $AUDIO_SLOT_MOBILE = 1
@@ -489,6 +500,8 @@ end
 :Cell_1999
 terminate_this_script
 
+//-------- Mall Shenanigans ---------
+// It's time to shop, shop, shop! See https://youtu.be/AEMeOdmwMCg
 :Mall
 script_name 'Mall'
 
@@ -559,6 +572,7 @@ Camera.DoFade(500, Fade.In)
 wait 500
 goto @Mall_232
 
+//-------- Package Tracker ---------
 :PackageToggle
 script_name 'PakTog'
 $FirstPackageTold = 0                 // Flag to ensure tutorial only triggers once
@@ -1277,6 +1291,7 @@ return
 {$INCLUDE lib/threads/music.txt}
 {$INCLUDE lib/threads/mystery.txt}
 
+//-------- Lighthouse-ish Shenanigans ---------
 :Pier
 script_name 'Pier'
 var
@@ -1365,7 +1380,7 @@ end
 goto @Pier_94
 
 :Pier_99
-$ONMISSION = 1
+$ONMISSION = true
 Player.SetControl($PLAYER1, False)
 Sphere.Remove($PierSphere)
 Blip.Remove($PierBlip)
@@ -1406,6 +1421,7 @@ terminate_this_script
 {$INCLUDE lib/threads/ringu.txt}
 {$INCLUDE lib/threads/rooftop.txt}
 
+//-------- Save the Game ---------
 :Save
 script_name 'Save'
 
@@ -1417,12 +1433,15 @@ goto_if_false @Save_277
 if
   Player.CanStartMission($PLAYER1)
 goto_if_false @Save_278
+
 if
   Player.IsPlaying($PLAYER1)
 goto_if_false @Save_278
+
 if
   $SaveCreated == 0
 goto_if_false @Save_242
+
 $StarfishTape = Pickup.Create(#PICKUPSAVE, PickupType.OnStreetSlow, -527.692, -301.928, 10.62)
 $SaveCreated = 1
 
@@ -1431,6 +1450,7 @@ wait 250
 if
   Pickup.HasBeenCollected($StarfishTape)
 goto_if_false @Save_114
+
 Player.SetControl($PLAYER1, False)
 Game.ActivateSaveMenu
 Pickup.Remove($StarfishTape)
@@ -1444,6 +1464,7 @@ wait 250
 if
   Game.HasSaveGameFinished
 goto_if_false @Save_173
+
 Player.SetCoordinates($PLAYER1, -530.692, -315.928, 10.62)
 wait 500
 Camera.DoFade(1500, Fade.In)
@@ -1456,6 +1477,7 @@ wait 250
 if
   $SaveCreated == 1
 goto_if_false @Save_242
+
 Pickup.Remove($StarfishTape)
 $SaveCreated = 0
 
@@ -1499,6 +1521,7 @@ end
 // Even more long-running threads of behavior ??
 {$INCLUDE lib/threads/savehot.txt}
 
+//-------- Teleportation ---------
 :Telport
 script_name 'Telport'
 
@@ -1533,6 +1556,7 @@ end
 :Telport_50
 goto @Telport_10
 
+//-------- Buying Tools ---------
 :Tools
 script_name 'Tools'
 
@@ -1621,6 +1645,7 @@ goto @Tools_10
 {$INCLUDE lib/threads/car-health.txt}
 {$INCLUDE lib/threads/pizza.txt}
 
+//-------- Vice Point Safehouse ---------
 :VPHotel
 script_name 'VPHotel'
 
@@ -1680,6 +1705,7 @@ goto @VPHotel_10
 
 {$INCLUDE lib/threads/water.txt}
 
+//----- Game Initialization ------
 :INIT
 script_name 'INIT'
 if DebugTrace
@@ -1958,6 +1984,7 @@ if or
 goto_if_false @INIT_27
 goto @INIT_6000
 
+/// But why? See https://giphy.com/gifs/everyone-remake-rw-s239QJIh56sRW
 :INIT_1000
 if DebugTrace
 then
@@ -1987,7 +2014,7 @@ Text.ClearPrints()
 Camera.Restore()
 Camera.DoFade(1500, Fade.Out)
 wait 1500
-$ONMISSION = 1
+$ONMISSION = true
 Hud.SwitchWidescreen(False)
 Camera.DoFade(1500, Fade.In)
 wait 1500
@@ -2040,6 +2067,7 @@ end
 
 terminate_this_script
 
+// Mission threads
 {$INCLUDE missions/intro.txt}
 {$INCLUDE missions/1_star.txt}
 {$INCLUDE missions/cop.txt}
