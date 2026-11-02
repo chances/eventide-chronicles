@@ -1,0 +1,9 @@
+/// Ends a mission as passed: advances the story and terminates this mission thread.
+function finishMission()
+  Mission.Finish()
+  //$onMission = false
+  //$missionIndex = $missionIndex + 1
+
+  // NOTE: 05DC for GTA III CLEO, in lieu of `terminate_this_custom_script` (San Andreas)
+  05DC: terminate_custom_thread
+end

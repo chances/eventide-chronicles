@@ -1,0 +1,9 @@
+var
+	$Admiral: Car
+	$player:  Player
+	$scplayer: Char
+end
+
+Alloc($Admiral, 8585)
+Alloc($player, 8586)
+Alloc($scplayer, 8587)

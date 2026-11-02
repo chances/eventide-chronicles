@@ -1,0 +1,127 @@
+{$CLEO .cm}
+{$INCLUDE ../variables.txt}
+{$INCLUDE ../constants.txt}
+{$INCLUDE ../utils/geography.txt}
+
+// GENERATED from missions/0_travelling.fsm.json by lib/fsm/generate.ts. Edit the table, then run `deno task build`.
+
+//=============================================
+// Travelling
+//=============================================
+
+const STATE_INTRO = 0
+const STATE_WIN = 1
+const STATE_LOSE = 2
+const STATE_GET_TO_IT = 3
+
+// Mission-private state is CLEO locals, which need no global slot (16 per script)
+int state = STATE_INTRO
+
+$onMission = true
+$onCutscene = true
+Hud.SwitchWidescreen(true)
+
+while true
+  wait 0
+
+  if
+    state == STATE_INTRO
+  then
+    stateIntro()
+  end
+
+  if
+    state == STATE_WIN
+  then
+    stateWin()
+  end
+
+  if
+    state == STATE_LOSE
+  then
+    stateLose()
+  end
+
+  if
+    state == STATE_GET_TO_IT
+  then
+    stateGetToIt()
+  end
+end
+
+// Never reached: the loop above runs until finishMission() terminates the thread
+05DC: terminate_custom_thread
+
+:stateIntro
+  TIMERA = 0
+  Player.SetControl($player, false)
+  Streaming.RequestModel(#ADMIRAL)
+  Hud.LoadSplash('SPLASH1')
+  Streaming.LoadAllModelsNow()
+  wait 1000
+  Camera.DoFade(500, Fade.Out)
+  wait 500
+  Admiral = Car.Create(#ADMIRAL, admiral_X, admiral_Y, admiral_Z)
+  Player.SetCoordinates($player, 416.9835, 168.6829, 16.1747)
+  wait 500
+  Camera.DoFade(500, Fade.In)
+  wait 500
+  Player.SetControl($player, true)
+  $onCutscene = false
+  Hud.SwitchWidescreen(false)
+  state = STATE_GET_TO_IT
+  return
+
+:stateWin
+  TIMERA = 0
+  finishMission()
+  return
+
+:stateLose
+  TIMERA = 0
+  Text.PrintBig('M_FAIL', 3500, TextStyle.Middle)
+  wait 3000
+  $onCutscene = true
+  Hud.SwitchWidescreen(true)
+  state = STATE_INTRO
+  return
+
+:stateGetToIt
+  TIMERA = 0
+  while true
+    wait 0
+    failCheck()
+    if
+      state == STATE_LOSE
+    then
+      return
+    end
+    if and
+      Player.IsInCar($player, $Admiral)
+      Player.LocateAnyMeans3D($player, 450.739, -1642.425, 14.6, 3.0, 3.0, 3.0, True)
+    then
+      state = STATE_WIN
+      return
+    end
+  end
+  return
+
+:leaveWin
+  Player.SetControl($player, false)
+  Player.AddScore($player, 100)
+  Player.AlterWantedLevel($player, 0)
+  Audio.PlayMissionPassedTune(1)
+  wait 3000
+  Player.SetControl($player, true)
+  return
+
+:failCheck
+  if or
+    Player.IsDead($player)
+    Car.IsDead($Admiral)
+  then
+    state = STATE_LOSE
+  end
+  return
+
+{$INCLUDE ../utils/missions.txt}

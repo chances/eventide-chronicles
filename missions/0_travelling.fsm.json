@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "mission": {
+    "header": [
+      "Travelling"
+    ],
+    "start": "INTRO",
+    "onFail": "LOSE",
+    "fail": [
+      {
+        "test": "Player.IsDead($player)"
+      },
+      {
+        "test": "Car.IsDead($Admiral)"
+      }
+    ],
+    "states": {
+      "INTRO": {
+        "kind": "cutscene",
+        "onEnter": [
+          [
+            "Player.SetControl($player, false)"
+          ],
+          [
+            "Streaming.RequestModel(#ADMIRAL)"
+          ],
+          [
+            "Hud.LoadSplash('SPLASH1')"
+          ],
+          [
+            "Streaming.LoadAllModelsNow()"
+          ],
+          [
+            "wait 1000"
+          ],
+          [
+            "Camera.DoFade(500, Fade.Out)"
+          ],
+          [
+            "wait 500"
+          ],
+          [
+            "Admiral = Car.Create(#ADMIRAL, admiral_X, admiral_Y, admiral_Z)"
+          ],
+          [
+            "Player.SetCoordinates($player, 416.9835, 168.6829, 16.1747)"
+          ],
+          [
+            "wait 500"
+          ],
+          [
+            "Camera.DoFade(500, Fade.In)"
+          ],
+          [
+            "wait 500"
+          ],
+          [
+            "Player.SetControl($player, true)"
+          ]
+        ],
+        "next": "GET_TO_IT"
+      },
+      "WIN": {
+        "kind": "ending",
+        "fail": false,
+        "onExit": [
+          [
+            "Player.SetControl($player, false)"
+          ],
+          [
+            "Player.AddScore($player, 100)"
+          ],
+          [
+            "Player.AlterWantedLevel($player, 0)"
+          ],
+          [
+            "Audio.PlayMissionPassedTune(1)"
+          ],
+          [
+            "wait 3000"
+          ],
+          [
+            "Player.SetControl($player, true)"
+          ]
+        ],
+        "finish": true
+      },
+      "LOSE": {
+        "kind": "ending",
+        "fail": false,
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintBig('M_FAIL', 3500, TextStyle.Middle)"
+              ]
+            ],
+            "wait": 3000
+          }
+        ],
+        "next": "INTRO"
+      },
+      "GET_TO_IT": {
+        "kind": "objective",
+        "until": [
+          {
+            "test": "Player.IsInCar($player, $Admiral)"
+          },
+          {
+            "test": "Player.LocateAnyMeans3D($player, 450.739, -1642.425, 14.6, 3.0, 3.0, 3.0, True)",
+            "mode": "3D"
+          }
+        ],
+        "next": "WIN"
+      }
+    }
+  },
+  "layout": {
+    "INTRO": {
+      "x": 0,
+      "y": 0
+    },
+    "GET_TO_IT": {
+      "x": 0,
+      "y": 96
+    },
+    "WIN": {
+      "x": 0,
+      "y": 192
+    },
+    "LOSE": {
+      "x": 208,
+      "y": 0
+    }
+  }
+}
