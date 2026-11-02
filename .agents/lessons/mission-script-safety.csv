@@ -1,0 +1,12 @@
+id,pattern,symptom,check,fix
+P1,Loop with no code after end,"After death or bust, the thread renames itself and runs into other code","Fall-through scan; thread name changes in scrlog.log","Add terminate_this_script, or wait and goto the loop label"
+P2,return with an empty gosub stack,"Instruction pointer above 1000000; invalid opcodes or NOP runs; access violation","scrlog.log shows RETURN then a wild address","Never run into a subroutine; reach it by gosub"
+P3,Mission body with no gosub wrapper,"A death mid-mission reads past the stack","Mission script whose first statement is not a call","Call the body as a function, then test has_deatharrest_been_executed"
+P4,set_deatharrest_state in a non-mission thread,"No effect","The opcode sits in MAIN or a started script","Remove it, or move it into the mission script"
+P5,Mission flag never cleared,"A gate that tests $ONMISSION == 0 never opens","scrlog.log shows the flag test FALSE","Set $ONMISSION = 0 when the mission or tutorial ends"
+P6,Script block with no terminate at the end,"The thread runs off the end of the script","Last label of the file; prototypes","End the block with terminate_this_script"
+P7,Compiler exits 0 with no output,"Tests run on the old build","main.scm older than main.txt","Fail the build when the output file is not newer"
+P8,Older text saved over main.txt,"Edits missing from the build","Edit marker lines absent after a compile","Reload main.txt before compiling"
+P9,Pickup not recreated after mission retry,"Tutorial loops on a pickup prompt that cannot be completed","Retry follows death/arrest after pickup collection and does not recreate the handle","Remove the stale pickup handle and create a fresh pickup in the retry handler"
+P10,Tutorial waits on a weapon pickup,"The prompt repeats and HasBeenCollected never turns true when the player already holds a weapon in that slot","The player took a melee weapon (all melee share slot 2) before the mission","Remove the pickup, call GiveWeapon, then SetCurrentWeapon so the weapon is equipped without a Tab press"
+P11,Long wait while a countdown timer shows,"The timer keeps running after the event it counts toward","A wait of 20000 or more sits between DisplayTimer and the check","Poll with a short wait and test the event and $TIMER == 0 each pass; call ClearTimer on every exit"

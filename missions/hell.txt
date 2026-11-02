@@ -1,0 +1,6 @@
+//-------------Mission 9---------------
+
+:Hell
+script_name 'Hell'
+
+

@@ -1,0 +1,3 @@
+id,status,issue,symptom,expected_behavior,document
+B1,🔴 Open,Fingerprint prompt,"In the first tutorial mission a prompt or dialog claims the player's fingerprints are all over the car even if the player has never touched it.","Do not make this claim unless the player has touched the car.",tutorial-car-fingerprint-prompt.md
+B2,🔴 Open,Baseball bat pickup loop,"After the player picks up the baseball bat and then loses it after being busted or wasted the bat is unavailable; the tutorial loops indefinitely on the pickup prompt and timer.","Allow the player to continue after losing the bat; do not loop indefinitely on the pickup prompt and timer.",tutorial-car-fingerprint-prompt.md

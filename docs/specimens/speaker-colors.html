@@ -1,0 +1,74 @@
+<title>Speaker Colors</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap">
+<style>
+/* Layout: a subtitle strip per mood showing all five speakers and that mood's two accents on one background, so near colors sit side by side. */
+:root {
+  --base: #fbf8f1; --surface: #f0ebfa; --text: #17142e; --muted: #4a4572; --border: #6b6690;
+  --toni: #6b2fd6; --boss: #4d6b00; --daughter: #b0245f; --fairy: #00717d; --narrator: #000000;
+  --ember-1: #b84300; --ember-2: #6b2fd6; --cold-1: #0b52c4; --cold-2: #a8118a; --gold-1: #7a5600; --gold-2: #5c4100;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --base: #0d0b1e; --surface: #17142e; --text: #f2efff; --muted: #c4bfe6; --border: #7f7aa8;
+    --toni: #b88aff; --boss: #b5e04a; --daughter: #ff9ec4; --fairy: #5fe3f0; --narrator: #ffffff;
+    --ember-1: #ff7a1a; --ember-2: #b88aff; --cold-1: #4d94ff; --cold-2: #ff5ad9; --gold-1: #ffc61a; --gold-2: #ffe08a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --base: #0d0b1e; --surface: #17142e; --text: #f2efff; --muted: #c4bfe6; --border: #7f7aa8;
+  --toni: #b88aff; --boss: #b5e04a; --daughter: #ff9ec4; --fairy: #5fe3f0; --narrator: #ffffff;
+  --ember-1: #ff7a1a; --ember-2: #b88aff; --cold-1: #4d94ff; --cold-2: #ff5ad9; --gold-1: #ffc61a; --gold-2: #ffe08a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--base); color: var(--text); font: 14px/1.4 system-ui, sans-serif; padding-block: 12px;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+main { max-inline-size: 1400px; margin-inline: auto; display: flex; flex-direction: column; gap: 10px; }
+h1 { font: 700 18px/1.2 system-ui, sans-serif; margin: 0; }
+p { margin: 0; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 8px; }
+.strip { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 10px; display: flex; flex-direction: column; gap: 6px; min-inline-size: 0; }
+h2 { font: 600 12px/1.3 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; margin: 0; color: var(--muted); }
+.chips { display: flex; gap: 6px; }
+.chip { flex: 1; padding: 6px 8px; font: 12px/1.2 system-ui, sans-serif; font-weight: 700; border-radius: 3px; background: var(--base); border: 1px solid var(--border); }
+.line { font-family: "Special Elite", "Courier New", monospace; font-size: 15px; line-height: 1.3; }
+.mark { font: 600 10px/1 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-inline-end: 8px; }
+.toni { color: var(--toni); } .boss { color: var(--boss); } .daughter { color: var(--daughter); }
+.fairy { color: var(--fairy); } .narrator { color: var(--narrator); }
+.e1 { color: var(--ember-1); } .e2 { color: var(--ember-2); } .c1 { color: var(--cold-1); } .c2 { color: var(--cold-2); }
+.g1 { color: var(--gold-1); } .g2 { color: var(--gold-2); }
+</style>
+
+<main>
+  <h1>Speaker Colors Against Each Mood</h1>
+  <p>Each box shows one mood's two accents as chips, then all five speakers in the same box. Compare each speaker line with the chips above it.</p>
+  <div class="grid">
+    <section class="strip">
+      <h2>Ember</h2>
+      <div class="chips"><span class="chip e1">Primary</span><span class="chip e2">Secondary</span></div>
+      <div class="line"><span class="mark">Toni</span><span class="toni">Go home.</span></div>
+      <div class="line"><span class="mark">Boss</span><span class="boss">Take the Hammer back.</span></div>
+      <div class="line"><span class="mark">Daughter</span><span class="daughter">Can I get a ride?</span></div>
+      <div class="line"><span class="mark">Fairy</span><span class="fairy">Greetings, child.</span></div>
+      <div class="line"><span class="mark">Narrator</span><span class="narrator">You cannot die inside the Barrier.</span></div>
+    </section>
+    <section class="strip">
+      <h2>Cold Twilight</h2>
+      <div class="chips"><span class="chip c1">Primary</span><span class="chip c2">Secondary</span></div>
+      <div class="line"><span class="mark">Toni</span><span class="toni">Go home.</span></div>
+      <div class="line"><span class="mark">Boss</span><span class="boss">Take the Hammer back.</span></div>
+      <div class="line"><span class="mark">Daughter</span><span class="daughter">Can I get a ride?</span></div>
+      <div class="line"><span class="mark">Fairy</span><span class="fairy">Greetings, child.</span></div>
+      <div class="line"><span class="mark">Narrator</span><span class="narrator">You cannot die inside the Barrier.</span></div>
+    </section>
+    <section class="strip">
+      <h2>Gold</h2>
+      <div class="chips"><span class="chip g1">Primary</span><span class="chip g2">Secondary</span></div>
+      <div class="line"><span class="mark">Toni</span><span class="toni">Go home.</span></div>
+      <div class="line"><span class="mark">Boss</span><span class="boss">Take the Hammer back.</span></div>
+      <div class="line"><span class="mark">Daughter</span><span class="daughter">Can I get a ride?</span></div>
+      <div class="line"><span class="mark">Fairy</span><span class="fairy">Greetings, child.</span></div>
+      <div class="line"><span class="mark">Narrator</span><span class="narrator">You cannot die inside the Barrier.</span></div>
+    </section>
+  </div>
+</main>

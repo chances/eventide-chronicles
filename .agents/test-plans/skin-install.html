@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skin Install</title>
+    <link rel="stylesheet" href="../testing/test-plan.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to test cases</a>
+    <header class="page-header">
+      <p class="eyebrow">Test Plan</p>
+      <h1>Skin Install</h1>
+      <p class="intro">
+        Play the game and check that each installed outfit shows on the player
+        character. Every case tells you what to run, what to do in the game,
+        and what you should see.
+      </p>
+    </header>
+    <section id="test-progress" class="test-progress" aria-labelledby="completion-heading">
+      <h2 id="completion-heading" class="visually-hidden">Test Plan Completion</h2>
+      <p class="progress-row">
+        <span id="completion-count" class="progress-count">0 of 5</span>
+        <progress id="completion-progress" aria-labelledby="completion-heading" max="5" value="0">0 of 5</progress>
+        <span class="progress-spacer" aria-hidden="true"></span>
+        <span id="completion-outcomes" class="completion-outcomes">
+          <span id="passed-pill" class="metric-pill metric-pill--passed" role="img" title="0 passed" aria-label="0 test cases have passed">
+            <span id="passed-count">0</span>
+            <span class="visually-hidden">passed</span>
+          </span>
+          <span id="failed-pill" class="metric-pill metric-pill--failed" role="img" title="0 failed" aria-label="0 test cases have failed">
+            <span id="failed-count">0</span>
+            <span class="visually-hidden">failed</span>
+          </span>
+        </span>
+      </p>
+      <p id="completion-summary" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">0 of 5 cases recorded.</p>
+      <p id="storage-status" class="storage-status" role="status" aria-live="polite" hidden></p>
+    </section>
+
+    <nav class="toc" aria-label="Test cases">
+      <h2>Test Cases</h2>
+      <ol>
+        <li><a href="#case-1">Striped Utility at New Game</a></li>
+        <li><a href="#case-2">Striped Utility After a Skin Thread Re-dress</a></li>
+        <li><a href="#case-3">Striped Utility at the Other Skin Locations</a></li>
+        <li><a href="#case-4">Scarred Leather Build</a></li>
+        <li><a href="#case-5">Stock Skin Build</a></li>
+      </ol>
+    </nav>
+
+    <main id="main">
+
+      <section class="test-case" id="case-1">
+        <div class="test-case-title">
+          <h2>Striped Utility at New Game</h2>
+          <fieldset class="result-controls">
+            <legend class="visually-hidden">Result for Striped Utility at New Game</legend>
+            <label><input type="radio" name="case-1" value="not-run" checked>Not Run</label>
+            <label><input type="radio" name="case-1" value="passed">Passed</label>
+            <label><input type="radio" name="case-1" value="failed">Failed</label>
+          </fieldset>
+        </div>
+
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li><label><input type="checkbox"> Close the game. Run <code>deno task install:skins --from dist/builds/striped_utility</code>.</label></li>
+            <li><label><input type="checkbox"> Run <code>deno task run</code> and begin a new game.</label></li>
+            <li><label><input type="checkbox"> When the fade-in ends, look at the player character, and turn the camera to see the jacket and the trousers.</label></li>
+          </ol>
+        </details>
+
+        <fieldset class="expected">
+          <legend>Expected Result</legend>
+          <p>
+            The player wears the gold-striped jacket and the olive trousers
+            with knee pads of the striped utility outfit. The model is not white, not
+            untextured, and not the stock pink top. The game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section class="test-case" id="case-2">
+        <div class="test-case-title">
+          <h2>Striped Utility After a Skin Thread Re-dress</h2>
+          <fieldset class="result-controls">
+            <legend class="visually-hidden">Result for Striped Utility After a Skin Thread Re-dress</legend>
+            <label><input type="radio" name="case-2" value="not-run" checked>Not Run</label>
+            <label><input type="radio" name="case-2" value="passed">Passed</label>
+            <label><input type="radio" name="case-2" value="failed">Failed</label>
+          </fieldset>
+        </div>
+
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li><label><input type="checkbox"> Continue from the previous case in the same game session.</label></li>
+            <li><label><input type="checkbox"> Go to the first <code>Skin</code> location, at <code>-108.3, -974.4, 9.4</code>, and stay within 5 units.</label></li>
+            <li><label><input type="checkbox"> Watch the screen fade out and fade in, then look at the player character again.</label></li>
+          </ol>
+        </details>
+
+        <fieldset class="expected">
+          <legend>Expected Result</legend>
+          <p>
+            The player still wears the striped utility outfit after the fade. The stock pink top
+            does not come back, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section class="test-case" id="case-3">
+        <div class="test-case-title">
+          <h2>Striped Utility at the Other Skin Locations</h2>
+          <fieldset class="result-controls">
+            <legend class="visually-hidden">Result for Striped Utility at the Other Skin Locations</legend>
+            <label><input type="radio" name="case-3" value="not-run" checked>Not Run</label>
+            <label><input type="radio" name="case-3" value="passed">Passed</label>
+            <label><input type="radio" name="case-3" value="failed">Failed</label>
+          </fieldset>
+        </div>
+
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li><label><input type="checkbox"> Continue from the previous case in the same game session.</label></li>
+            <li><label><input type="checkbox"> Go to each of these places in turn, and stay within 5 units for the fade: <code>508.9, 506.8, 10.3</code>, <code>-822.6, 1149.8, 12.4</code>, <code>398.8, -469.7, 10.7</code>, <code>-872.2, -683.4, 11.2</code>, and <code>-885.5, -471.0, 13.1</code>.</label></li>
+            <li><label><input type="checkbox"> After each fade, look at the player character.</label></li>
+          </ol>
+        </details>
+
+        <fieldset class="expected">
+          <legend>Expected Result</legend>
+          <p>
+            The player wears the striped utility outfit after every fade. Note any place where
+            the stock look comes back or the game crashes.
+          </p>
+        </fieldset>
+      </section>
+
+      <section class="test-case" id="case-4">
+        <div class="test-case-title">
+          <h2>Scarred Leather Build</h2>
+          <fieldset class="result-controls">
+            <legend class="visually-hidden">Result for Scarred Leather Build</legend>
+            <label><input type="radio" name="case-4" value="not-run" checked>Not Run</label>
+            <label><input type="radio" name="case-4" value="passed">Passed</label>
+            <label><input type="radio" name="case-4" value="failed">Failed</label>
+          </fieldset>
+        </div>
+
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li><label><input type="checkbox"> Close the game. Run <code>deno task install:skins --from dist/builds/scarred_leather</code>.</label></li>
+            <li><label><input type="checkbox"> Run <code>deno task run</code> and begin a new game.</label></li>
+            <li><label><input type="checkbox"> Look at the player character, and turn the camera to see the jacket and the trousers.</label></li>
+          </ol>
+        </details>
+
+        <fieldset class="expected">
+          <legend>Expected Result</legend>
+          <p>
+            The player wears the orange scarred leather jacket and the ripped
+            black trousers of the scarred leather outfit. The striped utility outfit
+            is gone, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+
+      <section class="test-case" id="case-5">
+        <div class="test-case-title">
+          <h2>Stock Skin Build</h2>
+          <fieldset class="result-controls">
+            <legend class="visually-hidden">Result for Stock Skin Build</legend>
+            <label><input type="radio" name="case-5" value="not-run" checked>Not Run</label>
+            <label><input type="radio" name="case-5" value="passed">Passed</label>
+            <label><input type="radio" name="case-5" value="failed">Failed</label>
+          </fieldset>
+        </div>
+
+        <details class="test-case-details" open>
+          <summary>Steps</summary>
+          <ol class="steps">
+            <li><label><input type="checkbox"> Close the game. Run <code>deno task install:skins --from dist/builds/stock</code>.</label></li>
+            <li><label><input type="checkbox"> Run <code>deno task run</code> and begin a new game.</label></li>
+            <li><label><input type="checkbox"> Look at the player character, and turn the camera to see the jacket and the trousers.</label></li>
+          </ol>
+        </details>
+
+        <fieldset class="expected">
+          <legend>Expected Result</legend>
+          <p>
+            The player wears the stock look, a pink top with black leather.
+            No outfit shows, and the game does not crash.
+          </p>
+        </fieldset>
+      </section>
+    </main>
+
+    <footer>
+      <p>Close the game before each install. Each case names the build folder it installs from. The temporary two-star wanted level in <code>MAIN</code> is still present, so the police chase the player from the start.</p>
+      <p>The outfits come from <code>skins/All Skins.jpg</code>. The striped utility outfit is gold stripes with olive trousers and knee pads. The scarred leather outfit is orange scarred leather with ripped black trousers. The stock look is a pink top with black leather.</p>
+      <p>For each case, capture one screenshot of the player character and note whether the texture was the outfit, stock, white, or missing. If the game crashes, keep the full exception report and the last lines of <code>scrlog.log</code> in the game folder.</p>
+      <p>
+        Test plan for the <a href="../skills/skinning-characters/SKILL.md">skinning-characters</a>
+        skill and <a href="../../scripts/install-skins.ts">install-skins.ts</a>.
+      </p>
+    </footer>
+
+    <script src="../testing/confetti.js"></script>
+    <script src="../testing/test-plan.js"></script>
+  </body>
+</html>

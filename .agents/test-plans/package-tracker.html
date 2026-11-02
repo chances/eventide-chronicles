@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Package Tracker</title>
+  <link rel="stylesheet" href="../testing/test-plan.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to test cases</a>
+
+  <header class="page-header">
+    <p class="eyebrow">Test Plan</p>
+    <h1>Package Tracker</h1>
+    <p class="intro">Check the radar package tracker in the game after a build. Each case checks one step of the tracker.</p>
+  </header>
+
+  <section id="test-progress" class="test-progress" aria-labelledby="completion-heading">
+    <h2 id="completion-heading" class="visually-hidden">Test Plan Completion</h2>
+    <p class="progress-row">
+      <span id="completion-count" class="progress-count">0 of 8</span>
+      <progress id="completion-progress" aria-labelledby="completion-heading" max="8" value="0">0 of 8</progress>
+      <span class="progress-spacer" aria-hidden="true"></span>
+      <span id="completion-outcomes" class="completion-outcomes">
+        <span id="passed-pill" class="metric-pill metric-pill--passed" role="img" title="0 passed" aria-label="0 test cases have passed">
+          <span id="passed-count">0</span>
+          <span class="visually-hidden">passed</span>
+        </span>
+        <span id="failed-pill" class="metric-pill metric-pill--failed" role="img" title="0 failed" aria-label="0 test cases have failed">
+          <span id="failed-count">0</span>
+          <span class="visually-hidden">failed</span>
+        </span>
+      </span>
+    </p>
+    <p id="completion-summary" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">0 of 8 cases recorded.</p>
+    <p id="storage-status" class="storage-status" role="status" aria-live="polite" hidden></p>
+  </section>
+
+  <div class="note">
+    <h3>How the Tracker Works</h3>
+    <ul>
+      <li><code>MAIN</code> starts the <code>PackageToggle</code> thread. The tracker itself starts off.</li>
+      <li><kbd>P</kbd> turns it on and starts the <code>PACKAGE</code> thread. <kbd>O</kbd> turns it off and ends that thread.</li>
+      <li>A red blip marks the current package. Coming within 3.5 units moves it to the next location.</li>
+      <li><kbd>O</kbd> then <kbd>P</kbd> starts again at the first location.</li>
+      <li>After a death or bust, both threads wait and resume instead of running into <code>Get_Package_Coords</code>.</li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="Test cases">
+    <h2>Test Cases</h2>
+    <ol>
+      <li><a href="#case-1">Turn On the Tracker</a></li>
+      <li><a href="#case-2">Drive Into the Blip</a></li>
+      <li><a href="#case-3">Turn Off the Tracker</a></li>
+      <li><a href="#case-4">Turn On the Tracker Again</a></li>
+      <li><a href="#case-5">Get Busted With the Tracker On</a></li>
+      <li><a href="#case-6">Die With the Tracker On</a></li>
+      <li><a href="#case-7">Collect the First Package</a></li>
+      <li><a href="#case-8">Collect a Second Package After a Death</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section class="test-case" id="case-1">
+      <div class="test-case-title">
+        <h2>Turn On the Tracker</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn On the Tracker</legend>
+          <label><input type="radio" name="case-1" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-1" value="passed">Passed</label>
+          <label><input type="radio" name="case-1" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> Close the game. In the project folder, run <code>deno task install</code> and wait for it to finish.</label></li>
+          <li><label><input type="checkbox"> In the project folder, run <code>deno task run</code> to start the game, then choose New Game.</label></li>
+          <li><label><input type="checkbox"> Let the opening tutorial end. The temporary two-star wanted level makes the cops chase you from the start.</label></li>
+          <li><label><input type="checkbox"> Press P.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help text PACKON shows, and a red blip appears at -995.3, 185.0.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-2">
+      <div class="test-case-title">
+        <h2>Drive Into the Blip</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Drive Into the Blip</legend>
+          <label><input type="radio" name="case-2" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-2" value="passed">Passed</label>
+          <label><input type="radio" name="case-2" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, drive into the red blip.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The blip moves to the next location, 132.1, -1099.1.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-3">
+      <div class="test-case-title">
+        <h2>Turn Off the Tracker</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn Off the Tracker</legend>
+          <label><input type="radio" name="case-3" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-3" value="passed">Passed</label>
+          <label><input type="radio" name="case-3" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, press O.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help text PACKOFF shows, and the blip disappears.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-4">
+      <div class="test-case-title">
+        <h2>Turn On the Tracker Again</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Turn On the Tracker Again</legend>
+          <label><input type="radio" name="case-4" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-4" value="passed">Passed</label>
+          <label><input type="radio" name="case-4" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, press P again.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The blip returns at the first location.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-5">
+      <div class="test-case-title">
+        <h2>Get Busted With the Tracker On</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Get Busted With the Tracker On</legend>
+          <label><input type="radio" name="case-5" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-5" value="passed">Passed</label>
+          <label><input type="radio" name="case-5" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, get busted with the tracker on.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The player respawns at the police station without a crash. Watch whether the blip remains.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-6">
+      <div class="test-case-title">
+        <h2>Die With the Tracker On</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Die With the Tracker On</legend>
+          <label><input type="radio" name="case-6" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-6" value="passed">Passed</label>
+          <label><input type="radio" name="case-6" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, die with the tracker on.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The player respawns at the hospital without a crash. Watch whether the blip remains.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-7">
+      <div class="test-case-title">
+        <h2>Collect the First Package</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Collect the First Package</legend>
+          <label><input type="radio" name="case-7" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-7" value="passed">Passed</label>
+          <label><input type="radio" name="case-7" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> In the same game session, collect the first package.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>Help texts PACKHL1, PACKHL2, and PACKHLP show in order.</p>
+      </fieldset>
+    </section>
+
+    <section class="test-case" id="case-8">
+      <div class="test-case-title">
+        <h2>Collect a Second Package After a Death</h2>
+        <fieldset class="result-controls">
+          <legend class="visually-hidden">Result for Collect a Second Package After a Death</legend>
+          <label><input type="radio" name="case-8" value="not-run" checked>Not Run</label>
+          <label><input type="radio" name="case-8" value="passed">Passed</label>
+          <label><input type="radio" name="case-8" value="failed">Failed</label>
+        </fieldset>
+      </div>
+
+      <details class="test-case-details" open>
+        <summary>Steps</summary>
+        <ol class="steps">
+          <li><label><input type="checkbox"> Die, and let the player respawn.</label></li>
+          <li><label><input type="checkbox"> Collect a second package.</label></li>
+        </ol>
+      </details>
+
+      <fieldset class="expected">
+        <legend>Expected Result</legend>
+        <p>The tutorial help texts do not show again.</p>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer>
+    <p>Install with the game closed before the first case. Later cases continue in the same game session.</p>
+    <p>Not covered: the reward pickups at 10, 20, 45, 60, and 80 packages. Reaching them takes too long for a quick test.</p>
+  </footer>
+
+  <script src="../testing/confetti.js"></script>
+  <script src="../testing/test-plan.js"></script>
+</body>
+</html>

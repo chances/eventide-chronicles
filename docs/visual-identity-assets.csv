@@ -1,0 +1,11 @@
+priority,asset,surface,status,notes
+1,Protagonist skin,World,Open,Mercedes skin replaces the current IGMERC dress. Mesh remodel is a later task in TODO.md.
+2,Font textures,In-game,Open,Special Elite and Inter Black baked into fonts.txd.
+2,Mission title cards,In-game,Open,Engine handles the fade and pop.
+2,Loading screens,In-game,Open,One painted image per mood.
+2,Blocked-area props,World,Open,Gates and police lines and collapsed bridges and fog and unnatural variants.
+3,Key art,Release,Open,Empty street in fog first.
+3,Title mark,Release,Open,Waits for the mineral (L008).
+3,Signs and billboards,World,Open,Unstable text at the Unstable and Broken stages.
+3,Vehicle liveries,World,Open,
+3,Timecyc data file,World,Open,One grade per mood.

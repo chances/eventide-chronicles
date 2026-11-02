@@ -1,0 +1,25 @@
+:Swim
+script_name 'Swim'
+
+:Swim_10
+while Player.IsPlaying($PLAYER1)
+    wait 0
+    if
+        $BarrierWater == 1
+    then
+        Text.ClearThisPrint('TPORT2')
+    end
+
+    if
+        Char.IsInWater($scplayer)
+    then
+        Text.PrintHelp('SWIM')
+        $BarrierWater = 0
+        wait 3000
+        break
+    end
+end
+
+:Swim_20
+terminate_this_script
+

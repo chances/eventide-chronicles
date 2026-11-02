@@ -1,0 +1,151 @@
+:Sphere
+script_name 'Sphere'
+
+:Sphere_10
+wait 0
+if
+    $SphereCreated == 0
+then
+    if or
+        Player.LocateAnyMeans3D($PLAYER1, -37.0038, -940.981, 10.459, 40.0, 40.0, 15.0, False)
+        Player.LocateAnyMeans3D($PLAYER1, 46.0097, -936.7421, 24.573, 40.0, 40.0, 15.0, False)
+        Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 17.7805, 40.0, 40.0, 15.0, False)
+        Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 31.3094, 40.0, 40.0, 15.0, False)
+    then
+        $CarparkSphere = Sphere.Create(-37.0038, -940.981, 10.459, 3.0)
+        $CarparkRoofSphere = Sphere.Create(46.0097, -936.7421, 24.573, 3.0)
+        $CarparkSphere2 = Sphere.Create(154.5795, -1168.3979, 17.7805, 3.0)
+        $CarparkRoofSphere2 = Sphere.Create(154.5795, -1168.3979, 31.3094, 3.0)
+        $SphereCreated = 1
+        goto @Sphere_20
+    else
+        goto @Sphere_30
+    end
+else
+    goto @Sphere_30
+end
+
+:Sphere_20
+wait 0
+if and
+    not Player.LocateAnyMeans3D($PLAYER1, -37.0038, -940.981, 10.459, 40.0, 40.0, 15.0, False)
+    not Player.LocateAnyMeans3D($PLAYER1, 46.0097, -936.7421, 24.573, 40.0, 40.0, 15.0, False)
+    not Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 17.7805, 40.0, 40.0, 15.0, False)
+    not Player.LocateAnyMeans3D($PLAYER1, 154.5795, -1168.3979, 31.3094, 40.0, 40.0, 15.0, False)
+then
+    Sphere.Remove($CarparkSphere)
+    Sphere.Remove($CarparkSphere2)
+    Sphere.Remove($CarparkRoofSphere)
+    Sphere.Remove($CarparkRoofSphere2)
+    $SphereCreated = 0
+    goto @Sphere_30
+else
+    goto @Sphere_20
+end
+
+:Sphere_30
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 531.8765, -118.7697, 13.337, 40.0, 40.0, 15.0, False)
+then
+    $GodsBathSphere = Sphere.Create(531.8765, -118.7697, 13.337, 2.0)
+    $SphereCreated = 1
+    goto @Sphere_40
+else
+    goto @Sphere_50
+end
+
+:Sphere_40
+wait 0
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 531.8765, -118.7697, 13.337, 40.0, 40.0, 15.0, False)
+then
+    Sphere.Remove($GodsBathSphere)
+    $SphereCreated = 0
+    goto @Sphere_50
+else
+    goto @Sphere_40
+end
+
+:Sphere_50
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 481.4, -1727.124, 8.24, 60.0, 60.0, 15.0, False)
+then
+    $LighthausSphere = Sphere.Create(481.4, -1727.124, 8.24, 3.0)
+    $SphereCreated = 1
+    goto @Sphere_60
+else
+    goto @Sphere_70
+end
+
+:Sphere_60
+wait 0
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 481.4, -1727.124, 8.24, 60.0, 60.0, 15.0, False)
+then
+    Sphere.Remove($LighthausSphere)
+    $SphereCreated = 0
+    goto @Sphere_70
+else
+    goto @Sphere_60
+end
+
+:Sphere_70
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 397.6397, 1333.585, 25.9982, 40.0, 40.0, 15.0, False)
+then
+    $VicePointSphere = Sphere.Create(397.6397, 1333.585, 25.9982, 3.0)
+    $SphereCreated = 1
+    goto @Sphere_80
+else
+    goto @Sphere_90
+end
+
+:Sphere_80
+wait 0
+if
+    not Player.LocateAnyMeans3D($PLAYER1, 397.6397, 1333.585, 25.9982, 40.0, 40.0, 15.0, False)
+then
+    Sphere.Remove($VicePointSphere)
+    $SphereCreated = 0
+    goto @Sphere_90
+else
+    goto @Sphere_80
+end
+
+:Sphere_90
+wait 0
+if or
+    Player.LocateAnyMeans3D($PLAYER1, 475.9131, 30.3055, 12.0714, 50.0, 50.0, 15.0, False)
+    Player.LocateAnyMeans3D($PLAYER1, 451.3415, 30.3045, 34.8712, 50.0, 50.0, 15.0, False)
+then
+    $RooftopSphere = Sphere.Create(475.9131, 30.3055, 12.0714, 3.0)
+    $RooftopSphere2 = Sphere.Create(451.3415, 30.3045, 34.8712, 3.0)
+    $SphereCreated = 1
+    goto @Sphere_100
+else
+    goto @Sphere_666
+end
+
+:Sphere_100
+wait 0
+if and
+    not Player.LocateAnyMeans3D($PLAYER1, 475.9131, 30.3055, 12.0714, 50.0, 50.0, 15.0, False)
+    not Player.LocateAnyMeans3D($PLAYER1, 451.3415, 30.3045, 34.8712, 50.0, 50.0, 15.0, False)
+then
+    Sphere.Remove($RooftopSphere)
+    Sphere.Remove($RooftopSphere2)
+    $SphereCreated = 0
+    goto @Sphere_666
+else
+    goto @Sphere_100
+end
+
+:Sphere_666
+$SphereCreated = 0
+goto @Sphere_10
+
+// Game Scripts
+

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "mission": {
+    "header": [
+      "Teach the player how to pick-up things, drive, and dump cars in the ocean"
+    ],
+    "includes": [],
+    "start": "INTRO",
+    "onFail": "LOSE",
+    "fail": [
+      {
+        "test": "Player.HasBeenArrested($player)"
+      }
+    ],
+    "states": {
+      "INTRO": {
+        "kind": "tutorial",
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintString(\"Mission started.\", 3000)"
+              ]
+            ],
+            "wait": 1000
+          }
+        ],
+        "next": "WIN"
+      },
+      "WIN": {
+        "kind": "ending",
+        "fail": false,
+        "finish": true
+      },
+      "LOSE": {
+        "kind": "ending",
+        "fail": false,
+        "beats": [
+          {
+            "do": [
+              [
+                "Text.PrintBig('M_FAIL', 3500, TextStyle.Middle)"
+              ]
+            ],
+            "wait": 3000
+          }
+        ],
+        "next": "INTRO"
+      }
+    }
+  },
+  "layout": {
+    "INTRO": {
+      "x": 0,
+      "y": 0
+    },
+    "WIN": {
+      "x": 0,
+      "y": 96
+    },
+    "LOSE": {
+      "x": 208,
+      "y": 0
+    }
+  }
+}

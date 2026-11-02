@@ -1,0 +1,9 @@
+id,status,hazard,location,evidence
+H1,🧪 Patched; test with mission 8,"Fairy sets $ONMISSION = 1 but has no gosub wrapper, so a death mid-mission reads past the stack. Endgame never sets it, so the check skips it.","main.txt 10552 (:Fairy), 10435 (:Endgame)",reVC Script5.cpp DoDeatharrestCheck
+H2,✅ Closed (not a defect),"INIT_DeadBust runs only during the tutorial. Later deaths use the normal respawn.",main.txt 7625 (:INIT_DeadBust),scrlog.log; reVC Script.cpp
+H3,✅ Done,"set_deatharrest_state 0 sat in MAIN, which is not a mission script, so it had no effect. The line is removed.",main.txt 338 to 341 (:MAIN),GTAMods wiki 0111; user test: death and bust still work
+H4,✅ Done,"MAIN terminates itself, so its dead and bust loops rarely ran, and a failed while test fell into :Star. :MAIN_DeadBust now waits and returns to :MAIN_Start.","main.txt 1024 to 1041 (:MAIN_Start, :MAIN_DeadBust)",Read of main.txt; user test: death and bust still work
+H5,🔴 Open (prototype),"Hell is an empty stub with no terminate, and @Heaven has no label. Missions 9 and 10 are prototypes.","main.txt 10630 (:Hell), 20",Read of main.txt
+H6,✅ Done,"PakTog and PACKAGE have no code after their while loops, so a death runs them into Get_Package_Coords, whose return pops an empty stack.","main.txt 2407 (:PackageToggle), 2475 (:PACKAGE), 2584 (:Get_Package_Coords)","scrlog.log: paktog becomes package, wild instruction pointer 205164313; user test: bust and wasted both respawn without a crash"
+H7,🔴 Unresolved,"Jewelry_ResetWait fell into VehHeal when the player started outside the 30 m area.",main.txt 7409 (:Jewelry_ResetWait),Fall-through scan of main.txt; user reports it unresolved after the patch
+H8,🧪 Patched; untested,"INIT set $ONMISSION = 1 and never cleared it, so Star could not start mission 1.",main.txt 8030 to 8047 (:INIT_6000),scrlog.log: Star gate FALSE at the sphere

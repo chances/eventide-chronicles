@@ -1,0 +1,378 @@
+//-------------Mission 3---------------
+
+:Hotel
+Hotel_36()
+if
+    has_deatharrest_been_executed
+then
+    goto @Hotel_27
+else
+    goto @Hotel_2048
+end
+
+:Hotel_27
+Hotel_2048()
+terminate_this_script
+
+:Hotel_36
+script_name 'Hotel'
+$ONMISSION = 1
+$TIMER = 90000
+Stat.RegisterMissionGiven
+Text.ClearPrints
+Blip.Remove($HomeBlip)
+Sphere.Remove($SidewalkSphere)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+$SabreBlip = Blip.AddForCar($Sabre)
+Text.PrintStringNow("Get into your car.", 5000)
+
+:Hotel_90
+while not Player.IsInCar($PLAYER1, $Sabre)
+    wait 0
+    if
+        Player.IsInCar($PLAYER1, $Sabre)
+    then
+        Blip.Remove($SabreBlip)
+        goto @Hotel_674
+    end
+
+    if
+        Car.IsDead($Sabre)
+    then
+        goto @Hotel_1720
+    end
+end
+
+:Hotel_674
+wait 250
+if
+    Player.IsInCar($PLAYER1, $Sabre)
+then
+    Blip.Remove($GOTO_HOTEL_CONTACT_BLIP)
+    Sphere.Remove($SidewalkSphere)
+    wait 500
+    Text.PrintStringNow("Go to the Hardware store.", 5000)
+    $HardwareBlip = Blip.AddSpriteForCoord(-967.443, -692.877, 10.2, 18)
+    $SidewalkSphere = Sphere.Create(-967.3598, -672.5322, 10.9453, 3.0)
+    goto @Hotel_720
+end
+
+:Hotel_720
+wait 1000
+if
+    Object.DoesExist($SOUTH_ROADBLOCK)
+then
+    Object.Delete($SOUTH_ROADBLOCK)
+    wait 1000
+    Object.Delete($SOUTH_ROADBLOCK)
+    wait 1000
+    Object.Delete($SOUTH_ROADBLOCK)
+    wait 1000
+    if
+        not Object.DoesExist($SOUTH_ROADBLOCK)
+    then
+        goto @Hotel_721
+    else
+        goto @Hotel_720
+    end
+else
+    goto @Hotel_721
+end
+
+:Hotel_721
+wait 1000
+if
+    not Object.DoesExist($SOUTH_ROADBLOCK)
+then
+    goto @Hotel_722
+else
+    goto @Hotel_720
+end
+
+:Hotel_722
+Path.SwitchPedRoadsOn(-214.6, -948.8, 0.0, -258.7, -920.6, 30.0)
+Path.SwitchRoadsOn(-214.6, -948.8, 0.0, -258.7, -920.6, 30.0)
+play_audio_stream_2channel "Audio/SSA/SBRID_O.mp3", false, 0.3
+Text.PrintHelp('SBRID_O')
+wait 5000
+$Barrier1 = 1
+
+:Hotel_723
+wait 500
+Streaming.RequestModel(#HAMMER)
+Streaming.RequestModel(#BRASSKNUCKLE)
+Streaming.RequestModel(#CHNSAW)
+Streaming.RequestModel(#CLEAVER)
+wait 3000
+Text.ClearHelp
+
+:Hotel_796
+Streaming.LoadAllModelsNow
+wait 500
+if or
+  not Streaming.HasModelLoaded(#HAMMER)
+  not Streaming.HasModelLoaded(#BRASSKNUCKLE)
+  not Streaming.HasModelLoaded(#CHNSAW)
+  not Streaming.HasModelLoaded(#CLEAVER)
+then
+    goto @Hotel_841
+else
+    goto @Hotel_948
+end
+
+:Hotel_841
+wait 500
+if or
+  Streaming.HasModelLoaded(#HAMMER)
+  Streaming.HasModelLoaded(#BRASSKNUCKLE)
+  Streaming.HasModelLoaded(#CHNSAW)
+  Streaming.HasModelLoaded(#CLEAVER)
+then
+    goto @Hotel_948
+else
+    goto @Hotel_796
+end
+
+:Hotel_948
+wait 0
+if
+  Player.LocateAnyMeans3D($PLAYER1, -967.3598, -672.5322, 10.94, 2.0, 2.0, 1.0, False)
+goto_if_false @Hotel_948
+$TIMER = 15000
+Sphere.Remove($SidewalkSphere)
+Player.SetControl($PLAYER1, False)
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+$HardwareSphere = Sphere.Create(-967.443, -692.877, 10.2, 2.0)
+Camera.SetFixedPosition(-973.33, -675.508, 14.0, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(-967.443, -692.877, 10.2, SwitchType.JumpCut)
+wait 250
+$Hammer = Pickup.Create(#HAMMER, PickupType.OnStreetSlow, -976.374, -698.153, 11.21)
+$Brass = Pickup.Create(#BRASSKNUCKLE, PickupType.OnStreetSlow, -977.374, -692.635, 11.21)
+$Cleaver = Pickup.Create(#CLEAVER, PickupType.OnStreetSlow, -971.266, -697.589, 11.21)
+$Chainsaw = Pickup.Create(#CHNSAW, PickupType.OnStreetSlow, -962.942, -692.642, 11.21)
+wait 500
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Text.PrintStringNow("Walk into the shop, grab a Hammer, and step up to the counter to continue.", 3000)
+wait 2500
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Camera.RestoreJumpcut
+wait 500
+Player.SetControl($PLAYER1, True)
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:Hotel_1361
+while not Pickup.HasBeenCollected($Hammer)
+    wait 0
+    if
+        Pickup.HasBeenCollected($Hammer)
+    then
+        if
+            not $TIMER == 0
+        then
+            Hud.ClearTimer($TIMER)
+            goto @Hotel_1468
+        end
+        if
+            $TIMER == 0
+        then
+            goto @Hotel_2048
+        end
+    end
+end
+
+:Hotel_1450
+Text.PrintHelpString("Hey! You're supposed to pay for that!")
+wait 3000
+Text.PrintHelpString("Didn't your mother teach you that stealing is wrong!?")
+Player.AlterWantedLevel($PLAYER1, 2)
+$AlarmOn = 1
+$Alarm = Sound.AddContinuous(-967.443, -692.877, 10.2, ScriptSound.SoundBankAlarmLoop)
+wait 3000
+Text.PrintHelpString("Shake the cops!")
+
+:Hotel_1457
+wait 0
+if
+    Hud.AreWantedStarsFlashing()
+then
+    $AlarmOn = 0
+    Sound.Remove($Alarm)
+    goto @Hotel_1460
+else
+    goto @Hotel_1457
+end
+
+:Hotel_1460
+Text.PrintHelpString("Get back to the Hardware Store and pay for the Hammer.")
+$TIMER = 60000
+Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+:Hotel_1461
+wait 0
+if
+    $TIMER == 0
+then
+    if
+        Player.LocateAnyMeans3D($PLAYER1, -967.443, -692.877, 10.2, 3.0, 3.0, 3.0, False)
+    then
+        Hud.ClearTimer($TIMER)
+        goto @Hotel_1468
+    else
+        goto @Hotel_2048
+    end
+else
+    goto @Hotel_1461
+end
+
+:Hotel_1468
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, -967.443, -692.877, 10.2, 3.0, 3.0, 3.0, False)
+then
+    Player.SetControl($PLAYER1, False)
+    Player.AddScore($PLAYER1, -100)
+    Text.PrintBigString("Tool purchased! $100", 3000, TextStyle.BlueMiddleSmaller)
+    Sound.AddOneOffSound(0.0, 0.0, 0.0, ScriptSound.SoundPartMissionComplete)
+    Text.PrintHelpString("Come back any time you need the right tool for the wrong job.")
+    wait 3000
+    Player.SetControl($PLAYER1, True)
+    $TIMER = 10000
+    Blip.Remove($HardwareBlip)
+    $SabreBlip = Blip.AddForCar($Sabre)
+    Blip.ChangeColor($SabreBlip, BlipColor.Green)
+    Text.PrintStringNow("Get back in your car.", 3000)
+    wait 0
+    Blip.AddShortRangeSpriteForCoord(-967.443, -692.877, 10.2, 18, $HardwareBlip)
+    Hud.DisplayTimer($TIMER, TimerDirection.Down)
+    goto @Hotel_1513
+else
+    goto @Hotel_1468
+end
+
+:Hotel_1513
+while not Player.IsInCar($PLAYER1, $Sabre)
+wait 0
+    if
+        $TIMER == 5000
+    then
+        Text.PrintString("Get in your car, dammit!", 5000)
+    end
+
+    if
+        $TIMER == 0
+    then
+        goto @Hotel_2048
+    end
+
+    if
+        Player.IsInCar($PLAYER1, $Sabre)
+    then
+        Hud.ClearTimer($TIMER)
+        Blip.Remove($SabreBlip)
+        break
+    end
+
+    if
+        Car.IsDead($Sabre)
+    then
+        goto @Hotel_1720
+    end
+end
+
+:Hotel_1718
+Text.PrintString("Go home.", 3000)
+$HomeBlip = Blip.AddForCoord(-522.345, -348.141, 10.62)
+$SidewalkSphere = Sphere.Create(-522.345, -348.141, 10.62, 3.0)
+Text.PrintHelpString("The Western Starfish Island gate is now open.")
+Object.Delete($STAR_GATE_1)
+Path.SwitchPedRoadsOn(-787.8, -519.4, 10.0, -657.5, -475.2, 20.0)
+Path.SwitchRoadsOn(-787.8, -519.4, 10.0, -657.5, -475.2, 20.0)
+
+:Hotel_1719
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, -522.345, -348.141, 10.62, 2.0, 2.0, 1.0, False)
+then
+    Blip.Remove($HomeBlip)
+    Sphere.Remove($SidewalkSphere)
+    Player.SetControl($PLAYER1, False)
+    Camera.DoFade(2000, Fade.Out)
+    wait 2000
+    Camera.SetFixedPosition(-111.568, -1616.073, 12.73, 0.0, 0.0, 0.0)
+    Camera.PointAtPoint(-101.31, -1600.662, 10.392, SwitchType.JumpCut)
+    wait 500
+    Camera.DoFade(1500, Fade.In)
+    wait 1250
+    Text.PrintString("Go to work.", 5000)
+    wait 2000
+    Camera.DoFade(2000, Fade.Out)
+    wait 2000
+    Camera.RestoreJumpcut
+    wait 500
+    Camera.DoFade(2000, Fade.In)
+    wait 2500
+    Restart.AddHospital(-885.54, -470.9882, 13.1107, 273)
+    Restart.AddPolice(-872.1807, -683.3898, 11.2224, 313.57)
+    Player.SetControl($PLAYER1, True)
+    Stat.PlayerMadeProgress(5)
+    Text.PrintWithNumberBig('MISPASS', 500, 2000, TextStyle.Middle)
+    Player.AddScore($PLAYER1, 500)
+    play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+    Stat.RegisterMissionPassed('BORN')
+    wait 5000
+    $LimeyBlip = Blip.AddSpriteForContactPoint(-103.874, -1604.519, 9.285, RadarSprite.Lawyer)
+    Text.PrintString("Follow the L to find your workplace.", 3000)
+    Car.MarkAsNoLongerNeeded($Sabre)
+    Streaming.MarkModelAsNoLongerNeeded(#SABRE)
+    CarGenerator.Switch($PizzaBike2, 101)
+    CarGenerator.Switch($SabreGen, 101)
+    $Tool_Mission_Passed = 1
+    wait 500
+    $ONMISSION = 0
+    start_new_script @Boss
+    terminate_this_script
+else
+    goto @Hotel_1719
+end
+
+:Hotel_1720
+Text.PrintString("The car is totaled!", 5000)
+goto @Hotel_2048
+
+:Hotel_2048
+Hud.ClearTimer($TIMER)
+Text.PrintBigString("Mission Failed!", 2000, TextStyle.Middle)
+Car.Delete($Sabre)
+Pickup.Remove($Brass)
+Pickup.Remove($Cleaver)
+Pickup.Remove($Chainsaw)
+Pickup.Remove($Hammer)
+Blip.Remove($SabreBlip)
+Blip.Remove($HardwareBlip)
+Blip.Remove($GOTO_HOTEL_CONTACT_BLIP)
+Sphere.Remove($HardwareSphere)
+Sphere.Remove($SidewalkSphere)
+wait 500
+Path.SwitchPedRoadsOff(-214.6, -948.8, 0.0, -258.7, -920.6, 30.0)
+Path.SwitchRoadsOff(-214.6, -948.8, 0.0, -258.7, -920.6, 30.0)
+Path.SwitchRoadsOff(-787.8, -519.4, 10.0, -657.5, -475.2, 20.0)
+Path.SwitchPedRoadsOff(-787.8, -519.4, 10.0, -657.5, -475.2, 20.0)
+$SOUTH_ROADBLOCK = Object.CreateNoOffset(#WSH_ROADBLOCK, -242.671, -935.667, 16.198)
+CarGenerator.Switch($PizzaBike2, 0)
+CarGenerator.Switch($SabreGen, 0)
+$Sabre = Car.Create(#SABRE, -542.10, -307.29, 10.36)
+wait 500
+$HomeBlip = Blip.AddForCoord(-524.0143, -347.3969, 11.1078)
+$SidewalkSphere = Sphere.Create(-522.345, -348.141, 10.62, 3.0)
+wait 500
+$ONMISSION = 0
+terminate_this_script
+return
+

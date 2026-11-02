@@ -1,0 +1,437 @@
+//-------------Mission 1---------------
+
+:Intro
+Intro_36()
+
+:Intro_26
+wait 250
+if
+    has_deatharrest_been_executed
+then
+    Intro_1666()
+else
+    goto @Intro_27
+end
+
+:Intro_27
+wait 250
+if
+    $Intro_Passed == 1
+then
+    terminate_this_script
+else
+    goto @Intro_26
+end
+
+:Intro_36
+script_name 'Intro'
+wait 0
+$ONMISSION = 1
+Stat.RegisterMissionGiven()
+Hud.SwitchWidescreen(True)
+Camera.SetFixedPosition(-532.6, -325.521, 17.56, 0.0, 0.0, 0.0)
+Camera.PointAtPoint(-535.64, -300.451, 12.29, SwitchType.JumpCut)
+Blip.Remove($BeachBlip)
+wait 3000
+Camera.DoFade(1500, Fade.In)
+wait 3000
+Text.Print('LOCATE', 4000, 0)
+wait 4000
+Camera.DoFade(1500, Fade.Out)
+wait 1500
+Text.ClearHelp()
+Hud.SwitchWidescreen(False)
+Player.SetControl($PLAYER1, True)
+Player.SetHeading($PLAYER1, 90)
+Camera.RestoreJumpcut
+Camera.DoFade(1500, Fade.In)
+wait 1500
+
+:Intro_235
+wait 250
+if
+    $PRINT_CAR_HELP == 0
+then
+        Player.SetControl($PLAYER1, True)
+        Text.PrintHelp('HELP21') // Press the ~h~~k~~VEHICLE_ENTER_EXIT~ ~w~button to enter or exit a vehicle.
+        $AdmiralBlip = Blip.AddForCar($Admiral)
+        $PRINT_CAR_HELP = 1
+else
+    goto @Intro_328
+end
+
+:Intro_328
+wait 5000
+if
+    not Player.IsInCar($PLAYER1, $Admiral)
+then
+    if
+        $PRINT_CAR_HELP == 1
+    then
+        wait 0
+        if
+            not Car.IsDead($Admiral)
+        then
+            $AdmiralBlip = Blip.AddForCar($Admiral)
+            Text.PrintHelp('NOWALK')
+            goto @Intro_561
+        else
+            goto @Intro_1450
+        end
+    else
+        goto @Intro_235
+    end
+else
+    goto @Intro_681
+end
+
+:Intro_473
+wait 0
+if
+    not Car.IsInArea2D($Admiral, 350.0, -950.0, 400.0, -850.0, 0)
+then
+    if
+        not Car.IsDead($Admiral)
+    then
+        Blip.Remove($AdmiralBlip)
+        Car.Delete($Admiral)
+        wait 1000
+        $Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
+        goto @Intro_235
+    else
+        goto @Intro_1450
+    end
+else
+    goto @Intro_235
+end
+
+:Intro_561
+wait 5000
+if
+    not Player.IsInCar($PLAYER1, $Admiral)
+then
+    if
+        not Car.IsDead($Admiral)
+    then
+        Text.PrintHelp('CHOICE')
+
+    else
+        goto @Intro_1450
+    end
+else
+    goto @Intro_681
+end
+
+:Intro_681
+Audio.LoadMissionAudio(1, 'CUB4_10')
+
+:Intro_700
+wait 0
+if
+    Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
+then
+    if
+        Player.IsInCar($PLAYER1, $Admiral)
+    then
+        Blip.Remove($AdmiralBlip)
+        Player.AddScore($PLAYER1, 100)
+        Stat.PlayerMadeProgress(1)
+        Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
+        Text.PrintString("RUN!", 3000)
+    else
+        goto @Intro_1130
+    end
+else
+    goto @Intro_681
+end
+
+:Intro_800
+wait 500
+if
+    Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
+then
+    goto @Intro_1130
+else
+    goto @Intro_800
+end
+
+:Intro_1130
+Pickup.Remove($GUN_BEACH1)
+Player.GiveWeapon($PLAYER1, WeaponType.BaseballBat, 1)
+Player.SetCurrentWeapon($PLAYER1, WeaponType.BaseballBat)
+play_audio_stream_2channel "Audio\SSA\WpnPick.mp3" false 0.5
+
+:Intro_1145
+Text.PrintHelp('SPAZ')
+$SpazBlip = Blip.AddForCoord(420.0, -910.0, 11.0712)
+Blip.Remove($BatBlip)
+
+:Intro_1150
+wait 0
+if
+    Pickup.HasBeenCollected($Spaz)
+then
+    play_audio_stream_2channel "Audio\SSA\WpnPick.mp3" false 0.5
+    Blip.Remove($SpazBlip)
+    Text.ClearPrints
+    Stat.PlayerMadeProgress(10)
+    goto @Intro_1369
+else
+    wait 10000
+    if
+        not Pickup.HasBeenCollected($Spaz)
+    then
+        play_audio_stream_2channel "Audio\SSA\usuck.mp3" false 0.5
+        Text.PrintHelp('PROTEC')
+        Pickup.Remove($Spaz)
+        Blip.Remove($SpazBlip)
+        Pickup.Remove($GUN_BEACH1)
+        goto @Intro_1369
+    else
+        goto @Intro_1150
+    end
+end
+
+:Intro_1369
+wait 500
+if
+    Car.IsDead($Admiral)
+then
+    Blip.Remove($AdmiralBlip)
+    Blip.Remove($BatBlip)
+    Blip.Remove($SpazBlip)
+    Pickup.Remove($Spaz)
+    Pickup.Remove($GUN_BEACH1)
+    goto @Intro_1370
+else
+    if
+        not Car.IsDead($Admiral)
+    then
+        Text.Print('FINGERP', 10000, 0)
+        goto @Intro_1370
+    else
+        goto @Intro_1369
+    end
+end
+
+:Intro_1370
+wait 20000
+if
+    not Car.IsDead($Admiral)
+then
+    goto @Intro_1445
+else
+    goto @Intro_1450
+end
+
+:Intro_1445
+play_audio_stream_2channel "Audio\SSA\usuck.mp3" false 0.5
+wait 500
+if
+    not Car.IsDead($Admiral)
+then
+    Text.Print('KILLAD', 5000, 0)
+    wait 5000
+    Text.Print('KILLAD2', 4000, 0)
+    wait 4000
+    if
+        not Car.IsDead($Admiral)
+    then
+        Text.Print('KILLAD3', 4000, 0)
+        wait 4000
+        if
+            not Car.IsDead($Admiral)
+        then
+            Text.Print('KILLAD4', 3000, 0)
+            wait 3000
+            if
+                not Car.IsDead($Admiral)
+            then
+                Text.Print('KILLAD5', 5000, 0)
+                wait 5000
+                if
+                    not Car.IsDead($Admiral)
+                then
+                    Text.Print('KILLAD6', 6000, 0)
+                    wait 6000
+                    goto @Intro_1450
+                else
+                    goto @Intro_1450
+                end
+            else
+                goto @Intro_1450
+            end
+        else
+            goto @Intro_1450
+        end
+    else
+        goto @Intro_1450
+    end
+else
+    goto @Intro_1450
+end
+
+:Intro_1450
+wait 0
+if
+    Car.IsDead($Admiral)
+then
+    Player.SetControl($PLAYER1, False)
+    Hud.ClearTimer($TIMER)
+    Player.AddScore($PLAYER1, 100)
+    Text.PrintWithNumberBig('MISPASS', 100, 2000, TextStyle.Middle)
+    Stat.RegisterMissionPassed('ITBEG')
+    play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+    $Intro_Passed = 1
+    $ONMISSION = 0
+    wait 2000
+    Camera.DoFade(1500, Fade.Out)
+    wait 1500
+    Car.Delete($Admiral)
+    Streaming.MarkModelAsNoLongerNeeded(#ADMIRAL)
+    Blip.Remove($AdmiralBlip)
+    Blip.Remove($BatBlip)
+    Blip.Remove($SpazBlip)
+    Pickup.Remove($Spaz)
+    Pickup.Remove($GUN_BEACH1)
+    wait 500
+    goto @Intro_1455
+else
+    if
+        Car.IsInWater($Admiral)
+    then
+        Player.SetControl($PLAYER1, False)
+        Hud.ClearTimer($TIMER)
+        Player.AddScore($PLAYER1, 100)
+        Text.PrintWithNumberBig('MISPASS', 100, 2000, TextStyle.Middle)
+        Stat.RegisterMissionPassed('ITBEG')
+        play_audio_stream_1channel "Audio/SSA/miscom.wav", false, 0.5
+        $Intro_Passed = 1
+        $ONMISSION = 0
+        wait 2000
+        Camera.DoFade(1500, Fade.Out)
+        wait 1500
+        Car.Delete($Admiral)
+        Streaming.MarkModelAsNoLongerNeeded(#ADMIRAL)
+        Blip.Remove($AdmiralBlip)
+        Blip.Remove($BatBlip)
+        Blip.Remove($SpazBlip)
+        Pickup.Remove($Spaz)
+        Pickup.Remove($GUN_BEACH1)
+        wait 500
+        if
+            not Player.LocateAnyMeans2D($PLAYER1, 444.2858, -878.7967, 364.9276, -894.2362, False)
+        then
+            Player.SetCoordinates($PLAYER1, 400.00, -880.0, 11.52)
+            goto @Intro_1455
+        else
+            goto @Intro_1455
+        end
+    else
+        goto @Intro_1460
+    end
+end
+
+:INTRO_1455
+Camera.DoFade(1500, Fade.In)
+wait 1500
+Player.SetControl($PLAYER1, True)
+Blip.AddForCoord(243.0885, -1277.1832, 10.9015, $OceanViewBlip)
+Sphere.Create(242.988, -1277.2454, 10.9015, 3.0, $SidewalkSphere)
+Text.PrintHelp('HOTEL')
+start_new_script @Police
+terminate_this_script
+
+:Intro_1460
+wait 5000
+if
+    not Car.IsDead($Admiral)
+then
+    $TIMER = 60000
+    Text.Print('AD_DEAD', 5000, 0)
+    Hud.DisplayTimer($TIMER, TimerDirection.Down)
+    goto @Intro_1461
+else
+    goto @Intro_1450
+end
+
+:Intro_1461
+wait 250
+if
+    Car.IsDead($Admiral)
+then
+    goto @Intro_1450
+else
+    if
+        $TIMER == 0
+    then
+        goto @Intro_1666
+    else
+        goto @Intro_1461
+    end
+end
+
+:Intro_1665
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+$PRINT_CAR_HELP = 0
+Hud.ClearTimer($TIMER)
+wait 500
+Sphere.Remove($SidewalkSphere)
+Camera.SetFadingColor(0, 0, 0)
+Blip.Remove($AdmiralBlip)
+Blip.Remove($BatBlip)
+Blip.Remove($SpazBlip)
+wait 500
+$AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
+Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
+wait 500
+Car.Delete($Admiral)
+wait 500
+$Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
+$SidewalkSphere  = Sphere.Create(395.0, -906.2, 12.0, 2.0)
+terminate_this_script
+return
+
+:Intro_1666
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+$PRINT_CAR_HELP = 0
+Hud.ClearTimer($TIMER)
+wait 500
+Sphere.Remove($SidewalkSphere)
+Camera.SetFadingColor(0, 0, 0)
+Car.Delete($Admiral)
+Blip.Remove($AdmiralBlip)
+Blip.Remove($BatBlip)
+Blip.Remove($SpazBlip)
+wait 500
+$AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
+Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
+$Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
+$SidewalkSphere  = Sphere.Create(395.0, -906.2, 12.0, 2.0)
+Pickup.Remove($GUN_BEACH1)
+$GUN_BEACH1 = Pickup.Create(#BAT, PickupType.OnStreet, 410.0, -860.0, 11.0712)
+terminate_this_script
+return
+
+:Intro_1667
+Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)
+$ONMISSION = 0
+$PRINT_CAR_HELP = 0
+Sphere.Remove($SidewalkSphere)
+Camera.SetFadingColor(0, 0, 0)
+Blip.Remove($AdmiralBlip)
+Blip.Remove($AdmiralBlip)
+Blip.Remove($BatBlip)
+Blip.Remove($SpazBlip)
+Car.Delete($Admiral)
+wait 500
+$AdmiralBlip = Blip.AddForCoord(395.0, -906.2, 12.0)
+Blip.ChangeColor($AdmiralBlip, BlipColor.LightBlue)
+$SidewalkSphere  = Sphere.Create(395.0, -906.2, 12.0, 2.0)
+$Admiral = Car.Create(#ADMIRAL, 395.0, -880.2, 12.0)
+Hud.ClearTimer($TIMER)
+terminate_this_script
+return
+

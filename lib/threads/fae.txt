@@ -1,0 +1,66 @@
+:Fae
+script_name 'Fae'
+
+:Fae_666
+wait 0
+if
+    $Fairy_Mission_Started == 1
+then
+    terminate_this_script
+else
+    goto @Fae_801
+end
+
+:Fae_801
+while not Player.LocateAnyMeans3D($PLAYER1, 602.3546, -1700.3068, 6.2431, 5.0, 5.0, 5.0, False)
+    wait 0
+    if and
+        Player.LocateAnyMeans3D($PLAYER1, 602.3546, -1700.3068, 6.2431, 5.0, 5.0, 5.0, False)
+        Player.IsInModel($PLAYER1, #SPEEDER)
+    then
+        if
+            $SpeederDelivered == 0
+        then
+            Text.PrintHelp('SPEED')
+            wait 5000
+            goto @Fae_1000
+        end
+        if
+            $Tool_Mission_Passed == 0
+        then
+            Text.PrintHelpString("Come back once you have completed ~g~Born of Dirt.")
+            wait 5000
+            goto @Fae_1000
+        else
+            goto @Fae_911
+        end
+    end
+end
+
+:Fae_911
+wait 0
+if and
+  Player.CanStartMission($PLAYER1)
+  $ONMISSION == 0
+  Player.IsInModel($PLAYER1, #SPEEDER)
+  Player.LocateAnyMeans3D($PLAYER1, 602.3546, -1700.3068, 6.2431, 5.0, 5.0, 5.0, True)
+  $SpeederDelivered == 1
+  $Tool_Mission_Passed == 1
+then
+    Player.SetControl($PLAYER1, False)
+    Text.PrintBigString("Three Days Later...", 6000, TextStyle.BottomRight)
+    Camera.DoFade(1500, Fade.Out)
+    wait 3000
+    Clock.SetTimeOfDay(0, 0)
+    Player.WarpFromCarToCoord($PLAYER1, -371.9346, -1739.0928, 11.6376)
+    Player.SetHeading($PLAYER1, 159.50)
+    Mission.LoadAndLaunchInternal(8)
+    $Fairy_Mission_Started = 1
+    terminate_this_script
+end
+
+:Fae_1000
+goto @Fae_666
+
+// Interiors
+

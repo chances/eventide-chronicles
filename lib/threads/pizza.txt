@@ -1,0 +1,23 @@
+:Pizza
+script_name 'Pizza'
+
+:Pizza_10
+wait 0
+if
+    Player.LocateAnyMeans3D($PLAYER1, 425.1686, 81.5493, 12.063, 15.0, 15.0, 15.0, False)
+then
+    Player.GetHeading($PLAYER1, $ANY_HEADING)
+    wait 0
+    if and
+        $ANY_HEADING >= 0.0
+        $ANY_HEADING <= 90.0
+    then
+        Text.PrintHelp('PIZZA')
+        terminate_this_script
+    else
+        goto @Pizza_10
+    end
+else
+    goto @Pizza_10
+end
+

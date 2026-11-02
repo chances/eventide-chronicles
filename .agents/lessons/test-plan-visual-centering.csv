@@ -1,0 +1,7 @@
+id,pattern,symptom,check,fix
+P1,One-axis check,"The user reports a digit off while the checked axis reads near zero","Report both the horizontal and vertical offsets","Measure both axes before any claim"
+P2,Box math as proof,"Box centers match within 0.01px but the digit still looks off","Compute the ink centroid from a 1x screenshot crop","Trim the text box to the cap height; nudge by the ink offset"
+P3,Guessed nudge,"A shift of 0 reads left and 1px reads right","List every value the user rejected","Set the next value inside the bracket (0.5px)"
+P4,Padding hack for vertical centering,"Digit sits low or high after asymmetric block padding","Compare the line box to the cap height","Use text-box trim with an @supports fallback"
+P5,Fractional pill size,"A 24.3px by 28px oval with a fractional edge","Read the pill rect to three decimals","Use equal rem sizes and border-radius 999px"
+P6,Lookup not applied,"The user repeats that they asked for perception research","Check the earlier requests in the thread","Apply the findings to the measurement, not to the reply"

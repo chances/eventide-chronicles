@@ -1,0 +1,84 @@
+:Mystery
+script_name 'Mystery'
+
+:Mystery_10
+wait 250
+if
+  Player.IsPlaying($PLAYER1)
+goto_if_false @Mystery_553
+if
+  Player.LocateAnyMeans3D($PLAYER1, 397.6397, 1333.585, 25.9982, 3.0, 3.0, 3.0, False)
+goto_if_false @Mystery_584
+if
+  $ONMISSION == 0
+goto_if_false @Mystery_584
+if
+  $Limey_Passed == 1
+goto_if_false @Mystery_584
+goto @Mystery_20
+
+:Mystery_20
+$ONMISSION = 1
+Blip.Remove($MallBlip)
+Sphere.Remove($VicePointSphere)
+start_new_script @Mall
+wait 500
+$VicePointSphere = Sphere.Create(385.3559, 1210.9154, 19.4749, 2.0)
+goto @Mystery_161
+
+:Mystery_161
+wait 250
+if
+  Player.LocateAnyMeans3D($PLAYER1, 385.3559, 1210.9154, 19.4749, 3.0, 3.0, 3.0, False)
+goto_if_false @Mystery_161
+Sphere.Remove($VicePointSphere)
+Player.SetControl($PLAYER1, False)
+wait 500
+Camera.DoFade(250, Fade.Out)
+wait 250
+Char.Undress($scplayer, 'PLAYER2')
+wait 250
+Char.Dress($scplayer)
+Camera.PointAtChar($PLAYER1, CameraMode.FollowPed, SwitchType.JumpCut)
+Char.SetCurrentWeapon($scplayer, WeaponType.Unarmed)
+Camera.DoFade(500, Fade.In)
+wait 500
+Char.SetUsePednodeSeek($scplayer, True)
+Char.SetObjGotoCoordOnFoot($scplayer, 475.4362, 1011.9843)
+goto @Mystery_327
+
+:Mystery_327
+wait 250
+if
+  Char.LocateAnyMeans2D($scplayer, 475.4362, 1011.9843, 1.0, 1.0, False)
+goto_if_false @Mystery_327
+Camera.PointAtPlayer($PLAYER1, CameraMode.ArrestCamOne, SwitchType.JumpCut)
+Camera.DoFade(500, Fade.In)
+wait 500
+Char.Undress($scplayer, 'PLAYER')
+wait 250
+Streaming.LoadAllModelsNow
+wait 250
+Char.Dress($scplayer)
+Text.Print('DEJAVU', 3000, 0)
+wait 3000
+Text.Print('LSTMYS', 3000, 0)
+wait 3000
+Text.Print('HOWODD', 3000, 0)
+wait 3000
+$ONMISSION = 0
+Camera.RestoreJumpcut
+Player.SetControl($PLAYER1, True)
+terminate_this_script
+
+:Mystery_553
+wait 250
+if
+  not Player.IsPlaying($PLAYER1)
+goto_if_false @Mystery_10
+start_new_script @Mystery
+terminate_this_script
+
+:Mystery_584
+goto @Mystery_10
+

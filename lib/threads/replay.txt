@@ -1,0 +1,29 @@
+:Replay
+script_name 'Replay'
+
+:Replay_10
+wait 0
+if or
+    Pad.IsKeyPressed(KeyCode.F2)
+    Pad.IsKeyPressed(KeyCode.F3)
+then
+    Player.ExplodeHead($PLAYER1)
+else
+    if or
+        not Pad.IsKeyPressed(KeyCode.F2)
+        not Pad.IsKeyPressed(KeyCode.F3)
+    then
+        goto @Replay_20
+    else
+        goto @Replay_30
+    end
+end
+
+:Replay_20
+wait 500
+goto @Replay_10
+
+:Replay_30
+wait 0
+goto @Replay_10
+
