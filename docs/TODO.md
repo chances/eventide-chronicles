@@ -42,6 +42,14 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - Is the player wanted when she arrives?
 - Is the player in a car when she arrives?
 
+### Model Citizens Get Stitches
+
+- Toni's internal monolouge on the way to Starfish Island:
+
+    > Fucking hell, this golf cart is slow...
+    >
+    > Why the fuck can't I take a cab?!
+
 ## 🔫 Weapons
 
 **Open.** Replace the baseball bat with an axe.
