@@ -15,7 +15,7 @@
 - `$MissionLocked == false` is the only unlocked state. `$MissionLocked == true` is locked. Boolean values are written with the `true` and `false` keywords, never `0` and `1`.
 - `$ONMISSION` is removed everywhere. `declare_mission_flag $MissionLocked` replaces `declare_mission_flag $ONMISSION` at `main.txt:57`. This is pre-alpha refactoring, not deprecation, so no alias remains. `$MissionLock` and `$MissionTimer` (alloc 8905/8906) are removed.
 - No `wait` may occur between testing `$MissionLocked` and setting it to `true`.
-- Conditions follow Sanny Builder syntax: `if and` or `if or` is the header, each condition sits on its own line with no `and` keyword between them, a statement holds at most 8, and every condition runs (no short-circuit), so a check that is unsafe when an earlier one fails goes in an outer `if`. `while true` is a valid infinite loop, left with `Break` or `terminate_this_script` (https://docs.sannybuilder.com/language/control-flow/conditions.md and `loops.md`).
+- Conditions follow Sanny Builder syntax: `if and` or `if or` is the header, each condition sits on its own line; a statement holds at most 8, and every condition runs (no short-circuit), so a check that is unsafe when an earlier one fails goes in an outer `if`. `while true` is a valid infinite loop, left with `break` or `terminate_this_script` (https://docs.sannybuilder.com/language/control-flow/conditions.md and `loops.md`).
 - Mutual exclusion properties, each with a test: safety (at most one holder at any time), deadlock freedom (every path from acquire reaches release), and release only after cleanup. Starvation freedom is not required because triggers poll.
 - Release does not check ownership; any holder may clear the lock.
 - Every mission body keeps its existing first-line gosub wrapper and death/arrest check. Endgame gets one in Task 6; Fairy is deferred to `docs/TODO.md`.
@@ -239,6 +239,7 @@ terminate_this_script
 - [ ] Every changed loop yields, every changed thread terminates, and every `return` remains reachable through a gosub.
 - [ ] No `goto` remains in a rewritten trigger or exit path, and the flow tests pass.
 - [ ] The lock model's invariants hold (checked with the tool Task 2 settled).
+- [ ] `AGENTS.md` matches the result: the `$ONMISSION` and death-and-bust bullets in Script Architecture.
 - [ ] The implementation stops after the diff and verification; the user alone commits.
 
 ## Out Of Scope
@@ -246,9 +247,5 @@ terminate_this_script
 - Locking the `Cell`, `Pier`, and `Mall` scenes. They are renamed only. `Save`, `VPHotel`, and `SaveHot` do lock, in Task 8, so a save never happens while a mission runs.
 - An automatic stale-lock watchdog. Nothing in the repository kills a lock holder.
 - The Fairy mission's death/bust wrapper. Fairy only takes the rename; the wrapper is tracked in `docs/TODO.md`.
-
-## Open Items
-
-None.
 
 Do not run `git add` or `git commit`.
