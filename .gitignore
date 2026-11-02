@@ -1,5 +1,6 @@
-# Environment Variables
+# Environment
 .env
+flags.local.json
 
 # Dependencies
 node_modules/

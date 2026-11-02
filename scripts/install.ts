@@ -6,6 +6,26 @@ if (!vc) {
   Deno.exit(1);
 }
 
+// Feature flags: flags.local.json overrides flags.json
+async function loadFlags() {
+  const defaults = { installFxt: true, installTimecyc: true };
+  try {
+    const text = await Deno.readTextFile(join(Deno.cwd(), "flags.json"));
+    Object.assign(defaults, JSON.parse(text));
+  } catch {
+    // Fallthrough to default
+  }
+  try {
+    const text = await Deno.readTextFile(join(Deno.cwd(), "flags.local.json"));
+    Object.assign(defaults, JSON.parse(text));
+  } catch {
+    // Fallthrough to default
+  }
+  return defaults;
+}
+
+const flags = await loadFlags();
+
 // Debug flags pass through to the build, which writes lib/debug.txt.
 const build = await new Deno.Command("deno", {
   args: ["task", "build", ...Deno.args],
@@ -24,29 +44,37 @@ try {
 }
 console.log(`Installed ${source} to ${destination}`);
 
-const fxtSource = join(Deno.cwd(), "strings.fxt");
-const fxtFolder = join(vc, "CLEO", "CLEO_TEXT");
-const fxtDestination = join(fxtFolder, "strings.fxt");
+if (flags.installFxt) {
+  const fxtSource = join(Deno.cwd(), "strings.fxt");
+  const fxtFolder = join(vc, "CLEO", "CLEO_TEXT");
+  const fxtDestination = join(fxtFolder, "strings.fxt");
 
-// Alternative if CLEO_TEXT does not load: a startup thread calls 0ADF
-// add_dynamic_GXT_entry for each key instead. Parameters are unverified on PC VC.
-await Deno.mkdir(fxtFolder, { recursive: true });
-try {
-  await Deno.copyFile(fxtSource, fxtDestination);
-} catch (error) {
-  console.error(`Failed to install ${fxtSource} to ${fxtDestination}`);
-  throw error;
+  // Alternative if CLEO_TEXT does not load: a startup thread calls 0ADF
+  // add_dynamic_GXT_entry for each key instead. Parameters are unverified on PC VC.
+  await Deno.mkdir(fxtFolder, { recursive: true });
+  try {
+    await Deno.copyFile(fxtSource, fxtDestination);
+  } catch (error) {
+    console.error(`Failed to install ${fxtSource} to ${fxtDestination}`);
+    throw error;
+  }
+  console.log(`Installed ${fxtSource} to ${fxtDestination}`);
+} else {
+  console.log("Skipping FXT install (installFxt disabled)");
 }
-console.log(`Installed ${fxtSource} to ${fxtDestination}`);
 
-// Install modified time cycles
-const timecycSource = join(Deno.cwd(), "data", "timecyc.dat");
-const timecycDestination = join(vc, "data", "timecyc.dat");
+if (flags.installTimecyc) {
+  // Install modified time cycles
+  const timecycSource = join(Deno.cwd(), "data", "timecyc.dat");
+  const timecycDestination = join(vc, "data", "timecyc.dat");
 
-try {
-  await Deno.copyFile(timecycSource, timecycDestination);
-} catch (error) {
-  console.error(`Failed to install ${timecycSource} to ${timecycDestination}`);
-  throw error;
+  try {
+    await Deno.copyFile(timecycSource, timecycDestination);
+  } catch (error) {
+    console.error(`Failed to install ${timecycSource} to ${timecycDestination}`);
+    throw error;
+  }
+  console.log(`Installed ${timecycSource} to ${timecycDestination}`);
+} else {
+  console.log("Skipping timecyc install (installTimecyc disabled)");
 }
-console.log(`Installed ${timecycSource} to ${timecycDestination}`);
