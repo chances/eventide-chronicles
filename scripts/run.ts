@@ -1,12 +1,13 @@
 import { join } from "@std/path";
 
 const vc = Deno.env.get("VC");
-if (!vc) {
-  console.error("Set VC in .env to your Vice City installation directory.");
+const vcExe = Deno.env.get("VC_EXE");
+if (!vc || !vcExe) {
+  console.error("Set VC and VC_EXE in .env to your Vice City installation.");
   Deno.exit(1);
 }
 
-const exe = join(vc, "gta-vc.exe");
+const exe = join(vc, vcExe);
 try {
   await Deno.stat(exe);
 } catch {
@@ -14,19 +15,31 @@ try {
   Deno.exit(1);
 }
 
-// Deno children die with Deno on Windows, so `start` detaches the game.
-// Use %COMSPEC% (always set on Windows) rather than the bare name "cmd",
-// which Deno 2.x fails to resolve when PATH is not inherited.
-const comspec = Deno.env.get("COMSPEC") ?? "C:\\Windows\\System32\\cmd.exe";
-const launcher = new Deno.Command(comspec, {
-  args: ["/c", "start", "", "/D", vc, exe],
+// FIXME: This is totally fucking broken... 😒
+const game = new Deno.Command(exe, {
+  cwd: vc,
   stdin: "null",
   stdout: "null",
-  stderr: "null",
-});
-const { code } = await launcher.spawn().status;
+  stderr: "inherit",
+}).spawn();
+Deno.addSignalListener("SIGINT", killGame);
+
+console.log(`Launched ${vcExe}`);
+const { code } = await game.status;
+Deno.removeSignalListener("SIGINT", killGame);
+
 if (code !== 0) {
-  console.error(`Failed to launch ${exe} (cmd exit code ${code})`);
+  console.error(`${vcExe} exited with code ${code}`);
   Deno.exit(code);
 }
-console.log(`Launched ${exe}`);
+console.log(`Game exited: ${code}`);
+
+/** Try to kill the game. */
+function killGame() {
+  try {
+    game.kill();
+  } catch {
+    // The game already exited.
+  }
+  Deno.exit(130);
+}
