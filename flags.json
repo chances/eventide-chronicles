@@ -1,4 +1,7 @@
 {
+  "debug": {
+    "trace": false
+  },
   "installFxt": true,
   "installTimecyc": true
 }

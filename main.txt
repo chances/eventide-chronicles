@@ -19,9 +19,7 @@ DEFINE MISSION 8 AT @Fairy
 DEFINE MISSION 9 AT @Hell
 DEFINE MISSION 10 AT @Heaven
 
-{$USE CLEO}
-{$USE ini}
-{$USE Audio}
+{$USE CLEO, ini, Audio}
 {$INCLUDE lib/alloc.txt}
 {$INCLUDE lib/debug.txt}
 
@@ -30,17 +28,17 @@ var
     $CarHealth : int
     $PLAYER1: Player
     $scplayer: Char
-    $DebugTraceOn: int
 end
 
 //-------------MAIN---------------
 script_name 'MAIN'
-$DebugTraceOn = DebugTrace
-if
-    $DebugTraceOn == 1
+
+if DebugTrace
 then
     IniFile.WriteString("MAIN start", "trace.ini", "Trace", "last")
+    IniFile.WriteString("No", "trace.ini", "Trace", "isBathThreadRunning")
 end
+
 Camera.DoFade(0, Fade.Out)
 Game.SetMaxWantedLevel(2)
 Clock.SetTimeOfDay(21, 0)
@@ -48,8 +46,7 @@ Streaming.RequestCollision(-535.64, -300.451)
 Streaming.LoadScene(-535.64, -300.451, 12.29)
 $PLAYER1 = Player.Create(0, 405.0, -905.0, 11.0712)
 $scplayer = Player.GetChar($PLAYER1)
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
     IniFile.WriteString("player created", "trace.ini", "Trace", "last")
 end
@@ -58,53 +55,66 @@ Player.AlterWantedLevelNoDrop($PLAYER1, DebugWantedLevel)
 Weather.ForceNow(WeatherType.Foggy)
 wait 0
 declare_mission_flag $ONMISSION
-if
-  not Char.IsDead($scplayer)
-goto_if_false @MAIN_DeadBust
-if
-    $DebugTraceOn == 1
+$ONMISSION = false
+
+// Let's play dress-up!
+if DebugTrace
 then
-    IniFile.WriteString("before undress", "trace.ini", "Trace", "last")
+    IniFile.WriteString("before: dress", "trace.ini", "Trace", "last")
 end
 // FIXME Use `PLAYER`, this is a total-conversion mod! 🙄
 Char.Undress($scplayer, 'IGMERC')
 Streaming.LoadAllModelsNow
 Char.Dress($scplayer)
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
-    IniFile.WriteString("after dress", "trace.ini", "Trace", "last")
+    IniFile.WriteString("after: dress", "trace.ini", "Trace", "last")
 end
-$ONMISSION = 0
+
+// Before Toni goes to heaven or when she gets in trouble...
+// TODO: Extract these to data\geography.json
+Restart.AddHospital(-108.3, -974.4, 9.4, 283.9) // Ocean View Medical Center
+Restart.AddPolice(508.9, 506.8, 10.3, 174.0) // Washington Beach Police Station (?)
+Restart.AddPolice(398.8, -469.7, 10.7, 323.0) // Ocean Beach Police Station (?)
 
 // Initialize the game state
 {$INCLUDE lib/init.txt}
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
-    IniFile.WriteString("init include done", "trace.ini", "Trace", "last")
+    IniFile.WriteString("after: init", "trace.ini", "Trace", "last")
+end
+wait 250
+
+:StartTutorial
+Stat.SetProgressTotal(100)
+$GodsBathhouse = Blip.AddShortRangeSpriteForCoord(531.8765, -118.7697, 13.337, RadarSprite.Stripclub)
+$LighthausBlip = Blip.AddShortRangeSpriteForCoord(481.4, -1727.124, 8.24, RadarSprite.Biker)
+// Make the world eerily empty
+World.SetPedDensityMultiplier(0.5)
+World.SetCarDensityMultiplier(0.0)
+
+// Poseidon's wrath
+if DebugTrace
+    IniFile.WriteString("Launching...", "trace.ini", "Trace", "isBathThreadRunning")
+end
+// Note: `0A92` is only supported in San Andreas (idiots! 🙄😒)
+// See https://github.com/sannybuilder/library/issues/94
+0600: STREAM_CUSTOM_SCRIPT "bath.cs"
+if DebugTrace
+    IniFile.WriteString("Yes", "trace.ini", "Trace", "isBathThreadRunning")
 end
 
-:MAIN_Start
-wait 250
-if
-    Player.IsPlaying($PLAYER1)
-then
-    Streaming.SetAreaVisible(Interior.MainMap)
-    Player.SetControl($PLAYER1, False)
-    Mission.LoadAndLaunchInternal(0)
-    start_new_script @Star
-    start_new_script @Save
-    start_new_script @VPHotel
-    start_new_script @PackageToggle
-    terminate_this_script
-end
+// TODO: Assert `Player.IsPlaying($PLAYER1)`
+Streaming.SetAreaVisible(Interior.MainMap)
+Player.SetControl($PLAYER1, False)
+Mission.LoadAndLaunchInternal(0)
+start_new_script @Star
+start_new_script @Save
+start_new_script @VPHotel
+start_new_script @PackageToggle
+terminate_this_script
 
-:MAIN_DeadBust
-wait 250
-goto @MAIN_Start
-
-// Mission Scripts
+//---------- Mission Triggers ----------
 
 :Star
 script_name 'Star'
@@ -358,17 +368,15 @@ goto @End_10
 :End_95
 terminate_this_script
 
+// Long-running threads of behavior
 {$INCLUDE lib/threads/fae.txt}
-
 {$INCLUDE lib/threads/inside.txt}
-
 {$INCLUDE lib/threads/sphere.txt}
-
-{$INCLUDE lib/threads/bath.txt}
-
 {$INCLUDE lib/threads/barrier.txt}
-
 {$INCLUDE lib/threads/bus.txt}
+{$INCLUDE lib/threads/clothes.txt}
+{$INCLUDE lib/threads/swim.txt}
+{$INCLUDE lib/threads/skin.txt}
 
 :Cell
 script_name 'Cell'
@@ -480,12 +488,6 @@ end
 
 :Cell_1999
 terminate_this_script
-
-{$INCLUDE lib/threads/clothes.txt}
-
-{$INCLUDE lib/threads/swim.txt}
-
-{$INCLUDE lib/threads/skin.txt}
 
 :Mall
 script_name 'Mall'
@@ -690,7 +692,6 @@ end
 
 wait 250
 goto @PakTog_Loop
-
 
 // ============================================================================
 // RADAR GUIDE THREAD (Handles blips and coordinates when active)
@@ -1270,12 +1271,10 @@ then
 end
 return
 
+// Even more long-running threads of behavior ??
 {$INCLUDE lib/threads/help.txt}
-
 {$INCLUDE lib/threads/lazlow.txt}
-
 {$INCLUDE lib/threads/music.txt}
-
 {$INCLUDE lib/threads/mystery.txt}
 
 :Pier
@@ -1346,6 +1345,10 @@ while Player.LocateAnyMeans3D($PLAYER1, -190.4823, -461.0493, 11.2511, 10.0, 10.
             Pad.IsKeyPressed(KeyCode.Tab)
         then
             Text.PrintBig('BUSY', 3000, TextStyle.BlueMiddleSmaller)
+            if DebugTrace
+            then
+                IniFile.WriteString("Player pressed tab", "trace.ini", "Trace", "last")
+            end
         end
     end
 
@@ -1398,10 +1401,9 @@ goto @Pier_10
 :Pier_284
 terminate_this_script
 
+// Even more long-running threads of behavior ??
 {$INCLUDE lib/threads/replay.txt}
-
 {$INCLUDE lib/threads/ringu.txt}
-
 {$INCLUDE lib/threads/rooftop.txt}
 
 :Save
@@ -1467,6 +1469,10 @@ then
         Pickup.HasBeenCollected($StarfishTape)
     then
         Text.PrintHelp('BUSY')
+        if DebugTrace
+        then
+            IniFile.WriteString("Got the starfish save pickup", "trace.ini", "Trace", "last")
+        end
         goto @Save_10
     else
         goto @Save_277
@@ -1490,6 +1496,7 @@ else
     goto @Save_278
 end
 
+// Even more long-running threads of behavior ??
 {$INCLUDE lib/threads/savehot.txt}
 
 :Telport
@@ -1609,10 +1616,9 @@ goto @Tools_10
 $AlarmOn = 0
 goto @Tools_10
 
+// Even more long-running threads of behavior ??
 {$INCLUDE lib/threads/jewelryrobbery.txt}
-
 {$INCLUDE lib/threads/car-health.txt}
-
 {$INCLUDE lib/threads/pizza.txt}
 
 :VPHotel
@@ -1676,8 +1682,7 @@ goto @VPHotel_10
 
 :INIT
 script_name 'INIT'
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
     IniFile.WriteString("INIT start", "trace.ini", "Trace", "last")
 end
@@ -1701,8 +1706,7 @@ end
 $ONMISSION = 0
 
 :INIT_02
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
     IniFile.WriteString("INIT_02 intro narration", "trace.ini", "Trace", "last")
 end
@@ -1955,8 +1959,7 @@ goto_if_false @INIT_27
 goto @INIT_6000
 
 :INIT_1000
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
     IniFile.WriteString("INIT_1000 death path", "trace.ini", "Trace", "last")
 end
@@ -1975,8 +1978,7 @@ wait 500
 return
 
 :INIT_6000
-if
-    $DebugTraceOn == 1
+if DebugTrace
 then
     IniFile.WriteString("INIT_6000 radar tutorial", "trace.ini", "Trace", "last")
 end
@@ -2004,7 +2006,6 @@ $FaeBlip = Blip.AddShortRangeSpriteForContactPoint(602.3546, -1700.3068, 6.2431,
 start_new_script @Pizza
 start_new_script @Bus
 start_new_script @Barrier
-start_new_script @Bath
 start_new_script @Clothes
 start_new_script @Fae
 start_new_script @Help
@@ -2040,6 +2041,7 @@ end
 terminate_this_script
 
 {$INCLUDE missions/intro.txt}
+{$INCLUDE missions/1_star.txt}
 {$INCLUDE missions/cop.txt}
 {$INCLUDE missions/hotel.txt}
 {$INCLUDE missions/work.txt}

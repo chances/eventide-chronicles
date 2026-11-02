@@ -2,6 +2,10 @@
 
 Open decisions and unfinished work that have no other home. Each item states what the scripts do now and what is still undecided.
 
+## 📞 Telephony
+
+- [ ] Starfish Island payphone: `Phone.Grab(306.27, 232.56, $SF_Phone)`
+
 ## 🔫🛒 Shop Robbery Tutorial
 
 **Open.** Decide whether the mod teaches players to rob shops at gunpoint.
@@ -44,7 +48,7 @@ Open decisions and unfinished work that have no other home. Each item states wha
 
 ### Model Citizens Get Stitches
 
-- Toni's internal monolouge on the way to Starfish Island:
+- Toni's internal monologue on the way to Starfish Island:
 
     > Fucking hell, this golf cart is slow...
     >
@@ -101,7 +105,9 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - Threads that mission 0 does not start, such as `Star`, `Police`, `Cell`, and `PACKAGE`, still live in `main.txt`.
 - `DEFINE MISSION 10 AT @Heaven` has no `:Heaven` label, and `goto @Intro_1455` in `Intro` has no `:Intro_1455` label. `main.scm` builds with both.
 
-## 🧵 CLEO Threads
+## 🧵 CLEO
+
+### Threads
 
 **Open.** Port a mission to a CLEO thread only when a feature needs it, such as the hotel cutscene or a radio track. The [VC CLEO 2.2.0 opcode list](https://raw.githubusercontent.com/cleolibrary/III.VC.CLEO/master/source/CLEO_SDK/scm.txt) has `0A92` create_custom_thread and no `0A94` start_custom_mission, so a CLEO mission is a plain thread without the engine's death and bust check. Mission scripts are in `missions/`, and mission 0's threads are in `lib/threads/`.
 
@@ -112,3 +118,9 @@ Open decisions and unfinished work that have no other home. Each item states wha
 - The thread includes `lib/alloc.txt` so each global keeps its offset.
 - `deno task build` compiles only `main.txt`. A CLEO script needs `{$CLEO .cs}` and a copy into the game's `CLEO` folder, added to the existing `deno task install`.
 - Compare `scrlog.log` for a death and a bust case with the `debug-missions` skill before accepting the port.
+
+### Redux, aka Breaking Free of Sanny Builder
+
+The community has built robust, open-source alternatives that allow you to trace, script, and build mods with total control.
+
+- CLEO Redux: The premier choice for modern developers. It completely swaps out legacy SCM script compilation for a modern [JavaScript](https://js.org)/[TypeScript](https://typescriptlang.org) runtime engine. Includes standard JS formatting, zero opcode limitations, and you can trace your logic using standard debugging patterns.

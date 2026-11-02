@@ -16,7 +16,7 @@ script_name 'BossDie'
 Stat.RegisterMissionGiven()
 Game.SetMaxWantedLevel(4)
 $TIMER = 30000
-$ONMISSION = 1
+$ONMISSION = true
 wait 250
 Streaming.RequestModel(#HMOST)
 Streaming.LoadAllModelsNow
@@ -271,4 +271,3 @@ wait 500
 start_new_script @End
 terminate_this_script
 return
-

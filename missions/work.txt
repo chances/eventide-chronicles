@@ -21,7 +21,7 @@ Stat.RegisterMissionGiven()
 Game.SetMaxWantedLevel(3)
 $TIMER = 10000
 $OffWorkBike = 0
-$ONMISSION = 1
+$ONMISSION = true
 wait 250
 Streaming.RequestModel(#CADDY)
 Streaming.RequestModel(#HMOST)
@@ -467,4 +467,3 @@ else
 end
 terminate_this_script
 return
-

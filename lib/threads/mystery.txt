@@ -18,7 +18,7 @@ goto_if_false @Mystery_584
 goto @Mystery_20
 
 :Mystery_20
-$ONMISSION = 1
+$ONMISSION = true
 Blip.Remove($MallBlip)
 Sphere.Remove($VicePointSphere)
 start_new_script @Mall

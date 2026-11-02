@@ -1,41 +1,78 @@
-:Bath
+/// If Toni tries to access the penthouse (she's _never_ allowed in), Poseidon
+/// throws her off the roof and makes it rain (he's a vindictive little bitch).
+///
+/// @remarks
+/// Why does Poseidon even care? Is this his house?
+///
+/// @seealso Matthew 6:12
+
+{$CLEO .cs}
 script_name 'Bathe'
 
-:Bath_20
-wait 250
-if
-  Player.LocateAnyMeans3D($PLAYER1, 531.8765, -118.7697, 13.337, 1.0, 1.0, 1.0, False)
-goto_if_false @Bath_40
-if
-  Player.CanStartMission($PLAYER1)
-goto_if_false @Bath_40
-if
-  $ONMISSION == 0
-goto_if_false @Bath_40
-goto @Bath_30
+int isTresspassing = false
+if DebugTrace
+then
+    IniFile.WriteInt($ONMISSION, "trace.ini", "Trace", "isOnMission")
+    IniFile.WriteInt(isTresspassing, "trace.ini", "Trace", "isTresspassing")
+end
 
-:Bath_30
-$TIMER = 120000
-Sphere.Remove($GodsBathSphere)
-$ONMISSION = 1
-Camera.DoFade(500, Fade.Out)
-wait 500
-Clock.SetTimeOfDay(6, 00)
-Weather.Force(WeatherType.Rainy)
-Player.SetCoordinates($PLAYER1, 650.3204, -300.0909, 42.021)
-Camera.DoFade(500, Fade.In)
-wait 500
-Text.PrintHelpString("It looks like Poseidon isn't too keen on letting you into his family's penthouse.")
-wait 5000
-Text.PrintHelpString("I'd be on the lookout for golf-ball sized hail or a biblical plague soon.")
-wait 5000
-Text.PrintHelpString("Maybe next time, you'll think twice before trespassing, eh?")
-Hud.DisplayTimer($TIMER, TimerDirection.Down)
-wait 120000
-Hud.ClearTimer($TIMER)
-$ONMISSION = 0
-Weather.SetAllowHurricanes(True)
-terminate_this_script
+while true
+    wait 250
 
-:Bath_40
-goto @Bath_20
+    isTresspassing = Player.LocateAnyMeans3D($PLAYER1, 531.8765, -118.7697, 13.337, 1.0, 1.0, 1.0, False)
+    if DebugTrace
+    then
+        IniFile.WriteInt($ONMISSION, "trace.ini", "Trace", "isOnMission")
+        IniFile.WriteInt(isTresspassing, "trace.ini", "Trace", "isTresspassing")
+    end
+
+    // Wait for Toni to tresspass
+    if not
+      isTresspassing
+    then
+      continue
+    end
+
+    // Never throw Toni off the roof when she's on a mission
+    // See https://giphy.com/gifs/paramountplus-star-trek-discovery-s2Fiz8C4BX0DxUlIvC
+    if
+        $ONMISSION == true
+    then
+        continue
+    else
+        // if not
+        //     Player.CanStartMission($PLAYER1)
+        // then
+        //     continue
+        // end
+    end
+
+    // Otherwise, make it rain
+    // QUESTION: Is there contention from any other threads for this global timer?
+    $TIMER = 120000 // Two minutes
+    Sphere.Remove($GodsBathSphere)
+    $ONMISSION = true
+    Camera.DoFade(500, Fade.Out)
+    wait 500
+    Clock.SetTimeOfDay(6, 00)
+    Weather.Force(WeatherType.Rainy)
+    Player.SetCoordinates($PLAYER1, 650.3204, -300.0909, 42.021)
+    Camera.DoFade(500, Fade.In)
+    wait 500
+    Text.PrintHelpString("It looks like Poseidon isn't too keen on letting you into his family's penthouse.")
+    wait 5000
+    Text.PrintHelpString("I'd be on the lookout for golf-ball sized hail or a biblical plague soon.")
+    wait 5000
+    Text.PrintHelpString("Maybe next time, you'll think twice before trespassing, eh?")
+    Hud.DisplayTimer($TIMER, TimerDirection.Down)
+
+    // Bathtime is over
+    // Wait two minutes for Poseidon's anger to subside
+    wait 120000
+    Hud.ClearTimer($TIMER)
+    $ONMISSION = false
+    Weather.SetAllowHurricanes(True)
+    // FIXME: The weather depends on the current _mood_ and _mission progression_
+    Weather.ForceNow(WeatherType.Foggy)
+    terminate_this_script
+end

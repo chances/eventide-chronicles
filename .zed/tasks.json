@@ -18,6 +18,6 @@
     "command": "deno",
     "args": ["task", "run"],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "hide": "on_success",
+    "hide": "never",
   },
 ]

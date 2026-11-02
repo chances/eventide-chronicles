@@ -1,7 +1,7 @@
 //-------------Mission 8---------------
 
 :Fairy
-$ONMISSION = 1
+$ONMISSION = true
 Streaming.RequestModel(#WFYBE)
 Streaming.RequestModel(#WFYLG)
 Streaming.RequestModel(#WFYSH)
@@ -90,4 +90,3 @@ Streaming.MarkModelAsNoLongerNeeded(#WFYLG)
 Streaming.MarkModelAsNoLongerNeeded(#WFYSH)
 Player.SetControl($PLAYER1, True)
 terminate_this_script
-

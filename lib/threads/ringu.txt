@@ -40,7 +40,7 @@ else
 end
 
 :ringu_124
-$ONMISSION = 1
+$ONMISSION = true
 Blip.Remove($LighthausBlip)
 Player.SetControl($PLAYER1, False)
 Camera.DoFade(1500, Fade.Out)
@@ -87,6 +87,10 @@ if and
     Player.LocateAnyMeans3D($PLAYER1, 481.9583, -1726.5262, 8.6784, 3.0, 3.0, 1.0, False)
 then
     Text.PrintBig('BUSY', 3000, TextStyle.BlueMiddleSmaller)
+    if DebugTrace
+    then
+        IniFile.WriteString("Player visited Ringu", "trace.ini", "Trace", "last")
+    end
     wait 3000
     goto @ringu_40
 else

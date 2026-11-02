@@ -17,7 +17,7 @@ terminate_this_script
 
 :Cop_20
 script_name 'Cop'
-$ONMISSION = 1
+$ONMISSION = true
 $TIMER = 60000
 Stat.RegisterMissionGiven()
 
@@ -593,4 +593,3 @@ $ONMISSION = 0
 start_new_script @HOT
 terminate_this_script
 return
-

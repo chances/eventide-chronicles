@@ -16,7 +16,7 @@ terminate_this_script
 
 :Hotel_36
 script_name 'Hotel'
-$ONMISSION = 1
+$ONMISSION = true
 $TIMER = 90000
 Stat.RegisterMissionGiven
 Text.ClearPrints
@@ -375,4 +375,3 @@ wait 500
 $ONMISSION = 0
 terminate_this_script
 return
-

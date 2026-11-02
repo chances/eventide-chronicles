@@ -14,7 +14,7 @@ terminate_this_script
 :Cart_36
 script_name 'Cart'
 $TIMER = 10000
-$ONMISSION = 1
+$ONMISSION = true
 Stat.RegisterMissionGiven()
 wait 500
 Streaming.RequestModel(#CADDY)
@@ -179,4 +179,3 @@ end
 $ONMISSION = 0
 terminate_this_script
 return
-

@@ -1,30 +1,16 @@
 import { join } from "@std/path";
+import loadFlags from "./flags.ts";
+
+const flags = await loadFlags();
+const cwd = Deno.cwd();
+const dist = join(cwd, "dist");
+const cleoScripts = join(dist, "CLEO");
 
 const vc = Deno.env.get("VC");
 if (!vc) {
   console.error("Set VC in .env to your Vice City installation directory.");
   Deno.exit(1);
 }
-
-// Feature flags: flags.local.json overrides flags.json
-async function loadFlags() {
-  const defaults = { installFxt: true, installTimecyc: true };
-  try {
-    const text = await Deno.readTextFile(join(Deno.cwd(), "flags.json"));
-    Object.assign(defaults, JSON.parse(text));
-  } catch {
-    // Fallthrough to default
-  }
-  try {
-    const text = await Deno.readTextFile(join(Deno.cwd(), "flags.local.json"));
-    Object.assign(defaults, JSON.parse(text));
-  } catch {
-    // Fallthrough to default
-  }
-  return defaults;
-}
-
-const flags = await loadFlags();
 
 // Debug flags pass through to the build, which writes lib/debug.txt.
 const build = await new Deno.Command("deno", {
@@ -33,16 +19,9 @@ const build = await new Deno.Command("deno", {
 }).output();
 if (!build.success) Deno.exit(1);
 
-const source = join(Deno.cwd(), "main.scm");
-const destination = join(vc, "data", "main.scm");
-
-try {
-  await Deno.copyFile(source, destination);
-} catch (error) {
-  console.error(`Failed to install ${source} to ${destination}`);
-  throw error;
-}
-console.log(`Installed ${source} to ${destination}`);
+// FIXME: This is repetitive magic-string bullshit; make `dist` installation auto-magical
+await installFile(join(dist, "data", "main.scm"), join(vc, "data", "main.scm"));
+await installFile(join(cleoScripts, "bath.cs"), join(vc, "CLEO", "bath.cs"));
 
 if (flags.installFxt) {
   const fxtSource = join(Deno.cwd(), "strings.fxt");
@@ -77,4 +56,14 @@ if (flags.installTimecyc) {
   console.log(`Installed ${timecycSource} to ${timecycDestination}`);
 } else {
   console.log("Skipping timecyc install (installTimecyc disabled)");
+}
+
+async function installFile(source: string, dest: string) {
+  try {
+    await Deno.copyFile(source, dest);
+  } catch (error) {
+    console.error(`Failed to install ${source} to ${dest}`);
+    throw error;
+  }
+  console.log(`Installed ${source} to ${dest}`);
 }

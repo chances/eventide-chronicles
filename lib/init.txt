@@ -1,3 +1,119 @@
+// Initial global state
+$Barrier1 = false
+$Barrier2 = false
+$BUS_CREATED = false
+$CasualOn = false
+$SuitOn = false
+$AdmiralDelivered = false
+$AmbulanceDelivered = false
+$AngelDelivered = false
+$BarracksDelivered = false
+$BansheeDelivered = false
+$BensonDelivered = false
+$BFDelivered = false
+$BlistaDelivered = false
+$BobcatDelivered = false
+$BoxvilleDelivered = false
+$BurritoDelivered = false
+$BusDelivered = false
+$CabbieDelivered = false
+$CaddyDelivered = false
+$CheetahDelivered = false
+$CometDelivered = false
+$CoachDelivered = false
+$CubanDelivered = false
+$DinghyDelivered = false
+$EnforcerDelivered = false
+$EsperantoDelivered = false
+$FaggioDelivered = false
+$FiretruckDelivered = false
+$FlatbedDelivered = false
+$FreewayDelivered = false
+$GangBurDelivered = false
+$GlendaleDelivered = false
+$GreenwoodDelivered = false
+$HermesDelivered = false
+$IceDelivered = false
+$IdahoDelivered = false
+$InfernusDelivered = false
+$JetmaxDelivered = false
+$KaufmanDelivered = false
+$LandstalkerDelivered = false
+$LinerunnerDelivered = false
+$LimoDelivered = false
+$MananaDelivered = false
+$MarquisDelivered = false
+$MaverickDelivered = false
+$MesaDelivered = false
+$MoonbeamDelivered = false
+$MuleDelivered = false
+$OceanicDelivered = false
+$PackerDelivered = false
+$PCJDelivered = false
+$PheonixDelivered = false
+$PizzaBikeDelivered = false
+$PoliceCarDelivered = false
+$PonyDelivered = false
+$PredatorDelivered = false
+$RancherDelivered = false
+$RioDelivered = false
+$ReeferDelivered = false
+$ReginaDelivered = false
+$RumpoDelivered = false
+$SabreDelivered = false
+$SabreTurDelivered = false
+$SanchezDelivered = false
+$SandkingDelivered = false
+$SpandexDelivered = false
+$SeaSparrowDelivered = false
+$SecuricarDelivered = false
+$SentinelDelivered = false
+$SentinelXSDelivered = false
+$SpeederDelivered = false
+$SqualoDelivered = false
+$SparrowDelivered = false
+$StallionDelivered = false
+$StingerDelivered = false
+$TaxiDelivered = false
+$TrashmasterDelivered = false
+$TropicDelivered = false
+$ViceCheetahDelivered = false
+$VCNMavDelivered = false
+$VirgoDelivered = false
+$VoodooDelivered = false
+$WaltonDelivered = false
+$YankeeDelivered = false
+$ZebraDelivered = false
+$BeachJettyPickedUp = false
+$BarrierHelpDone = false
+$Barrier1Done = false
+$Barrier2Done = false
+$BarrierWater = true
+$BikeHelpDone = false
+$BustedHelpDone = false
+$MarinaHelpDone = false
+$PhoneHelpDone = false
+$WastedHelpDone = false
+$HelpDone = false
+$SphereCreated = false
+$WANTED_HELP_PLAYED = false
+$Boss_Killed = false
+$Endgame = false
+$Intro_Passed = false
+$HomeSafe = false
+$Tool_Mission_Passed = false
+$LazlowHelpDone = false
+$LighthouseDone = false
+$LighthausTutorial = false
+$Limey_Passed = false
+$FirstPackageTold = false
+$OffWorkBike = false
+$PackHunt = false
+$PRINT_CAR_HELP = false
+$PsychoDead = false
+
+// 🏡 Property Pickup Coordinates
+// TODO: Extract these to data\geography.json
 $LNKVBUYX = 304.5
 $LNKVBUYY = 376.3
 $LNKVBUYZ = 12.7
@@ -16,9 +132,32 @@ $VCPTBUYZ = 17.6
 $SKUMBUYX = -560.1
 $SKUMBUYY = 703.6
 $SKUMBUYZ = 20.5
-Restart.AddHospital(-108.3, -974.4, 9.4, 283.9)
-Restart.AddPolice(508.9, 506.8, 10.3, 174.0)
-Restart.AddPolice(398.8, -469.7, 10.7, 323.0)
+
+// 🚁 Helicopter Coordinates
+// TODO: Extract these to data\geography.json
+$HELI1X = -569.1451
+$HELI1Y = 851.0923
+$HELI1Z = 22.8402
+$HELI2X = 28.4463
+$HELI2Y = -1311.7614
+$HELI2Z = 16.4712
+$HELI3X = 375.845
+$HELI3Y = 332.9194
+$HELI3Z = 11.5155
+$HELI4X = -886.5938
+$HELI4Y = 236.5693
+$HELI4Z = 13.9773
+
+// Toni's safehouse (Not so "safe" tho, is it? 😏)
+// TODO: Extract these to data\geography.json
+$COL_GarageX = -543.985
+$COL_GarageY = -307.76
+$COL_GarageZ = 10.62
+$SafehouseX = -526.692
+$SafehouseY = -300.928
+$SafehouseZ = 10.62
+
+// Setup inital roadblocks
 $PORN_ROADBLOCK = Object.CreateNoOffset(#NT_ROADBLOCKCI, -97.3, 1061.8, 11.6)
 Object.DontRemove($PORN_ROADBLOCK)
 $GOLF_ROADBLOCK = Object.CreateNoOffset(#NT_ROADBLOCKGF, -81.46, 81.358, 21.04)
@@ -34,6 +173,8 @@ $MansionDoor = Object.CreateNoOffset(#MANSION_NEW_DOORS, -391.19, -575.906, 24.0
 Object.DontRemove($MansionDoor)
 $MansionDoor2 = Object.CreateNoOffset(#MAN_DOORCLOSED, -378.542, -554.006, 20.067)
 Object.DontRemove($MansionDoor2)
+
+// Setup free cars 🤑
 $GEN_CAR163 = CarGenerator.Create(-401.2715, -534.6655, 11.7534, 149.2032, #ADMIRAL, 8, 8, False, 50, 0, 0, 10000)
 CarGenerator.Switch($GEN_CAR163, 101)
 $GEN_CAR162 = CarGenerator.Create(-870.4673, -717.2427, 10.1069, 94.1213, #VICECHEE, -1, -1, False, 0, 0, 0, 10000)
@@ -70,134 +211,8 @@ $GEN_CAR125 = CarGenerator.Create(-1131.4, 1236.6, 8.4, 241.0, #BLOODRB, -1, -1,
 CarGenerator.Switch($GEN_CAR125, 0)
 $GEN_CAR126 = CarGenerator.Create(-1115.4, 1265.1, 8.4, 238.0, #BLOODRA, -1, -1, True, 0, 0, 0, 10000)
 CarGenerator.Switch($GEN_CAR126, 0)
-World.SetPedDensityMultiplier(0.5)
-World.SetCarDensityMultiplier(0.0)
-$Barrier1 = 0
-$Barrier2 = 0
-$BUS_CREATED = 0
-$CasualOn = 0
-$SuitOn = 0
-$AdmiralDelivered = 0
-$AmbulanceDelivered = 0
-$AngelDelivered = 0
-$BarracksDelivered = 0
-$BansheeDelivered = 0
-$BensonDelivered = 0
-$BFDelivered = 0
-$BlistaDelivered = 0
-$BobcatDelivered = 0
-$BoxvilleDelivered = 0
-$BurritoDelivered = 0
-$BusDelivered = 0
-$CabbieDelivered = 0
-$CaddyDelivered = 0
-$CheetahDelivered = 0
-$CometDelivered = 0
-$CoachDelivered = 0
-$CubanDelivered = 0
-$DinghyDelivered = 0
-$EnforcerDelivered = 0
-$EsperantoDelivered = 0
-$FaggioDelivered = 0
-$FiretruckDelivered = 0
-$FlatbedDelivered = 0
-$FreewayDelivered = 0
-$GangBurDelivered = 0
-$GlendaleDelivered = 0
-$GreenwoodDelivered = 0
-$HermesDelivered = 0
-$IceDelivered = 0
-$IdahoDelivered = 0
-$InfernusDelivered = 0
-$JetmaxDelivered = 0
-$KaufmanDelivered = 0
-$LandstalkerDelivered = 0
-$LinerunnerDelivered = 0
-$LimoDelivered = 0
-$MananaDelivered = 0
-$MarquisDelivered = 0
-$MaverickDelivered = 0
-$MesaDelivered = 0
-$MoonbeamDelivered = 0
-$MuleDelivered = 0
-$OceanicDelivered = 0
-$PackerDelivered = 0
-$PCJDelivered = 0
-$PheonixDelivered = 0
-$PizzaBikeDelivered = 0
-$PoliceCarDelivered = 0
-$PonyDelivered = 0
-$PredatorDelivered = 0
-$RancherDelivered = 0
-$RioDelivered = 0
-$ReeferDelivered = 0
-$ReginaDelivered = 0
-$RumpoDelivered = 0
-$SabreDelivered = 0
-$SabreTurDelivered = 0
-$SanchezDelivered = 0
-$SandkingDelivered = 0
-$SpandexDelivered = 0
-$SeaSparrowDelivered = 0
-$SecuricarDelivered = 0
-$SentinelDelivered = 0
-$SentinelXSDelivered = 0
-$SpeederDelivered = 0
-$SqualoDelivered = 0
-$SparrowDelivered = 0
-$StallionDelivered = 0
-$StingerDelivered = 0
-$TaxiDelivered = 0
-$TrashmasterDelivered = 0
-$TropicDelivered = 0
-$ViceCheetahDelivered = 0
-$VCNMavDelivered = 0
-$VirgoDelivered = 0
-$VoodooDelivered = 0
-$WaltonDelivered = 0
-$YankeeDelivered = 0
-$ZebraDelivered = 0
-$BeachJettyPickedUp = 0
-$BarrierHelpDone = 0
-$Barrier1Done = 0
-$Barrier2Done = 0
-$BarrierWater = 1
-$BikeHelpDone = 0
-$BustedHelpDone = 0
-$MarinaHelpDone = 0
-$PhoneHelpDone = 0
-$WastedHelpDone = 0
-$HelpDone = 0
-$SphereCreated = 0
-$WANTED_HELP_PLAYED = 0
-$Boss_Killed = 0
-$Endgame = 0
-$Intro_Passed = 0
-$HomeSafe = 0
-$Tool_Mission_Passed = 0
-$LazlowHelpDone = 0
-$LighthouseDone = 0
-$LighthausTutorial = 0
-$Limey_Passed = 0
-$FirstPackageTold = 0
-$OffWorkBike = 0
-$PackHunt = 0
-$PRINT_CAR_HELP = 0
-$PsychoDead = 0
-$HELI1X = -569.1451
-$HELI1Y = 851.0923
-$HELI1Z = 22.8402
-$HELI2X = 28.4463
-$HELI2Y = -1311.7614
-$HELI2Z = 16.4712
-$HELI3X = 375.845
-$HELI3Y = 332.9194
-$HELI3Z = 11.5155
-$HELI4X = -886.5938
-$HELI4Y = 236.5693
-$HELI4Z = 13.9773
-Streaming.RequestModel(#AMBULAN)
-Streaming.LoadAllModelsNow
+
+// 🚁 Free helicopters
 $HELI1_CARGEN = CarGenerator.Create($HELI1X, $HELI1Y, $HELI1Z, 88.2256, #SPARROW, -1, -1, False, 0, 0, 0, 10000)
 CarGenerator.Switch($HELI1_CARGEN, 101)
 $HELI2_CARGEN = CarGenerator.Create($HELI2X, $HELI2Y, $HELI2Z, 0.0, #SPARROW, -1, -1, False, 0, 0, 0, 10000)
@@ -206,6 +221,7 @@ $HELI3_CARGEN = CarGenerator.Create($HELI3X, $HELI3Y, $HELI3Z, 0.0, #SPARROW, -1
 CarGenerator.Switch($HELI3_CARGEN, 101)
 $HELI4_CARGEN = CarGenerator.Create($HELI4X, $HELI4Y, $HELI4Z, 180.0, #SPARROW, -1, -1, False, 0, 0, 0, 10000)
 CarGenerator.Switch($HELI4_CARGEN, 0)
+
 $GEN_CAR3 = CarGenerator.Create(242.6, -1274.6, 10.0, 165.0, #OCEANIC, 6, 1, False, 0, 0, 0, 10000)
 CarGenerator.Switch($GEN_CAR3, 101)
 $GEN_CAR24 = CarGenerator.Create(490.3794, 529.0992, 11.1097, 270.51, #COMET, 35, 77, False, 10, 25, 0, 10000)
@@ -486,8 +502,12 @@ $BUDDYS_LAMBO = CarGenerator.Create(-363.0, -532.2, 12.0, 0.0, #INFERNUS, 1, 1, 
 CarGenerator.Switch($BUDDYS_LAMBO, 0)
 $POLICE_CHOPPER = CarGenerator.Create(-614.0, 804.0, 30.0, 0.0, #POLMAV, -1, -1, False, 0, 0, 0, 10000)
 CarGenerator.Switch($POLICE_CHOPPER, 101)
-wait 500
-Stat.SetProgressTotal(100)
+
+// Wait for all requested models to load
+Streaming.LoadAllModelsNow()
+wait 0
+
+// Initialize pickups
 $BeachHealth = Pickup.Create(#HEALTH, PickupType.OnStreet, 388.6256, -900.9159, 11.0712)
 $BeachHealth2 = Pickup.Create(#HEALTH, PickupType.OnStreet, -34.099, -958.69, 10.801)
 $BeachHealth3 = Pickup.Create(#HEALTH, PickupType.OnStreet, 19.7148, -1192.531, 20.1816)
@@ -542,6 +562,8 @@ $SuitBlip = Blip.AddShortRangeSpriteForCoord(111.8251, -922.5718, 10.53, RadarSp
 $Jog = Pickup.CreateClothes(325.7121, 203.7972, 11.4034, Clothing.TrackSuitBlack)
 $JogBlip = Blip.AddShortRangeSpriteForCoord(325.7121, 203.7972, 11.4034, RadarSprite.Tshirt)
 $Packages = Game.GetCollectablesCollected()
+
+// Initialize hidden packages
 Game.SetCollectableTotal(84)
 Game.CreateCollectable(-995.3126, 185.0475, 12.434)
 Game.CreateCollectable(132.1319, -1099.0703, 10.4433)
@@ -628,9 +650,7 @@ Game.CreateCollectable(-117.2867, -915.178, 10.4635)
 Game.CreateCollectable(479.0208, 44.6912, 15.9165)
 Game.CreateCollectable(-634.4158, -316.0011, 13.1845)
 
-$GodsBathhouse = Blip.AddShortRangeSpriteForCoord(531.8765, -118.7697, 13.337, RadarSprite.Stripclub)
-$LighthausBlip = Blip.AddShortRangeSpriteForCoord(481.4, -1727.124, 8.24, RadarSprite.Biker)
-
+// Disable AI access to closed bridges and in private areas
 Path.SwitchPedRoadsOff(-670.089, -1450.012, 11.5, -600.57, -1514.4, 11.5)
 Path.SwitchPedRoadsOff(-956.0, -355.0, 5.0, -898.0, -328.0, 25.0)
 Path.SwitchPedRoadsOff(411.0, -600.0, -10.0, 451.0, -553.0, 30.0)
@@ -663,6 +683,7 @@ Path.SwitchPedRoadsOff(-38.0, 84.3, 0.0, -102.3, 95.1, 30.0)
 Path.SwitchPedRoadsOff(-396.4, -583.6, 15.0, -360.5, -555.6, 33.0)
 Path.SwitchPedRoadsOff(468.0, -77.0, 0.0, 490.0, -54.0, 30.0)
 Path.SwitchPedRoadsOff(354.9, -483.1, 21.0, 406.0, -490.0, 0.0)
+// QUESTION: When to prevent AI cars from driving on the golf course, if at all?
 Path.SwitchRoadsOff(-583.92, 1371.84, 8.0, -383.4, 1531.17, 25.0)
 Path.SwitchRoadsOff(86.0, 250.0, 15.0, -100.0, 281.0, 30.0)
 Path.SwitchRoadsOff(411.0, -600.0, -10.0, 451.0, -553.0, 30.0)
@@ -679,6 +700,8 @@ Path.SwitchRoadsOff(-38.0, 84.3, 0.0, -102.3, 95.1, 30.0)
 Path.SwitchRoadsOff(175.0, 236.1, 0.0, 161.0, 242.4, 30.0)
 Path.SwitchRoadsOff(149.8, 231.4, 0.0, 136.0, 235.3, 30.0)
 Path.SwitchRoadsOff(63.4, 188.6, 0.0, 49.4, 189.7, 30.0)
+
+// Initialize gang activity, fuckin' thugs! 😩🤛
 Gang.SetCarModel(GangType.Cuban, #CUBAN)
 Gang.SetCarModel(GangType.Haitian, #VOODOO)
 Gang.SetCarModel(GangType.Street, #GANGBUR)
@@ -691,11 +714,13 @@ Gang.SetWeapons(GangType.Diaz, WeaponType.Pistol, WeaponType.Pistol)
 Gang.SetWeapons(GangType.Security, WeaponType.Pistol, WeaponType.Pistol)
 Gang.SetWeapons(GangType.Biker, WeaponType.Pistol, WeaponType.Unarmed)
 Gang.SetWeapons(GangType.Player, WeaponType.Pistol, WeaponType.Pistol)
+// Make the gangs violent towards NPCs
+// QUESTION: What do these model IDs refer to?
 Game.SetThreatForPedType(PedType.Gang1, 256)
 Game.SetThreatForPedType(PedType.Gang2, 128)
-wait 250
+wait 0
 
-:MAIN_11
+:LoadWorld
 Streaming.RequestModel(#BAT)
 Streaming.RequestModel(#BARREL2)
 Streaming.RequestModel(#BUDDYSHOT)
@@ -719,15 +744,14 @@ Streaming.RequestModel(#UZI)
 Streaming.RequestModel(1258)
 wait 250
 
-:MAIN_12
 Streaming.LoadAllModelsNow
 wait 250
 if
   not Streaming.HasModelLoaded(#BAT)
-goto_if_false @MAIN_13
-goto @MAIN_11
+goto_if_false @SpawnPickups
+goto @LoadWorld
 
-:MAIN_13
+:SpawnPickups
 $LNKVBUY_PICKUP = Pickup.CreateForSaleProperty($LNKVBUYX, $LNKVBUYY, $LNKVBUYZ, 15000, 'LNKV_L') // Press the ~h~~k~~PED_ANSWER_PHONE~ ~w~button to purchase Links View Apartment for $~1~
 $LNKVBUY_BLIP = Blip.AddShortRangeSpriteForCoord($LNKVBUYX, $LNKVBUYY, $LNKVBUYZ, RadarSprite.Property)
 $HYCOBUY_PICKUP = Pickup.CreateForSaleProperty($HYCOBUYX, $HYCOBUYY, $HYCOBUYZ, 60000, 'HYCO_L') // Press the ~h~~k~~PED_ANSWER_PHONE~ ~w~button to purchase Hyman Condo for $~1~
@@ -784,10 +808,8 @@ $Spaz = Pickup.CreateWithAmmo(#SHOTGSPA, 2, 20, 420.0, -910.0, 11.0712)
 $StubbyShot = Pickup.CreateWithAmmo(#BUDDYSHOT, 2, 40, 454.2744, -63.6696, 11.4839)
 $Uzi = Pickup.CreateWithAmmo(#UZI, 2, 500, 558.1175, 1137.585, 18.9701)
 $GodsBathroom = Pickup.CreateForSaleProperty(535.6343, 1123.8361, 18.9701, 20000, 'ROK1_1F')
-//Phone.Grab(306.27, 232.56, $VP_Phone)
-$COL_GarageX = -543.985
-$COL_GarageY = -307.76
-$COL_GarageZ = 10.62
-$SafehouseX = -526.692
-$SafehouseY = -300.928
-$SafehouseZ = 10.62
+
+if DebugTrace
+then
+    IniFile.WriteString("Donezo!", "trace.ini", "Trace", "init")
+end
