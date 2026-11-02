@@ -106,3 +106,7 @@ In Sanny Builder / Vice City bytecode, labels (`:Label`) are merely named memory
 | **GAP-04** | `lib/threads/car-health.txt:43` | `while Player.IsPlaying` has no code after `end`; flagged as potential fall-through. | Add `wait 250` and `goto @VehHeal_101` after line 43. | Closed (False positive: threads do not fall through) |
 | **GAP-05** | `lib/threads/bath.txt:34` | Raw `wait 120000` with HUD timer and `$ONMISSION = 1`. | Convert to 250ms polling loop testing `$TIMER == 0` and player status; ensure `Hud.ClearTimer` and `$ONMISSION = 0` on exit. | Resolved |
 | **GAP-06** | `lib/threads/bus.txt:2` | `set_deatharrest_state 0` executed in ambient script. | Remove line 2 from `lib/threads/bus.txt`. | Resolved Manually |
+| **GAP-07** | `missions/hotel.txt` | Radius during `Hotel_1468` is too big. | TBD | Open |
+| **GAP-08** | Everywhere except `INTRO` | Custene skips are missing. | TBD | Open |
+| **GAP-09** | `main.txt` | 5 Hidden Packages are missing. | TBD | Open |
+| **GAP-10** | `missions/bossdie.txt` | Once mission passes, player control doesn't resume. | TBD | Open |
