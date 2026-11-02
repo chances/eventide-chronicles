@@ -15,7 +15,10 @@ try {
 }
 
 // Deno children die with Deno on Windows, so `start` detaches the game.
-const launcher = new Deno.Command("cmd", {
+// Use %COMSPEC% (always set on Windows) rather than the bare name "cmd",
+// which Deno 2.x fails to resolve when PATH is not inherited.
+const comspec = Deno.env.get("COMSPEC") ?? "C:\\Windows\\System32\\cmd.exe";
+const launcher = new Deno.Command(comspec, {
   args: ["/c", "start", "", "/D", vc, exe],
   stdin: "null",
   stdout: "null",

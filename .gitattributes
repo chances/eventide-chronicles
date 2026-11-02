@@ -1,0 +1,15 @@
+# Set default behavior to automatically handle line endings
+* text=auto
+
+# Vice City Sanny Builder scripts and game INIs must use CRLF
+*.txt text eol=crlf
+*.ini text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Markdown, data, and code files
+*.md text eol=lf
+*.json text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.csv text eol=lf

@@ -38,3 +38,15 @@ try {
   throw error;
 }
 console.log(`Installed ${fxtSource} to ${fxtDestination}`);
+
+// Install modified time cycles
+const timecycSource = join(Deno.cwd(), "data", "timecyc.dat");
+const timecycDestination = join(vc, "data", "timecyc.dat");
+
+try {
+  await Deno.copyFile(timecycSource, timecycDestination);
+} catch (error) {
+  console.error(`Failed to install ${timecycSource} to ${timecycDestination}`);
+  throw error;
+}
+console.log(`Installed ${timecycSource} to ${timecycDestination}`);
