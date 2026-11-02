@@ -1,4 +1,4 @@
-﻿:Fae
+:Fae
 script_name 'Fae'
 
 :Fae_666

@@ -1,4 +1,4 @@
-﻿:Music
+:Music
 script_name 'Music'
 
 :Music_10

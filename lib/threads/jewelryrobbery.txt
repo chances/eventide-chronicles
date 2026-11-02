@@ -1,4 +1,4 @@
-﻿:JewelryRobbery
+:JewelryRobbery
 script_name 'Jewelry'
 
 :Jewelry_Init

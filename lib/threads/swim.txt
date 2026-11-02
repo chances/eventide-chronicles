@@ -1,4 +1,4 @@
-﻿:Swim
+:Swim
 script_name 'Swim'
 
 :Swim_10

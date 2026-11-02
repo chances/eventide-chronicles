@@ -1,4 +1,4 @@
-﻿:Inside
+:Inside
 script_name 'Inside'
 
 :Inside_10

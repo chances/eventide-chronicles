@@ -1,4 +1,4 @@
-﻿:BUS
+:BUS
 set_deatharrest_state 0
 script_name 'BUS'
 $BUS_POSITION = 1

@@ -1,4 +1,4 @@
-﻿:Bath
+:Bath
 script_name 'Bathe'
 
 :Bath_20

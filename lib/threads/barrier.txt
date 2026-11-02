@@ -1,4 +1,4 @@
-﻿:Barrier
+:Barrier
 script_name 'Barrier'
 
 :Barrier_10

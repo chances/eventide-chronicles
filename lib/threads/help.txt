@@ -1,4 +1,4 @@
-﻿:Help
+:Help
 script_name 'Help'
 
 :Help_10

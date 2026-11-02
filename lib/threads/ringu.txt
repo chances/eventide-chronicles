@@ -1,4 +1,4 @@
-﻿:ringu
+:ringu
 script_name 'ringu'
 
 :ringu_30

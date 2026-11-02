@@ -1,4 +1,4 @@
-﻿:Skin
+:Skin
 script_name 'Skin'
 
 :Skin_10

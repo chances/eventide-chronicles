@@ -1,4 +1,4 @@
-﻿:Lazlow
+:Lazlow
 script_name 'Lazlow'
 
 :Lazlow_10

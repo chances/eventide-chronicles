@@ -1,4 +1,4 @@
-﻿:Sphere
+:Sphere
 script_name 'Sphere'
 
 :Sphere_10

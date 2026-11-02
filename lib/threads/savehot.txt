@@ -1,4 +1,4 @@
-﻿:SaveHot
+:SaveHot
 script_name 'SaveHot'
 
 :SaveHot_10

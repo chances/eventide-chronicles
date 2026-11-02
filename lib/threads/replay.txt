@@ -1,4 +1,4 @@
-﻿:Replay
+:Replay
 script_name 'Replay'
 
 :Replay_10

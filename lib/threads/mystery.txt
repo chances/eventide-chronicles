@@ -1,4 +1,4 @@
-﻿:Mystery
+:Mystery
 script_name 'Mystery'
 
 :Mystery_10

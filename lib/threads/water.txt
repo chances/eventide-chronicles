@@ -1,4 +1,4 @@
-﻿:Water
+:Water
 script_name 'Water'
 $WarningActive = 0
 

@@ -1,4 +1,4 @@
-﻿:rooftop
+:rooftop
 script_name 'rooftop'
 
 :rooftop_10
