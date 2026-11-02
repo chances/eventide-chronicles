@@ -1,3 +1,9 @@
+> @writing-plans @.agents/plans/mutexes-for-missions.md
+>
+> I've already stubbed some shit, see @lib/mission-lock.txt 
+
+---
+
 Two facts matter:
 
 - `Player.CanStartMission` (`03EE`) is documented as "Returns true if the player can move." It is **not** a mission check.

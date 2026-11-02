@@ -122,27 +122,33 @@ terminate_this_script
 :Star
 script_name 'Star'
 
-:Star_10
+:Star_tryStartMission
 wait 250
-if
-  $Intro_Passed == 1
-goto_if_false @Star_35
-terminate_this_script
+if not
+    $Intro_Passed == 1
+then
+    terminate_this_script
+end
 
-:Star_35
-wait 250
+wait 0
+
 if
   Player.IsPlaying($PLAYER1)
-goto_if_false @Star_159
+goto_if_false @Star_159 // continue loop
+
 if
   $ONMISSION == 0
-goto_if_false @Star_159
+goto_if_false @Star_159 // continue loop
+
 if
   Player.CanStartMission($PLAYER1)
-goto_if_false @Star_159
+goto_if_false @Star_159 // continue loop
+
 if
   Player.LocateOnFoot3D($PLAYER1, 395.0, -906.2, 12.0, 3.0, 3.0, 3.0, False)
-goto_if_false @Star_159
+goto_if_false @Star_159 // continue loop
+
+gosub @AcquireMissionLock
 Sphere.Remove($SidewalkSphere)
 Player.SetControl($PLAYER1, False)
 Text.PrintBigString("Answering the Call to Abandon...", 3000, TextStyle.BottomRight)
@@ -152,7 +158,7 @@ Mission.LoadAndLaunchInternal(1)
 
 // FIXME: Ugh, just use a loop! 🙄
 :Star_159
-goto @Star_10
+goto @Star_tryStartMission
 
 //-------------Mission 2---------------
 :Police
@@ -2066,6 +2072,9 @@ while not Player.IsInArea2D($PLAYER1, 419.79, -921.91, 390.68, -839.22, False)
 end
 
 terminate_this_script
+
+// Mutual exclusion for missions
+{$INCLUDE lib/mission-lock.txt}
 
 // Mission threads
 {$INCLUDE missions/intro.txt}

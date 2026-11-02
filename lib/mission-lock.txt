@@ -1,0 +1,30 @@
+:MissionLock_Guard
+terminate_this_script
+
+/// @remarks
+/// in: 0@ = owner id
+/// out: 1@ = 1 granted, 0 busy
+:AcquireMissionLock
+if
+    $MissionLock == 0
+then
+    $MissionLocked = true
+    // QUESTION: Make this ms since the lock was acquired?
+    $MissionTimer = Clock.GetGameTimer()
+    $MissionLock = 0@
+    1@ = 1
+else
+    1@ = 0
+end
+return
+
+/// Releases only if this thread owns it.
+/// @remarks in: 0@ = owner id
+:ReleaseMissionLock
+if
+    $MissionLock == 0@
+then
+    $MissionLocked = false
+    $MissionLock = 0
+end
+return
