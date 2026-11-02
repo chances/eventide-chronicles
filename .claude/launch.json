@@ -8,6 +8,19 @@
         "run",
         "-A",
         "jsr:@std/http/file-server",
+        "docs",
+        "--port",
+        "4172"
+      ],
+      "port": 4172
+    },
+    {
+      "name": "docs:agents",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "-A",
+        "jsr:@std/http/file-server",
         ".agents",
         "--port",
         "4173"
