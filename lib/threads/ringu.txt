@@ -1,4 +1,4 @@
-:ringu
+﻿:ringu
 script_name 'ringu'
 
 :ringu_30
@@ -3268,4 +3268,3 @@ end
 Blip.Remove($LighthausBlip)
 Sphere.Remove($LighthausSphere)
 terminate_this_script
-

@@ -1,4 +1,4 @@
-:SaveHot
+﻿:SaveHot
 script_name 'SaveHot'
 
 :SaveHot_10
@@ -78,4 +78,3 @@ end
 
 :SaveHot_277
 goto @SaveHot_10
-

@@ -1,4 +1,4 @@
-:Replay
+﻿:Replay
 script_name 'Replay'
 
 :Replay_10
@@ -26,4 +26,3 @@ goto @Replay_10
 :Replay_30
 wait 0
 goto @Replay_10
-

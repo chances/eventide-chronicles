@@ -1,4 +1,4 @@
-:Water
+﻿:Water
 script_name 'Water'
 $WarningActive = 0
 
@@ -95,6 +95,3 @@ then
     $WarningActive = 0
 end
 goto @Water_10
-
-//-------------Mission 0---------------
-

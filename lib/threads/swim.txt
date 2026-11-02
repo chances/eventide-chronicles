@@ -1,4 +1,4 @@
-:Swim
+﻿:Swim
 script_name 'Swim'
 
 :Swim_10
@@ -22,4 +22,3 @@ end
 
 :Swim_20
 terminate_this_script
-

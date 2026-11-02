@@ -1,4 +1,4 @@
-:Inside
+﻿:Inside
 script_name 'Inside'
 
 :Inside_10
@@ -77,4 +77,3 @@ goto @Inside_10
 goto @Inside_100
 
 // Spheres
-

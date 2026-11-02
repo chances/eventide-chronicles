@@ -1,4 +1,4 @@
-:Bath
+﻿:Bath
 script_name 'Bathe'
 
 :Bath_20
@@ -39,4 +39,3 @@ terminate_this_script
 
 :Bath_40
 goto @Bath_20
-

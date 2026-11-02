@@ -1,4 +1,4 @@
-:VehHeal
+﻿:VehHeal
 script_name 'VehHeal'
 
 :VehHeal_101
@@ -41,4 +41,3 @@ while Player.IsPlaying($PLAYER1)
         goto @VehHeal_101
     end
 end
-

@@ -1,4 +1,4 @@
-:JewelryRobbery
+﻿:JewelryRobbery
 script_name 'Jewelry'
 
 :Jewelry_Init
@@ -129,4 +129,3 @@ then
 else
     goto @Jewelry_ResetWait
 end
-

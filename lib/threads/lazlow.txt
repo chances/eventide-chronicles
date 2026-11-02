@@ -1,4 +1,4 @@
-:Lazlow
+﻿:Lazlow
 script_name 'Lazlow'
 
 :Lazlow_10
@@ -38,4 +38,3 @@ goto @Lazlow_30
 
 :Lazlow_50
 terminate_this_script
-

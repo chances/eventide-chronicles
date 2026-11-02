@@ -1,4 +1,4 @@
-:Pizza
+﻿:Pizza
 script_name 'Pizza'
 
 :Pizza_10
@@ -20,4 +20,3 @@ then
 else
     goto @Pizza_10
 end
-

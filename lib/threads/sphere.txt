@@ -1,4 +1,4 @@
-:Sphere
+﻿:Sphere
 script_name 'Sphere'
 
 :Sphere_10
@@ -148,4 +148,3 @@ $SphereCreated = 0
 goto @Sphere_10
 
 // Game Scripts
-

@@ -1,4 +1,4 @@
-:Help
+﻿:Help
 script_name 'Help'
 
 :Help_10
@@ -283,4 +283,3 @@ end
 
 :Help_6000
 terminate_this_script
-

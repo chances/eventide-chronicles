@@ -1,4 +1,4 @@
-:Fae
+﻿:Fae
 script_name 'Fae'
 
 :Fae_666
@@ -63,4 +63,3 @@ end
 goto @Fae_666
 
 // Interiors
-

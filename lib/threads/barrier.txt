@@ -1,4 +1,4 @@
-:Barrier
+﻿:Barrier
 script_name 'Barrier'
 
 :Barrier_10
@@ -334,4 +334,3 @@ end
 
 :Barrier_6666
 terminate_this_script
-
