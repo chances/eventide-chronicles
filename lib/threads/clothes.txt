@@ -34,7 +34,8 @@ $CasualOn = 1
 Player.SetControl($PLAYER1, False)
 Camera.DoFade(500, Fade.Out)
 wait 500
-Char.Undress($scplayer, 'PLAYER5')
+// FIXME Use `PLAYERx`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC')
 wait 250
 Streaming.LoadAllModelsNow
 wait 250
@@ -96,7 +97,8 @@ $SuitOn = 1
 Player.SetControl($PLAYER1, False)
 Camera.DoFade(500, Fade.Out)
 wait 500
-Char.Undress($scplayer, 'PLAYER2')
+// FIXME Use `PLAYERx`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC2')
 wait 250
 Streaming.LoadAllModelsNow
 wait 250
@@ -183,7 +185,8 @@ $JogOn = 1
 Player.SetControl($PLAYER1, False)
 Camera.DoFade(500, Fade.Out)
 wait 500
-Char.Undress($scplayer, 'PLAYER3')
+// FIXME Use `PLAYERx`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'CHEF')
 wait 250
 Streaming.LoadAllModelsNow
 wait 250
@@ -198,4 +201,3 @@ goto @Clothes_655
 
 :Clothes_655
 goto @Clothes_10
-

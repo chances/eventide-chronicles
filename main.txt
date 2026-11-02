@@ -66,7 +66,8 @@ if
 then
     IniFile.WriteString("before undress", "trace.ini", "Trace", "last")
 end
-Char.Undress($scplayer, 'PLAYER')
+// FIXME Use `PLAYER`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC')
 Streaming.LoadAllModelsNow
 Char.Dress($scplayer)
 if

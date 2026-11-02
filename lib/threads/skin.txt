@@ -42,7 +42,8 @@ end
 Camera.SetFadingColor(0, 0, 0)
 Camera.DoFade(500, Fade.Out)
 wait 500
-Char.Undress($scplayer, 'PLAYER')
+// FIXME Use `PLAYER`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC')
 wait 250
 Streaming.LoadAllModelsNow
 wait 250
@@ -50,4 +51,3 @@ Char.Dress($scplayer)
 Camera.DoFade(500, Fade.In)
 wait 500
 goto @Skin_10
-

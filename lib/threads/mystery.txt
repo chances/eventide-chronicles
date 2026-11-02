@@ -36,7 +36,8 @@ Player.SetControl($PLAYER1, False)
 wait 500
 Camera.DoFade(250, Fade.Out)
 wait 250
-Char.Undress($scplayer, 'PLAYER2')
+// FIXME Use `PLAYERx`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC2')
 wait 250
 Char.Dress($scplayer)
 Camera.PointAtChar($PLAYER1, CameraMode.FollowPed, SwitchType.JumpCut)
@@ -55,7 +56,8 @@ goto_if_false @Mystery_327
 Camera.PointAtPlayer($PLAYER1, CameraMode.ArrestCamOne, SwitchType.JumpCut)
 Camera.DoFade(500, Fade.In)
 wait 500
-Char.Undress($scplayer, 'PLAYER')
+// FIXME Use `PLAYER`, this is a total-conversion mod! 🙄
+Char.Undress($scplayer, 'IGMERC')
 wait 250
 Streaming.LoadAllModelsNow
 wait 250
@@ -81,4 +83,3 @@ terminate_this_script
 
 :Mystery_584
 goto @Mystery_10
-
