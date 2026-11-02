@@ -51,10 +51,17 @@ This repo is The Eventide Chronicles, a total Conversion mod for Grand Theft Aut
 
 ## Scripting
 
+This is pre-alpha development. Refactor and replace with logically equivalent tests, such as `$MissionLocked == true` instead of `$ONMISSION == 1`.
+
 - Use the `sanny-guidance` skill before writing, editing, or reviewing any Sanny Builder script.
-- Look up every command in the Sanny Builder Library before using it. The skill lists the lookup tools.
+- Look up every command in the Sanny Builder Library before using it, and look up every syntax form (conditions, loops, variables) in the Sanny Builder docs. The skill lists the lookup tools.
 - Read [.agents/lessons/mission-script-safety.md](.agents/lessons/mission-script-safety.md) before you edit a mission script or a looping thread.
 - Use the [debug-missions](.agents/skills/debug-missions/SKILL.md) skill before you debug a script crash, hang, or hazard in `main.txt`.
+- Read [.agents/lessons/sanny-variables.md](.agents/lessons/sanny-variables.md) before you use a local variable, a subroutine result, or a boolean in a script.
+
+### Anti-Patterns
+
+- Use structured control flow (if/else, while loops, function calls) instead of gotos when refactoring or adding new features.
 
 ## Script Architecture
 
@@ -89,3 +96,4 @@ This repo is The Eventide Chronicles, a total Conversion mod for Grand Theft Aut
 - `deno task build` fails with "Sanny Builder did not write" when the compiler exits 0 without output.
 - `deno task run` launches the game through `cmd /c start`, because a game started as a Deno child process on Windows ends when Deno exits.
 - `deno task extract-skins [--out dir] [name ...]` copies each model's `.dff` and `.txd` out of `gta3.img` and decodes its textures to PNG. The default name is `IGMerc`, the mesh that every outfit slot copies. Output goes to `skins/`, which Git ignores because the files are game assets.
+- `deno task --cwd tools/cfg start ../../main.txt <label>` prints the control-flow blocks reachable from a label as one JSON line each. It resolves `{$INCLUDE}` lines, follows `goto`, calls, fall-through, and `start_new_script`, and records `Mission.LoadAndLaunchInternal` without following it. `tools/cfg` is a Deno workspace member (`@eventide/cfg`).

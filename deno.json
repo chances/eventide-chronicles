@@ -1,5 +1,6 @@
 {
   "nodeModulesDir": "auto",
+  "workspace": ["./tools/cfg"],
   "tasks": {
     "build": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run scripts/build.ts",
     "install": "deno task install:skins && deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run scripts/install.ts",

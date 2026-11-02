@@ -2078,7 +2078,6 @@ terminate_this_script
 
 // Mission threads
 {$INCLUDE missions/intro.txt}
-{$INCLUDE missions/1_star.txt}
 {$INCLUDE missions/cop.txt}
 {$INCLUDE missions/hotel.txt}
 {$INCLUDE missions/work.txt}

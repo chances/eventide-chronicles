@@ -1,0 +1,3 @@
+id,pattern,symptom,check,fix
+P1,Subroutine result in a caller's local,"A subroutine writes 1@ and the calling thread's own 1@ changes","Grep each calling thread for the local the subroutine writes","Return the result through a global read before the next wait, or pick a local no caller uses"
+P2,Local spelled like a boolean,"1@ == true reads as if 1@ were a flag","Look for N@ compared with true or false","Comment the first use of the local, or use a global with a name"
