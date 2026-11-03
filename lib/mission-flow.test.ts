@@ -14,13 +14,13 @@ import {
   triggers,
 } from "../tools/flow-model/config.ts";
 
-// Checks that the seven mission triggers keep their behavior while they move to the mission lock.
-// The baseline is lib/fixtures/thread-graph.baseline.json, frozen before Task 4 edits any source. The
-// candidate is the trigger as it stands in main.txt now. Each trigger is compiled to a small instruction
-// list; every guard that does not read the lock is a free input that may go either way.
+// Checks that each of the seven mission triggers has the baseline's effect traces with the mission lock
+// free, and launches nothing with it held. The baseline is lib/fixtures/thread-graph.baseline.json, which is
+// never regenerated. The candidate is the trigger as it stands in main.txt. Each trigger is compiled to a
+// small instruction list; every guard that does not read the lock is a free input that may go either way.
 //   - Lock free: the candidate has the same effect traces as the baseline.
-//   - Lock held: the candidate launches nothing and only waits.
-// Expected to fail until Task 4 gates the triggers. Run it with the environment loaded (SBL_WASM in .env):
+//   - Lock held: the candidate has no effect that launches a mission or prepares for one (`commitPrefixes`).
+// Run it with the environment loaded (SBL_WASM in .env):
 //   deno test -R -E --env-file=.env lib/mission-flow.test.ts
 
 const root = join(import.meta.dirname!, "..");

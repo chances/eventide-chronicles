@@ -29,6 +29,7 @@ This repo is The Eventide Chronicles, a total Conversion mod for Grand Theft Aut
 ## Documentation
 
 - Use surgical edits for existing documents and scripts. Do not overwrite a file with `cat`, a heredoc, or a whole-file write when the requested change can be made by replacing a specific text range.
+- Use the `writing-documentation` skill before writing or editing a code comment, a README, a design or reference document, or this file. Comments and documents state the current fact or constraint, never the history of how it came to be.
 - Read [docs/branding.md](docs/branding.md) and [docs/lore.md](docs/lore.md) before writing or editing any story text, string, or document.
 - Check the ledger, [docs/lore.csv](docs/lore.csv), before defining any story element. Use the status it records. Do not contradict a Book entry without adding a departure note.
 - Publishing targets and release instructions go in [docs/publish.md](docs/publish.md). Do not put them in the branding or lore documents.

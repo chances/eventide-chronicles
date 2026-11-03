@@ -19,13 +19,31 @@ const fixturePath = join(import.meta.dirname!, "fixtures", "thread-graph.json");
 const wasm = Deno.env.get("SBL_WASM");
 assert(wasm, "SBL_WASM is not set; point it at tree-sitter-gta3.wasm in .env");
 
-// The seven mission triggers, recorded in full so Task 3 can compare their guards and effects.
+// The seven mission triggers, recorded in full.
 const triggers = ["Star", "Police", "HOT", "Boss", "Golf", "Kill", "End"];
+// Also recorded in full: the mission bodies, the save threads, `Fae`, `INIT`, and the package tracker.
+const outlinedThreads = [
+  "INIT",
+  "Intro",
+  "Cop",
+  "Hotel",
+  "Work",
+  "Cart",
+  "BossDie",
+  "Endgame",
+  "Fairy",
+  "Save",
+  "VPHotel",
+  "SaveHot",
+  "Fae",
+  "PackageToggle",
+  "PACKAGE",
+];
 
 const graph = JSON.parse(JSON.stringify(
   await new ThreadGraph(join(root, "main.txt"), wasm, {
     trackedVars: ["$ONMISSION", "$MissionLocked", "$MissionLockGranted"],
-    outline: triggers,
+    outline: [...triggers, ...outlinedThreads],
     cleoDirs: ["lib/threads"],
   }).build(),
 )) as GraphData;

@@ -1,7 +1,7 @@
 // The lock vocabulary of this project, shared by the flow tests.
 import type { LockConfig } from "./program.ts";
 
-/** Before Task 4: the mission flag is `$ONMISSION`, and a trigger tests it. */
+/** The baseline program: the mission flag is `$ONMISSION`, and a trigger tests it. */
 export const baselineLock: LockConfig = {
   lockVars: ["$ONMISSION"],
   grantedVars: [],
@@ -9,7 +9,7 @@ export const baselineLock: LockConfig = {
   acquireLabel: "AcquireMissionLock",
 };
 
-/** After Task 4: the mission flag is `$MissionLocked`, and `$MissionLockGranted` reports an acquire. */
+/** The current program: the mission flag is `$MissionLocked`, and `$MissionLockGranted` reports an acquire. */
 export const candidateLock: LockConfig = {
   lockVars: ["$MissionLocked"],
   grantedVars: ["$MissionLockGranted"],
