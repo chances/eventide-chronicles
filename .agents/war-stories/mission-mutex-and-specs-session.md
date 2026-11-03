@@ -2,7 +2,7 @@
 
 ## Summary
 
-A multi-day session built the thread graph, the flow model, and the Lean checks for [the mission mutex plan](../plans/mutexes-for-missions.md), then began [the mission behavior specs design](../plans/mission-behavior-specs.md). Ten user corrections were logged: three on verification discipline, three on scope, three on writing docs, and one on output that stalled the work.
+A multi-day session built the thread graph, the flow model, and the Lean checks for [the mission mutex plan](../docs/epics/mission-mutexes.md), then began [the mission behavior specs design](../docs/epics/mission-specs.md). Ten user corrections were logged: three on verification discipline, three on scope, three on writing docs, and one on output that stalled the work.
 
 The user also reported a machine-level cost: a Lean `decide +kernel` run "exploded to over 95% of total available" memory, crashed every other app, and made Windows kill the user session.
 
