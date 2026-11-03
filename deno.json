@@ -16,6 +16,7 @@
     "@nktkas/bmp": "jsr:@nktkas/bmp@^5.0.0",
     "@std/cli": "jsr:@std/cli@^1.0.32",
     "@std/csv": "jsr:@std/csv@^1.0.6",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.8",
     "@std/fs": "jsr:@std/fs@^1.0.24",
     "@std/path": "jsr:@std/path@^1.1.6",
     "dxtn": "npm:dxtn@^1.0.0",

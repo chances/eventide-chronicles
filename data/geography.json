@@ -1,8 +1,171 @@
 [
-{
-"id": "admiral",
-"pos": [417.4987, 104.506, 11.275],
-"heading": 124,
-"comment": "Car I need to spawn"
-}
+  {
+    "id": "spray-5",
+    "district": "Little Haiti",
+    "pos": [-876.2, -105.5, 12],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "green",
+    "district": "Ocean Beach",
+    "pos": [393.9, -1736.4, 8.8],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "mission-failed-2",
+    "district": "Ocean Beach",
+    "pos": [243.0885, -1277.1832, 10.9015],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "mission-failed-3",
+    "district": "Ocean Beach",
+    "pos": [242.5886, -1280.6099, 10.9015],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-11",
+    "district": "Ocean Beach",
+    "pos": [-177.128, -983.8576, 10.4633],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-2",
+    "district": "Ocean Beach",
+    "pos": [-10.4092, -1422.4296, 10.459],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-5",
+    "district": "Ocean Beach",
+    "pos": [156.6328, -1191.4419, 17.884],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-6",
+    "district": "Ocean Beach",
+    "pos": [111.4223, -1341.892, 4.4396],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "spray",
+    "district": "Ocean Beach",
+    "pos": [-3.8, -1265.8, 12],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "find-the-safehouse",
+    "district": "Starfish Island",
+    "pos": [-522.345, -348.141, 10.62],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "mission-failed",
+    "district": "Starfish Island",
+    "pos": [-230, -464.5, 10],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "out",
+    "district": "Starfish Island",
+    "pos": [-500.2, -300, 10],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-12",
+    "district": "Starfish Island",
+    "pos": [-524.0143, -347.3969, 11.1078],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-14",
+    "district": "Starfish Island",
+    "pos": [-530.692, -315.928, 10.62],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-15",
+    "district": "Starfish Island",
+    "pos": [-528.824, -299.79, 10.8],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "savehouse",
+    "district": "Starfish Island",
+    "pos": [-527.692, -301.928, 10.62],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "admiral",
+    "district": "Vice Point",
+    "pos": [417.4987, 104.506, 11.275],
+    "heading": 124,
+    "comment": "Car I need to spawn"
+  },
+  {
+    "id": "restorejumpcut",
+    "district": "Vice Point",
+    "pos": [205.2552, 1231.957, 17.3998],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-10",
+    "district": "Vice Point",
+    "pos": [558.1175, 1137.585, 18.9701],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-13",
+    "district": "Vice Point",
+    "pos": [535.6343, 1123.8361, 18.9701],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-3",
+    "district": "Vice Point",
+    "pos": [358.0369, 896.0801, 25.4659],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-4",
+    "district": "Vice Point",
+    "pos": [597.8751, 884.6636, 22.529],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-7",
+    "district": "Vice Point",
+    "pos": [425.6707, 456.6242, 11.6517],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-9",
+    "district": "Vice Point",
+    "pos": [454.2744, -63.6696, 11.4839],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "spray-2",
+    "district": "Vice Point",
+    "pos": [319, 441.3, 12],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "spray-3",
+    "district": "Viceport",
+    "pos": [-903, -1261.1, 12],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "spray-4",
+    "district": "Viceport",
+    "pos": [-839.8, -1490.5, 12],
+    "comment": "proposed by spec draft"
+  },
+  {
+    "id": "restorejumpcut-8",
+    "district": "Washington Beach",
+    "pos": [399.2008, -706.1506, 32.2459],
+    "comment": "proposed by spec draft"
+  }
 ]
