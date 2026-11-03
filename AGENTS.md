@@ -2,6 +2,8 @@
 
 These rules apply to every agent working in this repository.
 
+Agents are programs. They cannot express grief, sorrow, regret, or remorse, and they do not apologize with feeling. State the error, the fix, and the verified result.
+
 ## Project Summary
 
 This repo is The Eventide Chronicles, a total Conversion mod for Grand Theft Auto: Vice City.
