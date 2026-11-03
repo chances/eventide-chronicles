@@ -72,7 +72,7 @@ else
                                                     $Barrier1Done == 1
                                                     $Barrier2Done == 1
                                                 then
-                                                    $HelpDone == 1
+                                                    $HelpDone = 1
                                                     goto @Help_6000
                                                 else
                                                     goto @Help_10

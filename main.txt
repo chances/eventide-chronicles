@@ -54,8 +54,8 @@ end
 Player.AlterWantedLevelNoDrop($PLAYER1, DebugWantedLevel)
 Weather.ForceNow(WeatherType.Foggy)
 wait 0
-declare_mission_flag $ONMISSION
-$ONMISSION = false
+declare_mission_flag $MissionLocked
+$MissionLocked = false
 
 // Let's play dress-up!
 if DebugTrace
@@ -95,12 +95,14 @@ World.SetCarDensityMultiplier(0.0)
 
 // Poseidon's wrath
 if DebugTrace
+then
     IniFile.WriteString("Launching...", "trace.ini", "Trace", "isBathThreadRunning")
 end
 // Note: `0A92` is only supported in San Andreas (idiots! 🙄😒)
 // See https://github.com/sannybuilder/library/issues/94
 0600: STREAM_CUSTOM_SCRIPT "bath.cs"
 if DebugTrace
+then
     IniFile.WriteString("Yes", "trace.ini", "Trace", "isBathThreadRunning")
 end
 

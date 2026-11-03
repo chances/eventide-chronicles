@@ -405,7 +405,7 @@ while not $TIMER == 0
 end
 
 :Cop_4000
-World.ClearAreaOfCars(-500.20, -300.0., 10.0, -550.20, -200.0, 10.0)
+World.ClearAreaOfCars(-500.20, -300.0, 10.0, -550.20, -200.0, 10.0)
 Sphere.Remove($SidewalkSphere)
 Blip.Remove($StarfishBlip)
 Player.ClearWantedLevel($PLAYER1)

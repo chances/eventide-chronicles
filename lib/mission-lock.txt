@@ -1,30 +1,35 @@
 :MissionLock_Guard
 terminate_this_script
 
+/// Takes the mission lock if it is free.
 /// @remarks
-/// in: 0@ = owner id
-/// out: 1@ = 1 granted, 0 busy
+/// out: $MissionLockGranted = true when granted, false when busy. Read it
+/// before the next `wait`. The test and the set have no `wait` between them.
+/// The trace writes use `15@` as scratch; no other source uses `15@`.
 :AcquireMissionLock
 if
-    $MissionLock == 0
+    $MissionLocked == false
 then
     $MissionLocked = true
-    // QUESTION: Make this ms since the lock was acquired?
-    $MissionTimer = Clock.GetGameTimer()
-    $MissionLock = 0@
-    1@ = 1
+    $MissionLockGranted = true
+    if DebugTrace
+    then
+        15@ = Clock.GetGameTimer()
+        IniFile.WriteString("acquire", "trace.ini", "Trace", "lock")
+        IniFile.WriteInt(15@, "trace.ini", "Trace", "lockTime")
+    end
 else
-    1@ = 0
+    $MissionLockGranted = false
 end
 return
 
-/// Releases only if this thread owns it.
-/// @remarks in: 0@ = owner id
+/// Frees the mission lock. Any holder may call it; no owner is checked.
 :ReleaseMissionLock
-if
-    $MissionLock == 0@
+$MissionLocked = false
+if DebugTrace
 then
-    $MissionLocked = false
-    $MissionLock = 0
+    15@ = Clock.GetGameTimer()
+    IniFile.WriteString("release", "trace.ini", "Trace", "lock")
+    IniFile.WriteInt(15@, "trace.ini", "Trace", "lockTime")
 end
 return

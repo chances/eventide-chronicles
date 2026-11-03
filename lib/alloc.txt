@@ -306,12 +306,11 @@ Alloc($FaeBlip, 8981)
 Alloc($InWater, 8902)
 Alloc($WaterCar, 8903)
 Alloc($Any_Car, 8904)
-/// Mutex over mission state, i.e. only one mission at a time!
+/// Result of `AcquireMissionLock`: true when granted, false when busy.
 /// @see lib\mission-lock.txt
-Alloc($MissionLock, 8905)
-/// @see lib\mission-lock.txt
-Alloc($MissionTimer, 8906) // FIXME: This name sucks! 🤢
-/// Whether a mission is active.
-/// @remarks This is a proxy over `$MissionLock`.
+Alloc($MissionLockGranted, 8905)
+/// Whether the player is on a mission, aka the game's mission flag.
+/// @remarks
+/// This is a mutex over mission state, i.e. only one mission at a time.
 /// @see lib\mission-lock.txt
 Alloc($MissionLocked, 8907)

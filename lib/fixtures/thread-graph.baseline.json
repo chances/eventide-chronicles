@@ -1,0 +1,5367 @@
+{
+  "entry": "main.txt",
+  "trackedVars": [
+    "$ONMISSION",
+    "$MissionLocked",
+    "$MissionLockGranted"
+  ],
+  "parseErrors": [],
+  "missions": [
+    {
+      "number": 0,
+      "label": "INIT",
+      "at": {
+        "file": "main.txt",
+        "line": 10
+      },
+      "resolved": true
+    },
+    {
+      "number": 1,
+      "label": "Intro",
+      "at": {
+        "file": "main.txt",
+        "line": 11
+      },
+      "resolved": true
+    },
+    {
+      "number": 2,
+      "label": "Cop",
+      "at": {
+        "file": "main.txt",
+        "line": 12
+      },
+      "resolved": true
+    },
+    {
+      "number": 3,
+      "label": "Hotel",
+      "at": {
+        "file": "main.txt",
+        "line": 13
+      },
+      "resolved": true
+    },
+    {
+      "number": 4,
+      "label": "Work",
+      "at": {
+        "file": "main.txt",
+        "line": 14
+      },
+      "resolved": true
+    },
+    {
+      "number": 5,
+      "label": "Cart",
+      "at": {
+        "file": "main.txt",
+        "line": 15
+      },
+      "resolved": true
+    },
+    {
+      "number": 6,
+      "label": "BossDie",
+      "at": {
+        "file": "main.txt",
+        "line": 16
+      },
+      "resolved": true
+    },
+    {
+      "number": 7,
+      "label": "Endgame",
+      "at": {
+        "file": "main.txt",
+        "line": 17
+      },
+      "resolved": true
+    },
+    {
+      "number": 8,
+      "label": "Fairy",
+      "at": {
+        "file": "main.txt",
+        "line": 18
+      },
+      "resolved": true
+    },
+    {
+      "number": 9,
+      "label": "Hell",
+      "at": {
+        "file": "main.txt",
+        "line": 19
+      },
+      "resolved": true
+    },
+    {
+      "number": 10,
+      "label": "Heaven",
+      "at": {
+        "file": "main.txt",
+        "line": 20
+      },
+      "resolved": false
+    }
+  ],
+  "nodes": [
+    {
+      "id": "MAIN",
+      "level": 0,
+      "kind": "main",
+      "name": "MAIN",
+      "entry": {
+        "label": "#start",
+        "file": "main.txt",
+        "line": 1
+      },
+      "parents": [],
+      "labels": [
+        "#start",
+        "LoadWorld",
+        "SpawnPickups",
+        "StartTutorial"
+      ],
+      "edges": [
+        {
+          "kind": "stream_custom_script",
+          "target": "bath.cs",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 103
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "0",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 112
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Star",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 113
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Save",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 114
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "VPHotel",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 115
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "PackageToggle",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 116
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "StartTutorial",
+          "at": {
+            "file": "main.txt",
+            "line": 117
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$MissionLocked",
+          "access": "declare",
+          "label": "#start",
+          "at": {
+            "file": "main.txt",
+            "line": 57
+          }
+        },
+        {
+          "var": "$MissionLocked",
+          "access": "write",
+          "value": "false",
+          "label": "#start",
+          "at": {
+            "file": "main.txt",
+            "line": 58
+          }
+        }
+      ]
+    },
+    {
+      "id": "cleo:bath.cs",
+      "level": 1,
+      "kind": "cleo",
+      "name": "bath",
+      "entry": {
+        "label": "#start",
+        "file": "lib/threads/bath.txt",
+        "line": 1
+      },
+      "parents": [
+        "MAIN"
+      ],
+      "labels": [
+        "#start"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 77
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 15
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 25
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 39
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 54
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "false",
+          "label": "#start",
+          "at": {
+            "file": "lib/threads/bath.txt",
+            "line": 73
+          }
+        }
+      ]
+    },
+    {
+      "id": "INIT",
+      "level": 1,
+      "kind": "mission",
+      "name": "INIT",
+      "entry": {
+        "label": "INIT",
+        "file": "main.txt",
+        "line": 1717
+      },
+      "mission": 0,
+      "parents": [
+        "MAIN",
+        "INIT"
+      ],
+      "labels": [
+        "INIT",
+        "INIT_DeadBust",
+        "INIT_00",
+        "INIT_02",
+        "INIT_03",
+        "INIT_04",
+        "INIT_14",
+        "INIT_15",
+        "INIT_16",
+        "INIT_17",
+        "INIT_18",
+        "INIT_19",
+        "INIT_20",
+        "INIT_21",
+        "INIT_22",
+        "INIT_23",
+        "INIT_25",
+        "INIT_26",
+        "INIT_27",
+        "INIT_40",
+        "INIT_41",
+        "INIT_42",
+        "INIT_43",
+        "INIT_44",
+        "INIT_45",
+        "INIT_46",
+        "INIT_47",
+        "INIT_48",
+        "INIT_49",
+        "INIT_51",
+        "INIT_52",
+        "INIT_53",
+        "INIT_1000",
+        "INIT_6000",
+        "INIT_6660",
+        "INIT_6661"
+      ],
+      "edges": [
+        {
+          "kind": "launch_mission",
+          "target": "0",
+          "label": "INIT_DeadBust",
+          "at": {
+            "file": "main.txt",
+            "line": 1733
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "INIT_DeadBust",
+          "at": {
+            "file": "main.txt",
+            "line": 1734
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Pizza",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2041
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "BUS",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2042
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Barrier",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2043
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Clothes",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2044
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Fae",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2045
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Help",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2046
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Inside",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2047
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "JewelryRobbery",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2048
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Lazlow",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2049
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Mystery",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2050
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Music",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2051
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Replay",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2052
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "ringu",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2053
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "rooftop",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2054
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "SaveHot",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2055
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Skin",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2056
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Sphere",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2057
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Swim",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2058
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Water",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2059
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "VehHeal",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2060
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "INIT_6661",
+          "at": {
+            "file": "main.txt",
+            "line": 2076
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "INIT_00",
+          "at": {
+            "file": "main.txt",
+            "line": 1740
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "INIT_1000",
+          "at": {
+            "file": "main.txt",
+            "line": 2002
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2025
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "INIT_6000",
+          "at": {
+            "file": "main.txt",
+            "line": 2036
+          }
+        }
+      ]
+    },
+    {
+      "id": "Star",
+      "level": 1,
+      "kind": "thread",
+      "name": "Star",
+      "entry": {
+        "label": "Star",
+        "file": "main.txt",
+        "line": 124
+      },
+      "parents": [
+        "MAIN"
+      ],
+      "labels": [
+        "Star",
+        "Star_tryStartMission",
+        "Star_159",
+        "AcquireMissionLock"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Star_tryStartMission",
+          "at": {
+            "file": "main.txt",
+            "line": 132
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "1",
+          "label": "Star_tryStartMission",
+          "at": {
+            "file": "main.txt",
+            "line": 159
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Star_tryStartMission",
+          "at": {
+            "file": "main.txt",
+            "line": 142
+          }
+        },
+        {
+          "var": "$MissionLocked",
+          "access": "read",
+          "label": "AcquireMissionLock",
+          "at": {
+            "file": "lib/mission-lock.txt",
+            "line": 11
+          }
+        },
+        {
+          "var": "$MissionLocked",
+          "access": "write",
+          "value": "true",
+          "label": "AcquireMissionLock",
+          "at": {
+            "file": "lib/mission-lock.txt",
+            "line": 13
+          }
+        },
+        {
+          "var": "$MissionLockGranted",
+          "access": "write",
+          "value": "true",
+          "label": "AcquireMissionLock",
+          "at": {
+            "file": "lib/mission-lock.txt",
+            "line": 14
+          }
+        },
+        {
+          "var": "$MissionLockGranted",
+          "access": "write",
+          "value": "false",
+          "label": "AcquireMissionLock",
+          "at": {
+            "file": "lib/mission-lock.txt",
+            "line": 22
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "Star",
+          "at": {
+            "file": "main.txt",
+            "line": 124
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 125,
+              "text": "script_name 'Star'"
+            }
+          ]
+        },
+        {
+          "label": "Star_tryStartMission",
+          "at": {
+            "file": "main.txt",
+            "line": 127
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 128,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if",
+              "line": 129,
+              "mode": "single",
+              "conditions": [
+                "not $Intro_Passed == 1"
+              ],
+              "then": [
+                {
+                  "kind": "terminate_script",
+                  "line": 132,
+                  "text": "terminate_this_script"
+                }
+              ]
+            },
+            {
+              "kind": "wait_statement",
+              "line": 135,
+              "text": "wait 0"
+            },
+            {
+              "kind": "if_goto",
+              "line": 137,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "Star_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 141,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "Star_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 145,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "Star_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 149,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, 395.0, -906.2, 12.0, 3.0, 3.0, 3.0, False)"
+              ],
+              "target": "Star_159"
+            },
+            {
+              "kind": "gosub_statement",
+              "line": 153,
+              "text": "gosub @AcquireMissionLock"
+            },
+            {
+              "kind": "function_call",
+              "line": 154,
+              "text": "Sphere.Remove($SidewalkSphere)"
+            },
+            {
+              "kind": "function_call",
+              "line": 155,
+              "text": "Player.SetControl($PLAYER1, False)"
+            },
+            {
+              "kind": "function_call",
+              "line": 156,
+              "text": "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 157,
+              "text": "Camera.DoFade(1500, Fade.Out)"
+            },
+            {
+              "kind": "wait_statement",
+              "line": 158,
+              "text": "wait 3000"
+            },
+            {
+              "kind": "function_call",
+              "line": 159,
+              "text": "Mission.LoadAndLaunchInternal(1)"
+            }
+          ]
+        },
+        {
+          "label": "Star_159",
+          "at": {
+            "file": "main.txt",
+            "line": 162
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 163,
+              "text": "goto @Star_tryStartMission"
+            }
+          ]
+        },
+        {
+          "label": "AcquireMissionLock",
+          "at": {
+            "file": "lib/mission-lock.txt",
+            "line": 9
+          },
+          "statements": [
+            {
+              "kind": "if",
+              "line": 10,
+              "mode": "single",
+              "conditions": [
+                "$MissionLocked == false"
+              ],
+              "then": [
+                {
+                  "kind": "assignment",
+                  "line": 13,
+                  "text": "$MissionLocked = true"
+                },
+                {
+                  "kind": "assignment",
+                  "line": 14,
+                  "text": "$MissionLockGranted = true"
+                },
+                {
+                  "kind": "if",
+                  "line": 15,
+                  "mode": "single",
+                  "conditions": [
+                    "DebugTrace"
+                  ],
+                  "then": [
+                    {
+                      "kind": "assignment",
+                      "line": 17,
+                      "text": "15@ = Clock.GetGameTimer()"
+                    },
+                    {
+                      "kind": "function_call",
+                      "line": 18,
+                      "text": "IniFile.WriteString(\"acquire\", \"trace.ini\", \"Trace\", \"lock\")"
+                    },
+                    {
+                      "kind": "function_call",
+                      "line": 19,
+                      "text": "IniFile.WriteInt(15@, \"trace.ini\", \"Trace\", \"lockTime\")"
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "kind": "assignment",
+                  "line": 22,
+                  "text": "$MissionLockGranted = false"
+                }
+              ]
+            },
+            {
+              "kind": "return_statement",
+              "line": 24,
+              "text": "return"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Save",
+      "level": 1,
+      "kind": "thread",
+      "name": "Save",
+      "entry": {
+        "label": "Save",
+        "file": "main.txt",
+        "line": 1433
+      },
+      "parents": [
+        "MAIN"
+      ],
+      "labels": [
+        "Save",
+        "Save_10",
+        "Save_114",
+        "Save_173",
+        "Save_242",
+        "Save_277",
+        "Save_278"
+      ],
+      "edges": [],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Save_10",
+          "at": {
+            "file": "main.txt",
+            "line": 1439
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Save_277",
+          "at": {
+            "file": "main.txt",
+            "line": 1495
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Save_277",
+          "at": {
+            "file": "main.txt",
+            "line": 1512
+          }
+        }
+      ]
+    },
+    {
+      "id": "VPHotel",
+      "level": 1,
+      "kind": "thread",
+      "name": "VPHotel",
+      "entry": {
+        "label": "VPHotel",
+        "file": "main.txt",
+        "line": 1657
+      },
+      "parents": [
+        "MAIN"
+      ],
+      "labels": [
+        "VPHotel",
+        "VPHotel_10",
+        "VPHotel_114",
+        "VPHotel_173",
+        "VPHotel_252",
+        "VPHotel_287"
+      ],
+      "edges": [],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "VPHotel_10",
+          "at": {
+            "file": "main.txt",
+            "line": 1663
+          }
+        }
+      ]
+    },
+    {
+      "id": "PackageToggle",
+      "level": 1,
+      "kind": "thread",
+      "name": "PakTog",
+      "entry": {
+        "label": "PackageToggle",
+        "file": "main.txt",
+        "line": 584
+      },
+      "parents": [
+        "MAIN"
+      ],
+      "labels": [
+        "PackageToggle",
+        "PakTog_Loop"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_by_name",
+          "target": "PACKAGE",
+          "label": "PakTog_Loop",
+          "at": {
+            "file": "main.txt",
+            "line": 691
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "PACKAGE",
+          "label": "PakTog_Loop",
+          "at": {
+            "file": "main.txt",
+            "line": 700
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Pizza",
+      "level": 2,
+      "kind": "thread",
+      "name": "Pizza",
+      "entry": {
+        "label": "Pizza",
+        "file": "lib/threads/pizza.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Pizza",
+        "Pizza_10"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Pizza_10",
+          "at": {
+            "file": "lib/threads/pizza.txt",
+            "line": 16
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "BUS",
+      "level": 2,
+      "kind": "thread",
+      "name": "BUS",
+      "entry": {
+        "label": "BUS",
+        "file": "lib/threads/bus.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "BUS",
+        "BUS_21",
+        "BUS_83",
+        "BUS_108",
+        "BUS_115",
+        "BUS_120",
+        "BUS_350",
+        "BUS_564",
+        "BUS_622",
+        "BUS_680",
+        "BUS_738",
+        "BUS_796",
+        "BUS_854",
+        "BUS_912",
+        "BUS_970",
+        "BUS_1028",
+        "BUS_1086",
+        "BUS_1144",
+        "BUS_1202",
+        "BUS_1260",
+        "BUS_1318",
+        "BUS_1376",
+        "BUS_1434",
+        "BUS_1492",
+        "BUS_1524",
+        "BUS_1677",
+        "BUS_1735",
+        "BUS_1793",
+        "BUS_1851",
+        "BUS_1909",
+        "BUS_1967",
+        "BUS_2025",
+        "BUS_2083",
+        "BUS_2141",
+        "BUS_2199",
+        "BUS_2257",
+        "BUS_2315",
+        "BUS_2373",
+        "BUS_2431",
+        "BUS_2463",
+        "BUS_2470",
+        "BUS_2523",
+        "BUS_2555",
+        "BUS_3163",
+        "BUS_3170",
+        "BUS_3684",
+        "BUS_3691",
+        "BUS_3698",
+        "BUS_3730",
+        "BUS_3739",
+        "BUS_3828",
+        "BUS_3855",
+        "BUS_3990",
+        "BUS_3995",
+        "BUS_3997",
+        "BUS_4098",
+        "BUS_4130",
+        "BUS_4162",
+        "BUS_4194",
+        "BUS_4226",
+        "BUS_4258",
+        "BUS_4290",
+        "BUS_4322",
+        "BUS_4354",
+        "BUS_4386",
+        "BUS_4418",
+        "BUS_4450",
+        "BUS_4482",
+        "BUS_4514",
+        "BUS_4546",
+        "BUS_4578",
+        "BUS_4610",
+        "BUS_4627",
+        "BUS_4634",
+        "BUS_4641",
+        "BUS_4648",
+        "BUS_4655",
+        "BUS_4662",
+        "BUS_4669",
+        "BUS_4858",
+        "BUS_4924",
+        "BUS_4990",
+        "BUS_5056",
+        "BUS_5122",
+        "BUS_5188",
+        "BUS_5254",
+        "BUS_5320",
+        "BUS_5386",
+        "BUS_5452",
+        "BUS_5518",
+        "BUS_5584",
+        "BUS_5650",
+        "BUS_5716",
+        "BUS_5782",
+        "BUS_5848",
+        "BUS_5914",
+        "BUS_5921",
+        "BUS_5928",
+        "BUS_5935",
+        "BUS_5942",
+        "BUS_5949",
+        "BUS_5956",
+        "BUS_5963",
+        "BUS_5970",
+        "BUS_5977",
+        "BUS_5984",
+        "BUS_5986",
+        "BUS_6037",
+        "BUS_6184",
+        "BUS_6191",
+        "BUS_6198",
+        "BUS_6225",
+        "BUS_6232",
+        "BUS_6239",
+        "BUS_6396",
+        "BUS_6403",
+        "BUS_6410",
+        "BUS_6434",
+        "BUS_6441",
+        "BUS_6448",
+        "BUS_6498",
+        "BUS_6505",
+        "BUS_6512",
+        "BUS_6640",
+        "BUS_6647",
+        "BUS_6654",
+        "BUS_6678",
+        "BUS_6685",
+        "BUS_6692",
+        "BUS_6742",
+        "BUS_6837",
+        "BUS_6844",
+        "BUS_6851",
+        "BUS_6858",
+        "BUS_6865",
+        "BUS_6983",
+        "BUS_6990",
+        "BUS_6997",
+        "BUS_7004",
+        "BUS_7011",
+        "BUS_7016",
+        "BUS_7059",
+        "BUS_7102",
+        "BUS_7126",
+        "BUS_7194"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "BUS_3730",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 555
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_120",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 32
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6037",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 962
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6239",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 998
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6448",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 1035
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6512",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 1051
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6692",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 1087
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "BUS_6865",
+          "at": {
+            "file": "lib/threads/bus.txt",
+            "line": 1122
+          }
+        }
+      ]
+    },
+    {
+      "id": "Barrier",
+      "level": 2,
+      "kind": "thread",
+      "name": "Barrier",
+      "entry": {
+        "label": "Barrier",
+        "file": "lib/threads/barrier.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT",
+        "Barrier"
+      ],
+      "labels": [
+        "Barrier",
+        "Barrier_10",
+        "Barrier_15",
+        "Barrier_16",
+        "Barrier_200",
+        "Barrier_300",
+        "Barrier_400",
+        "Barrier_450",
+        "Barrier_470",
+        "Barrier_500",
+        "Barrier_550",
+        "Barrier_560",
+        "Barrier_600",
+        "Barrier_700",
+        "Barrier_750",
+        "Barrier_800",
+        "Barrier_900",
+        "Barrier_1000"
+      ],
+      "edges": [
+        {
+          "kind": "start_new_script",
+          "target": "Barrier",
+          "self": true,
+          "label": "Barrier_1000",
+          "at": {
+            "file": "lib/threads/barrier.txt",
+            "line": 329
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Barrier_1000",
+          "at": {
+            "file": "lib/threads/barrier.txt",
+            "line": 330
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Clothes",
+      "level": 2,
+      "kind": "thread",
+      "name": "Clothes",
+      "entry": {
+        "label": "Clothes",
+        "file": "lib/threads/clothes.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Clothes",
+        "Clothes_10",
+        "Clothes_92",
+        "Clothes_187",
+        "Clothes_228",
+        "Clothes_297",
+        "Clothes_380",
+        "Clothes_477",
+        "Clothes_518",
+        "Clothes_581",
+        "Clothes_618",
+        "Clothes_620",
+        "Clothes_625",
+        "Clothes_630",
+        "Clothes_655"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Fae",
+      "level": 2,
+      "kind": "thread",
+      "name": "Fae",
+      "entry": {
+        "label": "Fae",
+        "file": "lib/threads/fae.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Fae",
+        "Fae_666",
+        "Fae_801",
+        "Fae_911",
+        "Fae_1000"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Fae_666",
+          "at": {
+            "file": "lib/threads/fae.txt",
+            "line": 9
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "8",
+          "label": "Fae_911",
+          "at": {
+            "file": "lib/threads/fae.txt",
+            "line": 57
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Fae_911",
+          "at": {
+            "file": "lib/threads/fae.txt",
+            "line": 59
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Fae_911",
+          "at": {
+            "file": "lib/threads/fae.txt",
+            "line": 44
+          }
+        }
+      ]
+    },
+    {
+      "id": "Help",
+      "level": 2,
+      "kind": "thread",
+      "name": "Help",
+      "entry": {
+        "label": "Help",
+        "file": "lib/threads/help.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Help",
+        "Help_10",
+        "Help_71",
+        "Help_400",
+        "Help_HoldView",
+        "Help_682",
+        "Help_777",
+        "Help_3184",
+        "Help_3698",
+        "Help_4210",
+        "Help_5210",
+        "Help_5420",
+        "Help_5600",
+        "Help_5800",
+        "Help_5900",
+        "Help_6000"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Help_6000",
+          "at": {
+            "file": "lib/threads/help.txt",
+            "line": 285
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Inside",
+      "level": 2,
+      "kind": "thread",
+      "name": "Inside",
+      "entry": {
+        "label": "Inside",
+        "file": "lib/threads/inside.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Inside",
+        "Inside_10",
+        "Inside_100",
+        "Inside_200",
+        "Inside_300",
+        "Inside_400",
+        "Inside_500"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "JewelryRobbery",
+      "level": 2,
+      "kind": "thread",
+      "name": "Jewelry",
+      "entry": {
+        "label": "JewelryRobbery",
+        "file": "lib/threads/jewelryrobbery.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "JewelryRobbery",
+        "Jewelry_Init",
+        "Jewelry_LoadModel",
+        "Jewelry_MainLoop",
+        "Jewelry_AimingAtClerk",
+        "Jewelry_TriggerAlarm",
+        "Jewelry_AlarmLoop",
+        "Jewelry_ResetWait"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Lazlow",
+      "level": 2,
+      "kind": "thread",
+      "name": "Lazlow",
+      "entry": {
+        "label": "Lazlow",
+        "file": "lib/threads/lazlow.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Lazlow",
+        "Lazlow_10",
+        "Lazlow_20",
+        "Lazlow_30",
+        "Lazlow_40",
+        "Lazlow_50"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Lazlow_50",
+          "at": {
+            "file": "lib/threads/lazlow.txt",
+            "line": 40
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Mystery",
+      "level": 2,
+      "kind": "thread",
+      "name": "Mystery",
+      "entry": {
+        "label": "Mystery",
+        "file": "lib/threads/mystery.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT",
+        "Mystery"
+      ],
+      "labels": [
+        "Mystery",
+        "Mystery_10",
+        "Mystery_20",
+        "Mystery_161",
+        "Mystery_327",
+        "Mystery_553",
+        "Mystery_584"
+      ],
+      "edges": [
+        {
+          "kind": "start_new_script",
+          "target": "Mall",
+          "label": "Mystery_20",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 24
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Mystery_327",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 74
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Mystery",
+          "self": true,
+          "label": "Mystery_553",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 81
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Mystery_553",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 82
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Mystery_10",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 13
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Mystery_20",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 21
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Mystery_327",
+          "at": {
+            "file": "lib/threads/mystery.txt",
+            "line": 71
+          }
+        }
+      ]
+    },
+    {
+      "id": "Music",
+      "level": 2,
+      "kind": "thread",
+      "name": "Music",
+      "entry": {
+        "label": "Music",
+        "file": "lib/threads/music.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Music",
+        "Music_10",
+        "Music_20"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Replay",
+      "level": 2,
+      "kind": "thread",
+      "name": "Replay",
+      "entry": {
+        "label": "Replay",
+        "file": "lib/threads/replay.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Replay",
+        "Replay_10",
+        "Replay_20",
+        "Replay_30"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "ringu",
+      "level": 2,
+      "kind": "thread",
+      "name": "ringu",
+      "entry": {
+        "label": "ringu",
+        "file": "lib/threads/ringu.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT",
+        "ringu"
+      ],
+      "labels": [
+        "ringu",
+        "ringu_30",
+        "ringu_40",
+        "ringu_124",
+        "ringu_167",
+        "ringu_274",
+        "ringu_666",
+        "ringu_693",
+        "ringu_check_player_state",
+        "ringu_900",
+        "ringu_901",
+        "ringu_902",
+        "ringu_1058",
+        "ringu_1059",
+        "ringu_1060",
+        "ringu_1061",
+        "ringu_1100",
+        "ringu_1150",
+        "ringu_1200",
+        "ringu_1238",
+        "ringu_1237",
+        "ringu_1250",
+        "ringu_1300",
+        "ringu_1350",
+        "ringu_1393",
+        "ringu_1394",
+        "ringu_1395",
+        "ringu_1396",
+        "ringu_1397",
+        "ringu_1398",
+        "ringu_1399",
+        "ringu_1400",
+        "ringu_1500",
+        "ringu_1560",
+        "ringu_1606",
+        "ringu_1650",
+        "ringu_1700",
+        "ringu_1750",
+        "ringu_1800",
+        "ringu_1850",
+        "ringu_1900",
+        "ringu_1950",
+        "ringu_2000",
+        "ringu_2050",
+        "ringu_2100",
+        "ringu_2150",
+        "ringu_2200",
+        "ringu_2250",
+        "ringu_2300",
+        "ringu_2350",
+        "ringu_2400",
+        "ringu_2450",
+        "ringu_2500",
+        "ringu_2550",
+        "ringu_2600",
+        "ringu_2650",
+        "ringu_2660",
+        "ringu_2670",
+        "ringu_2700",
+        "ringu_2750",
+        "ringu_2800",
+        "ringu_2850",
+        "ringu_2900",
+        "ringu_2950",
+        "ringu_3000",
+        "ringu_3050",
+        "ringu_3100",
+        "ringu_3150",
+        "ringu_3200",
+        "ringu_3250",
+        "ringu_3300",
+        "ringu_3350",
+        "ringu_3400",
+        "ringu_3450",
+        "ringu_3500",
+        "ringu_3550",
+        "ringu_3600",
+        "ringu_3650",
+        "ringu_3700",
+        "ringu_3750",
+        "ringu_3800",
+        "ringu_3850",
+        "ringu_3900",
+        "ringu_3950",
+        "ringu_4000",
+        "ringu_4050",
+        "ringu_4100",
+        "ringu_4150",
+        "ringu_4200",
+        "ringu_4250",
+        "ringu_4300",
+        "ringu_4350",
+        "ringu_4400",
+        "ringu_4450",
+        "ringu_4500",
+        "ringu_4550",
+        "ringu_4600",
+        "ringu_4650",
+        "ringu_4700",
+        "ringu_4750",
+        "ringu_4800",
+        "ringu_4850",
+        "ringu_4900",
+        "ringu_4950",
+        "ringu_5000",
+        "ringu_5050",
+        "ringu_5100",
+        "ringu_5150",
+        "ringu_5151",
+        "ringu_5152",
+        "ringu_5200",
+        "ringu_5250",
+        "ringu_5300",
+        "ringu_5350",
+        "ringu_5400",
+        "ringu_5450",
+        "ringu_5500",
+        "ringu_5550",
+        "ringu_5600",
+        "ringu_5650",
+        "ringu_5700",
+        "ringu_5750",
+        "ringu_5800",
+        "ringu_5850",
+        "ringu_5900",
+        "ringu_5950",
+        "ringu_6000",
+        "ringu_6050",
+        "ringu_6100",
+        "ringu_6150",
+        "ringu_6200",
+        "ringu_6250",
+        "ringu_6300",
+        "ringu_6350",
+        "ringu_6400",
+        "ringu_6450",
+        "ringu_6500",
+        "ringu_6550",
+        "ringu_6600",
+        "ringu_6650",
+        "ringu_6700",
+        "ringu_6750",
+        "ringu_6800",
+        "ringu_6850",
+        "ringu_6900",
+        "ringu_6950",
+        "ringu_7000",
+        "ringu_7050",
+        "ringu_7100",
+        "ringu_7150",
+        "ringu_7200",
+        "ringu_7250",
+        "ringu_7260",
+        "ringu_7270",
+        "ringu_7271",
+        "ringu_7272",
+        "ringu_7275",
+        "ringu_7276",
+        "ringu_7300",
+        "ringu_7350",
+        "ringu_7400",
+        "ringu_7450",
+        "ringu_7500",
+        "ringu_7650",
+        "ringu_7700",
+        "ringu_7750",
+        "ringu_7800",
+        "ringu_7850",
+        "ringu_7900",
+        "ringu_7950",
+        "ringu_8000",
+        "ringu_8050",
+        "ringu_already_delivered",
+        "ringu_deliver_success",
+        "ringu_9000",
+        "ringu_9130",
+        "ringu_9131",
+        "ringu_9335"
+      ],
+      "edges": [
+        {
+          "kind": "start_new_script",
+          "target": "Telport",
+          "label": "ringu_274",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 80
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "ringu",
+          "self": true,
+          "label": "ringu_9000",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 3233
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "ringu_9000",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 3234
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "ringu_9131",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 3266
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "ringu_9335",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 3274
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "ringu_40",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 23
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "ringu_124",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 43
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "ringu_274",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 73
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "ringu_666",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 86
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "ringu_693",
+          "at": {
+            "file": "lib/threads/ringu.txt",
+            "line": 109
+          }
+        }
+      ]
+    },
+    {
+      "id": "rooftop",
+      "level": 2,
+      "kind": "thread",
+      "name": "rooftop",
+      "entry": {
+        "label": "rooftop",
+        "file": "lib/threads/rooftop.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "rooftop",
+        "rooftop_10",
+        "rooftop_126",
+        "rooftop_149",
+        "rooftop_150",
+        "rooftop_160",
+        "rooftop_170",
+        "rooftop_9000"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "SaveHot",
+      "level": 2,
+      "kind": "thread",
+      "name": "SaveHot",
+      "entry": {
+        "label": "SaveHot",
+        "file": "lib/threads/savehot.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "SaveHot",
+        "SaveHot_10",
+        "SaveHot_20",
+        "SaveHot_30",
+        "SaveHot_114",
+        "SaveHot_277"
+      ],
+      "edges": [],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "SaveHot_10",
+          "at": {
+            "file": "lib/threads/savehot.txt",
+            "line": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": "Skin",
+      "level": 2,
+      "kind": "thread",
+      "name": "Skin",
+      "entry": {
+        "label": "Skin",
+        "file": "lib/threads/skin.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Skin",
+        "Skin_10",
+        "Skin_20",
+        "Skin_30",
+        "Skin_40"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Sphere",
+      "level": 2,
+      "kind": "thread",
+      "name": "Sphere",
+      "entry": {
+        "label": "Sphere",
+        "file": "lib/threads/sphere.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Sphere",
+        "Sphere_10",
+        "Sphere_20",
+        "Sphere_30",
+        "Sphere_40",
+        "Sphere_50",
+        "Sphere_60",
+        "Sphere_70",
+        "Sphere_80",
+        "Sphere_90",
+        "Sphere_100",
+        "Sphere_666"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Swim",
+      "level": 2,
+      "kind": "thread",
+      "name": "Swim",
+      "entry": {
+        "label": "Swim",
+        "file": "lib/threads/swim.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Swim",
+        "Swim_10",
+        "Swim_20"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Swim_20",
+          "at": {
+            "file": "lib/threads/swim.txt",
+            "line": 24
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Water",
+      "level": 2,
+      "kind": "thread",
+      "name": "Water",
+      "entry": {
+        "label": "Water",
+        "file": "lib/threads/water.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT"
+      ],
+      "labels": [
+        "Water",
+        "Water_10",
+        "Water_20"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Water_10",
+          "at": {
+            "file": "lib/threads/water.txt",
+            "line": 84
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "VehHeal",
+      "level": 2,
+      "kind": "thread",
+      "name": "VehHeal",
+      "entry": {
+        "label": "VehHeal",
+        "file": "lib/threads/car-health.txt",
+        "line": 1
+      },
+      "parents": [
+        "INIT",
+        "VehHeal"
+      ],
+      "labels": [
+        "VehHeal",
+        "VehHeal_101",
+        "VehHeal_102",
+        "Pizza",
+        "Pizza_10"
+      ],
+      "edges": [
+        {
+          "kind": "start_new_script",
+          "target": "VehHeal",
+          "self": true,
+          "label": "VehHeal_102",
+          "at": {
+            "file": "lib/threads/car-health.txt",
+            "line": 33
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "VehHeal_102",
+          "at": {
+            "file": "lib/threads/car-health.txt",
+            "line": 34
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Pizza_10",
+          "at": {
+            "file": "lib/threads/pizza.txt",
+            "line": 16
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Intro",
+      "level": 2,
+      "kind": "mission",
+      "name": "Intro",
+      "entry": {
+        "label": "Intro",
+        "file": "missions/intro.txt",
+        "line": 3
+      },
+      "mission": 1,
+      "parents": [
+        "Star"
+      ],
+      "labels": [
+        "Intro",
+        "Intro_26",
+        "Intro_27",
+        "Intro_36",
+        "Intro_235",
+        "Intro_328",
+        "Intro_561",
+        "Intro_681",
+        "Intro_700",
+        "Intro_800",
+        "Intro_1130",
+        "Intro_1145",
+        "Intro_1150",
+        "Intro_1369",
+        "Intro_1370",
+        "Intro_1445",
+        "Intro_1450",
+        "INTRO_1455",
+        "Intro_1460",
+        "Intro_1461",
+        "Intro_1666"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Intro_27",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 21
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Police",
+          "label": "INTRO_1455",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 342
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "INTRO_1455",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 343
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Intro_1666",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 415
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Intro_36",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 29
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Intro_1450",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 286
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Intro_1450",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 310
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Intro_1666",
+          "at": {
+            "file": "missions/intro.txt",
+            "line": 398
+          }
+        }
+      ]
+    },
+    {
+      "id": "PACKAGE",
+      "level": 2,
+      "kind": "thread",
+      "name": "PACKAGE",
+      "entry": {
+        "label": "PACKAGE",
+        "file": "main.txt",
+        "line": 721
+      },
+      "parents": [
+        "PackageToggle"
+      ],
+      "labels": [
+        "PACKAGE",
+        "PACKAGE_Loop",
+        "Get_Package_Coords"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "PACKAGE_Loop",
+          "at": {
+            "file": "main.txt",
+            "line": 755
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "Fairy",
+      "level": 3,
+      "kind": "mission",
+      "name": "Fairy",
+      "entry": {
+        "label": "Fairy",
+        "file": "missions/fairy.txt",
+        "line": 3
+      },
+      "mission": 8,
+      "parents": [
+        "Fae"
+      ],
+      "labels": [
+        "Fairy",
+        "Fairy_LoadWait",
+        "Fairy_Start",
+        "Fairy_Fail"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Fairy_Start",
+          "at": {
+            "file": "missions/fairy.txt",
+            "line": 68
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Fairy_Fail",
+          "at": {
+            "file": "missions/fairy.txt",
+            "line": 92
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Fairy",
+          "at": {
+            "file": "missions/fairy.txt",
+            "line": 4
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Fairy_Start",
+          "at": {
+            "file": "missions/fairy.txt",
+            "line": 60
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Fairy_Fail",
+          "at": {
+            "file": "missions/fairy.txt",
+            "line": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "Mall",
+      "level": 3,
+      "kind": "thread",
+      "name": "Mall",
+      "entry": {
+        "label": "Mall",
+        "file": "main.txt",
+        "line": 513
+      },
+      "parents": [
+        "Mystery"
+      ],
+      "labels": [
+        "Mall",
+        "Mall_10",
+        "Mall_232",
+        "Mall_304",
+        "Mall_424",
+        "Mall_496"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Telport",
+      "level": 3,
+      "kind": "thread",
+      "name": "Telport",
+      "entry": {
+        "label": "Telport",
+        "file": "main.txt",
+        "line": 1533
+      },
+      "parents": [
+        "ringu"
+      ],
+      "labels": [
+        "Telport",
+        "Telport_10",
+        "Telport_20",
+        "Telport_50"
+      ],
+      "edges": [],
+      "flags": []
+    },
+    {
+      "id": "Police",
+      "level": 3,
+      "kind": "thread",
+      "name": "Police",
+      "entry": {
+        "label": "Police",
+        "file": "main.txt",
+        "line": 166
+      },
+      "parents": [
+        "Intro"
+      ],
+      "labels": [
+        "Police",
+        "Police_10",
+        "Police_35",
+        "Police_159"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Police_10",
+          "at": {
+            "file": "main.txt",
+            "line": 174
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "2",
+          "label": "Police_35",
+          "at": {
+            "file": "main.txt",
+            "line": 196
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Police_35",
+          "at": {
+            "file": "main.txt",
+            "line": 182
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "Police",
+          "at": {
+            "file": "main.txt",
+            "line": 166
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 167,
+              "text": "script_name 'Police'"
+            }
+          ]
+        },
+        {
+          "label": "Police_10",
+          "at": {
+            "file": "main.txt",
+            "line": 169
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 170,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 171,
+              "mode": "single",
+              "conditions": [
+                "$HomeSafe == 1"
+              ],
+              "target": "Police_35"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 174,
+              "text": "terminate_this_script"
+            }
+          ]
+        },
+        {
+          "label": "Police_35",
+          "at": {
+            "file": "main.txt",
+            "line": 176
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 177,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 178,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "Police_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 181,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "Police_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 184,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "Police_159"
+            },
+            {
+              "kind": "if_goto",
+              "line": 187,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, 243.0885, -1277.1832, 10.9015, 3.0, 3.0, 1.0, False)"
+              ],
+              "target": "Police_159"
+            },
+            {
+              "kind": "function_call",
+              "line": 190,
+              "text": "Player.SetControl($PLAYER1, False)"
+            },
+            {
+              "kind": "function_call",
+              "line": 191,
+              "text": "Sphere.Remove($SidewalkSphere)"
+            },
+            {
+              "kind": "function_call",
+              "line": 192,
+              "text": "Blip.Remove($OceanViewBlip)"
+            },
+            {
+              "kind": "function_call",
+              "line": 193,
+              "text": "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 194,
+              "text": "Camera.DoFade(1500, Fade.Out)"
+            },
+            {
+              "kind": "wait_statement",
+              "line": 195,
+              "text": "wait 1500"
+            },
+            {
+              "kind": "function_call",
+              "line": 196,
+              "text": "Mission.LoadAndLaunchInternal(2)"
+            }
+          ]
+        },
+        {
+          "label": "Police_159",
+          "at": {
+            "file": "main.txt",
+            "line": 198
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 199,
+              "text": "goto @Police_10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Cop",
+      "level": 4,
+      "kind": "mission",
+      "name": "Cop",
+      "entry": {
+        "label": "Cop",
+        "file": "missions/cop.txt",
+        "line": 3
+      },
+      "mission": 2,
+      "parents": [
+        "Police"
+      ],
+      "labels": [
+        "Cop",
+        "Cop_15",
+        "Cop_20",
+        "Cop_25",
+        "Cop_30",
+        "Cop_80",
+        "Cop_90",
+        "Cop_95",
+        "Cop_96",
+        "Cop_97",
+        "Cop_100",
+        "Cop_120",
+        "Cop_260",
+        "Cop_262",
+        "Cop_263",
+        "Cop_264",
+        "Cop_322",
+        "Cop_323",
+        "Cop_324",
+        "Cop_387",
+        "Cop_390",
+        "Cop_397",
+        "Cop_3434",
+        "Cop_3435",
+        "Cop_3756",
+        "Cop_3757",
+        "Cop_4000",
+        "Cop_4001",
+        "Cop_4002",
+        "Cop_4003",
+        "Cop_4013",
+        "Cop_4014",
+        "Cop_4015",
+        "Cop_4046",
+        "Cop_4092"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Cop_15",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 16
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Cell",
+          "label": "Cop_324",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 247
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Cell",
+          "label": "Cop_390",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 271
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cop_4013",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 487
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cop_4014",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 513
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cop_4015",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 539
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "HOT",
+          "label": "Cop_4092",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 593
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cop_4092",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 594
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Cop_20",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 20
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cop_4013",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 467
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cop_4014",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 492
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cop_4015",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 519
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cop_4046",
+          "at": {
+            "file": "missions/cop.txt",
+            "line": 590
+          }
+        }
+      ]
+    },
+    {
+      "id": "Cell",
+      "level": 5,
+      "kind": "thread",
+      "name": "Cell",
+      "entry": {
+        "label": "Cell",
+        "file": "main.txt",
+        "line": 400
+      },
+      "parents": [
+        "Cop"
+      ],
+      "labels": [
+        "Cell",
+        "Cell_01",
+        "Cell_02",
+        "Cell_03",
+        "Cell_04",
+        "Cell_05",
+        "Cell_1988",
+        "Cell_1990",
+        "Cell_1995",
+        "Cell_1996",
+        "Cell_1998",
+        "Cell_1999"
+      ],
+      "edges": [
+        {
+          "kind": "start_new_script",
+          "target": "Pier",
+          "label": "Cell_04",
+          "at": {
+            "file": "main.txt",
+            "line": 460
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cell_1999",
+          "at": {
+            "file": "main.txt",
+            "line": 509
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Cell_01",
+          "at": {
+            "file": "main.txt",
+            "line": 408
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOT",
+      "level": 5,
+      "kind": "thread",
+      "name": "HOT",
+      "entry": {
+        "label": "HOT",
+        "file": "main.txt",
+        "line": 202
+      },
+      "parents": [
+        "Cop",
+        "HOT"
+      ],
+      "labels": [
+        "HOT",
+        "HOT_10",
+        "HOT_35",
+        "HOT_114",
+        "HOT_115"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "HOT_10",
+          "at": {
+            "file": "main.txt",
+            "line": 210
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "3",
+          "label": "HOT_35",
+          "at": {
+            "file": "main.txt",
+            "line": 231
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "HOT",
+          "self": true,
+          "label": "HOT_115",
+          "at": {
+            "file": "main.txt",
+            "line": 241
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "HOT_115",
+          "at": {
+            "file": "main.txt",
+            "line": 242
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "HOT_35",
+          "at": {
+            "file": "main.txt",
+            "line": 218
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "HOT",
+          "at": {
+            "file": "main.txt",
+            "line": 202
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 203,
+              "text": "script_name 'HOT'"
+            }
+          ]
+        },
+        {
+          "label": "HOT_10",
+          "at": {
+            "file": "main.txt",
+            "line": 205
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 206,
+              "text": "wait 0"
+            },
+            {
+              "kind": "if_goto",
+              "line": 207,
+              "mode": "single",
+              "conditions": [
+                "$Tool_Mission_Passed == 1"
+              ],
+              "target": "HOT_35"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 210,
+              "text": "terminate_this_script"
+            }
+          ]
+        },
+        {
+          "label": "HOT_35",
+          "at": {
+            "file": "main.txt",
+            "line": 212
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 213,
+              "text": "wait 0"
+            },
+            {
+              "kind": "if_goto",
+              "line": 214,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "HOT_115"
+            },
+            {
+              "kind": "if_goto",
+              "line": 217,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "HOT_114"
+            },
+            {
+              "kind": "if_goto",
+              "line": 220,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "HOT_114"
+            },
+            {
+              "kind": "if_goto",
+              "line": 223,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, -524.0143, -347.3969, 11.1078, 2.0, 2.0, 2.0, False)"
+              ],
+              "target": "HOT_114"
+            },
+            {
+              "kind": "function_call",
+              "line": 226,
+              "text": "Player.SetControl($PLAYER1, False)"
+            },
+            {
+              "kind": "function_call",
+              "line": 227,
+              "text": "Sphere.Remove($SidewalkSphere)"
+            },
+            {
+              "kind": "function_call",
+              "line": 228,
+              "text": "Text.PrintBigString(\"Born of Dirt\", 6000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 229,
+              "text": "Camera.DoFade(1500, Fade.Out)"
+            },
+            {
+              "kind": "wait_statement",
+              "line": 230,
+              "text": "wait 3000"
+            },
+            {
+              "kind": "function_call",
+              "line": 231,
+              "text": "Mission.LoadAndLaunchInternal(3)"
+            }
+          ]
+        },
+        {
+          "label": "HOT_114",
+          "at": {
+            "file": "main.txt",
+            "line": 233
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 234,
+              "text": "goto @HOT_10"
+            }
+          ]
+        },
+        {
+          "label": "HOT_115",
+          "at": {
+            "file": "main.txt",
+            "line": 236
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 237,
+              "text": "wait 0"
+            },
+            {
+              "kind": "if_goto",
+              "line": 238,
+              "mode": "single",
+              "conditions": [
+                "not Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "HOT_114"
+            },
+            {
+              "kind": "start_new_script_statement",
+              "line": 241,
+              "text": "start_new_script @HOT"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 242,
+              "text": "terminate_this_script"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Pier",
+      "level": 6,
+      "kind": "thread",
+      "name": "Pier",
+      "entry": {
+        "label": "Pier",
+        "file": "main.txt",
+        "line": 1303
+      },
+      "parents": [
+        "Cell"
+      ],
+      "labels": [
+        "Pier",
+        "Pier_10",
+        "Pier_94",
+        "Pier_95",
+        "Pier_96",
+        "Pier_99",
+        "Pier_277",
+        "Pier_284"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Pier_284",
+          "at": {
+            "file": "main.txt",
+            "line": 1425
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Pier_10",
+          "at": {
+            "file": "main.txt",
+            "line": 1313
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Pier_96",
+          "at": {
+            "file": "main.txt",
+            "line": 1365
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Pier_99",
+          "at": {
+            "file": "main.txt",
+            "line": 1391
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Pier_99",
+          "at": {
+            "file": "main.txt",
+            "line": 1418
+          }
+        }
+      ]
+    },
+    {
+      "id": "Hotel",
+      "level": 6,
+      "kind": "mission",
+      "name": "Hotel",
+      "entry": {
+        "label": "Hotel",
+        "file": "missions/hotel.txt",
+        "line": 3
+      },
+      "mission": 3,
+      "parents": [
+        "HOT"
+      ],
+      "labels": [
+        "Hotel",
+        "Hotel_27",
+        "Hotel_36",
+        "Hotel_90",
+        "Hotel_674",
+        "Hotel_720",
+        "Hotel_721",
+        "Hotel_722",
+        "Hotel_723",
+        "Hotel_796",
+        "Hotel_841",
+        "Hotel_948",
+        "Hotel_1361",
+        "Hotel_1450",
+        "Hotel_1457",
+        "Hotel_1460",
+        "Hotel_1461",
+        "Hotel_1468",
+        "Hotel_1513",
+        "Hotel_1718",
+        "Hotel_1719",
+        "Hotel_1720",
+        "Hotel_2048"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Hotel_27",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 15
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Boss",
+          "label": "Hotel_1719",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 339
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Hotel_1719",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 340
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Hotel_2048",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 376
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Hotel_36",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 19
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Hotel_1719",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 338
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Hotel_2048",
+          "at": {
+            "file": "missions/hotel.txt",
+            "line": 375
+          }
+        }
+      ]
+    },
+    {
+      "id": "Boss",
+      "level": 7,
+      "kind": "thread",
+      "name": "Boss",
+      "entry": {
+        "label": "Boss",
+        "file": "main.txt",
+        "line": 245
+      },
+      "parents": [
+        "Hotel"
+      ],
+      "labels": [
+        "Boss",
+        "Boss_10",
+        "Boss_35",
+        "Boss_181"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Boss_10",
+          "at": {
+            "file": "main.txt",
+            "line": 253
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "4",
+          "label": "Boss_35",
+          "at": {
+            "file": "main.txt",
+            "line": 275
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Boss_35",
+          "at": {
+            "file": "main.txt",
+            "line": 261
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "Boss",
+          "at": {
+            "file": "main.txt",
+            "line": 245
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 246,
+              "text": "script_name 'Boss'"
+            }
+          ]
+        },
+        {
+          "label": "Boss_10",
+          "at": {
+            "file": "main.txt",
+            "line": 248
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 249,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 250,
+              "mode": "single",
+              "conditions": [
+                "$Limey_Passed == 1"
+              ],
+              "target": "Boss_35"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 253,
+              "text": "terminate_this_script"
+            }
+          ]
+        },
+        {
+          "label": "Boss_35",
+          "at": {
+            "file": "main.txt",
+            "line": 255
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 256,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 257,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "Boss_181"
+            },
+            {
+              "kind": "if_goto",
+              "line": 260,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "Boss_181"
+            },
+            {
+              "kind": "if_goto",
+              "line": 263,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "Boss_181"
+            },
+            {
+              "kind": "if_goto",
+              "line": 266,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, -103.874, -1604.519, 9.285, 1.0, 1.0, 1.0, False)"
+              ],
+              "target": "Boss_181"
+            },
+            {
+              "kind": "function_call",
+              "line": 269,
+              "text": "Player.SetControl($PLAYER1, False)"
+            },
+            {
+              "kind": "function_call",
+              "line": 270,
+              "text": "Sphere.Remove($SidewalkSphere)"
+            },
+            {
+              "kind": "function_call",
+              "line": 271,
+              "text": "Text.PrintBigString(\"Behind the Mask, Another Mask!\", 6000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 272,
+              "text": "Camera.DoFade(1500, Fade.Out)"
+            },
+            {
+              "kind": "wait_statement",
+              "line": 273,
+              "text": "wait 1500"
+            },
+            {
+              "kind": "function_call",
+              "line": 274,
+              "text": "Player.SetCoordinates($PLAYER1, -73.011, -1608.668, 11.235)"
+            },
+            {
+              "kind": "function_call",
+              "line": 275,
+              "text": "Mission.LoadAndLaunchInternal(4)"
+            }
+          ]
+        },
+        {
+          "label": "Boss_181",
+          "at": {
+            "file": "main.txt",
+            "line": 277
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 278,
+              "text": "goto @Boss_10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Work",
+      "level": 8,
+      "kind": "mission",
+      "name": "Work",
+      "entry": {
+        "label": "Work",
+        "file": "missions/work.txt",
+        "line": 3
+      },
+      "mission": 4,
+      "parents": [
+        "Boss"
+      ],
+      "labels": [
+        "Work",
+        "Work_31",
+        "Work_40",
+        "Work_50",
+        "Work_902",
+        "Work_1203",
+        "Work_1204",
+        "Work_2031",
+        "Work_2147",
+        "Work_2149",
+        "Work_2200",
+        "Work_2436",
+        "Work_2582",
+        "Work_2630",
+        "Work_2631",
+        "Work_2634",
+        "Work_2674",
+        "Work_2772"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Work_31",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 16
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Work_2674",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 421
+          }
+        },
+        {
+          "kind": "terminate_by_name",
+          "target": "Golf",
+          "label": "Work_2772",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 462
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Golf",
+          "label": "Work_2772",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 463
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Work_2772",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 468
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Work_40",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 24
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Work_2674",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 413
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Work_2772",
+          "at": {
+            "file": "missions/work.txt",
+            "line": 460
+          }
+        }
+      ]
+    },
+    {
+      "id": "Golf",
+      "level": 9,
+      "kind": "thread",
+      "name": "Golf",
+      "entry": {
+        "label": "Golf",
+        "file": "main.txt",
+        "line": 281
+      },
+      "parents": [
+        "Work"
+      ],
+      "labels": [
+        "Golf",
+        "Golf_10",
+        "Golf_35",
+        "Golf_142"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Golf_10",
+          "at": {
+            "file": "main.txt",
+            "line": 289
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "5",
+          "label": "Golf_35",
+          "at": {
+            "file": "main.txt",
+            "line": 307
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Golf_35",
+          "at": {
+            "file": "main.txt",
+            "line": 297
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "Golf",
+          "at": {
+            "file": "main.txt",
+            "line": 281
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 282,
+              "text": "script_name 'Golf'"
+            }
+          ]
+        },
+        {
+          "label": "Golf_10",
+          "at": {
+            "file": "main.txt",
+            "line": 284
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 285,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 286,
+              "mode": "single",
+              "conditions": [
+                "$PsychoDead == 1"
+              ],
+              "target": "Golf_35"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 289,
+              "text": "terminate_this_script"
+            }
+          ]
+        },
+        {
+          "label": "Golf_35",
+          "at": {
+            "file": "main.txt",
+            "line": 291
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 292,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 293,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "Golf_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 296,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "Golf_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 299,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "Golf_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 302,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, 100.5953, 251.247, 20.729, 2.0, 2.0, 3.0, False)"
+              ],
+              "target": "Golf_142"
+            },
+            {
+              "kind": "function_call",
+              "line": 305,
+              "text": "Player.SetControl($PLAYER1, False)"
+            },
+            {
+              "kind": "function_call",
+              "line": 306,
+              "text": "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 307,
+              "text": "Mission.LoadAndLaunchInternal(5)"
+            }
+          ]
+        },
+        {
+          "label": "Golf_142",
+          "at": {
+            "file": "main.txt",
+            "line": 309
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 310,
+              "text": "goto @Golf_10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Cart",
+      "level": 10,
+      "kind": "mission",
+      "name": "Cart",
+      "entry": {
+        "label": "Cart",
+        "file": "missions/cart.txt",
+        "line": 3
+      },
+      "mission": 5,
+      "parents": [
+        "Golf"
+      ],
+      "labels": [
+        "Cart",
+        "Cart_27",
+        "Cart_36",
+        "Cart_37",
+        "Cart_376",
+        "Cart_380",
+        "Cart_400",
+        "Cart_631",
+        "Cart_803",
+        "Cart_847"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Cart_27",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 12
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "Kill",
+          "label": "Cart_631",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 144
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cart_631",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 146
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cart_803",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 163
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "Cart_847",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 180
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "Cart_36",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 17
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cart_631",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 137
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cart_803",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 162
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Cart_847",
+          "at": {
+            "file": "missions/cart.txt",
+            "line": 179
+          }
+        }
+      ]
+    },
+    {
+      "id": "Kill",
+      "level": 11,
+      "kind": "thread",
+      "name": "Kill",
+      "entry": {
+        "label": "Kill",
+        "file": "main.txt",
+        "line": 313
+      },
+      "parents": [
+        "Cart"
+      ],
+      "labels": [
+        "Kill",
+        "Kill_10",
+        "Kill_35",
+        "Kill_142"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Kill_10",
+          "at": {
+            "file": "main.txt",
+            "line": 321
+          }
+        },
+        {
+          "kind": "launch_mission",
+          "target": "6",
+          "label": "Kill_35",
+          "at": {
+            "file": "main.txt",
+            "line": 338
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "read",
+          "label": "Kill_35",
+          "at": {
+            "file": "main.txt",
+            "line": 329
+          }
+        }
+      ],
+      "outline": [
+        {
+          "label": "Kill",
+          "at": {
+            "file": "main.txt",
+            "line": 313
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 314,
+              "text": "script_name 'Kill'"
+            }
+          ]
+        },
+        {
+          "label": "Kill_10",
+          "at": {
+            "file": "main.txt",
+            "line": 316
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 317,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 318,
+              "mode": "single",
+              "conditions": [
+                "$Boss_Killed == 1"
+              ],
+              "target": "Kill_35"
+            },
+            {
+              "kind": "terminate_script",
+              "line": 321,
+              "text": "terminate_this_script"
+            }
+          ]
+        },
+        {
+          "label": "Kill_35",
+          "at": {
+            "file": "main.txt",
+            "line": 323
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 324,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if_goto",
+              "line": 325,
+              "mode": "single",
+              "conditions": [
+                "Player.IsPlaying($PLAYER1)"
+              ],
+              "target": "Kill_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 328,
+              "mode": "single",
+              "conditions": [
+                "$ONMISSION == 0"
+              ],
+              "target": "Kill_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 331,
+              "mode": "single",
+              "conditions": [
+                "Player.CanStartMission($PLAYER1)"
+              ],
+              "target": "Kill_142"
+            },
+            {
+              "kind": "if_goto",
+              "line": 334,
+              "mode": "single",
+              "conditions": [
+                "Player.LocateOnFoot3D($PLAYER1, 482.62, 245.073, 10.52, 1.0, 1.0, 1.0, False)"
+              ],
+              "target": "Kill_142"
+            },
+            {
+              "kind": "function_call",
+              "line": 337,
+              "text": "Text.PrintBigString(\"Burying the Evidence...\", 6000, TextStyle.BottomRight)"
+            },
+            {
+              "kind": "function_call",
+              "line": 338,
+              "text": "Mission.LoadAndLaunchInternal(6)"
+            }
+          ]
+        },
+        {
+          "label": "Kill_142",
+          "at": {
+            "file": "main.txt",
+            "line": 340
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 341,
+              "text": "goto @Kill_10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BossDie",
+      "level": 12,
+      "kind": "mission",
+      "name": "BossDie",
+      "entry": {
+        "label": "BossDie",
+        "file": "missions/bossdie.txt",
+        "line": 3
+      },
+      "mission": 6,
+      "parents": [
+        "Kill"
+      ],
+      "labels": [
+        "BossDie",
+        "BossDie_27",
+        "BossDie_36",
+        "BossDie_306",
+        "BossDie_308",
+        "BossDie_310",
+        "BossDie_311",
+        "BossDie_312",
+        "BossDie_313",
+        "BossDie_314",
+        "BossDie_315",
+        "BossDie_320",
+        "BossDie_917",
+        "BossDie_1137",
+        "BossDie_1312",
+        "BossDie_1313",
+        "BossDie_1400",
+        "BossDie_1600"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "BossDie_27",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 12
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "BossDie_1400",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 252
+          }
+        },
+        {
+          "kind": "start_new_script",
+          "target": "End",
+          "label": "BossDie_1600",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 271
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "BossDie_1600",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 272
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "true",
+          "label": "BossDie_36",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 19
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "BossDie_1400",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 248
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "BossDie_1600",
+          "at": {
+            "file": "missions/bossdie.txt",
+            "line": 268
+          }
+        }
+      ]
+    },
+    {
+      "id": "End",
+      "level": 13,
+      "kind": "thread",
+      "name": "End",
+      "entry": {
+        "label": "End",
+        "file": "main.txt",
+        "line": 344
+      },
+      "parents": [
+        "BossDie"
+      ],
+      "labels": [
+        "End",
+        "End_10",
+        "End_35",
+        "End_94",
+        "End_95"
+      ],
+      "edges": [
+        {
+          "kind": "launch_mission",
+          "target": "7",
+          "label": "End_35",
+          "at": {
+            "file": "main.txt",
+            "line": 370
+          }
+        },
+        {
+          "kind": "terminate_this_script",
+          "label": "End_95",
+          "at": {
+            "file": "main.txt",
+            "line": 387
+          }
+        }
+      ],
+      "flags": [],
+      "outline": [
+        {
+          "label": "End",
+          "at": {
+            "file": "main.txt",
+            "line": 344
+          },
+          "statements": [
+            {
+              "kind": "script_name_statement",
+              "line": 345,
+              "text": "script_name 'End'"
+            }
+          ]
+        },
+        {
+          "label": "End_10",
+          "at": {
+            "file": "main.txt",
+            "line": 347
+          },
+          "statements": [
+            {
+              "kind": "wait_statement",
+              "line": 348,
+              "text": "wait 250"
+            },
+            {
+              "kind": "if",
+              "line": 349,
+              "mode": "single",
+              "conditions": [
+                "$Endgame == 1"
+              ],
+              "then": [
+                {
+                  "kind": "goto_statement",
+                  "line": 352,
+                  "text": "goto @End_95"
+                }
+              ],
+              "else": [
+                {
+                  "kind": "goto_statement",
+                  "line": 354,
+                  "text": "goto @End_35"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "End_35",
+          "at": {
+            "file": "main.txt",
+            "line": 357
+          },
+          "statements": [
+            {
+              "kind": "while",
+              "line": 358,
+              "condition": "$Endgame == 0",
+              "body": [
+                {
+                  "kind": "wait_statement",
+                  "line": 359,
+                  "text": "wait 250"
+                },
+                {
+                  "kind": "if",
+                  "line": 360,
+                  "mode": "single",
+                  "conditions": [
+                    "Player.IsPlaying($PLAYER1)"
+                  ],
+                  "then": [
+                    {
+                      "kind": "if",
+                      "line": 363,
+                      "mode": "single",
+                      "conditions": [
+                        "Player.CanStartMission($PLAYER1)"
+                      ],
+                      "then": [
+                        {
+                          "kind": "if",
+                          "line": 366,
+                          "mode": "single",
+                          "conditions": [
+                            "Player.LocateAnyMeans3D($PLAYER1, -535.6, -325.521, 13.56, 2.0, 2.0, 2.0, False)"
+                          ],
+                          "then": [
+                            {
+                              "kind": "function_call",
+                              "line": 369,
+                              "text": "Text.PrintBigString(\"The End Is Simply the Beginning...\", 6000, TextStyle.BottomRight)"
+                            },
+                            {
+                              "kind": "function_call",
+                              "line": 370,
+                              "text": "Mission.LoadAndLaunchInternal(7)"
+                            },
+                            {
+                              "kind": "goto_statement",
+                              "line": 371,
+                              "text": "goto @End_10"
+                            }
+                          ],
+                          "else": [
+                            {
+                              "kind": "break_statement",
+                              "line": 373,
+                              "text": "break"
+                            }
+                          ]
+                        }
+                      ],
+                      "else": [
+                        {
+                          "kind": "break_statement",
+                          "line": 376,
+                          "text": "break"
+                        }
+                      ]
+                    }
+                  ],
+                  "else": [
+                    {
+                      "kind": "break_statement",
+                      "line": 379,
+                      "text": "break"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "End_94",
+          "at": {
+            "file": "main.txt",
+            "line": 383
+          },
+          "statements": [
+            {
+              "kind": "goto_statement",
+              "line": 384,
+              "text": "goto @End_10"
+            }
+          ]
+        },
+        {
+          "label": "End_95",
+          "at": {
+            "file": "main.txt",
+            "line": 386
+          },
+          "statements": [
+            {
+              "kind": "terminate_script",
+              "line": 387,
+              "text": "terminate_this_script"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Endgame",
+      "level": 14,
+      "kind": "mission",
+      "name": "Endgame",
+      "entry": {
+        "label": "Endgame",
+        "file": "missions/endgame.txt",
+        "line": 3
+      },
+      "mission": 7,
+      "parents": [
+        "End"
+      ],
+      "labels": [
+        "Endgame",
+        "Endgame_LoadModels",
+        "Endgame_WaitModels",
+        "Endgame_Enter",
+        "Endgame_CheckBoarding",
+        "Endgame_Go",
+        "Endgame_Stop",
+        "Endgame_ResetCutscene",
+        "Endgame_Finish"
+      ],
+      "edges": [
+        {
+          "kind": "terminate_this_script",
+          "label": "Endgame_Finish",
+          "at": {
+            "file": "missions/endgame.txt",
+            "line": 121
+          }
+        }
+      ],
+      "flags": [
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Endgame_ResetCutscene",
+          "at": {
+            "file": "missions/endgame.txt",
+            "line": 84
+          }
+        },
+        {
+          "var": "$ONMISSION",
+          "access": "write",
+          "value": "0",
+          "label": "Endgame_Finish",
+          "at": {
+            "file": "missions/endgame.txt",
+            "line": 111
+          }
+        }
+      ]
+    }
+  ],
+  "scriptNames": [
+    {
+      "name": "MAIN",
+      "label": "#start",
+      "at": {
+        "file": "main.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Star",
+      "label": "Star",
+      "at": {
+        "file": "main.txt",
+        "line": 124
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Police",
+      "label": "Police",
+      "at": {
+        "file": "main.txt",
+        "line": 166
+      },
+      "status": "entry"
+    },
+    {
+      "name": "HOT",
+      "label": "HOT",
+      "at": {
+        "file": "main.txt",
+        "line": 202
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Boss",
+      "label": "Boss",
+      "at": {
+        "file": "main.txt",
+        "line": 245
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Golf",
+      "label": "Golf",
+      "at": {
+        "file": "main.txt",
+        "line": 281
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Kill",
+      "label": "Kill",
+      "at": {
+        "file": "main.txt",
+        "line": 313
+      },
+      "status": "entry"
+    },
+    {
+      "name": "End",
+      "label": "End",
+      "at": {
+        "file": "main.txt",
+        "line": 344
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Fae",
+      "label": "Fae",
+      "at": {
+        "file": "lib/threads/fae.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Inside",
+      "label": "Inside",
+      "at": {
+        "file": "lib/threads/inside.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Sphere",
+      "label": "Sphere",
+      "at": {
+        "file": "lib/threads/sphere.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Barrier",
+      "label": "Barrier",
+      "at": {
+        "file": "lib/threads/barrier.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "BUS",
+      "label": "BUS",
+      "at": {
+        "file": "lib/threads/bus.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Clothes",
+      "label": "Clothes",
+      "at": {
+        "file": "lib/threads/clothes.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Swim",
+      "label": "Swim",
+      "at": {
+        "file": "lib/threads/swim.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Skin",
+      "label": "Skin",
+      "at": {
+        "file": "lib/threads/skin.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Cell",
+      "label": "Cell",
+      "at": {
+        "file": "main.txt",
+        "line": 400
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Mall",
+      "label": "Mall",
+      "at": {
+        "file": "main.txt",
+        "line": 513
+      },
+      "status": "entry"
+    },
+    {
+      "name": "PakTog",
+      "label": "PackageToggle",
+      "at": {
+        "file": "main.txt",
+        "line": 584
+      },
+      "status": "entry"
+    },
+    {
+      "name": "PACKAGE",
+      "label": "PACKAGE",
+      "at": {
+        "file": "main.txt",
+        "line": 721
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Help",
+      "label": "Help",
+      "at": {
+        "file": "lib/threads/help.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Lazlow",
+      "label": "Lazlow",
+      "at": {
+        "file": "lib/threads/lazlow.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Music",
+      "label": "Music",
+      "at": {
+        "file": "lib/threads/music.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Mystery",
+      "label": "Mystery",
+      "at": {
+        "file": "lib/threads/mystery.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Pier",
+      "label": "Pier",
+      "at": {
+        "file": "main.txt",
+        "line": 1303
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Replay",
+      "label": "Replay",
+      "at": {
+        "file": "lib/threads/replay.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "ringu",
+      "label": "ringu",
+      "at": {
+        "file": "lib/threads/ringu.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "rooftop",
+      "label": "rooftop",
+      "at": {
+        "file": "lib/threads/rooftop.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Save",
+      "label": "Save",
+      "at": {
+        "file": "main.txt",
+        "line": 1433
+      },
+      "status": "entry"
+    },
+    {
+      "name": "SaveHot",
+      "label": "SaveHot",
+      "at": {
+        "file": "lib/threads/savehot.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Telport",
+      "label": "Telport",
+      "at": {
+        "file": "main.txt",
+        "line": 1533
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Tools",
+      "label": "Tools",
+      "at": {
+        "file": "main.txt",
+        "line": 1568
+      },
+      "status": "unreached"
+    },
+    {
+      "name": "Jewelry",
+      "label": "JewelryRobbery",
+      "at": {
+        "file": "lib/threads/jewelryrobbery.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "VehHeal",
+      "label": "VehHeal",
+      "at": {
+        "file": "lib/threads/car-health.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Pizza",
+      "label": "Pizza",
+      "at": {
+        "file": "lib/threads/pizza.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "VPHotel",
+      "label": "VPHotel",
+      "at": {
+        "file": "main.txt",
+        "line": 1657
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Water",
+      "label": "Water",
+      "at": {
+        "file": "lib/threads/water.txt",
+        "line": 1
+      },
+      "status": "entry"
+    },
+    {
+      "name": "INIT",
+      "label": "INIT",
+      "at": {
+        "file": "main.txt",
+        "line": 1717
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Intro",
+      "label": "Intro_36",
+      "at": {
+        "file": "missions/intro.txt",
+        "line": 26
+      },
+      "status": "reached"
+    },
+    {
+      "name": "Cop",
+      "label": "Cop_20",
+      "at": {
+        "file": "missions/cop.txt",
+        "line": 18
+      },
+      "status": "reached"
+    },
+    {
+      "name": "Hotel",
+      "label": "Hotel_36",
+      "at": {
+        "file": "missions/hotel.txt",
+        "line": 17
+      },
+      "status": "reached"
+    },
+    {
+      "name": "Work",
+      "label": "Work_40",
+      "at": {
+        "file": "missions/work.txt",
+        "line": 18
+      },
+      "status": "reached"
+    },
+    {
+      "name": "Cart",
+      "label": "Cart_36",
+      "at": {
+        "file": "missions/cart.txt",
+        "line": 14
+      },
+      "status": "reached"
+    },
+    {
+      "name": "BossDie",
+      "label": "BossDie_36",
+      "at": {
+        "file": "missions/bossdie.txt",
+        "line": 14
+      },
+      "status": "reached"
+    },
+    {
+      "name": "Endgame",
+      "label": "Endgame",
+      "at": {
+        "file": "missions/endgame.txt",
+        "line": 3
+      },
+      "status": "entry"
+    },
+    {
+      "name": "Hell",
+      "label": "Hell",
+      "at": {
+        "file": "missions/hell.txt",
+        "line": 3
+      },
+      "status": "unreached"
+    },
+    {
+      "name": "Bathe",
+      "label": "#start",
+      "at": {
+        "file": "lib/threads/bath.txt",
+        "line": 1
+      },
+      "status": "entry"
+    }
+  ],
+  "unresolved": [],
+  "flagUses": [
+    {
+      "var": "$MissionLocked",
+      "access": "declare",
+      "file": "main.txt",
+      "line": 57
+    },
+    {
+      "var": "$MissionLocked",
+      "access": "write",
+      "value": "false",
+      "file": "main.txt",
+      "line": 58
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 142
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 182
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 218
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 261
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 297
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 329
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 408
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1313
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1365
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "main.txt",
+      "line": 1391
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "main.txt",
+      "line": 1418
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1439
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1495
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1512
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "main.txt",
+      "line": 1663
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "main.txt",
+      "line": 1740
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "main.txt",
+      "line": 2002
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "main.txt",
+      "line": 2025
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "main.txt",
+      "line": 2036
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/fae.txt",
+      "line": 44
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 32
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 962
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 998
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 1035
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 1051
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 1087
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bus.txt",
+      "line": 1122
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/mystery.txt",
+      "line": 13
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "lib/threads/mystery.txt",
+      "line": 21
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "lib/threads/mystery.txt",
+      "line": 71
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/ringu.txt",
+      "line": 23
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "lib/threads/ringu.txt",
+      "line": 43
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "lib/threads/ringu.txt",
+      "line": 73
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/ringu.txt",
+      "line": 86
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/ringu.txt",
+      "line": 109
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/savehot.txt",
+      "line": 7
+    },
+    {
+      "var": "$MissionLocked",
+      "access": "read",
+      "file": "lib/mission-lock.txt",
+      "line": 11
+    },
+    {
+      "var": "$MissionLocked",
+      "access": "write",
+      "value": "true",
+      "file": "lib/mission-lock.txt",
+      "line": 13
+    },
+    {
+      "var": "$MissionLockGranted",
+      "access": "write",
+      "value": "true",
+      "file": "lib/mission-lock.txt",
+      "line": 14
+    },
+    {
+      "var": "$MissionLockGranted",
+      "access": "write",
+      "value": "false",
+      "file": "lib/mission-lock.txt",
+      "line": 22
+    },
+    {
+      "var": "$MissionLocked",
+      "access": "write",
+      "value": "false",
+      "file": "lib/mission-lock.txt",
+      "line": 28
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/intro.txt",
+      "line": 29
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/intro.txt",
+      "line": 286
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/intro.txt",
+      "line": 310
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/intro.txt",
+      "line": 376
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/intro.txt",
+      "line": 398
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/intro.txt",
+      "line": 420
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/cop.txt",
+      "line": 20
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cop.txt",
+      "line": 467
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cop.txt",
+      "line": 492
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cop.txt",
+      "line": 519
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cop.txt",
+      "line": 590
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/hotel.txt",
+      "line": 19
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/hotel.txt",
+      "line": 338
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/hotel.txt",
+      "line": 375
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/work.txt",
+      "line": 24
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/work.txt",
+      "line": 413
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/work.txt",
+      "line": 460
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/cart.txt",
+      "line": 17
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cart.txt",
+      "line": 137
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cart.txt",
+      "line": 162
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/cart.txt",
+      "line": 179
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/bossdie.txt",
+      "line": 19
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/bossdie.txt",
+      "line": 248
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/bossdie.txt",
+      "line": 268
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/endgame.txt",
+      "line": 84
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/endgame.txt",
+      "line": 111
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "missions/fairy.txt",
+      "line": 4
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/fairy.txt",
+      "line": 60
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "0",
+      "file": "missions/fairy.txt",
+      "line": 72
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bath.txt",
+      "line": 15
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bath.txt",
+      "line": 25
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "read",
+      "file": "lib/threads/bath.txt",
+      "line": 39
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "true",
+      "file": "lib/threads/bath.txt",
+      "line": 54
+    },
+    {
+      "var": "$ONMISSION",
+      "access": "write",
+      "value": "false",
+      "file": "lib/threads/bath.txt",
+      "line": 73
+    }
+  ]
+}

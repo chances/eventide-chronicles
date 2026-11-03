@@ -1,0 +1,9 @@
+{
+  "name": "@eventide/flow-model",
+  "version": "0.1.0",
+  "exports": "./program.ts",
+  "tasks": {
+    "start": "deno run --env-file=../../.env --allow-env --allow-read --allow-write main.ts",
+    "capped": "deno run --env-file=../../.env --allow-env --allow-ffi --allow-run capped.ts"
+  }
+}
