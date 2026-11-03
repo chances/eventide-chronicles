@@ -33,6 +33,8 @@ This repo is The Eventide Chronicles, a total Conversion mod for Grand Theft Aut
 - Read [docs/branding.md](docs/branding.md) and [docs/lore.md](docs/lore.md) before writing or editing any story text, string, or document.
 - Check the ledger, [docs/lore.csv](docs/lore.csv), before defining any story element. Use the status it records. Do not contradict a Book entry without adding a departure note.
 - Publishing targets and release instructions go in [docs/publish.md](docs/publish.md). Do not put them in the branding or lore documents.
+- The `/breakdown-*` skills write a named implementation plan to `.agents/plans/<name>.md` and its acceptance criteria to the sibling `.agents/plans/<name>.ac.md`. They do not use `docs/ways-of-work`.
+- The `/breakdown-*` skills name each work item with a readable slug in Title Case, such as "Schema," "Marks," or "Launch Sites." Never use a two-character code such as E1 or S2 in a heading, table, diagram, or cross-reference.
 - CSV files are for tabular data sets. Record a single bug in a Markdown document; when one bug document tracks multiple bugs, use a sibling CSV for the tabular records.
 - Read [docs/visual-identity.md](docs/visual-identity.md) before making any art, font, color, or HUD change. Colors come from [docs/palette.csv](docs/palette.csv).
 - The hidden premise lives only in [docs/spoilers.md](docs/spoilers.md). Do not state or hint at it in any other document, in release art, or in any player-facing string. Link to the spoiler document instead.
