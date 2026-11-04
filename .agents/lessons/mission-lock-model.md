@@ -51,6 +51,7 @@ Behavior flow of `INIT`, the opening (mission 0). A thread is a small program of
 ## Flow Model Pitfalls
 
 - The first full run of the generated file hit a 300 second timeout, and so did the second, after the trigger search was rewritten, so the trigger search was not the cause. The Lean trigger search now indexes the reachable states once and builds the traces one effect level at a time, as the TypeScript side does (Star alone: 33 states, 13 traces, about 3 seconds); the old depth-first search was never timed on its own.
+- Death, arrest, and countdown guards are exit atoms (`wasted`, `timerOut`, and their negations) that read three sticky flags in the run state. Enumerating every effect trace of the baseline `Cop` or `Intro` at bound 40 exhausts a 1500 MB Deno heap (`deno task spec measure Cop 12` finishes in 296 ms with 3 traces). `endings` in `lib/mission-lock.lean` and `endingDepths` in `tools/flow-model/program.ts` find the fewest effects to each ending without listing traces; the generated file states the result (`introBound`, `copBound`).
 - A list-based search of the lock protocol is fine for the correct protocol (1024 states for 7 processes, under 5 seconds) but not for the broken variants, so those are checked with 3 processes.
 - "A held lock only waits" is wrong: every run starts with the `script_name` effect, and `HOT` restarts itself when the player is dead. The property is that no run contains a launch or its preparation (`commitPrefixes` in `tools/flow-model/config.ts`).
 

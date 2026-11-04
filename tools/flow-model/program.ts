@@ -7,20 +7,53 @@ import type {
   OutlineStatement,
 } from "../thread-graph/graph.ts";
 
-/** How a guard reads the lock: true when the lock is free, when it is held, and so on. `free` is any other input. */
+/**
+ * How a guard reads the lock: true when the lock is free, when it is held, and so on. `free` is any other input.
+ *
+ * The exit atoms read three flags that start false and stay true once set within a run: `died`, `arrested`,
+ * and `timerOut`. `wasted` is true when either `died` or `arrested` holds, and it is the atom for
+ * `has_deatharrest_been_executed`; `timerOut` is the atom for `$TIMER == 0`. A test of an exit atom whose
+ * flag is still false may go either way, and going true sets the flag. `notWasted` and `timerRunning` are the
+ * negations.
+ */
 export type Atom =
   | "unlocked"
   | "locked"
   | "granted"
   | "notGranted"
   | "free"
-  | "never";
+  | "never"
+  | "died"
+  | "arrested"
+  | "wasted"
+  | "notWasted"
+  | "timerOut"
+  | "timerRunning";
+
+/** Bits of the exit flags a run carries. */
+export const DIED = 1;
+const ARRESTED = 2;
+const TIMER_OUT = 4;
+
+/** The engine's death and arrest guard. */
+const DEATH_GUARD = "has_deatharrest_been_executed";
+/** The mission countdown variable. */
+const TIMER_VAR = "$TIMER";
 
 export type Ins =
-  | { op: "eff"; text: string }
+  | { op: "eff"; text: string; line?: number }
   | { op: "lock" }
   | { op: "jmp"; to: number }
-  | { op: "br"; mode: "and" | "or"; atoms: Atom[]; t: number; f: number }
+  | {
+    op: "br";
+    mode: "and" | "or";
+    atoms: Atom[];
+    t: number;
+    f: number;
+    /** Source line of the guard header, and the text of each condition, in atom order. */
+    line?: number;
+    texts?: string[];
+  }
   | { op: "acq" }
   | { op: "call"; to: number }
   | { op: "ret" }
@@ -65,6 +98,15 @@ export class FlowProgram {
   runs(lockFree: boolean, bound: number): string[][] {
     return new Runner(this.ins, lockFree).run(bound);
   }
+
+  /**
+   * The fewest visible effects needed to reach each ending, with the lock free or held for the whole run.
+   * An ending is an instruction where no run can go on: a stop, a return with no caller, or the end of the
+   * program. Endings are listed by instruction number.
+   */
+  endingDepths(lockFree: boolean): { pc: number; depth: number }[] {
+    return new Runner(this.ins, lockFree).endingDepths();
+  }
 }
 
 class Compiler {
@@ -108,9 +150,14 @@ class Compiler {
   #atom(text: string): Atom {
     const t = squash(text);
     if (this.#config.neverTrue.includes(t)) return "never";
+    const death = t.match(new RegExp(`^(not\\s+)?${DEATH_GUARD}$`));
+    if (death) return death[1] ? "notWasted" : "wasted";
     const m = t.match(/^(not\s+)?(\$\w+)(?:\s*(==|!=)\s*(\S+))?$/);
     if (!m) return "free";
     const [, neg, name, op, value] = m;
+    if (name === TIMER_VAR && op && value === "0") {
+      return (op === "==") !== !!neg ? "timerOut" : "timerRunning";
+    }
     const lock = this.#config.lockVars.includes(name);
     const granted = this.#config.grantedVars.includes(name);
     if (!lock && !granted) return "free";
@@ -124,13 +171,19 @@ class Compiler {
     return positive ? "granted" : "notGranted";
   }
 
-  #branch(conditions: string[], mode: "single" | "and" | "or") {
+  #branch(
+    conditions: string[],
+    mode: "single" | "and" | "or",
+    line: number,
+  ) {
     return this.#emit({
       op: "br" as const,
       mode: mode === "or" ? "or" as const : "and" as const,
       atoms: conditions.map((c) => this.#atom(c)),
       t: -1,
       f: -1,
+      line,
+      texts: conditions.map(squash),
     });
   }
 
@@ -142,7 +195,7 @@ class Compiler {
     switch (s.kind) {
       case "if": {
         const s2 = s as Extract<OutlineStatement, { kind: "if" }>;
-        const br = this.#branch(s2.conditions, s2.mode);
+        const br = this.#branch(s2.conditions, s2.mode, s2.line);
         br.t = this.#ins.length;
         this.#stmts(s2.then);
         if (s2.else) {
@@ -155,7 +208,7 @@ class Compiler {
       }
       case "if_goto": {
         const s2 = s as Extract<OutlineStatement, { kind: "if_goto" }>;
-        const br = this.#branch(s2.conditions, s2.mode);
+        const br = this.#branch(s2.conditions, s2.mode, s2.line);
         // The false branch lands on a jump to the label; the true branch continues after that jump.
         br.f = this.#ins.length;
         this.#emit({ op: "jmp" as const, to: s2.target });
@@ -165,7 +218,7 @@ class Compiler {
       case "while": {
         const s2 = s as Extract<OutlineStatement, { kind: "while" }>;
         const head = this.#ins.length;
-        const br = this.#branch([s2.condition], "single");
+        const br = this.#branch([s2.condition], "single", s2.line);
         br.t = this.#ins.length;
         this.#loops.push({ exits: [] });
         this.#stmts(s2.body);
@@ -180,7 +233,7 @@ class Compiler {
         const head = this.#ins.length;
         this.#loops.push({ exits: [] });
         this.#stmts(s2.body);
-        const br = this.#branch([s2.condition], "single");
+        const br = this.#branch([s2.condition], "single", s2.line);
         br.f = head;
         br.t = this.#ins.length;
         const loop = this.#loops.pop()!;
@@ -215,7 +268,7 @@ class Compiler {
         const m = text.match(/^(\w+)\(\)$/);
         if (m && this.#byLower.has(m[1].toLowerCase())) {
           this.#emit({ op: "call", to: m[1] });
-        } else this.#emit({ op: "eff", text: squash(text) });
+        } else this.#emit({ op: "eff", text: squash(text), line: s.line });
         return;
       }
       case "assignment": {
@@ -223,16 +276,113 @@ class Compiler {
         const isLock = target &&
           (this.#config.lockVars.includes(target) ||
             this.#config.grantedVars.includes(target));
-        this.#emit(isLock ? { op: "lock" } : { op: "eff", text: squash(text) });
+        this.#emit(
+          isLock
+            ? { op: "lock" }
+            : { op: "eff", text: squash(text), line: s.line },
+        );
         return;
       }
       case "declare_mission_flag":
         this.#emit({ op: "lock" });
         return;
       default:
-        this.#emit({ op: "eff", text: squash(text) });
+        this.#emit({ op: "eff", text: squash(text), line: s.line });
     }
   }
+}
+
+/** A point in a run: the next instruction, the return stack, the last acquire's result, and the exit flags. */
+type RunState = {
+  pc: number;
+  stack: number[];
+  granted: "u" | "t" | "f";
+  flags: number;
+};
+
+const START: RunState = { pc: 0, stack: [], granted: "u", flags: 0 };
+const key = (s: RunState) =>
+  `${s.pc}|${s.stack.join(",")}|${s.granted}|${s.flags}`;
+
+/** The values one atom may take, each with the exit flags after the test. */
+export function atomOutcomes(
+  atom: Atom,
+  lockFree: boolean,
+  granted: "u" | "t" | "f",
+  flags: number,
+): { value: boolean; flags: number }[] {
+  const sticky = (bit: number, truth: boolean, hold: boolean) =>
+    (flags & bit) !== 0
+      ? [{ value: hold, flags }]
+      : [{ value: truth, flags }, { value: !truth, flags: flags | bit }];
+  switch (atom) {
+    case "unlocked":
+      return [{ value: lockFree, flags }];
+    case "locked":
+      return [{ value: !lockFree, flags }];
+    case "granted":
+      return [{ value: granted === "t", flags }];
+    case "notGranted":
+      return [{ value: granted === "f", flags }];
+    case "never":
+      return [{ value: false, flags }];
+    case "free":
+      return [{ value: true, flags }, { value: false, flags }];
+    case "died":
+      return sticky(DIED, false, true);
+    case "arrested":
+      return sticky(ARRESTED, false, true);
+    case "timerOut":
+      return sticky(TIMER_OUT, false, true);
+    case "timerRunning":
+      return sticky(TIMER_OUT, true, false);
+    case "wasted":
+      return (flags & (DIED | ARRESTED)) !== 0 ? [{ value: true, flags }] : [
+        { value: false, flags },
+        { value: true, flags: flags | DIED },
+        { value: true, flags: flags | ARRESTED },
+      ];
+    case "notWasted":
+      return (flags & (DIED | ARRESTED)) !== 0 ? [{ value: false, flags }] : [
+        { value: true, flags },
+        { value: false, flags: flags | DIED },
+        { value: false, flags: flags | ARRESTED },
+      ];
+  }
+}
+
+/**
+ * Every value a branch may take, with the exit flags after its tests; every condition is tested, with no
+ * short-circuit. Outcomes with the same value and flags are listed once, with the first condition values
+ * that produce them.
+ */
+export function branchOutcomes(
+  i: Extract<Ins, { op: "br" }>,
+  lockFree: boolean,
+  granted: "u" | "t" | "f",
+  flags: number,
+): { value: boolean; flags: number; values: boolean[] }[] {
+  let tests: { values: boolean[]; flags: number }[] = [{ values: [], flags }];
+  for (const atom of i.atoms) {
+    tests = tests.flatMap((test) =>
+      atomOutcomes(atom, lockFree, granted, test.flags).map((o) => ({
+        values: [...test.values, o.value],
+        flags: o.flags,
+      }))
+    );
+  }
+  const seen = new Set<string>();
+  const out: { value: boolean; flags: number; values: boolean[] }[] = [];
+  for (const test of tests) {
+    const value = i.mode === "and"
+      ? test.values.every((x) => x)
+      : test.values.some((x) => x);
+    const key = `${value}|${test.flags}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ value, flags: test.flags, values: test.values });
+  }
+  return out;
 }
 
 /** Bounded run of a program with the lock free or held for the whole run. */
@@ -248,46 +398,15 @@ class Runner {
   #outcomes(
     i: Extract<Ins, { op: "br" }>,
     granted: "u" | "t" | "f",
-  ): boolean[] {
-    let free = false;
-    const fixed: boolean[] = [];
-    for (const a of i.atoms) {
-      switch (a) {
-        case "unlocked":
-          fixed.push(this.#lockFree);
-          break;
-        case "locked":
-          fixed.push(!this.#lockFree);
-          break;
-        case "granted":
-          fixed.push(granted === "t");
-          break;
-        case "notGranted":
-          fixed.push(granted === "f");
-          break;
-        case "never":
-          fixed.push(false);
-          break;
-        case "free":
-          free = true;
-          break;
-      }
-    }
-    if (i.mode === "and") {
-      const base = fixed.every((x) => x);
-      return free ? (base ? [true, false] : [false]) : [base];
-    }
-    const base = fixed.some((x) => x);
-    if (i.atoms.length === 0) return [false];
-    return free ? (base ? [true] : [true, false]) : [base];
+    flags: number,
+  ): { value: boolean; flags: number }[] {
+    return branchOutcomes(i, this.#lockFree, granted, flags);
   }
 
   /** All traces of up to `bound` effects, found level by level until each level stops growing. */
   run(bound: number): string[][] {
-    type State = { pc: number; stack: number[]; granted: "u" | "t" | "f" };
-    const key = (s: State) => `${s.pc}|${s.stack.join(",")}|${s.granted}`;
-    const states = new Map<string, State>();
-    const queue: State[] = [{ pc: 0, stack: [], granted: "u" }];
+    const states = new Map<string, RunState>();
+    const queue: RunState[] = [START];
     // Reachable states, ignoring the effect budget.
     while (queue.length) {
       const s = queue.pop()!;
@@ -327,17 +446,50 @@ class Runner {
       }
       previous = current;
     }
-    const init = key({ pc: 0, stack: [], granted: "u" });
-    return [...previous.get(init)!].map((t) => JSON.parse(t) as string[]).sort((
-      a,
-      b,
-    ) => JSON.stringify(a) < JSON.stringify(b) ? -1 : 1);
+    return [...previous.get(key(START))!].map((t) => JSON.parse(t) as string[])
+      .sort((a, b) => JSON.stringify(a) < JSON.stringify(b) ? -1 : 1);
   }
 
-  #successors(s: { pc: number; stack: number[]; granted: "u" | "t" | "f" }) {
+  /**
+   * The fewest effects to each ending, found level by level: a level is every state reachable with the
+   * same effect count, closed under the moves that show no effect.
+   */
+  endingDepths(): { pc: number; depth: number }[] {
+    const seen = new Set<string>([key(START)]);
+    const endings = new Map<number, number>();
+    let frontier: RunState[] = [START];
+    for (let depth = 0; frontier.length > 0; depth++) {
+      const next = new Map<string, RunState>();
+      const queue = [...frontier];
+      while (queue.length) {
+        const s = queue.pop()!;
+        const successors = this.#successors(s);
+        if (successors.length === 0 && !endings.has(s.pc)) {
+          endings.set(s.pc, depth);
+        }
+        for (const n of successors) {
+          const k = key(n.state);
+          if (n.effect === undefined) {
+            if (seen.has(k)) continue;
+            seen.add(k);
+            queue.push(n.state);
+          } else next.set(k, n.state);
+        }
+      }
+      frontier = [...next].filter(([k]) => !seen.has(k)).map(([k, s]) => {
+        seen.add(k);
+        return s;
+      });
+    }
+    return [...endings].map(([pc, depth]) => ({ pc, depth })).sort((a, b) =>
+      a.pc - b.pc
+    );
+  }
+
+  #successors(s: RunState) {
     const i = this.#ins[s.pc];
     const next = { ...s, pc: s.pc + 1 };
-    type Succ = { state: typeof s; effect?: string };
+    type Succ = { state: RunState; effect?: string };
     if (!i || i.op === "stop") return [] as Succ[];
     switch (i.op) {
       case "eff":
@@ -356,18 +508,19 @@ class Runner {
             pc: i.to,
             stack: [...s.stack, s.pc + 1],
             granted: s.granted,
+            flags: s.flags,
           },
         }] as Succ[];
       case "ret": {
         if (s.stack.length === 0) return [] as Succ[];
         const stack = s.stack.slice(0, -1);
         return [{
-          state: { pc: s.stack[s.stack.length - 1], stack, granted: s.granted },
+          state: { ...s, pc: s.stack[s.stack.length - 1], stack },
         }] as Succ[];
       }
       case "br":
-        return this.#outcomes(i, s.granted).map((o) => ({
-          state: { ...s, pc: o ? i.t : i.f },
+        return this.#outcomes(i, s.granted, s.flags).map((o) => ({
+          state: { ...s, pc: o.value ? i.t : i.f, flags: o.flags },
         })) as Succ[];
     }
   }
