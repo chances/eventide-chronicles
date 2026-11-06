@@ -160,12 +160,11 @@ erDiagram
 
 - Behavior traces of a trigger run at bound 12, the bound
   `lib/mission-flow.test.ts` uses, and traces of a mission script run at bound
-  24. The mission script bound is unmeasured for missions 2 to 6: enumerating
-  every trace at bound 40 exhausts a 1500 MB heap for Cop and Intro. Behavior
-  counts the instructions and traces of each mission with the `tools/flow-model`
-  library before it keeps 24, and heavy runs go through
-  `deno task --cwd tools/flow-model capped`. A run that exceeds the cap at bound
-  24 stops and asks.
+  24. The runner walks forward from the entry and groups the next moves by
+  effect, so it holds the result and one path of at most `bound` steps. All six
+  missions finish at bound 24 under the default 1500 MB cap, and heavy runs go
+  through `deno task --cwd tools/flow-model capped`. A run that exceeds the cap
+  stops and asks.
 - The server rejects a request whose path is not a mission name from the DEFINE
   MISSION list for missions 1 to 6.
 - The server writes a JSON file to a temporary file and renames it, so a stop
@@ -186,8 +185,8 @@ erDiagram
 | Page location        | `dist/charts/`, removed by `deno task clean` and rebuilt by the generator                                                                                                                                                                                                                                                                                                                                       |
 | Schema version       | A `version` field in each JSON file; a version the tool does not know stops the run                                                                                                                                                                                                                                                                                                                             |
 | Schema format        | A hand-written `chart.schema.json` in `tools/chart`, validated with `npm:ajv`                                                                                                                                                                                                                                                                                                                                   |
-| Trace shape          | One entry per trace in `traces`: `script` (the trigger or the mission script that was run), `lock` (`free` or `held`), and `effects`, an ordered array of strings. The trigger is run with the lock free and held. The mission script is run once, with the lock held, because it starts after the trigger takes the lock. |
-| Trace bound          | Each trace stores its own `bound` and a `cut` flag that is true when the run hit the bound before the script ended. The chart has no top-level `traceBound`; `tools/chart/chart.schema.json`, `schema.ts`, `main.ts`, the tests, and the `missions/*.chart.json` files drop it. The flow-model runner reports which traces were cut.                                                                       |
+| Trace shape          | One entry per trace in `traces`: `script` (the trigger or the mission script that was run), `lock` (`free` or `held`), and `effects`, an ordered array of strings. The trigger is run with the lock free and held. The mission script is run once, with the lock held, because it starts after the trigger takes the lock.                                                                                      |
+| Trace bound          | Each trace stores its own `bound` and a `cut` flag that is true when the run hit the bound before the script ended. The chart has no top-level `traceBound`; `tools/chart/chart.schema.json`, `schema.ts`, `main.ts`, the tests, and the `missions/*.chart.json` files drop it. The flow-model runner reports which traces were cut.                                                                            |
 | Library entry points | Each of `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` has a `mod.ts` that re-exports its public classes and types, and its `exports` points at `mod.ts`                                                                                                                                                                                                                                             |
 
 ## Work Items
@@ -197,10 +196,10 @@ erDiagram
 | Schema        | Enabler | `tools/chart` package, workspace entry, JSON schema with a version field, `AGENTS.md` run line                       | 3    | P0       | Done   |
 | Exports       | Enabler | Library entry points on `tools/cfg`, `tools/thread-graph`, and `tools/flow-model`, each a `mod.ts`                   | 3    | P0       | Done   |
 | Globals       | Story   | Shared globals per mission, each with its reader or writer                                                           | 5    | P0       | Done   |
-| Launch Sites  | Story   | Each place where a trigger launches the mission with `Mission.LoadAndLaunchInternal`: file, line, trigger, guards   | 3    | P0       | Done   |
+| Launch Sites  | Story   | Each place where a trigger launches the mission with `Mission.LoadAndLaunchInternal`: file, line, trigger, guards    | 3    | P0       | Done   |
 | Conflicts     | Story   | The three pairs, each with both access sites                                                                         | 5    | P0       | Open   |
 | State Machine | Story   | States from marks, guards and transitions from control-flow blocks                                                   | 5    | P0       | Open   |
-| Behavior      | Story   | Effect traces of trigger and mission script at a measured bound each, with a cut flag the runner reports             | 5    | P1       | Open   |
+| Behavior      | Story   | Effect traces of trigger and mission script at a measured bound each, with a cut flag the runner reports             | 5    | P1       | Done   |
 | Marks         | Story   | Marks merger with statement-text re-anchoring and orphan report                                                      | 5    | P0       | Done   |
 | Pages         | Story   | HTML page per mission in `dist/charts`, with each orphaned mark shown as an error the author can reattach or discard | 5    | P1       | Open   |
 | Server        | Story   | `chart:serve` with the mark route and the regenerate route                                                           | 5    | P1       | Open   |
@@ -209,27 +208,29 @@ erDiagram
 The total is 49 points. Work proceeds in dependency order.
 
 ```mermaid
-graph LR
+flowchart LR
     Schema --> Globals
     Schema --> Marks
     Exports --> Globals
     Exports --> LaunchSites["Launch Sites"]
-    Exports --> Conflicts
     Exports --> Behavior
+    Exports --> StateMachine["State Machine"]
     Globals --> Conflicts
-    Marks --> StateMachine["State Machine"]
-    Exports --> StateMachine
-    Globals --> Pages
+    Marks --> StateMachine
     LaunchSites --> Pages
     Conflicts --> Pages
     StateMachine --> Pages
     Behavior --> Pages
-    Marks --> Server
     Pages --> Server
-    Pages --> Tests
-    Marks --> Tests
     Server --> Tests
+    classDef done fill:#c8e6c9,stroke:#2e7d32,color:#000
+    class Schema,Exports,Globals,LaunchSites,Marks done
+    class Behavior done
+    classDef wip fill:#fff9c4,stroke:#f9a825,color:#000
 ```
+
+The chart draws each dependency once, through the longest path. The table lists
+every direct blocker.
 
 | Item          | Blocked By                                                |
 | ------------- | --------------------------------------------------------- |
@@ -245,9 +246,9 @@ graph LR
 
 ## Risks
 
-| Risk                                                                                     | Mitigation                                                                                                                       |
-| ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Trace bound 24 exceeds the memory cap for Cop or Intro                                   | Behavior measures first, runs through the capped runner, and records the bound it used; a resource stop names the cap that fired |
-| A source edit moves a statement and orphans a mark                                       | Marks anchor by statement text, and the run lists orphans without dropping them                                                  |
-| `tools/flow-model` `mod.ts` leaves out `capped.ts`, which opens `kernel32.dll` at import | Behavior reaches the capped runner through its task, or imports `capped.ts` with `--allow-ffi`                                   |
-| Two identical statements in a mission confuse the anchor                                 | Order of appearance breaks the tie, and a test covers it                                                                         |
+| Risk                                                                                     | Mitigation                                                                                                      |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| A mission script's traces at bound 24 exceed the memory cap                              | The run goes through the capped runner and records each trace's bound; a resource stop names the cap that fired |
+| A source edit moves a statement and orphans a mark                                       | Marks anchor by statement text, and the run lists orphans without dropping them                                 |
+| `tools/flow-model` `mod.ts` leaves out `capped.ts`, which opens `kernel32.dll` at import | Behavior reaches the capped runner through its task, or imports `capped.ts` with `--allow-ffi`                  |
+| Two identical statements in a mission confuse the anchor                                 | Order of appearance breaks the tie, and a test covers it                                                        |

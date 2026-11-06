@@ -65,20 +65,20 @@ the turn its check passes.
 
 ## Behavior
 
-- [ ] Effect traces come from `tools/flow-model`.
-- [ ] Each trace stores its `script`, its `lock` (`free` or `held`), its `bound`,
-      a `cut` flag that is true when the run hit the bound before the script
-      ended, and its `effects` as an ordered array of strings.
-- [ ] The chart has no top-level `traceBound` in the schema, the tool, the
+- [x] Effect traces come from `tools/flow-model`.
+- [x] Each trace stores its `script`, its `lock` (`free` or `held`), its
+      `bound`, a `cut` flag that is true when the run hit the bound before the
+      script ended, and its `effects` as an ordered array of strings.
+- [x] The chart has no top-level `traceBound` in the schema, the tool, the
       tests, or the `missions/*.chart.json` files.
-- [ ] Each mission has traces of its trigger with the lock free and with the lock
-      held, and traces of its mission script with the lock held.
-- [ ] Triggers run at bound 12. Mission scripts run at bound 24, measured for
+- [x] Each mission has traces of its trigger with the lock free and with the
+      lock held, and traces of its mission script with the lock held.
+- [x] Triggers run at bound 12. Mission scripts run at bound 24, measured for
       each mission with the `tools/flow-model` library before the bound is kept.
       The JSON stores only each trace's bound, not the measured counts.
-- [ ] A run that exceeds the memory cap or the timeout stops with a message that
+- [x] A run that exceeds the memory cap or the timeout stops with a message that
       names the cap that fired.
-- [ ] Heavy runs go through the capped runner, and `decide +kernel` appears
+- [x] Heavy runs go through the capped runner, and `decide +kernel` appears
       nowhere.
 
 ## Marks

@@ -1,21 +1,45 @@
-// Control-flow graph of a Sanny Builder script, from any label.
-// ControlFlow.load resolves {$INCLUDE path} lines against the script's folder and
-// builds a block per label. reachable(label) returns the blocks reachable from a
-// label. Reachability follows goto, goto_if_false, calls, fall-through, and
-// start_new_script; Mission.LoadAndLaunchInternal is recorded but not followed.
+/**
+ * @module
+ * Control-flow graph of a Sanny Builder script, from any label.
+ *
+ * {@link ControlFlow.load} resolves `{$INCLUDE path}` lines against the script's folder and builds one
+ * block per label. {@link ControlFlow.reachable} returns the blocks reachable from a label.
+ *
+ * Reachability follows these edges:
+ * - `goto` and `goto_if_false`
+ * - calls and fall-through
+ * - `start_new_script`
+ *
+ * `Mission.LoadAndLaunchInternal` is recorded in {@link Block.launch} and not followed.
+ */
 import { dirname, join } from "@std/path";
 
 type Entry = { file: string; line: number; text: string };
 
-export type Edge = { kind: string; to: string; returns?: boolean };
+/** A control-flow edge from one block to the block named by `to`. */
+export type Edge = {
+  /** `goto`, `if-false` (a `goto_if_false`), `call`, or `fall` (fall-through into the next label). */
+  kind: string;
+  /** The label the edge leads to. */
+  to: string;
+  /** On a `call` edge, whether the callee reaches a `return`. */
+  returns?: boolean;
+};
 
+/** The statements from one label to the next, with what they do to the script's control flow. */
 export type Block = {
   label: string;
+  /** Where the label is, as `file:line`. */
   at: string;
+  /** Each `$ONMISSION` assignment as `<value>@<file:line>`, and each death check as `deathcheck@<file:line>`. */
   flag: string[];
+  /** Each `Mission.LoadAndLaunchInternal` call as `<mission number>@<file:line>`. */
   launch: string[];
+  /** The labels this block starts with `start_new_script`. */
   starts: string[];
+  /** True when the block contains a `wait`. */
   yields: boolean;
+  /** How the block ends on every path: `goto`, `terminate`, or `return`; null when it can fall through. */
   term: string | null;
   edges: Edge[];
 };
@@ -28,6 +52,7 @@ type Frame = {
   loop: boolean;
 };
 
+/** The blocks of one script and its includes, keyed by label. Build one with {@link ControlFlow.load}. */
 export class ControlFlow {
   #blocks = new Map<string, Block>();
   #order: string[] = [];
@@ -64,6 +89,7 @@ export class ControlFlow {
     return new ControlFlow(entries);
   }
 
+  /** True when the script defines the label. */
   has(label: string): boolean {
     return this.#blocks.has(label);
   }

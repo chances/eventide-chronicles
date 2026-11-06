@@ -23,12 +23,22 @@ Deno.test({
     const started = performance.now();
     const hog =
       "const keep = []; for (;;) keep.push(new Uint8Array(64 * 1024 * 1024).fill(1));";
-    const code = await runCapped(Deno.execPath(), ["eval", hog], 512, 60);
+    const { code, stderr } = await cappedCommand([
+      "512",
+      "60",
+      Deno.execPath(),
+      "eval",
+      hog,
+    ]);
     assertNotEquals(code, 0);
     assertNotEquals(
       code,
       124,
       "the limit should stop it before the timeout does",
+    );
+    assert(
+      stderr.includes("Array buffer allocation failed"),
+      `the command should fail on its allocation, got: ${stderr}`,
     );
     assert(performance.now() - started < 50_000);
   },
@@ -67,7 +77,7 @@ Deno.test({
       "eval",
       hog,
     ]);
-    assertNotEquals(code, 0);
+    assertEquals(code, 125);
     assert(stderr.includes("memory cap of 256 MB"), stderr);
   },
 });

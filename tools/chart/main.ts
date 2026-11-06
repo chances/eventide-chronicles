@@ -2,11 +2,14 @@
  * @module
  * Mission chart command.
  *
- * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]...`
+ * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>]`
  *
  * Rewrites the derived content of `<dir>/<mission>.chart.json` (default dir: `missions`) from the
  * script at `<file>` (default: `main.txt`) and keeps its marks. Stops with a message when an
  * existing file has an unknown schema version or invalid content, and lists orphaned marks on stderr.
+ * The effect traces are enumerated by `traces.ts` under the capped runner, with a memory cap of
+ * `--memory` megabytes (default 1500) and a timeout of `--timeout` seconds (default 300). A run that
+ * trips either cap stops the command and writes nothing. Windows only, since the capped runner is.
  */
 import { parseArgs } from "@std/cli/parse-args";
 import { join } from "@std/path";
@@ -20,13 +23,13 @@ import {
 } from "./schema.ts";
 
 const args = parseArgs(Deno.args, {
-  string: ["missions", "entry", "cleo-dir"],
+  string: ["missions", "entry", "cleo-dir", "memory", "timeout"],
   collect: ["cleo-dir"],
 });
 const [mission] = args._ as string[];
 if (!mission) {
   console.error(
-    "usage: deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]...",
+    "usage: deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>]",
   );
   Deno.exit(1);
 }
@@ -49,9 +52,52 @@ if (!wasm) {
   );
   Deno.exit(1);
 }
-const assembler = new ChartAssembler(args.entry ?? "main.txt", wasm, {
-  cleoDirs: args["cleo-dir"] ?? ["lib/threads"],
-});
+const entry = args.entry ?? "main.txt";
+const cleoDirs = args["cleo-dir"] ?? ["lib/threads"];
+const assembler = new ChartAssembler(entry, wasm, { cleoDirs });
+
+/** Runs `traces.ts` under the capped runner and returns the traces it wrote, or stops the command. */
+async function cappedTraces(): Promise<ChartFile["traces"]> {
+  const out = await Deno.makeTempFile({ suffix: ".json" });
+  try {
+    const { code } = await new Deno.Command("deno", {
+      args: [
+        "task",
+        "--cwd",
+        "tools/flow-model",
+        "capped",
+        "--cwd=../..",
+        args.memory ?? "1500",
+        args.timeout ?? "300",
+        Deno.execPath(),
+        "run",
+        "--env-file=.env",
+        "--allow-env",
+        "--allow-read",
+        "--allow-write",
+        "tools/chart/traces.ts",
+        mission,
+        "--out",
+        out,
+        "--entry",
+        entry,
+        ...cleoDirs.flatMap((d) => ["--cleo-dir", d]),
+      ],
+      stdin: "null",
+      stdout: "inherit",
+      stderr: "inherit",
+    }).output();
+    if (code !== 0) {
+      console.error(
+        `traces for ${mission} stopped with exit code ${code}; ${path} was not written`,
+      );
+      Deno.exit(1);
+    }
+    return JSON.parse(await Deno.readTextFile(out));
+  } finally {
+    await Deno.remove(out);
+  }
+}
 const derived: DerivedContent = {
   version: 1,
   mission,
@@ -59,7 +105,7 @@ const derived: DerivedContent = {
   states: existing?.states ?? [],
   launchSites: await assembler.launchSites(mission),
   conflicts: existing?.conflicts ?? [],
-  traces: existing?.traces ?? [],
+  traces: await cappedTraces(),
 };
 const { chart, orphans } = new MarksMerger().merge(
   existing,

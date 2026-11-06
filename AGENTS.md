@@ -61,6 +61,11 @@ Auto: Vice City.
 - The `/breakdown-*` skills name each work item with a readable slug in Title
   Case, such as "Schema," "Marks," or "Launch Sites." Never use a two-character
   code such as E1 or S2 in a heading, table, diagram, or cross-reference.
+- A plan's Work Items table uses the statuses Open, In Progress, and Done. Its
+  Mermaid dependency flowchart colors each Done item green and each In Progress
+  item yellow, with `classDef done fill:#c8e6c9,stroke:#2e7d32,color:#000` and
+  `classDef wip fill:#fff9c4,stroke:#f9a825,color:#000`. Open items stay
+  uncolored. Update the status and the colors in the same turn.
 - CSV files are for tabular data sets. Record a single bug in a Markdown
   document; when one bug document tracks multiple bugs, use a sibling CSV for
   the tabular records.
@@ -123,6 +128,9 @@ to be backward-compatible with earlier builds, saves, or scripts.
 - `deno task --cwd tools/flow-model capped <memoryMB> <timeoutSeconds> <command> [args...]`
   runs a command under a hard memory limit and timeout. Run any heavy trace
   enumeration through it.
-- `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]...`
+- `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>]`
   (`tools/chart`) rewrites the derived content of
-  `missions/<mission>.chart.json`, keeps its marks, and lists orphaned marks.
+  `missions/<mission>.chart.json`, keeps its marks, and lists orphaned marks. It
+  enumerates the effect traces under the capped runner (default 1500 MB and 300
+  seconds), and a run that trips a cap stops with the cap named and writes
+  nothing. The capped runner exits 124 on a timeout and 125 on the memory cap.

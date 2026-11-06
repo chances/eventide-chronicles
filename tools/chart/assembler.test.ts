@@ -88,8 +88,14 @@ Deno.test("each of missions 1 to 6 is launched by its trigger, and mission 7 is 
 
 Deno.test("traces cover the trigger with the lock free and held, and the mission script with the lock held", async () => {
   const traces = await launchSites.traces("alpha");
-  const kinds = [...new Set(traces.map((t) => `${t.script} ${t.lock} ${t.bound}`))];
-  assertEquals(kinds.sort(), ["Alpha held 24", "Trigger free 12", "Trigger held 12"]);
+  const kinds = [
+    ...new Set(traces.map((t) => `${t.script} ${t.lock} ${t.bound}`)),
+  ];
+  assertEquals(kinds.sort(), [
+    "Alpha held 24",
+    "Trigger free 12",
+    "Trigger held 12",
+  ]);
   for (const t of traces) {
     assert(t.effects.length <= t.bound, `${t.script} exceeds its bound`);
     if (t.script === "Trigger") assert(t.cut, "a trigger loop is always cut");

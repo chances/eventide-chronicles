@@ -74,9 +74,6 @@ type Pending = Ins | { op: "jmp" | "call"; to: string };
 
 const squash = (text: string) => text.replace(/\s+/g, " ").trim();
 
-/** Marks the end of a trace that the bound cut off; stripped before a trace leaves the runner. */
-const CUT = "\u0000cut";
-
 /** One thread compiled from an outline. */
 export class FlowProgram {
   readonly ins: Ins[];
@@ -421,70 +418,71 @@ class Runner {
     return branchOutcomes(i, this.#lockFree, granted, flags);
   }
 
-  /** All traces of up to `bound` effects, found level by level until each level stops growing. */
-  run(bound: number): string[][] {
-    const states = new Map<string, RunState>();
-    const queue: RunState[] = [START];
-    // Reachable states, ignoring the effect budget.
-    while (queue.length) {
-      const s = queue.pop()!;
+  /**
+   * Every trace of up to `bound` effects, and whether the bound cut it off before the script ended.
+   *
+   * The walk starts at the entry and follows the effects forward. At each step it holds the set of run
+   * states the trace so far can be in (closed under the moves that show no effect) and groups their
+   * next moves by effect, so each distinct trace is visited once and no trace is stored but the
+   * result. Memory is the result plus one path of at most `bound` steps, not a set of traces per state.
+   */
+  runCuts(bound: number): { effects: string[]; cut: boolean }[] {
+    type Move = { state: RunState; effect?: string };
+    const cache = new Map<string, Move[]>();
+    const next = (s: RunState) => {
       const k = key(s);
-      if (states.has(k)) continue;
-      states.set(k, s);
-      for (const n of this.#successors(s)) queue.push(n.state);
-    }
-    let previous = new Map<string, Set<string>>();
-    for (let level = 0; level <= bound; level++) {
-      const current = new Map<string, Set<string>>();
-      for (const k of states.keys()) current.set(k, new Set());
-      let changed = true;
-      while (changed) {
-        changed = false;
-        for (const [k, s] of states) {
-          const out = current.get(k)!;
-          const before = out.size;
-          const successors = this.#successors(s);
-          if (successors.length === 0) out.add(JSON.stringify([]));
-          for (const n of successors) {
-            if (n.effect === undefined) {
-              for (const t of current.get(key(n.state))!) {
-                out.add(t);
-              }
-            } else if (level === 0) {
-              out.add(JSON.stringify([CUT]));
-            } else {
-              for (const t of previous.get(key(n.state))!) {
-                out.add(JSON.stringify([n.effect, ...JSON.parse(t)]));
-              }
-            }
-          }
-          if (out.size !== before) changed = true;
+      let moves = cache.get(k);
+      if (!moves) {
+        moves = this.#successors(s);
+        cache.set(k, moves);
+      }
+      return moves;
+    };
+    const close = (seed: RunState[]): RunState[] => {
+      const seen = new Map<string, RunState>();
+      const stack = [...seed];
+      while (stack.length) {
+        const s = stack.pop()!;
+        const k = key(s);
+        if (seen.has(k)) continue;
+        seen.set(k, s);
+        for (const move of next(s)) {
+          if (move.effect === undefined) stack.push(move.state);
         }
       }
-      previous = current;
-    }
-    return [...previous.get(key(START))!].map((t) => JSON.parse(t) as string[]);
-  }
-
-  /** `run`, with the effects of each trace and whether the bound cut it off before the script ended. */
-  runCuts(bound: number): { effects: string[]; cut: boolean }[] {
-    const seen = new Set<string>();
+      return [...seen.values()];
+    };
     const out: { effects: string[]; cut: boolean }[] = [];
-    for (const t of this.run(bound)) {
-      const cut = t[t.length - 1] === CUT;
-      const effects = cut ? t.slice(0, -1) : t;
-      const id = JSON.stringify([effects, cut]);
-      if (seen.has(id)) continue;
-      seen.add(id);
-      out.push({ effects, cut });
-    }
-    return out.sort((a, b) =>
-      JSON.stringify(a.effects) < JSON.stringify(b.effects)
-        ? -1
-        : JSON.stringify(a.effects) > JSON.stringify(b.effects)
-        ? 1
-        : Number(a.cut) - Number(b.cut)
-    );
+    const walk = (subset: RunState[], effects: string[]) => {
+      const byEffect = new Map<string, RunState[]>();
+      let ends = false;
+      for (const s of subset) {
+        const moves = next(s);
+        if (moves.length === 0) ends = true;
+        for (const move of moves) {
+          if (move.effect === undefined) continue;
+          const targets = byEffect.get(move.effect);
+          if (targets) targets.push(move.state);
+          else byEffect.set(move.effect, [move.state]);
+        }
+      }
+      if (ends) out.push({ effects: [...effects], cut: false });
+      if (effects.length === bound) {
+        if (byEffect.size > 0) out.push({ effects: [...effects], cut: true });
+        return;
+      }
+      for (const [effect, targets] of byEffect) {
+        effects.push(effect);
+        walk(close(targets), effects);
+        effects.pop();
+      }
+    };
+    walk(close([START]), []);
+    return out.sort((a, b) => {
+      const x = JSON.stringify(a.effects);
+      const y = JSON.stringify(b.effects);
+      return x < y ? -1 : x > y ? 1 : Number(a.cut) - Number(b.cut);
+    });
   }
 
   /**

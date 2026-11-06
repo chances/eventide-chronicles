@@ -2,7 +2,7 @@
 // process is killed by the operating system instead of exhausting the machine.
 // Usage: deno task --cwd tools/flow-model capped [--cwd=<dir>] <memoryMB> <timeoutSeconds> <command> [args...]
 // The command runs in --cwd, which defaults to tools/flow-model (use --cwd=../.. for the project root).
-// The exit code is the command's, or 124 on timeout.
+// The exit code is the command's, 124 on timeout, or 125 when the memory cap fired.
 
 const JOB_OBJECT_LIMIT_JOB_MEMORY = 0x200;
 const JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000;
@@ -16,6 +16,8 @@ const JOB_MEMORY_LIMIT_OFFSET = 120;
 const PEAK_JOB_MEMORY_OFFSET = 136;
 /** A failed command whose peak memory reached this share of the limit is reported as stopped by the cap. */
 const CAP_SHARE = 0.9;
+/** The exit code when the memory cap fired; the timeout uses 124. */
+const MEMORY_CAP_CODE = 125;
 
 const kernel32 = Deno.dlopen(
   "kernel32.dll",
@@ -158,10 +160,13 @@ export async function runCapped(
       console.error(`capped: timeout of ${timeoutSeconds} seconds fired`);
       return 124;
     }
-    if (status.code !== 0 && job.peakMegabytes() >= limitMegabytes * CAP_SHARE) {
+    if (
+      status.code !== 0 && job.peakMegabytes() >= limitMegabytes * CAP_SHARE
+    ) {
       console.error(
         `capped: memory cap of ${limitMegabytes} MB fired (peak ${job.peakMegabytes()} MB)`,
       );
+      return MEMORY_CAP_CODE;
     }
     return status.code;
   } finally {

@@ -12,7 +12,7 @@
     "install": "deno task install:skins && deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run scripts/install.ts",
     "install:skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/install-skins.ts",
     "run": "deno run --env-file=.env --allow-env --allow-read --allow-run scripts/run.ts",
-    "chart": "deno run --env-file=.env --allow-env --allow-read --allow-write tools/chart/main.ts",
+    "chart": "deno run --env-file=.env --allow-env --allow-read --allow-write --allow-run tools/chart/main.ts",
     "extract-skins": "deno run --env-file=.env --allow-env --allow-read --allow-write scripts/extract-skins.ts",
     "import-skin": "deno run --allow-env --allow-read --allow-write scripts/import-skin.ts",
     "slice-sheet": "deno run --allow-env --allow-read --allow-write scripts/slice-sheet.ts",

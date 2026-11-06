@@ -217,6 +217,7 @@ Deno.test("the command writes the globals into the chart file and keeps its mark
         "-R",
         "-W",
         "-E",
+        "--allow-run",
         join(import.meta.dirname!, "main.ts"),
         "alpha",
         "--missions",

@@ -155,7 +155,8 @@ export class ChartAssembler {
     for (const node of graph.nodes) {
       for (const edge of node.edges) {
         if (
-          edge.kind !== "launch_mission" || edge.target !== String(target.mission)
+          edge.kind !== "launch_mission" ||
+          edge.target !== String(target.mission)
         ) continue;
         const stmts = program.blocks.get(edge.label)!.stmts
           .filter((s) => s.file === edge.at.file)
@@ -169,9 +170,7 @@ export class ChartAssembler {
         });
       }
     }
-    return sites.sort((a, b) =>
-      compare(a.file, b.file) || a.line - b.line
-    );
+    return sites.sort((a, b) => compare(a.file, b.file) || a.line - b.line);
   }
 
   /** The guard lines on the way to the statement at `line`, or undefined when it is not in `list`. */
