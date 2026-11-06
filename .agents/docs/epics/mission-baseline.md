@@ -39,10 +39,11 @@ The JSON records, for each in-scope mission:
   does it.
 - State machine: states, guards, and transitions. A state is a division the
   mission author marks in the chart HTML. Waits never mark a state by
-  themselves. With no marks, a mission is one state. Each mark stores the text
-  of the statement it sits on and an optional label, a story beat the author
-  names. The mission script is the upstream source, so a change to it changes
-  the chart.
+  themselves. With no marks, a mission is one state. Marks go between lines, not
+  on them, and split story beats. Each mark anchors before the statement that
+  follows the division and stores the text of that statement and an optional
+  label, a story beat the author names. The mission script is the upstream
+  source, so a change to it changes the chart.
 - Launch sites: each place where a trigger launches the mission with
   `Mission.LoadAndLaunchInternal`, with its file, line, trigger thread, and the
   guard lines around it.

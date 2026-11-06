@@ -20,6 +20,7 @@ import { dirname, join } from "@std/path";
 import { exists } from "@std/fs";
 import { ChartAssembler } from "./assembler.ts";
 import { type DerivedContent, MarksMerger } from "./marks.ts";
+import { PageRenderer } from "./render.ts";
 import {
   type ChartFile,
   ChartSchema,
@@ -133,14 +134,21 @@ const derived: DerivedContent = {
   errors,
   traces: await cappedTraces(),
 };
+const statements = await assembler.statements(mission);
 const { chart, orphans } = new MarksMerger().merge(
   existing,
   derived,
-  await assembler.statements(mission),
+  statements,
 );
 await Deno.writeTextFile(
   path,
   JSON.stringify(schema.check(chart), null, 2) + "\n",
+);
+const pagePath = join("dist", "charts", `${mission}.html`);
+await Deno.mkdir(dirname(pagePath), { recursive: true });
+await Deno.writeTextFile(
+  pagePath,
+  new PageRenderer(chart, statements).render(),
 );
 for (const mark of orphans) {
   console.error(`orphaned mark: ${JSON.stringify(mark.statementText)}`);

@@ -85,6 +85,13 @@ Read [.agents/testing/test-plans.md](.agents/testing/test-plans.md) before you
 write, edit, or preview a test plan, or change the shared test-plan stylesheet
 and scripts in `.agents/testing`.
 
+## Direct Execution
+
+- Execute single-property mechanical instructions directly in the next turn
+  without exploratory wandering or overengineering.
+- When an element displays visual bleed-through, inspect parent `opacity` and
+  stacking context (`z-index`) before modifying decorative styles.
+
 ## Scripting
 
 This is pre-alpha software. While it's under active iteration, no change needs
@@ -136,3 +143,7 @@ to be backward-compatible with earlier builds, saves, or scripts.
   enumerates the effect traces under the capped runner (default 1500 MB and 300
   seconds), and a run that trips a cap stops with the cap named and writes
   nothing. The capped runner exits 124 on a timeout and 125 on the memory cap.
+  Mission chart HTML views display every line of the source script verbatim in
+  sequential line order (1 to `N`), preserving comments, labels, blank lines,
+  and original whitespace. Marks go between lines, not on them, and split story
+  beats.

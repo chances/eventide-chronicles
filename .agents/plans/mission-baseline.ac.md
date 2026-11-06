@@ -106,7 +106,9 @@ the turn its check passes.
 
 ## Marks
 
-- [x] A mark stores the statement text and an optional label.
+- [x] Marks go between lines, not on them, and split story beats.
+- [x] A mark stores the statement text immediately following the division and an
+      optional label.
 - [x] A run rewrites the derived content and leaves every mark as it was.
 - [x] After a source edit that moves a statement, the mark follows the
       statement.
@@ -121,7 +123,7 @@ the turn its check passes.
 - [ ] No page is hand-authored, and deleting `dist/charts` and running the task
       again restores every page.
 - [ ] A page shows the globals, launch sites, conflicts, states, and traces of
-      its mission, and a mark control on each statement.
+      its mission, and a mark control between lines to split story beats.
 - [ ] A page shows each entry of `errors` at its statement, as an error or as a
       warning by severity, with the states that reach it. A warning reminds the
       author to refactor the shared subroutine into a function.

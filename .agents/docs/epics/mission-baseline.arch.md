@@ -18,10 +18,11 @@ The JSON has two kinds of content:
 | Derived: shared globals, launch sites, conflicts, behavior traces     | Static tools over the source      | Yes                                   |
 | Authored: state marks, each with statement text and an optional label | The author, through the HTML page | No, but re-anchored by statement text |
 
-The mission script is the upstream source. A source change changes the derived
-content, and each mark is re-anchored by the text of its statement. A mark whose
-statement no longer exists is reported as orphaned and is never dropped without
-the author's confirmation.
+Marks go between lines, not on them, and split story beats. The mission script
+is the upstream source. A source change changes the derived content, and each
+mark is re-anchored by the text of the statement immediately following the
+division. A mark whose statement no longer exists is reported as orphaned and is
+never dropped without the author's confirmation.
 
 ## System Architecture Diagram
 
@@ -100,8 +101,8 @@ the derived content and the pages from the source in one run.
   kind).
 - Launch-site report: file, line, trigger thread, and guard lines for each place
   where a trigger launches the mission with `Mission.LoadAndLaunchInternal`.
-- Generated HTML page per mission in `dist/charts/`, with a mark control on each
-  statement.
+- Generated HTML page per mission in `dist/charts/`, with a mark control between
+  lines to split story beats.
 - Local server that persists marks into the mission's JSON.
 - Effect traces at trace bound 24, with the bound recorded in the JSON.
 

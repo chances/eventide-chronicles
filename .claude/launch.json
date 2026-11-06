@@ -26,6 +26,17 @@
         "4173"
       ],
       "port": 4173
+    },
+    {
+      "name": "chart:serve",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "task",
+        "chart:serve",
+        "--port",
+        "8080"
+      ],
+      "port": 8080
     }
   ]
 }

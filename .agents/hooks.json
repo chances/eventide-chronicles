@@ -1,0 +1,28 @@
+{
+  "allow-deno-commands": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "deno run --allow-read hooks/allow-deno.ts"
+          }
+        ]
+      }
+    ]
+  },
+  "allow-git-commands": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "deno run --allow-read hooks/allow-git.ts"
+          }
+        ]
+      }
+    ]
+  }
+}
