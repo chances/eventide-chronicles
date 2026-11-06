@@ -15,8 +15,8 @@ import {
 } from "../tools/flow-model/config.ts";
 
 // Checks that each of the seven mission triggers has the baseline's effect traces with the mission lock
-// free, and launches nothing with it held. The baseline is lib/fixtures/thread-graph.baseline.json, which is
-// never regenerated. The candidate is the trigger as it stands in main.txt. Each trigger is compiled to a
+// free, and launches nothing with it held. The baseline is lib/fixtures/thread-graph.baseline.json. The
+// candidate is the trigger as it stands in main.txt. Each trigger is compiled to a
 // small instruction list; every guard that does not read the lock is a free input that may go either way.
 //   - Lock free: the candidate has the same effect traces as the baseline.
 //   - Lock held: the candidate has no effect that launches a mission or prepares for one (`commitPrefixes`).
