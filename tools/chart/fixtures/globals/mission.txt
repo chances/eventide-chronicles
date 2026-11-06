@@ -1,0 +1,11 @@
+:Alpha
+script_name 'Alpha'
+$ONMISSION = 1
+$score += 5
+if
+  $flag == 1
+then
+  wait 0
+end
+$private = 2
+terminate_this_script

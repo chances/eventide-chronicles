@@ -1,0 +1,71 @@
+import { assert, assertEquals, assertRejects } from "@std/assert";
+import { join } from "@std/path";
+import { ChartAssembler } from "./assembler.ts";
+
+/**
+ * @module
+ * Tests for the chart assembler. Needs the tree-sitter-gta3 wasm named by `SBL_WASM` in `.env`:
+ * `deno test -R -E --env-file=.env tools/chart/assembler.test.ts`
+ */
+const root = join(import.meta.dirname!, "..", "..");
+const wasm = Deno.env.get("SBL_WASM");
+assert(wasm, "SBL_WASM is not set; point it at tree-sitter-gta3.wasm in .env");
+
+const fixture = new ChartAssembler(
+  join(import.meta.dirname!, "fixtures", "globals", "main.txt"),
+  wasm,
+);
+
+Deno.test("globals lists each global the mission touches with its accessor and access kind", async () => {
+  assertEquals(await fixture.globals("alpha"), [
+    { name: "$ONMISSION", accessor: "Alpha", kind: "write" },
+    { name: "$flag", accessor: "Alpha", kind: "read" },
+    { name: "$flag", accessor: "Watcher", kind: "write" },
+    { name: "$private", accessor: "Alpha", kind: "write" },
+    { name: "$score", accessor: "Alpha", kind: "write" },
+    { name: "$score", accessor: "Watcher", kind: "read" },
+  ]);
+});
+
+Deno.test("globals reached through an include file are listed", async () => {
+  const names = (await fixture.globals("alpha")).map((g) => g.name);
+  assert(names.includes("$private"), "the global used only in mission.txt");
+});
+
+Deno.test("a thread that touches no global of the mission is absent", async () => {
+  const accessors = (await fixture.globals("alpha")).map((g) => g.accessor);
+  assert(!accessors.includes("Idle"));
+  assert(!(await fixture.globals("alpha")).some((g) => g.name === "$other"));
+});
+
+Deno.test("an unknown mission is rejected with its name", async () => {
+  await assertRejects(() => fixture.globals("nope"), Error, "nope");
+});
+
+Deno.test("each of missions 1 to 6 lists $ONMISSION written by the mission", async () => {
+  const real = new ChartAssembler(join(root, "main.txt"), wasm, {
+    cleoDirs: ["lib/threads"],
+  });
+  const ids = {
+    intro: "Intro",
+    cop: "Cop",
+    hotel: "Hotel",
+    work: "Work",
+    cart: "Cart",
+    bossdie: "BossDie",
+  };
+  for (const [mission, id] of Object.entries(ids)) {
+    const globals = await real.globals(mission);
+    assert(globals.length > 0, `${mission} lists no globals`);
+    assert(
+      globals.some((g) =>
+        g.name === "$ONMISSION" && g.accessor === id && g.kind === "write"
+      ),
+      `${mission} does not list $ONMISSION written by ${id}`,
+    );
+    assert(
+      globals.some((g) => g.accessor !== id),
+      `${mission} lists no thread accessor`,
+    );
+  }
+});

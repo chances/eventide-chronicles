@@ -34,9 +34,9 @@ reads it before the mutex and state machine work starts.
   HTML goes to `dist/charts/<name>.html` and is never hand-authored.
 - Derived content is rewritten on every run. Authored marks are never rewritten
   by a run.
-- A mark stores the text of its statement and an optional label. A mark whose
-  statement is gone is reported as orphaned and is dropped only after the author
-  confirms.
+- A mark stores the text of its statement, an optional label, and an optional
+  occurrence. A mark whose statement is gone is flagged orphaned and is dropped
+  only after the author confirms.
 - `deno task chart:serve` starts the local server. It binds to `127.0.0.1` and
   writes only `missions/*.chart.json`.
 
@@ -108,6 +108,8 @@ erDiagram
     MARK {
         string statementText
         string label "optional"
+        int occurrence "optional"
+        bool orphaned "optional"
     }
     TRANSITION {
         string guard
@@ -145,10 +147,11 @@ erDiagram
 | `deno task chart <mission>` | Regenerates the derived content of one mission's JSON and its page |
 | `deno task chart:serve`     | Serves `dist/charts` and writes marks into `missions/*.chart.json` |
 
-| Server Route            | Does                                                                                          |
-| ----------------------- | --------------------------------------------------------------------------------------------- |
-| `GET /<mission>.html`   | Returns the generated page                                                                    |
-| `POST /<mission>/marks` | Adds, relabels, or removes one mark; the body holds the statement text and the optional label |
+| Server Route                 | Does                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `GET /<mission>.html`        | Returns the generated page                                                                                          |
+| `POST /<mission>/marks`      | Adds, relabels, or removes one mark; the body holds the statement text and the optional label                       |
+| `POST /<mission>/regenerate` | Rewrites the derived content of the mission's JSON from the source, keeps its marks, and returns the orphaned marks |
 
 ### Safety And Performance
 
@@ -164,32 +167,36 @@ erDiagram
 
 ## Decisions
 
-| Topic                | Decision                                                                                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Package name         | `@eventide/chart` in `tools/chart`, next to the other workspace members                                                                                             |
-| Mark anchor          | The statement text, matched exactly after whitespace is collapsed. Two identical statements in one mission anchor by order of appearance.                           |
-| No marks             | A mission with no marks is one state                                                                                                                                |
-| Waits                | A wait never marks a state by itself                                                                                                                                |
-| Page location        | `dist/charts/`, removed by `deno task clean` and rebuilt by the generator                                                                                           |
-| Schema version       | A `version` field in each JSON file; a version the tool does not know stops the run                                                                                 |
-| Schema format        | A hand-written `chart.schema.json` in `tools/chart`, validated with `npm:ajv`                                                                                       |
-| Library entry points | Each of `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` has a `mod.ts` that re-exports its public classes and types, and its `exports` points at `mod.ts` |
+| Topic                | Decision                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Package name         | `@eventide/chart` in `tools/chart`, next to the other workspace members                                                                                                                                                                                                                                                                                                                                         |
+| Mark anchor          | The statement text, matched exactly after whitespace is collapsed. Two identical statements in one mission anchor by order of appearance.                                                                                                                                                                                                                                                                       |
+| Markable statements  | Every leaf statement in the mission's reached blocks, and each compound statement (`if`, `while`, `repeat`) by its header line only, body excluded                                                                                                                                                                                                                                                              |
+| Duplicate statements | A mark carries an optional 1-based `occurrence`, present only when its collapsed text appears more than once in the mission; absent means the first copy                                                                                                                                                                                                                                                        |
+| Orphans              | A mark whose statement is gone stays in `marks` with `orphaned: true`, set or cleared by each run; the page surfaces each orphan as an error                                                                                                                                                                                                                                                                    |
+| Orphan resolution    | Three actions on the page: an "Accept Suggestion" button (moves the mark onto the statement with the most similar text), a click on any statement while the orphan is focused (moves the mark there), and a secondary trash icon button with the title "Remove" and the aria label `Remove orphaned mark on statement "<statement text>"` (discards the mark at once and shows an undo toast for a few seconds) |
+| No marks             | A mission with no marks is one state                                                                                                                                                                                                                                                                                                                                                                            |
+| Waits                | A wait never marks a state by itself                                                                                                                                                                                                                                                                                                                                                                            |
+| Page location        | `dist/charts/`, removed by `deno task clean` and rebuilt by the generator                                                                                                                                                                                                                                                                                                                                       |
+| Schema version       | A `version` field in each JSON file; a version the tool does not know stops the run                                                                                                                                                                                                                                                                                                                             |
+| Schema format        | A hand-written `chart.schema.json` in `tools/chart`, validated with `npm:ajv`                                                                                                                                                                                                                                                                                                                                   |
+| Library entry points | Each of `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` has a `mod.ts` that re-exports its public classes and types, and its `exports` points at `mod.ts`                                                                                                                                                                                                                                             |
 
 ## Work Items
 
-| Item          | Kind    | Summary                                                                                                  | Size | Priority | Status |
-| ------------- | ------- | -------------------------------------------------------------------------------------------------------- | ---- | -------- | ------ |
-| Schema        | Enabler | `tools/chart` package, workspace entry, JSON schema with a version field, `AGENTS.md` run line           | 3    | P0       | Done   |
-| Exports       | Enabler | Library entry points on `tools/cfg`, `tools/thread-graph`, and `tools/flow-model`, each a `mod.ts`      | 3    | P0       | Done   |
-| Globals       | Story   | Shared globals per mission, each with its reader or writer                                               | 5    | P0       | Open   |
-| Launch Sites  | Story   | Each `Mission.LoadAndLaunchInternal` call with file, line, enclosing thread, and guard lines             | 3    | P0       | Open   |
-| Conflicts     | Story   | The three pairs, each with both access sites                                                             | 5    | P0       | Open   |
-| State Machine | Story   | States from marks, guards and transitions from control-flow blocks                                       | 5    | P0       | Open   |
-| Behavior      | Story   | Effect traces at the measured bound, recorded in the JSON                                                | 5    | P1       | Open   |
-| Marks         | Story   | Marks merger with statement-text re-anchoring and orphan report                                          | 5    | P0       | Open   |
-| Pages         | Story   | HTML page per mission in `dist/charts`                                                                   | 5    | P1       | Open   |
-| Server        | Story   | `chart:serve` with the mark route                                                                        | 5    | P1       | Open   |
-| Tests         | Test    | Golden JSON per mission, marks round trip, orphan, and server write tests                                | 5    | P0       | Open   |
+| Item          | Kind    | Summary                                                                                                              | Size | Priority | Status |
+| ------------- | ------- | -------------------------------------------------------------------------------------------------------------------- | ---- | -------- | ------ |
+| Schema        | Enabler | `tools/chart` package, workspace entry, JSON schema with a version field, `AGENTS.md` run line                       | 3    | P0       | Done   |
+| Exports       | Enabler | Library entry points on `tools/cfg`, `tools/thread-graph`, and `tools/flow-model`, each a `mod.ts`                   | 3    | P0       | Done   |
+| Globals       | Story   | Shared globals per mission, each with its reader or writer                                                           | 5    | P0       | Done   |
+| Launch Sites  | Story   | Each `Mission.LoadAndLaunchInternal` call with file, line, enclosing thread, and guard lines                         | 3    | P0       | Open   |
+| Conflicts     | Story   | The three pairs, each with both access sites                                                                         | 5    | P0       | Open   |
+| State Machine | Story   | States from marks, guards and transitions from control-flow blocks                                                   | 5    | P0       | Open   |
+| Behavior      | Story   | Effect traces at the measured bound, recorded in the JSON                                                            | 5    | P1       | Open   |
+| Marks         | Story   | Marks merger with statement-text re-anchoring and orphan report                                                      | 5    | P0       | Done   |
+| Pages         | Story   | HTML page per mission in `dist/charts`, with each orphaned mark shown as an error the author can reattach or discard | 5    | P1       | Open   |
+| Server        | Story   | `chart:serve` with the mark route and the regenerate route                                                           | 5    | P1       | Open   |
+| Tests         | Test    | Golden JSON per mission, marks round trip, orphan, and server write tests                                            | 5    | P0       | Open   |
 
 The total is 49 points. Work proceeds in dependency order.
 
@@ -230,9 +237,9 @@ graph LR
 
 ## Risks
 
-| Risk                                                     | Mitigation                                                                                                                       |
-| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Trace bound 24 exceeds the memory cap for Cop or Intro   | Behavior measures first, runs through the capped runner, and records the bound it used; a resource stop names the cap that fired |
-| A source edit moves a statement and orphans a mark       | Marks anchor by statement text, and the run lists orphans without dropping them                                                  |
-| `tools/flow-model` `mod.ts` leaves out `capped.ts`, which opens `kernel32.dll` at import | Behavior reaches the capped runner through its task, or imports `capped.ts` with `--allow-ffi`                                                                                 |
-| Two identical statements in a mission confuse the anchor | Order of appearance breaks the tie, and a test covers it                                                                         |
+| Risk                                                                                     | Mitigation                                                                                                                       |
+| ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Trace bound 24 exceeds the memory cap for Cop or Intro                                   | Behavior measures first, runs through the capped runner, and records the bound it used; a resource stop names the cap that fired |
+| A source edit moves a statement and orphans a mark                                       | Marks anchor by statement text, and the run lists orphans without dropping them                                                  |
+| `tools/flow-model` `mod.ts` leaves out `capped.ts`, which opens `kernel32.dll` at import | Behavior reaches the capped runner through its task, or imports `capped.ts` with `--allow-ffi`                                   |
+| Two identical statements in a mission confuse the anchor                                 | Order of appearance breaks the tie, and a test covers it                                                                         |

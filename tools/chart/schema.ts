@@ -1,4 +1,7 @@
-// Validates the content of a missions/<name>.chart.json file against chart.schema.json.
+/**
+ * @module
+ * Validates the content of a `missions/<name>.chart.json` file against `chart.schema.json`.
+ */
 import { Ajv } from "ajv";
 import schema from "./chart.schema.json" with { type: "json" };
 
@@ -21,7 +24,12 @@ export type ChartFile = {
   mission: string;
   traceBound: number;
   globals: { name: string; accessor: string; kind: "read" | "write" }[];
-  marks: { statementText: string; label?: string }[];
+  marks: {
+    statementText: string;
+    label?: string;
+    occurrence?: number;
+    orphaned?: boolean;
+  }[];
   states: {
     label?: string;
     transitions: { guard: string; target: string }[];

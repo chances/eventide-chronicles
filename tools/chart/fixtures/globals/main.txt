@@ -1,0 +1,32 @@
+DEFINE MISSIONS 2
+DEFINE MISSION 0 AT @Zero
+DEFINE MISSION 1 AT @Alpha
+
+script_name 'Main'
+start_new_script @Watcher
+start_new_script @Idle
+terminate_this_script
+
+:Watcher
+script_name 'Watcher'
+wait 0
+$flag = 1
+if
+  $score == 0
+then
+  wait 0
+end
+Mission.LoadAndLaunchInternal(1)
+terminate_this_script
+
+:Idle
+script_name 'Idle'
+wait 0
+$other = 3
+terminate_this_script
+
+:Zero
+script_name 'Zero'
+terminate_this_script
+
+{$INCLUDE mission.txt}

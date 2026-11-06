@@ -185,7 +185,7 @@ function divergesAfter(statements: Node[]): boolean {
   return last !== undefined && endsFlow(last);
 }
 
-function outlineOf(node: Node): OutlineStatement {
+export function outlineOf(node: Node): OutlineStatement {
   const line = node.startPosition.row + 1;
   const kids = (list: Node[]) =>
     list.filter((n) => n.isNamed && !COMMENTS.has(n.type));
@@ -434,6 +434,17 @@ export class SourceProgram {
     return [...seen].sort((a, b) =>
       this.blocks.get(a)!.index - this.blocks.get(b)!.index
     );
+  }
+
+  /** Names of the global variables that appear anywhere in the expanded program. */
+  globalVars(): string[] {
+    const names = new Set<string>();
+    for (const { tree } of this.trees) {
+      for (const n of walk(tree.rootNode)) {
+        if (n.type === "global_var") names.add(n.text);
+      }
+    }
+    return [...names];
   }
 
   /** The `script_name` declared at the top level of a block, if any. */

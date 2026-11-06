@@ -44,6 +44,9 @@ Auto: Vice City.
   comment, a README, a design or reference document, or this file. Comments and
   documents state the current fact or constraint, never the history of how it
   came to be.
+- Every TypeScript module opens with a `/** @module ... */` block that states
+  what the module does, as in `tools/chart/assembler.ts`. Do not use `//` lines
+  for it.
 - Read [docs/branding.md](docs/branding.md) and [docs/lore.md](docs/lore.md)
   before writing or editing any story text, string, or document.
 - Check the ledger, [docs/lore.csv](docs/lore.csv), before defining any story
@@ -120,5 +123,6 @@ to be backward-compatible with earlier builds, saves, or scripts.
 - `deno task --cwd tools/flow-model capped <memoryMB> <timeoutSeconds> <command> [args...]`
   runs a command under a hard memory limit and timeout. Run any heavy trace
   enumeration through it.
-- `deno task chart <mission> [--missions <dir>]` (`tools/chart`) validates
-  `missions/<mission>.chart.json`.
+- `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]...`
+  (`tools/chart`) rewrites the derived content of
+  `missions/<mission>.chart.json`, keeps its marks, and lists orphaned marks.

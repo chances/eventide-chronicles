@@ -40,7 +40,9 @@
         "additionalProperties": false,
         "properties": {
           "statementText": { "type": "string" },
-          "label": { "type": "string" }
+          "label": { "type": "string" },
+          "occurrence": { "type": "integer", "minimum": 1 },
+          "orphaned": { "type": "boolean" }
         }
       }
     },
