@@ -1,8 +1,9 @@
 # Set default behavior to automatically handle line endings
 * text=auto
 
-# Vice City Sanny Builder scripts and game INIs must use CRLF
+# Vice City Sanny Builder scripts and game INIs must use CRLF and UTF-8
 *.txt text eol=crlf
+*.txt working-tree-encoding=UTF-8
 *.ini text eol=crlf
 *.bat text eol=crlf
 *.cmd text eol=crlf
