@@ -168,3 +168,69 @@ Deno.test("serves styled HTML index page when text/html is accepted", async () =
   assertStringIncludes(text, "mission-card");
   assertStringIncludes(text, 'href="/intro.html"');
 });
+
+Deno.test("GET /phrases/suggest returns a compromise suggestion for opposite and leaves active blank", async () => {
+  const { root } = await fixture();
+  const server = new ChartServer(root);
+  const res = await server.handle(
+    new Request("http://127.0.0.1/phrases/suggest?expression=$FLAG%20==%201"),
+  );
+  assertEquals(res.status, 200);
+  const data = await res.json();
+  assertEquals(data.expression, "$FLAG == 1");
+  assertEquals(data.nominal, "$FLAG is set");
+  assertEquals(data.opposite, "$FLAG is not set");
+  assertEquals(data.active, "");
+});
+
+Deno.test("POST /phrases adds or edits a row in Phrasebook.csv", async () => {
+  const { root } = await fixture();
+  const phrasebookPath = join(root, "Phrasebook.csv");
+  const server = new ChartServer(root, { phrasebook: phrasebookPath });
+
+  const res1 = await server.handle(
+    post("/phrases", {
+      expression: "$TEST_VAR == 1",
+      nominal: "test is set",
+      opposite: "test is not set",
+      active: "test triggers",
+    }),
+  );
+  assertEquals(res1.status, 200);
+  const content1 = await Deno.readTextFile(phrasebookPath);
+  assertStringIncludes(
+    content1,
+    "$TEST_VAR == 1,test is set,test is not set,test triggers",
+  );
+
+  // Edit the existing row
+  const res2 = await server.handle(
+    post("/phrases", {
+      expression: "$TEST_VAR == 1",
+      nominal: "test is active",
+      opposite: "test is inactive",
+      active: "test starts",
+    }),
+  );
+  assertEquals(res2.status, 200);
+  const content2 = await Deno.readTextFile(phrasebookPath);
+  assertStringIncludes(
+    content2,
+    "$TEST_VAR == 1,test is active,test is inactive,test starts",
+  );
+});
+
+Deno.test("POST /<mission>/regenerate executes main.ts and returns orphans on success", async () => {
+  const server = new ChartServer(Deno.cwd());
+  const res = await server.handle(post("/intro/regenerate", {}));
+  assertEquals(res.status, 200);
+  const data = await res.json();
+  assertEquals(data.ok, true);
+  assertEquals(Array.isArray(data.orphans), true);
+});
+
+Deno.test("chart:serve task configuration restricts network access to 127.0.0.1", async () => {
+  const denoConfig = JSON.parse(await Deno.readTextFile("deno.json"));
+  const taskCmd = denoConfig.tasks["chart:serve"];
+  assertStringIncludes(taskCmd, "--allow-net=127.0.0.1");
+});

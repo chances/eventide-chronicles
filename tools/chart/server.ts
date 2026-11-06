@@ -7,7 +7,13 @@
  * Usage: `deno task chart:serve [--port <number>]` (default port 8080). Run from the repository root.
  */
 import { parseArgs } from "@std/cli/parse-args";
-import { join } from "@std/path";
+import { parse, stringify } from "@std/csv";
+import { dirname, join } from "@std/path";
+import {
+  loadCommandDescriptions,
+  type PhraseRow,
+  suggestPhrase,
+} from "./guards.ts";
 import { collapse } from "./marks.ts";
 import {
   type ChartFile,
@@ -111,10 +117,39 @@ const STATIC_ROUTE = /^\/static\/([a-zA-Z0-9_.-]+)$/;
 export class ChartServer {
   #root: string;
   #schema = new ChartSchema();
+  #phrasebookPath: string;
+  #libraryPath?: string;
+  #descriptions?: Map<string, string>;
 
   /** `root` is the repository root holding `missions/` and `dist/charts/`. */
-  constructor(root: string) {
+  constructor(
+    root: string,
+    options?: { library?: string; phrasebook?: string },
+  ) {
     this.#root = root;
+    this.#phrasebookPath = options?.phrasebook ?? join(root, "Phrasebook.csv");
+    this.#libraryPath = options?.library;
+    if (!this.#libraryPath) {
+      const sanny = Deno.env.get("SANNY");
+      if (sanny) {
+        this.#libraryPath = join(dirname(sanny), "data", "vc_sbl", "vc.json");
+      }
+    }
+  }
+
+  #getDescriptions(): Map<string, string> {
+    if (!this.#descriptions) {
+      if (this.#libraryPath) {
+        try {
+          this.#descriptions = loadCommandDescriptions(this.#libraryPath);
+        } catch {
+          this.#descriptions = new Map();
+        }
+      } else {
+        this.#descriptions = new Map();
+      }
+    }
+    return this.#descriptions;
   }
 
   /** Indexes missions programmatically from the missions directory. */
@@ -155,6 +190,22 @@ export class ChartServer {
         const file = url.searchParams.get("file");
         if (!file) throw new HttpError(400, "Missing file parameter.");
         return await this.#serveSource(file);
+      }
+
+      if (request.method === "GET" && url.pathname === "/phrases/suggest") {
+        const expression = url.searchParams.get("expression");
+        if (!expression) {
+          throw new HttpError(400, "Missing expression parameter.");
+        }
+        const suggested = await suggestPhrase(
+          expression,
+          this.#getDescriptions(),
+        );
+        return text(200, JSON.stringify(suggested), "application/json");
+      }
+
+      if (request.method === "POST" && url.pathname === "/phrases") {
+        return await this.#savePhrase(request);
       }
 
       const page = PAGE_ROUTE.exec(url.pathname);
@@ -446,6 +497,56 @@ export class ChartServer {
     return text(
       200,
       JSON.stringify({ ok: true, marks: next.marks.length }),
+      "application/json",
+    );
+  }
+
+  async #savePhrase(request: Request): Promise<Response> {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      throw new HttpError(400, "The request body is not JSON.");
+    }
+    const b = body as Record<string, unknown>;
+    const expression = typeof b?.expression === "string"
+      ? b.expression.trim()
+      : "";
+    const nominal = typeof b?.nominal === "string" ? b.nominal.trim() : "";
+    const opposite = typeof b?.opposite === "string" ? b.opposite.trim() : "";
+    const active = typeof b?.active === "string" ? b.active.trim() : "";
+
+    if (!expression || !nominal || !opposite) {
+      throw new HttpError(
+        400,
+        "A phrase requires expression, nominal, and opposite string fields.",
+      );
+    }
+
+    const file = this.#phrasebookPath;
+    let rows: PhraseRow[] = [];
+    try {
+      const content = await Deno.readTextFile(file);
+      rows = parse(content, { skipFirstRow: true }) as PhraseRow[];
+    } catch (error) {
+      if (!(error instanceof Deno.errors.NotFound)) throw error;
+    }
+
+    const existingIndex = rows.findIndex((r) => r.expression === expression);
+    const updated: PhraseRow = { expression, nominal, opposite, active };
+    if (existingIndex >= 0) {
+      rows[existingIndex] = updated;
+    } else {
+      rows.push(updated);
+    }
+
+    const csv = stringify(rows, {
+      columns: ["expression", "nominal", "opposite", "active"],
+    });
+    await Deno.writeTextFile(file, csv);
+    return text(
+      200,
+      JSON.stringify({ ok: true, phrase: updated }),
       "application/json",
     );
   }

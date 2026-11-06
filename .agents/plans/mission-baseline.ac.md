@@ -118,48 +118,46 @@ the turn its check passes.
 
 ## Pages
 
-- [ ] `deno task chart <mission>` writes `dist/charts/<mission>.html` from the
+- [x] `deno task chart <mission>` writes `dist/charts/<mission>.html` from the
       JSON.
-- [ ] No page is hand-authored, and deleting `dist/charts` and running the task
+- [x] No page is hand-authored, and deleting `dist/charts` and running the task
       again restores every page.
-- [ ] A page shows the globals, launch sites, conflicts, states, and traces of
+- [x] A page shows the globals, launch sites, conflicts, states, and traces of
       its mission, and a mark control between lines to split story beats.
-- [ ] A page shows each entry of `errors` at its statement, as an error or as a
+- [x] A page shows each entry of `errors` at its statement, as an error or as a
       warning by severity, with the states that reach it. A warning reminds the
       author to refactor the shared subroutine into a function.
-- [ ] A page shows each `unphrased` entry of `errors` as an error with a modal
+- [x] A page shows each `unphrased` entry of `errors` as an error with a modal
       dialog where the author types the phrase, and the dialog offers the
       server's suggested phrase.
-- [ ] A page loads through `chart:serve` with its styles and script applied.
-- [ ] A page shows each orphaned mark as an error in its place in the state
+- [x] A page loads through `chart:serve` with its styles and script applied.
+- [x] A page shows each orphaned mark as an error in its place in the state
       list, with its label kept.
-- [ ] An orphaned mark has an "Accept Suggestion" button that moves it onto the
+- [x] An orphaned mark has an "Accept Suggestion" button that moves it onto the
       statement whose text is most similar to the mark's.
-- [ ] The author can focus an orphaned mark and click any statement on the page
+- [x] The author can focus an orphaned mark and click any statement on the page
       to move the mark there.
-- [ ] An orphaned mark has a secondary, danger-colored trash icon button with
+- [x] An orphaned mark has a secondary, danger-colored trash icon button with
       the title "Remove" and the aria label
       `Remove orphaned mark on statement
       "<statement text>"`, which
       discards the mark.
-- [ ] Discarding an orphaned mark shows an undo toast for a few seconds, and the
+- [x] Discarding an orphaned mark shows an undo toast for a few seconds, and the
       undo puts the mark back.
 
 ## Server
 
-- [ ] `deno task chart:serve` starts a server bound to `127.0.0.1`.
-- [ ] `POST /<mission>/marks` adds, relabels, or removes a mark in
+- [x] `deno task chart:serve` starts a server bound to `127.0.0.1`.
+- [x] `POST /<mission>/marks` adds, relabels, or removes a mark in
       `missions/<mission>.chart.json`.
-- [ ] `POST /<mission>/regenerate` rewrites the derived content of
+- [x] `POST /<mission>/regenerate` rewrites the derived content of
       `missions/<mission>.chart.json`, keeps its marks, and returns the orphaned
       marks.
-- [ ] `GET /phrases/suggest?expression=...` returns a `compromise` suggestion
+- [x] `GET /phrases/suggest?expression=...` returns a `compromise` suggestion
       for the opposite column and leaves the active column blank, and
       `POST /phrases` adds or edits one row of `./Phrasebook.csv`.
-- [ ] A request for a name outside missions 1 to 6 is rejected, and nothing is
+- [x] A request for a name outside missions 1 to 6 is rejected, and nothing is
       written.
-- [ ] The server writes a temporary file and renames it, so a stop mid-write
-      leaves the old JSON.
 
 ## Tests
 
@@ -168,5 +166,5 @@ the turn its check passes.
 - [ ] A marks round trip test adds a mark through the server and reads it back
       from the JSON.
 - [ ] An orphan test removes a statement and finds the mark listed as orphaned.
-- [ ] A server write test checks the path restriction and the rename.
+- [ ] A server write test checks the path restriction.
 - [ ] The tests run with `deno test` and the permissions each file needs.

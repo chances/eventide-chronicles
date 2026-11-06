@@ -147,3 +147,6 @@ to be backward-compatible with earlier builds, saves, or scripts.
   sequential line order (1 to `N`), preserving comments, labels, blank lines,
   and original whitespace. Marks go between lines, not on them, and split story
   beats.
+- `deno task chart:serve [--port <number>]` starts the local chart workspace
+  server bound to 127.0.0.1 (default port 8080), serving mission pages and
+  updating marks and phrases.

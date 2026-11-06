@@ -1233,3 +1233,111 @@ input {
   gap: 6px;
   flex-wrap: wrap;
 }
+
+/* Phrase Modal Dialog */
+dialog.phrase-modal {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  max-inline-size: 560px;
+  inline-size: 90vw;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+dialog.phrase-modal::backdrop {
+  background: rgba(13, 11, 30, 0.75);
+  backdrop-filter: blur(2px);
+}
+
+.phrase-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.field-group input {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 8px 10px;
+  font-size: 13px;
+  outline: none;
+}
+
+.field-group input:focus {
+  border-color: var(--secondary);
+}
+
+.field-group input[readonly] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-block-start: 8px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-inline {
+  margin-inline-start: auto;
+  font-size: 11px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning svg,
+button.spinning svg {
+  animation: spin 1s linear infinite;
+}

@@ -1,5 +1,10 @@
 import { assertEquals } from "@std/assert";
-import { GuardWriter, parseCondition, Phrasebook } from "./guards.ts";
+import {
+  GuardWriter,
+  parseCondition,
+  Phrasebook,
+  suggestPhrase,
+} from "./guards.ts";
 
 /**
  * @module
@@ -99,4 +104,19 @@ Deno.test("a condition with no phrase shows its source text and is listed as unp
   const out = writer.write("single", ["$ok == 1"], true);
   assertEquals(out.text, "When not $ok == 1");
   assertEquals(out.unphrased, ["$ok == 1"]);
+});
+
+Deno.test("suggestPhrase derives compromise suggestions for commands and flags", async () => {
+  const descs = new Map([
+    ["Player.IsPlaying", "Checks if the player is playing."],
+  ]);
+  const p1 = await suggestPhrase("Player.IsPlaying($PLAYER1)", descs);
+  assertEquals(p1.nominal, "the player is playing");
+  assertEquals(p1.opposite, "the player is not playing");
+  assertEquals(p1.active, "");
+
+  const p2 = await suggestPhrase("$FLAG == 1");
+  assertEquals(p2.nominal, "$FLAG is set");
+  assertEquals(p2.opposite, "$FLAG is not set");
+  assertEquals(p2.active, "");
 });

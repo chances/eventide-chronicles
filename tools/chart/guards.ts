@@ -139,6 +139,104 @@ export function loadLibrary(path: string): Map<string, string[]> {
   return out;
 }
 
+/** Loads short descriptions of commands from a Sanny Builder library file like `vc.json`. */
+export function loadCommandDescriptions(path: string): Map<string, string> {
+  const lib = JSON.parse(Deno.readTextFileSync(path)) as {
+    extensions: {
+      commands: {
+        class?: string;
+        member?: string;
+        name?: string;
+        short_desc?: string;
+      }[];
+    }[];
+  };
+  const out = new Map<string, string>();
+  for (const ext of lib.extensions) {
+    for (const c of ext.commands) {
+      if (c.short_desc) {
+        if (c.class && c.member) {
+          out.set(`${c.class}.${c.member}`, c.short_desc);
+        }
+        if (c.name) {
+          out.set(c.name, c.short_desc);
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Suggests a phrase for an unphrased condition using compromise 14.19.0.
+ * Uses .verbs().toNegative() for the opposite column, and leaves active blank.
+ */
+export async function suggestPhrase(
+  expression: string,
+  descriptions: ReadonlyMap<string, string> = new Map(),
+): Promise<PhraseRow> {
+  const { default: nlp } = await import("compromise");
+  const trimmed = expression.trim();
+  let clean = trimmed;
+  while (clean.toLowerCase().startsWith("not ")) {
+    clean = clean.slice(4).trim();
+  }
+
+  const callMatch = clean.match(/^([A-Za-z_][\w.]*)\b/);
+  const commandKey = callMatch ? callMatch[1] : clean;
+  const desc = descriptions.get(commandKey);
+
+  let nominal = "";
+  if (desc) {
+    let text = desc.trim();
+    text = text.replace(
+      /^(Checks if|Checks whether|Returns true if|Returns whether)\s+/i,
+      "",
+    );
+    if (text.length > 0 && !text.startsWith("I") && !text.startsWith("GTA")) {
+      text = text.charAt(0).toLowerCase() + text.slice(1);
+    }
+    text = text.replace(/\.$/, "");
+    nominal = text;
+  } else {
+    const cmpMatch = clean.match(/^(\$\w+)\s*(==|!=|<|>|<=|>=)\s*(.+)$/i);
+    if (cmpMatch) {
+      const varName = cmpMatch[1];
+      const op = cmpMatch[2];
+      const val = cmpMatch[3].trim().toLowerCase();
+      if (
+        (op === "==" && (val === "1" || val === "true")) ||
+        (op === "!=" && val === "0")
+      ) {
+        nominal = `${varName} is set`;
+      } else if (
+        (op === "==" && (val === "0" || val === "false")) ||
+        (op === "!=" && val === "1")
+      ) {
+        nominal = `${varName} is 0`;
+      } else {
+        nominal = `${varName} ${op} ${cmpMatch[3].trim()}`;
+      }
+    } else {
+      nominal = clean;
+    }
+  }
+
+  const doc = nlp(nominal);
+  doc.verbs().toNegative();
+  let opposite = doc.text();
+  if (!opposite || opposite === nominal) {
+    opposite = `not ${nominal}`;
+  }
+
+  return {
+    expression: trimmed,
+    nominal,
+    opposite,
+    active: "",
+  };
+}
+
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 type Literal = { letter: string; negated: boolean };

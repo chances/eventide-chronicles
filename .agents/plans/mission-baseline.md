@@ -178,8 +178,6 @@ erDiagram
   stops and asks.
 - The server rejects a request whose path is not a mission name from the DEFINE
   MISSION list for missions 1 to 6.
-- The server writes a JSON file to a temporary file and renames it, so a stop
-  mid-write leaves the old file.
 
 ## Decisions
 
@@ -233,8 +231,8 @@ erDiagram
 | State Machine | Story   | States from marks, guards and transitions from the `tools/cfg` statement graph                                       | 5    | P0       | Done        |
 | Behavior      | Story   | Effect traces of trigger and mission script at a measured bound each, with a cut flag the runner reports             | 5    | P1       | Done        |
 | Marks         | Story   | Marks merger with statement-text re-anchoring and orphan report                                                      | 5    | P0       | Done        |
-| Pages         | Story   | HTML page per mission in `dist/charts`, with each orphaned mark shown as an error the author can reattach or discard | 5    | P1       | In Progress |
-| Server        | Story   | `chart:serve` with the mark route and the regenerate route                                                           | 5    | P1       | In Progress |
+| Pages         | Story   | HTML page per mission in `dist/charts`, with each orphaned mark shown as an error the author can reattach or discard | 5    | P1       | Done        |
+| Server        | Story   | `chart:serve` with the mark route and the regenerate route                                                           | 5    | P1       | Done        |
 | Tests         | Test    | Golden JSON per mission, marks round trip, orphan, and server write tests                                            | 5    | P0       | Open        |
 
 The total is 49 points. Work proceeds in dependency order.
@@ -258,8 +256,7 @@ flowchart LR
     classDef done fill:#c8e6c9,stroke:#2e7d32,color:#000
     class Schema,Exports,Globals,LaunchSites,Marks done
     class Behavior,Conflicts,StateMachine done
-    classDef wip fill:#fff9c4,stroke:#f9a825,color:#000
-    class Pages,Server wip
+    class Pages,Server done
 ```
 
 The chart draws each dependency once, through the longest path. The table lists

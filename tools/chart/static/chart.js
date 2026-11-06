@@ -162,7 +162,7 @@ async function jumpTo(file, line) {
 document.querySelectorAll(
   ".problem-chip, .problem-row, summary[data-jump-line], .tree-child-row[data-jump-line]",
 ).forEach((el) => {
-  el.addEventListener("click", (e) => {
+  el.addEventListener("click", () => {
     const line = el.getAttribute("data-jump-line");
     const file = el.getAttribute("data-jump-file");
     if (line) {
@@ -495,5 +495,130 @@ document.addEventListener("click", (event) => {
       reload,
       report,
     );
+    return;
+  }
+
+  const phraseBtn = target.closest("[data-open-phrase]");
+  if (phraseBtn) {
+    const expr = phraseBtn.getAttribute("data-open-phrase");
+    if (expr) openPhraseModal(expr, phraseBtn);
+    return;
+  }
+
+  const unphrasedRow = target.closest("[data-unphrased]");
+  if (unphrasedRow && !target.closest("button")) {
+    const expr = unphrasedRow.getAttribute("data-unphrased");
+    if (expr) openPhraseModal(expr, unphrasedRow);
+    return;
+  }
+});
+
+// Phrase Modal Management
+const phraseDialog = document.getElementById("phrase-dialog");
+const phraseForm = phraseDialog?.querySelector(".phrase-form");
+const exprInput = document.getElementById("phrase-expr");
+const nominalInput = document.getElementById("phrase-nominal");
+const oppositeInput = document.getElementById("phrase-opposite");
+const activeInput = document.getElementById("phrase-active");
+let phraseTriggerEl = null;
+
+async function openPhraseModal(expression, triggerEl) {
+  if (!phraseDialog || !expression) return;
+  phraseTriggerEl = triggerEl;
+  if (exprInput) exprInput.value = expression;
+  if (nominalInput) nominalInput.value = "";
+  if (oppositeInput) oppositeInput.value = "";
+  if (activeInput) activeInput.value = "";
+
+  phraseDialog.showModal();
+  nominalInput?.focus();
+
+  try {
+    const res = await fetch(
+      `/phrases/suggest?expression=${encodeURIComponent(expression)}`,
+    );
+    if (res.ok) {
+      const data = await res.json();
+      if (exprInput && exprInput.value === expression) {
+        if (nominalInput && !nominalInput.value) {
+          nominalInput.value = data.nominal || "";
+        }
+        if (oppositeInput && !oppositeInput.value) {
+          oppositeInput.value = data.opposite || "";
+        }
+        if (activeInput && !activeInput.value) {
+          activeInput.value = data.active || "";
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Could not load suggestion:", err);
+  }
+}
+
+function closePhraseModal() {
+  if (!phraseDialog?.open) return;
+  phraseDialog.close();
+  phraseTriggerEl?.focus();
+}
+
+phraseDialog?.querySelectorAll("[data-phrase-cancel]").forEach((btn) => {
+  btn.addEventListener("click", closePhraseModal);
+});
+
+phraseDialog?.addEventListener("click", (e) => {
+  const rect = phraseDialog.getBoundingClientRect();
+  const isInDialog = rect.top <= e.clientY &&
+    e.clientY <= rect.top + rect.height &&
+    rect.left <= e.clientX && e.clientX <= rect.left + rect.width;
+  if (!isInDialog) {
+    closePhraseModal();
+  }
+});
+
+phraseDialog?.addEventListener("cancel", () => {
+  phraseTriggerEl?.focus();
+});
+
+phraseForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const expression = exprInput?.value.trim() ?? "";
+  const nominal = nominalInput?.value.trim() ?? "";
+  const opposite = oppositeInput?.value.trim() ?? "";
+  const active = activeInput?.value.trim() ?? "";
+
+  closePhraseModal();
+  showToast(`Saving phrase for ${expression}…`);
+
+  try {
+    const res = await fetch("/phrases", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ expression, nominal, opposite, active }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+
+    showToast("Phrase saved. Rebuilding chart…");
+    if (rebuild && status && rebuildLabel) {
+      rebuild.setAttribute("disabled", "true");
+      rebuild.setAttribute("aria-busy", "true");
+      rebuild.classList.add("spinning");
+      rebuildLabel.textContent = "Rebuilding…";
+      status.textContent = "Rebuilding chart from source…";
+    }
+
+    const regenRes = await fetch("/" + mission + "/regenerate", {
+      method: "POST",
+    });
+    if (!regenRes.ok) throw new Error(await regenRes.text());
+    location.reload();
+  } catch (err) {
+    report(err);
+    if (rebuild && rebuildLabel) {
+      rebuild.removeAttribute("disabled");
+      rebuild.removeAttribute("aria-busy");
+      rebuild.classList.remove("spinning");
+      rebuildLabel.textContent = "Rebuild";
+    }
   }
 });

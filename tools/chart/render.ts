@@ -267,6 +267,35 @@ export class PageRenderer {
       ${mainContent}
     </main>
     <div class="toast" role="status" data-undo-ms="${UNDO_MS}" hidden></div>
+    <dialog id="phrase-dialog" class="phrase-modal">
+      <form method="dialog" class="phrase-form">
+        <div class="modal-header">
+          <h2 class="modal-title">Define Phrase</h2>
+          <button type="button" class="tab-close" data-phrase-cancel aria-label="Close">×</button>
+        </div>
+        <p class="muted">Add or edit Gherkin English phrases for this condition in <code>Phrasebook.csv</code>.</p>
+        <div class="field-group">
+          <label for="phrase-expr">Expression</label>
+          <input type="text" id="phrase-expr" name="expression" readonly>
+        </div>
+        <div class="field-group">
+          <label for="phrase-nominal">Nominal (State, e.g. "the player is playing")</label>
+          <input type="text" id="phrase-nominal" name="nominal" required>
+        </div>
+        <div class="field-group">
+          <label for="phrase-opposite">Opposite (Negated state, e.g. "the player is not playing")</label>
+          <input type="text" id="phrase-opposite" name="opposite" required>
+        </div>
+        <div class="field-group">
+          <label for="phrase-active">Active (Event, e.g. "the player starts playing")</label>
+          <input type="text" id="phrase-active" name="active" placeholder="Optional event phrase">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="text-button" data-phrase-cancel>Cancel</button>
+          <button type="submit" class="btn-primary" id="phrase-save">Save Phrase</button>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="/static/chart.js"></script>
   </body>
 </html>`;
@@ -793,7 +822,6 @@ export class PageRenderer {
     const errors = this.#chart.errors ?? [];
     const groupedConflicts = this.#groupedConflicts();
     const activeConflicts = groupedConflicts.filter((g) => !g.isFiltered);
-    const filteredConflicts = groupedConflicts.filter((g) => g.isFiltered);
     const activeCount = errors.length + activeConflicts.length;
     const totalCount = errors.length + groupedConflicts.length;
 
@@ -817,13 +845,15 @@ export class PageRenderer {
         `);
       } else if (err.kind === "unphrased") {
         errorItems.push(html`
-          <div class="problem-row">
+          <div class="problem-row" data-unphrased="${err.expression}">
             <span class="gutter-icon error">
               ${renderIcon(AlertCircle)}
             </span>
             <strong>Unphrased:</strong>
             <span>Guard condition <code>${err
               .expression}</code> has no Phrasebook entry.</span>
+            <button type="button" class="text-button btn-inline"
+              data-open-phrase="${err.expression}">Define Phrase</button>
           </div>
         `);
       }
