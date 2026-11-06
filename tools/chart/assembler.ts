@@ -10,15 +10,22 @@ import {
   SourceProgram,
   ThreadGraph,
 } from "@eventide/thread-graph";
+import { candidateLock, FlowProgram } from "@eventide/flow-model";
 import { MarksMerger, type RawStatement, type Statement } from "./marks.ts";
 import type { ChartFile } from "./schema.ts";
 
 export type AssemblerOptions = {
   /** Folders, relative to the entry file's folder, that hold streamed CLEO script sources. */
   cleoDirs?: string[];
+  /** Effects per run of a trigger; default 12. */
+  triggerBound?: number;
+  /** Effects per run of a mission script; default 24. */
+  missionBound?: number;
 };
 
 type Access = ChartFile["globals"][number];
+export type Trace = ChartFile["traces"][number];
+export type LaunchSite = ChartFile["launchSites"][number];
 
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 
@@ -27,6 +34,8 @@ export class ChartAssembler {
   readonly #entry: string;
   readonly #wasm: string;
   readonly #cleoDirs: string[];
+  readonly #triggerBound: number;
+  readonly #missionBound: number;
   #graph?: Promise<GraphData>;
   #source?: Promise<SourceProgram>;
 
@@ -34,6 +43,52 @@ export class ChartAssembler {
     this.#entry = entry;
     this.#wasm = wasm;
     this.#cleoDirs = options.cleoDirs ?? [];
+    this.#triggerBound = options.triggerBound ?? 12;
+    this.#missionBound = options.missionBound ?? 24;
+  }
+
+  /**
+   * The effect traces of each trigger that launches the mission, run with the lock free and held, and
+   * of the mission script, run once with the lock held because it starts after the trigger takes the lock.
+   * The lock is `$MissionLocked`, taken by `gosub @AcquireMissionLock`.
+   */
+  async traces(mission: string): Promise<Trace[]> {
+    const sites = await this.launchSites(mission);
+    const target = this.#find(await this.#build(), mission);
+    const triggers = [...new Set(sites.map((s) => s.thread))].sort(compare);
+    const graph = await new ThreadGraph(this.#entry, this.#wasm, {
+      trackedVars: [],
+      outline: [...triggers, target.id],
+      cleoDirs: this.#cleoDirs,
+    }).build();
+    const out: Trace[] = [];
+    const run = (
+      id: string,
+      lock: Trace["lock"],
+      bound: number,
+    ) => {
+      const node = graph.nodes.find((n) => n.id === id);
+      if (!node) throw new Error(`no script named ${id}`);
+      const runs = FlowProgram.compile(node, candidateLock).cutRuns(
+        lock === "free",
+        bound,
+      );
+      for (const r of runs) {
+        out.push({
+          script: id,
+          lock,
+          bound,
+          ...(r.cut ? { cut: true } : {}),
+          effects: r.effects,
+        });
+      }
+    };
+    for (const id of triggers) {
+      run(id, "free", this.#triggerBound);
+      run(id, "held", this.#triggerBound);
+    }
+    run(target.id, "held", this.#missionBound);
+    return out;
   }
 
   /**
@@ -85,6 +140,60 @@ export class ChartAssembler {
       }
     }
     return MarksMerger.number(raw);
+  }
+
+  /**
+   * Each `Mission.LoadAndLaunchInternal` call that starts the mission, with the file, line, and thread
+   * of the call. The guard lines are the header line of every enclosing `if` or `while`, and every
+   * earlier `if ... goto_if_false` line in the same label block that falls through to the call.
+   */
+  async launchSites(mission: string): Promise<LaunchSite[]> {
+    const graph = await this.#build();
+    const target = this.#find(graph, mission);
+    const program = await this.#program();
+    const sites: LaunchSite[] = [];
+    for (const node of graph.nodes) {
+      for (const edge of node.edges) {
+        if (
+          edge.kind !== "launch_mission" || edge.target !== String(target.mission)
+        ) continue;
+        const stmts = program.blocks.get(edge.label)!.stmts
+          .filter((s) => s.file === edge.at.file)
+          .map((s) => outlineOf(s.node));
+        const guards = ChartAssembler.#guardsOf(stmts, edge.at.line) ?? [];
+        sites.push({
+          file: edge.at.file,
+          line: edge.at.line,
+          thread: node.id,
+          guardLines: [...new Set(guards)].sort((a, b) => a - b),
+        });
+      }
+    }
+    return sites.sort((a, b) =>
+      compare(a.file, b.file) || a.line - b.line
+    );
+  }
+
+  /** The guard lines on the way to the statement at `line`, or undefined when it is not in `list`. */
+  static #guardsOf(
+    list: OutlineStatement[],
+    line: number,
+  ): number[] | undefined {
+    const earlier: number[] = [];
+    for (const o of list) {
+      if (o.line === line && !("then" in o) && !("body" in o)) return earlier;
+      const inner = "then" in o
+        ? [o.then, o.else ?? []]
+        : "body" in o
+        ? [o.body]
+        : [];
+      for (const branch of inner) {
+        const found = ChartAssembler.#guardsOf(branch, line);
+        if (found) return [...earlier, o.line, ...found];
+      }
+      if ("target" in o) earlier.push(o.line);
+    }
+    return undefined;
   }
 
   #flatten(o: OutlineStatement, file: string, out: RawStatement[]) {

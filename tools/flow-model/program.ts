@@ -74,6 +74,9 @@ type Pending = Ins | { op: "jmp" | "call"; to: string };
 
 const squash = (text: string) => text.replace(/\s+/g, " ").trim();
 
+/** Marks the end of a trace that the bound cut off; stripped before a trace leaves the runner. */
+const CUT = "\u0000cut";
+
 /** One thread compiled from an outline. */
 export class FlowProgram {
   readonly ins: Ins[];
@@ -96,7 +99,22 @@ export class FlowProgram {
 
   /** Every effect trace of up to `bound` visible effects, with the lock free or held for the whole run. */
   runs(lockFree: boolean, bound: number): string[][] {
-    return new Runner(this.ins, lockFree).run(bound);
+    const unique = new Set(
+      this.cutRuns(lockFree, bound).map((r) => JSON.stringify(r.effects)),
+    );
+    return [...unique].sort().map((t) => JSON.parse(t) as string[]);
+  }
+
+  /**
+   * Every effect trace of up to `bound` visible effects, with the lock free or held for the whole run,
+   * and whether the bound cut it off before the script ended. A trace that ends at the bound and also
+   * runs on at the bound appears twice, once with each flag.
+   */
+  cutRuns(
+    lockFree: boolean,
+    bound: number,
+  ): { effects: string[]; cut: boolean }[] {
+    return new Runner(this.ins, lockFree).runCuts(bound);
   }
 
   /**
@@ -416,10 +434,7 @@ class Runner {
       for (const n of this.#successors(s)) queue.push(n.state);
     }
     let previous = new Map<string, Set<string>>();
-    for (const k of states.keys()) {
-      previous.set(k, new Set([JSON.stringify([])]));
-    }
-    for (let level = 1; level <= bound; level++) {
+    for (let level = 0; level <= bound; level++) {
       const current = new Map<string, Set<string>>();
       for (const k of states.keys()) current.set(k, new Set());
       let changed = true;
@@ -435,6 +450,8 @@ class Runner {
               for (const t of current.get(key(n.state))!) {
                 out.add(t);
               }
+            } else if (level === 0) {
+              out.add(JSON.stringify([CUT]));
             } else {
               for (const t of previous.get(key(n.state))!) {
                 out.add(JSON.stringify([n.effect, ...JSON.parse(t)]));
@@ -446,8 +463,28 @@ class Runner {
       }
       previous = current;
     }
-    return [...previous.get(key(START))!].map((t) => JSON.parse(t) as string[])
-      .sort((a, b) => JSON.stringify(a) < JSON.stringify(b) ? -1 : 1);
+    return [...previous.get(key(START))!].map((t) => JSON.parse(t) as string[]);
+  }
+
+  /** `run`, with the effects of each trace and whether the bound cut it off before the script ended. */
+  runCuts(bound: number): { effects: string[]; cut: boolean }[] {
+    const seen = new Set<string>();
+    const out: { effects: string[]; cut: boolean }[] = [];
+    for (const t of this.run(bound)) {
+      const cut = t[t.length - 1] === CUT;
+      const effects = cut ? t.slice(0, -1) : t;
+      const id = JSON.stringify([effects, cut]);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      out.push({ effects, cut });
+    }
+    return out.sort((a, b) =>
+      JSON.stringify(a.effects) < JSON.stringify(b.effects)
+        ? -1
+        : JSON.stringify(a.effects) > JSON.stringify(b.effects)
+        ? 1
+        : Number(a.cut) - Number(b.cut)
+    );
   }
 
   /**

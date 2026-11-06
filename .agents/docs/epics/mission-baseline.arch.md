@@ -98,8 +98,8 @@ the derived content and the pages from the source in one run.
 - Conflict report for the three pairs: mission vs thread, thread vs thread, and
   trigger vs running mission, each with both access sites (file, line, access
   kind).
-- Launch-site report: file, line, enclosing thread, and guard lines for each
-  `Mission.LoadAndLaunchInternal` call.
+- Launch-site report: file, line, trigger thread, and guard lines for each place
+  where a trigger launches the mission with `Mission.LoadAndLaunchInternal`.
 - Generated HTML page per mission in `dist/charts/`, with a mark control on each
   statement.
 - Local server that persists marks into the mission's JSON.

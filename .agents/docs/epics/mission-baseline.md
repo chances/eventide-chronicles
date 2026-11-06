@@ -43,8 +43,9 @@ The JSON records, for each in-scope mission:
   of the statement it sits on and an optional label, a story beat the author
   names. The mission script is the upstream source, so a change to it changes
   the chart.
-- Launch sites: each `Mission.LoadAndLaunchInternal` call that starts the
-  mission, with its file, line, enclosing thread, and the guard lines around it.
+- Launch sites: each place where a trigger launches the mission with
+  `Mission.LoadAndLaunchInternal`, with its file, line, trigger thread, and the
+  guard lines around it.
 - Conflicts: each of the three pairs above that involves the mission, with both
   access sites (file, line, and access kind).
 - Behavior: the full effect traces a static program derives from the source, at

@@ -98,7 +98,6 @@ erDiagram
     CHART {
         int version
         string mission
-        int traceBound
     }
     GLOBAL {
         string name
@@ -130,7 +129,11 @@ erDiagram
         string kind
     }
     TRACE {
-        string effects
+        string script "trigger or mission script name"
+        string lock "free or held"
+        int bound "effects the run was cut at"
+        bool cut "optional, true when the run hit the bound"
+        string_array effects "ordered"
     }
 ```
 
@@ -155,11 +158,14 @@ erDiagram
 
 ### Safety And Performance
 
-- Behavior traces run at trace bound 24. The bound is unmeasured:
-  `tools/flow-model` uses 12 today, and enumerating every trace at bound 40
-  exhausts a 1500 MB heap for Cop and Intro. Behavior counts the instructions
-  and traces of each mission with the `tools/flow-model` library before it keeps
-  24, and heavy runs go through `deno task --cwd tools/flow-model capped`.
+- Behavior traces of a trigger run at bound 12, the bound
+  `lib/mission-flow.test.ts` uses, and traces of a mission script run at bound
+  24. The mission script bound is unmeasured for missions 2 to 6: enumerating
+  every trace at bound 40 exhausts a 1500 MB heap for Cop and Intro. Behavior
+  counts the instructions and traces of each mission with the `tools/flow-model`
+  library before it keeps 24, and heavy runs go through
+  `deno task --cwd tools/flow-model capped`. A run that exceeds the cap at bound
+  24 stops and asks.
 - The server rejects a request whose path is not a mission name from the DEFINE
   MISSION list for missions 1 to 6.
 - The server writes a JSON file to a temporary file and renames it, so a stop
@@ -180,6 +186,8 @@ erDiagram
 | Page location        | `dist/charts/`, removed by `deno task clean` and rebuilt by the generator                                                                                                                                                                                                                                                                                                                                       |
 | Schema version       | A `version` field in each JSON file; a version the tool does not know stops the run                                                                                                                                                                                                                                                                                                                             |
 | Schema format        | A hand-written `chart.schema.json` in `tools/chart`, validated with `npm:ajv`                                                                                                                                                                                                                                                                                                                                   |
+| Trace shape          | One entry per trace in `traces`: `script` (the trigger or the mission script that was run), `lock` (`free` or `held`), and `effects`, an ordered array of strings. The trigger is run with the lock free and held. The mission script is run once, with the lock held, because it starts after the trigger takes the lock. |
+| Trace bound          | Each trace stores its own `bound` and a `cut` flag that is true when the run hit the bound before the script ended. The chart has no top-level `traceBound`; `tools/chart/chart.schema.json`, `schema.ts`, `main.ts`, the tests, and the `missions/*.chart.json` files drop it. The flow-model runner reports which traces were cut.                                                                       |
 | Library entry points | Each of `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` has a `mod.ts` that re-exports its public classes and types, and its `exports` points at `mod.ts`                                                                                                                                                                                                                                             |
 
 ## Work Items
@@ -189,10 +197,10 @@ erDiagram
 | Schema        | Enabler | `tools/chart` package, workspace entry, JSON schema with a version field, `AGENTS.md` run line                       | 3    | P0       | Done   |
 | Exports       | Enabler | Library entry points on `tools/cfg`, `tools/thread-graph`, and `tools/flow-model`, each a `mod.ts`                   | 3    | P0       | Done   |
 | Globals       | Story   | Shared globals per mission, each with its reader or writer                                                           | 5    | P0       | Done   |
-| Launch Sites  | Story   | Each `Mission.LoadAndLaunchInternal` call with file, line, enclosing thread, and guard lines                         | 3    | P0       | Open   |
+| Launch Sites  | Story   | Each place where a trigger launches the mission with `Mission.LoadAndLaunchInternal`: file, line, trigger, guards   | 3    | P0       | Done   |
 | Conflicts     | Story   | The three pairs, each with both access sites                                                                         | 5    | P0       | Open   |
 | State Machine | Story   | States from marks, guards and transitions from control-flow blocks                                                   | 5    | P0       | Open   |
-| Behavior      | Story   | Effect traces at the measured bound, recorded in the JSON                                                            | 5    | P1       | Open   |
+| Behavior      | Story   | Effect traces of trigger and mission script at a measured bound each, with a cut flag the runner reports             | 5    | P1       | Open   |
 | Marks         | Story   | Marks merger with statement-text re-anchoring and orphan report                                                      | 5    | P0       | Done   |
 | Pages         | Story   | HTML page per mission in `dist/charts`, with each orphaned mark shown as an error the author can reattach or discard | 5    | P1       | Open   |
 | Server        | Story   | `chart:serve` with the mark route and the regenerate route                                                           | 5    | P1       | Open   |

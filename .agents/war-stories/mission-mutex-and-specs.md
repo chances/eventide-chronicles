@@ -1,4 +1,4 @@
-# Mission Mutex And Specs Session
+# Mission Mutex And Specs
 
 ## Summary
 

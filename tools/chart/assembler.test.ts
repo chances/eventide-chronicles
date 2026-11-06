@@ -38,6 +38,74 @@ Deno.test("a thread that touches no global of the mission is absent", async () =
   assert(!(await fixture.globals("alpha")).some((g) => g.name === "$other"));
 });
 
+const launchSites = new ChartAssembler(
+  join(import.meta.dirname!, "fixtures", "triggers", "main.txt"),
+  wasm,
+);
+
+Deno.test("a launch site has its file, line, enclosing thread, and guard lines", async () => {
+  assertEquals(await launchSites.launchSites("alpha"), [
+    { file: "main.txt", line: 23, thread: "Trigger", guardLines: [15, 18, 21] },
+  ]);
+});
+
+Deno.test("a launch outside any nesting has only the earlier if-goto guard", async () => {
+  assertEquals(await launchSites.launchSites("beta"), [
+    { file: "main.txt", line: 26, thread: "Trigger", guardLines: [15] },
+  ]);
+});
+
+Deno.test("a launch of mission 0 is absent from the launch sites of other missions", async () => {
+  const lines = [
+    ...await launchSites.launchSites("alpha"),
+    ...await launchSites.launchSites("beta"),
+  ].map((s) => s.line);
+  assert(!lines.includes(27));
+});
+
+Deno.test("each of missions 1 to 6 is launched by its trigger, and mission 7 is not among them", async () => {
+  const real = new ChartAssembler(join(root, "main.txt"), wasm, {
+    cleoDirs: ["lib/threads"],
+  });
+  const triggers = {
+    intro: "Star",
+    cop: "Police",
+    hotel: "HOT",
+    work: "Boss",
+    cart: "Golf",
+    bossdie: "Kill",
+  };
+  for (const [mission, thread] of Object.entries(triggers)) {
+    const sites = await real.launchSites(mission);
+    assertEquals(sites.map((s) => s.thread), [thread], mission);
+    for (const site of sites) {
+      assertEquals(site.file, "main.txt");
+      assert(site.line > 0 && site.guardLines.length > 0, mission);
+      assert(site.guardLines.every((l) => l < site.line), mission);
+    }
+  }
+});
+
+Deno.test("traces cover the trigger with the lock free and held, and the mission script with the lock held", async () => {
+  const traces = await launchSites.traces("alpha");
+  const kinds = [...new Set(traces.map((t) => `${t.script} ${t.lock} ${t.bound}`))];
+  assertEquals(kinds.sort(), ["Alpha held 24", "Trigger free 12", "Trigger held 12"]);
+  for (const t of traces) {
+    assert(t.effects.length <= t.bound, `${t.script} exceeds its bound`);
+    if (t.script === "Trigger") assert(t.cut, "a trigger loop is always cut");
+  }
+});
+
+Deno.test("the bounds can be set", async () => {
+  const small = new ChartAssembler(
+    join(import.meta.dirname!, "fixtures", "triggers", "main.txt"),
+    wasm,
+    { triggerBound: 3, missionBound: 5 },
+  );
+  const kinds = new Set((await small.traces("alpha")).map((t) => t.bound));
+  assertEquals([...kinds].sort(), [3, 5]);
+});
+
 Deno.test("an unknown mission is rejected with its name", async () => {
   await assertRejects(() => fixture.globals("nope"), Error, "nope");
 });

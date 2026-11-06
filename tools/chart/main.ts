@@ -55,10 +55,9 @@ const assembler = new ChartAssembler(args.entry ?? "main.txt", wasm, {
 const derived: DerivedContent = {
   version: 1,
   mission,
-  traceBound: existing?.traceBound ?? 0,
   globals: await assembler.globals(mission),
   states: existing?.states ?? [],
-  launchSites: existing?.launchSites ?? [],
+  launchSites: await assembler.launchSites(mission),
   conflicts: existing?.conflicts ?? [],
   traces: existing?.traces ?? [],
 };

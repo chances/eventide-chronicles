@@ -6,7 +6,6 @@
   "required": [
     "version",
     "mission",
-    "traceBound",
     "globals",
     "marks",
     "states",
@@ -18,7 +17,6 @@
   "properties": {
     "version": { "const": 1 },
     "mission": { "type": "string", "minLength": 1 },
-    "traceBound": { "type": "integer", "minimum": 0 },
     "globals": {
       "type": "array",
       "items": {
@@ -118,10 +116,14 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["effects"],
+        "required": ["script", "lock", "bound", "effects"],
         "additionalProperties": false,
         "properties": {
-          "effects": { "type": "string" }
+          "script": { "type": "string", "minLength": 1 },
+          "lock": { "enum": ["free", "held"] },
+          "bound": { "type": "integer", "minimum": 1 },
+          "cut": { "type": "boolean" },
+          "effects": { "type": "array", "items": { "type": "string" } }
         }
       }
     }

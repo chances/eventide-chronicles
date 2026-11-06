@@ -13,6 +13,9 @@ const PROCESS_SET_QUOTA = 0x0100;
 const INFO_SIZE = 144;
 const LIMIT_FLAGS_OFFSET = 16;
 const JOB_MEMORY_LIMIT_OFFSET = 120;
+const PEAK_JOB_MEMORY_OFFSET = 136;
+/** A failed command whose peak memory reached this share of the limit is reported as stopped by the cap. */
+const CAP_SHARE = 0.9;
 
 const kernel32 = Deno.dlopen(
   "kernel32.dll",
@@ -24,6 +27,10 @@ const kernel32 = Deno.dlopen(
     },
     AssignProcessToJobObject: {
       parameters: ["pointer", "pointer"],
+      result: "i32",
+    },
+    QueryInformationJobObject: {
+      parameters: ["pointer", "i32", "buffer", "u32", "pointer"],
       result: "i32",
     },
     OpenProcess: { parameters: ["u32", "i32", "u32"], result: "pointer" },
@@ -90,6 +97,25 @@ export class MemoryJob {
     }
   }
 
+  /** The most memory, in megabytes, that the processes of the job held at once. */
+  peakMegabytes(): number {
+    const info = new ArrayBuffer(INFO_SIZE);
+    const ok = kernel32.symbols.QueryInformationJobObject(
+      this.#handle,
+      JOB_OBJECT_EXTENDED_LIMIT_INFORMATION,
+      new Uint8Array(info),
+      INFO_SIZE,
+      null,
+    );
+    if (!ok) {
+      throw new Error(
+        `QueryInformationJobObject failed (${kernel32.symbols.GetLastError()})`,
+      );
+    }
+    const peak = new DataView(info).getBigUint64(PEAK_JOB_MEMORY_OFFSET, true);
+    return Number(peak / (1024n * 1024n));
+  }
+
   /** Closing the job kills any process still in it. */
   close(): void {
     kernel32.symbols.CloseHandle(this.#handle);
@@ -128,7 +154,16 @@ export async function runCapped(
     }, timeoutSeconds * 1000);
     const status = await child.status;
     clearTimeout(timer);
-    return timedOut ? 124 : status.code;
+    if (timedOut) {
+      console.error(`capped: timeout of ${timeoutSeconds} seconds fired`);
+      return 124;
+    }
+    if (status.code !== 0 && job.peakMegabytes() >= limitMegabytes * CAP_SHARE) {
+      console.error(
+        `capped: memory cap of ${limitMegabytes} MB fired (peak ${job.peakMegabytes()} MB)`,
+      );
+    }
+    return status.code;
   } finally {
     job.close();
   }

@@ -13,7 +13,6 @@ const here = import.meta.dirname!;
 const sample = {
   version: 1,
   mission: "alpha",
-  traceBound: 24,
   globals: [{ name: "$ONMISSION", accessor: "Star", kind: "read" }],
   marks: [{ statementText: "wait 0" }, {
     statementText: "wait 1",
@@ -32,7 +31,13 @@ const sample = {
       kind: "write",
     }],
   }],
-  traces: [{ effects: "launch(1)" }],
+  traces: [{
+    script: "Star",
+    lock: "free",
+    bound: 12,
+    cut: true,
+    effects: ["launch(1)"],
+  }],
 };
 
 Deno.test("tools/chart is a workspace package named @eventide/chart", async () => {

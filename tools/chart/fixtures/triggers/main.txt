@@ -1,0 +1,40 @@
+DEFINE MISSIONS 3
+DEFINE MISSION 0 AT @Zero
+DEFINE MISSION 1 AT @Alpha
+DEFINE MISSION 2 AT @Beta
+
+script_name 'Main'
+start_new_script @Trigger
+terminate_this_script
+
+:Trigger
+script_name 'Trigger'
+
+:Trigger_loop
+wait 0
+if
+  $ONMISSION == 0
+goto_if_false @Trigger_loop
+if
+  $ready == 1
+then
+  while $arm == 1
+    wait 0
+    Mission.LoadAndLaunchInternal(1)
+  end
+end
+Mission.LoadAndLaunchInternal(2)
+Mission.LoadAndLaunchInternal(0)
+goto @Trigger_loop
+
+:Zero
+script_name 'Zero'
+terminate_this_script
+
+:Alpha
+script_name 'Alpha'
+terminate_this_script
+
+:Beta
+script_name 'Beta'
+terminate_this_script

@@ -15,7 +15,6 @@ assert(wasm, "SBL_WASM is not set; point it at tree-sitter-gta3.wasm in .env");
 const derived: DerivedContent = {
   version: 1,
   mission: "alpha",
-  traceBound: 24,
   globals: [{ name: "$a", accessor: "Alpha", kind: "write" }],
   states: [],
   launchSites: [],

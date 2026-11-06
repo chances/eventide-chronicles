@@ -36,11 +36,13 @@ the turn its check passes.
 
 ## Launch Sites
 
-- [ ] The JSON for each of missions 1 to 6 lists every
-      `Mission.LoadAndLaunchInternal` call that starts it.
-- [ ] Each site has its file, line, enclosing thread, and the guard lines around
+- [x] The JSON for each of missions 1 to 6 lists every launch site: each place
+      where a trigger launches it with `Mission.LoadAndLaunchInternal`.
+- [x] Each site has its file, line, trigger thread, and its guard lines: the
+      header line of every enclosing `if` or `while`, and every earlier
+      `if ... goto_if_false` line in the same label block that falls through to
       it.
-- [ ] Mission 7 and the `Mission.LoadAndLaunchInternal(0)` calls are absent from
+- [x] Mission 7 and the `Mission.LoadAndLaunchInternal(0)` calls are absent from
       the launch sites of missions 1 to 6.
 
 ## Conflicts
@@ -63,11 +65,17 @@ the turn its check passes.
 
 ## Behavior
 
-- [ ] Effect traces come from `tools/flow-model` and are stored with the bound
-      they were run at.
-- [ ] Trace bound 24 is measured for each mission with the `tools/flow-model`
-      library before the bound is kept, and the measured counts are recorded
-      where the bound is recorded.
+- [ ] Effect traces come from `tools/flow-model`.
+- [ ] Each trace stores its `script`, its `lock` (`free` or `held`), its `bound`,
+      a `cut` flag that is true when the run hit the bound before the script
+      ended, and its `effects` as an ordered array of strings.
+- [ ] The chart has no top-level `traceBound` in the schema, the tool, the
+      tests, or the `missions/*.chart.json` files.
+- [ ] Each mission has traces of its trigger with the lock free and with the lock
+      held, and traces of its mission script with the lock held.
+- [ ] Triggers run at bound 12. Mission scripts run at bound 24, measured for
+      each mission with the `tools/flow-model` library before the bound is kept.
+      The JSON stores only each trace's bound, not the measured counts.
 - [ ] A run that exceeds the memory cap or the timeout stops with a message that
       names the cap that fired.
 - [ ] Heavy runs go through the capped runner, and `decide +kernel` appears

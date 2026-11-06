@@ -22,7 +22,6 @@ export class SchemaError extends Error {
 export type ChartFile = {
   version: number;
   mission: string;
-  traceBound: number;
   globals: { name: string; accessor: string; kind: "read" | "write" }[];
   marks: {
     statementText: string;
@@ -44,7 +43,13 @@ export type ChartFile = {
     pair: "mission-thread" | "thread-thread" | "trigger-mission";
     accesses: { file: string; line: number; kind: "read" | "write" }[];
   }[];
-  traces: { effects: string }[];
+  traces: {
+    script: string;
+    lock: "free" | "held";
+    bound: number;
+    cut?: boolean;
+    effects: string[];
+  }[];
 };
 
 export class ChartSchema {
