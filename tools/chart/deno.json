@@ -1,0 +1,8 @@
+{
+  "name": "@eventide/chart",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "tasks": {
+    "start": "deno run --env-file=../../.env --allow-env --allow-read --allow-write main.ts"
+  }
+}

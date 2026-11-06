@@ -1,7 +1,7 @@
 {
   "name": "@eventide/thread-graph",
   "version": "0.1.0",
-  "exports": "./graph.ts",
+  "exports": "./mod.ts",
   "tasks": {
     "start": "deno run --env-file=../../.env --allow-env --allow-read main.ts"
   }

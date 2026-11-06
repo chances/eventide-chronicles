@@ -8,15 +8,15 @@ Criteria for each item in [mission-baseline.md](mission-baseline.md). Tick a box
 
 ## Schema
 
-- [ ] `tools/chart` exists as a Deno workspace package named `@eventide/chart`, listed in the root `deno.json` workspace list.
-- [ ] A JSON schema for `missions/<name>.chart.json` has a `version` field, and a file with an unknown version stops the run with a message that names the version.
-- [ ] `AGENTS.md` has a run line for `tools/chart`.
-- [ ] The tool takes the mission as an argument and names no mission in its code.
+- [x] `tools/chart` exists as a Deno workspace package named `@eventide/chart`, listed in the root `deno.json` workspace list.
+- [x] A JSON schema for `missions/<name>.chart.json` has a `version` field, and a file with an unknown version stops the run with a message that names the version.
+- [x] `AGENTS.md` has a run line for `tools/chart`.
+- [x] The tool takes the mission as an argument and names no mission in its code.
 
 ## Exports
 
-- [ ] `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` each expose a library entry point that `tools/chart` imports by package name.
-- [ ] The existing command-line behavior of the three tools is unchanged, and `lib/thread-graph.test.ts` and `lib/mission-flow.test.ts` give the same results as before the change.
+- [x] `tools/cfg`, `tools/thread-graph`, and `tools/flow-model` each expose a library entry point that `tools/chart` imports by package name.
+- [x] The existing command-line behavior of the three tools is unchanged, and `lib/thread-graph.test.ts` and `lib/mission-flow.test.ts` give the same results as before the change.
 
 ## Globals
 

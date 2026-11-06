@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eventide.local/chart.schema.json",
+  "title": "Mission Chart",
+  "type": "object",
+  "required": [
+    "version",
+    "mission",
+    "traceBound",
+    "globals",
+    "marks",
+    "states",
+    "launchSites",
+    "conflicts",
+    "traces"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "mission": { "type": "string", "minLength": 1 },
+    "traceBound": { "type": "integer", "minimum": 0 },
+    "globals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "accessor", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "accessor": { "type": "string" },
+          "kind": { "enum": ["read", "write"] }
+        }
+      }
+    },
+    "marks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["statementText"],
+        "additionalProperties": false,
+        "properties": {
+          "statementText": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["transitions"],
+        "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string" },
+          "transitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["guard", "target"],
+              "additionalProperties": false,
+              "properties": {
+                "guard": { "type": "string" },
+                "target": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "launchSites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "line", "thread", "guardLines"],
+        "additionalProperties": false,
+        "properties": {
+          "file": { "type": "string" },
+          "line": { "type": "integer", "minimum": 1 },
+          "thread": { "type": "string" },
+          "guardLines": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pair", "accesses"],
+        "additionalProperties": false,
+        "properties": {
+          "pair": {
+            "enum": ["mission-thread", "thread-thread", "trigger-mission"]
+          },
+          "accesses": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["file", "line", "kind"],
+              "additionalProperties": false,
+              "properties": {
+                "file": { "type": "string" },
+                "line": { "type": "integer", "minimum": 1 },
+                "kind": { "enum": ["read", "write"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "traces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["effects"],
+        "additionalProperties": false,
+        "properties": {
+          "effects": { "type": "string" }
+        }
+      }
+    }
+  }
+}

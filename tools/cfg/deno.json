@@ -1,7 +1,7 @@
 {
   "name": "@eventide/cfg",
   "version": "0.1.0",
-  "exports": "./main.ts",
+  "exports": "./mod.ts",
   "tasks": {
     "start": "deno run --allow-read main.ts"
   }
