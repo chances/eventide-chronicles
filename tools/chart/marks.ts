@@ -47,6 +47,18 @@ export class MarksMerger {
     });
   }
 
+  /** The statement each mark sits on, or null when no statement matches it. */
+  static anchors(
+    marks: MarkKey[],
+    statements: Statement[],
+  ): (Statement | null)[] {
+    const byKey = new Map<string, Statement>();
+    for (const s of statements) {
+      byKey.set(keyOf({ statementText: s.text, occurrence: s.occurrence }), s);
+    }
+    return marks.map((mark) => byKey.get(keyOf(mark)) ?? null);
+  }
+
   /**
    * Takes the derived content as given and the marks from `existing`, unchanged except that a
    * mark with no statement is flagged `orphaned` and a mark whose statement is back loses the flag.
@@ -56,22 +68,11 @@ export class MarksMerger {
     derived: DerivedContent,
     statements: Statement[],
   ): MergeResult {
-    const byKey = new Map<string, Statement>();
-    for (const s of statements) {
-      byKey.set(
-        keyOf({
-          statementText: s.text,
-          occurrence: s.occurrence,
-        }),
-        s,
-      );
-    }
-    const anchors: (Statement | null)[] = [];
+    const anchors = MarksMerger.anchors(existing?.marks ?? [], statements);
     const orphans: Mark[] = [];
-    const marks = (existing?.marks ?? []).map((mark) => {
+    const marks = (existing?.marks ?? []).map((mark, i) => {
       const { orphaned: _was, ...rest } = mark;
-      const anchor = byKey.get(keyOf(mark)) ?? null;
-      anchors.push(anchor);
+      const anchor = anchors[i];
       if (anchor) return rest;
       const flagged = { ...rest, orphaned: true };
       orphans.push(flagged);

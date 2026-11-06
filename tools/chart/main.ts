@@ -2,7 +2,11 @@
  * @module
  * Mission chart command.
  *
- * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>]`
+ * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>] [--phrasebook <file>] [--library <file>]`
+ *
+ * Guards are written in Gherkin English from `--phrasebook` (default `Phrasebook.csv`), with argument
+ * names from `--library` (default: `data/vc_sbl/vc.json` under the folder of `SANNY`). A condition with no
+ * Phrasebook row shows its source text and is listed in the chart's `errors` as unphrased.
  *
  * Rewrites the derived content of `<dir>/<mission>.chart.json` (default dir: `missions`) from the
  * script at `<file>` (default: `main.txt`) and keeps its marks. Stops with a message when an
@@ -12,7 +16,8 @@
  * trips either cap stops the command and writes nothing. Windows only, since the capped runner is.
  */
 import { parseArgs } from "@std/cli/parse-args";
-import { join } from "@std/path";
+import { dirname, join } from "@std/path";
+import { exists } from "@std/fs";
 import { ChartAssembler } from "./assembler.ts";
 import { type DerivedContent, MarksMerger } from "./marks.ts";
 import {
@@ -23,7 +28,15 @@ import {
 } from "./schema.ts";
 
 const args = parseArgs(Deno.args, {
-  string: ["missions", "entry", "cleo-dir", "memory", "timeout"],
+  string: [
+    "missions",
+    "entry",
+    "cleo-dir",
+    "memory",
+    "timeout",
+    "phrasebook",
+    "library",
+  ],
   collect: ["cleo-dir"],
 });
 const [mission] = args._ as string[];
@@ -54,7 +67,15 @@ if (!wasm) {
 }
 const entry = args.entry ?? "main.txt";
 const cleoDirs = args["cleo-dir"] ?? ["lib/threads"];
-const assembler = new ChartAssembler(entry, wasm, { cleoDirs });
+const phrasebook = args.phrasebook ?? "Phrasebook.csv";
+const sanny = Deno.env.get("SANNY");
+const library = args.library ??
+  (sanny ? join(dirname(sanny), "data", "vc_sbl", "vc.json") : undefined);
+const assembler = new ChartAssembler(entry, wasm, {
+  cleoDirs,
+  phrasebook: await exists(phrasebook) ? phrasebook : undefined,
+  library: library && await exists(library) ? library : undefined,
+});
 
 /** Runs `traces.ts` under the capped runner and returns the traces it wrote, or stops the command. */
 async function cappedTraces(): Promise<ChartFile["traces"]> {
@@ -98,13 +119,18 @@ async function cappedTraces(): Promise<ChartFile["traces"]> {
     await Deno.remove(out);
   }
 }
+const { states, errors } = await assembler.states(
+  mission,
+  existing?.marks ?? [],
+);
 const derived: DerivedContent = {
   version: 1,
   mission,
   globals: await assembler.globals(mission),
-  states: existing?.states ?? [],
+  states,
   launchSites: await assembler.launchSites(mission),
-  conflicts: existing?.conflicts ?? [],
+  conflicts: await assembler.conflicts(mission),
+  errors,
   traces: await cappedTraces(),
 };
 const { chart, orphans } = new MarksMerger().merge(

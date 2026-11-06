@@ -41,8 +41,30 @@ export type ChartFile = {
   }[];
   conflicts: {
     pair: "mission-thread" | "thread-thread" | "trigger-mission";
-    accesses: { file: string; line: number; kind: "read" | "write" }[];
+    global: string;
+    accesses: {
+      script: string;
+      file: string;
+      line: number;
+      kind: "read" | "write";
+    }[];
   }[];
+  /** Statements reached from more than one state; the statement text is read from the source at the line. */
+  errors?: (
+    | {
+      kind: "reach";
+      file: string;
+      line: number;
+      severity: "error" | "warning";
+      states: string[];
+    }
+    | {
+      kind: "unphrased";
+      severity: "error" | "warning";
+      /** The Phrasebook key of a guard condition that has no row. */
+      expression: string;
+    }
+  )[];
   traces: {
     script: string;
     lock: "free" | "held";

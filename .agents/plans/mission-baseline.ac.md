@@ -47,21 +47,44 @@ the turn its check passes.
 
 ## Conflicts
 
-- [ ] Each conflict names one of the pairs `mission-thread`, `thread-thread`, or
+- [x] Each conflict names one of the pairs `mission-thread`, `thread-thread`, or
       `trigger-mission`.
-- [ ] Each conflict has two access sites, each with file, line, and access kind.
-- [ ] A `trigger-mission` conflict appears for a trigger that starts a mission
-      without testing `$ONMISSION`.
-- [ ] A thread that touches no global of the mission produces no conflict.
+- [x] Each conflict names its `global`. Each `mission-thread` and
+      `thread-thread` conflict has two access sites, each with file, line, and
+      access kind, and a `mission-thread` conflict has at least one write.
+- [x] A `trigger-mission` conflict appears for a trigger that starts a mission
+      without testing `$ONMISSION`, and has one access site, the launch call.
+- [x] No script of kind `mission` is on the thread side of a conflict.
+- [x] A thread that touches no global of the mission produces no conflict.
 
 ## State Machine
 
-- [ ] A mission with no marks is one state.
-- [ ] A wait statement never creates a state.
-- [ ] Each mark begins one state, and the state carries the mark's label when it
+- [x] A mission with no marks is one state.
+- [x] A wait statement never creates a state.
+- [x] Each mark begins one state, and the state carries the mark's label when it
       has one.
-- [ ] Guards and transitions between marked states come from the control-flow
-      blocks of `tools/cfg`.
+- [x] Guards and transitions between marked states come from the statement graph
+      of `tools/cfg` (`statements.ts`), imported by `tools/chart` by package
+      name. The `tools/cfg` command prints that graph with its `--statements`
+      flag, and without the flag it prints the same blocks as before.
+- [x] Each guard is Gherkin English on separate lines from `./Phrasebook.csv`:
+      each `When` line uses the active phrase of its condition, each `And` line
+      uses a nominal phrase, a negated condition uses its opposite phrase, a
+      chain is negated and minimized by `logi.js`, and each alternative of the
+      result is its own `When` line.
+- [x] A command's arguments follow its phrase with the library parameter names
+      before their values, points grouped without x, y, and z names, radii
+      grouped as `radius (...)`, and the instance argument dropped.
+- [x] A condition with no Phrasebook entry shows its source text in the guard
+      and is listed in `errors` with `kind` `unphrased` and the expression.
+- [x] A global whose every write is 0, 1, `true`, or `false` is a boolean flag:
+      `$V == 1` is the flag, `$V == 0` is its negation, and the Phrasebook has
+      one row keyed `$V`.
+- [x] A mission with N marks has N plus one states, and the start state is
+      dropped when the first mark sits on the first statement.
+- [x] A statement reached from two states is listed in `errors` with severity
+      `error`, and one reached only through `gosub` calls with severity
+      `warning`.
 
 ## Behavior
 
@@ -99,6 +122,12 @@ the turn its check passes.
       again restores every page.
 - [ ] A page shows the globals, launch sites, conflicts, states, and traces of
       its mission, and a mark control on each statement.
+- [ ] A page shows each entry of `errors` at its statement, as an error or as a
+      warning by severity, with the states that reach it. A warning reminds the
+      author to refactor the shared subroutine into a function.
+- [ ] A page shows each `unphrased` entry of `errors` as an error with a modal
+      dialog where the author types the phrase, and the dialog offers the
+      server's suggested phrase.
 - [ ] A page loads through `chart:serve` with its styles and script applied.
 - [ ] A page shows each orphaned mark as an error in its place in the state
       list, with its label kept.
@@ -122,6 +151,9 @@ the turn its check passes.
 - [ ] `POST /<mission>/regenerate` rewrites the derived content of
       `missions/<mission>.chart.json`, keeps its marks, and returns the orphaned
       marks.
+- [ ] `GET /phrases/suggest?expression=...` returns a `compromise` suggestion
+      for the opposite column and leaves the active column blank, and
+      `POST /phrases` adds or edits one row of `./Phrasebook.csv`.
 - [ ] A request for a name outside missions 1 to 6 is rejected, and nothing is
       written.
 - [ ] The server writes a temporary file and renames it, so a stop mid-write

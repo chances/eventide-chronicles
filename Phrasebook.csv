@@ -1,0 +1,32 @@
+expression,nominal,opposite,active
+$CarHealth < 800,car health is under 800,car health is 800 or more,car health drops under 800
+$DaughterBlip == 0,the daughter blip is removed,the daughter blip exists,the daughter blip disappears
+$Intro_Passed,the intro is passed,the intro is not passed,the player passes the intro
+$OffWorkBike,the player is off the work bike,the player is on the work bike,the player gets off the work bike
+$PRINT_CAR_HELP,car help has been printed,car help has not been printed,car help is printed
+$PRINT_SAVE_HELP,save help has been printed,save help has not been printed,save help is printed
+$TIMER == 0,the timer has run out,the timer is still running,the timer runs out
+$TIMER == 5000,the timer reads 5000,the timer does not read 5000,the timer reaches 5000
+has_deatharrest_been_executed,the player is incapacitated,the player is not incapacitated,the player dies or is arrested
+true,always,never,the loop runs
+Audio.HasMissionAudioFinished,the mission audio has finished,the mission audio is still playing,the mission audio finishes
+Audio.HasMissionAudioLoaded,the mission audio has loaded,the mission audio has not loaded,the mission audio finishes loading
+Car.IsDead,the car is wrecked,the car is not wrecked,the car is destroyed
+Car.IsHealthGreater,the car health is over,the car health is not over,the car health rises over
+Car.IsInWater,the car is in the water,the car is not in the water,the car enters the water
+Char.DoesExist,the character exists,the character does not exist,the character is created
+Char.IsDead,the character is dead,the character is alive,the character dies
+Player.IsInCar,the player is in a vehicle,the player is not in a vehicle,the player gets in a vehicle
+Char.IsOnScreen,the character is on screen,the character is off screen,the character enters
+Hud.AreWantedStarsFlashing,the wanted stars are flashing,the wanted stars are steady,the wanted stars start flashing
+Object.DoesExist,the object exists,the object does not exist,the object is created
+Pad.IsKeyPressed,the key is pressed,the key is not pressed,the player presses the key
+Pickup.HasBeenCollected,the pickup has been collected,the pickup has not been collected,the player collects the pickup
+Player.IsInModel,the player is driving the model,the player is not driving the model,the player starts driving the model
+Player.IsWantedLevelGreater,the wanted level is over,the wanted level is not over,the wanted level rises over
+Player.LocateAnyMeans2D,the player is near,the player is outside the area,the player enters the area
+Player.LocateAnyMeans3D,the player is near,the player is outside the area,the player enters the area
+Player.LocateInCar3D,the player is in a vehicle near,the player is not in a vehicle near,the player enters the area in a vehicle
+Player.LocateOnFoot3D,the player is on foot near,the player is not on foot near,the player enters the area on foot
+Streaming.HasModelLoaded,the model has loaded,the model has not loaded,the model loads
+Streaming.IsModelAvailable,the model is available,the model is not available,the model becomes available

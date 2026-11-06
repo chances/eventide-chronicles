@@ -27,7 +27,9 @@
     "@std/fs": "jsr:@std/fs@^1.0.24",
     "@std/path": "jsr:@std/path@^1.1.6",
     "ajv": "npm:ajv@^8.20.0",
+    "compromise": "npm:compromise@^14.19.0",
     "dxtn": "npm:dxtn@^1.0.0",
+    "logi.js": "npm:logi.js@^0.1.8",
     "rw-parser-ng": "npm:rw-parser-ng@^2.3.0",
     "@std/assert": "jsr:@std/assert@^1.0.19",
     "web-tree-sitter": "npm:web-tree-sitter@^0.27.1"

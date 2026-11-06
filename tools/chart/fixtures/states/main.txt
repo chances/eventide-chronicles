@@ -1,0 +1,70 @@
+DEFINE MISSIONS 5
+DEFINE MISSION 0 AT @Zero
+DEFINE MISSION 1 AT @Alpha
+DEFINE MISSION 2 AT @Beta
+DEFINE MISSION 3 AT @Gamma
+DEFINE MISSION 4 AT @Delta
+
+script_name 'Main'
+start_new_script @Trigger
+terminate_this_script
+
+:Zero
+script_name 'Zero'
+terminate_this_script
+
+:Alpha
+script_name 'Alpha'
+$a = 1
+wait 0
+if
+  $ok == 1
+goto_if_false @Alpha_late
+$b = 2
+wait 0
+:Alpha_late
+$c = 3
+terminate_this_script
+
+:Beta
+script_name 'Beta'
+$a = 1
+gosub @Shared
+$m = 1
+gosub @Shared
+terminate_this_script
+
+:Shared
+$e = 5
+return
+
+:Gamma
+script_name 'Gamma'
+$a = 1
+goto @Gamma_inside
+$m = 1
+:Gamma_inside
+$n = 2
+terminate_this_script
+
+:Trigger
+script_name 'Trigger'
+Mission.LoadAndLaunchInternal(1)
+Mission.LoadAndLaunchInternal(2)
+Mission.LoadAndLaunchInternal(3)
+Mission.LoadAndLaunchInternal(4)
+$flag = 1
+terminate_this_script
+
+:Delta
+script_name 'Delta'
+$flag = 0
+:Delta_loop
+wait 0
+if
+  $flag == 0
+goto_if_false @Delta_late
+goto @Delta_loop
+:Delta_late
+$z = 1
+terminate_this_script

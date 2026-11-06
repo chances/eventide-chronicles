@@ -25,12 +25,24 @@ const sample = {
   launchSites: [{ file: "main.txt", line: 1, thread: "Star", guardLines: [1] }],
   conflicts: [{
     pair: "mission-thread",
-    accesses: [{ file: "a.txt", line: 1, kind: "read" }, {
+    global: "$flag",
+    accesses: [{ script: "Intro", file: "a.txt", line: 1, kind: "read" }, {
+      script: "Star",
       file: "b.txt",
       line: 2,
       kind: "write",
     }],
   }],
+  errors: [
+    {
+      kind: "reach",
+      file: "a.txt",
+      line: 3,
+      severity: "error",
+      states: ["A", "B"],
+    },
+    { kind: "unphrased", severity: "error", expression: "$flag == 1" },
+  ],
   traces: [{
     script: "Star",
     lock: "free",

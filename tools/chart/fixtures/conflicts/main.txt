@@ -1,0 +1,68 @@
+DEFINE MISSIONS 3
+DEFINE MISSION 0 AT @Zero
+DEFINE MISSION 1 AT @Alpha
+DEFINE MISSION 2 AT @Beta
+
+script_name 'Main'
+start_new_script @Reader
+start_new_script @WriterA
+start_new_script @WriterB
+start_new_script @ReadOnly
+start_new_script @Guarded
+start_new_script @Unguarded
+terminate_this_script
+
+:Reader
+script_name 'Reader'
+wait 0
+$copy = $shared
+terminate_this_script
+
+:WriterA
+script_name 'WriterA'
+wait 0
+$both = 1
+terminate_this_script
+
+:WriterB
+script_name 'WriterB'
+wait 0
+$both = 2
+terminate_this_script
+
+:ReadOnly
+script_name 'ReadOnly'
+wait 0
+$peek = $roval
+terminate_this_script
+
+:Guarded
+script_name 'Guarded'
+wait 0
+if
+  $ONMISSION == 0
+goto_if_false @Guarded
+Mission.LoadAndLaunchInternal(1)
+terminate_this_script
+
+:Unguarded
+script_name 'Unguarded'
+wait 0
+Mission.LoadAndLaunchInternal(2)
+terminate_this_script
+
+:Zero
+script_name 'Zero'
+$both = 3
+terminate_this_script
+
+:Alpha
+script_name 'Alpha'
+$shared = 1
+$mine = $both
+$seen = $roval
+terminate_this_script
+
+:Beta
+script_name 'Beta'
+terminate_this_script

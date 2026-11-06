@@ -122,7 +122,9 @@ to be backward-compatible with earlier builds, saves, or scripts.
 - Read [.agents/docs/debugging.md](.agents/docs/debugging.md) before you debug a
   script crash or run a static tool over the scripts.
 - `deno task --cwd tools/cfg start ../../main.txt <label>` prints the
-  control-flow blocks reachable from a label.
+  control-flow blocks reachable from a label. With `--statements` it prints the
+  statements reachable from the label, each with its position and its outgoing
+  edges and guard conditions.
 - `deno task --cwd tools/thread-graph start ../../main.txt --vars '$ONMISSION' --outline Star,HOT`
   prints the thread and mission graph as JSON.
 - `deno task --cwd tools/flow-model capped <memoryMB> <timeoutSeconds> <command> [args...]`

@@ -11,10 +11,23 @@ import {
   ThreadGraph,
 } from "@eventide/thread-graph";
 import { candidateLock, FlowProgram } from "@eventide/flow-model";
-import { MarksMerger, type RawStatement, type Statement } from "./marks.ts";
+import {
+  type Mark,
+  MarksMerger,
+  type RawStatement,
+  type Statement,
+} from "./marks.ts";
 import type { ChartFile } from "./schema.ts";
+import { deriveStates, FlowGraph, type StateOutput } from "@eventide/cfg";
+import { GuardWriter, loadLibrary, Phrasebook } from "./guards.ts";
 
 export type AssemblerOptions = {
+  /** Path of the Phrasebook CSV; without it every guard condition is unphrased. */
+  phrasebook?: string;
+  /** Path of the Sanny Builder library JSON, such as `vc.json`, that names the arguments of class commands. */
+  library?: string;
+  /** First and last mission number whose unguarded launches are trigger-mission conflicts; default 1 to 6. */
+  missionRange?: [number, number];
   /** Folders, relative to the entry file's folder, that hold streamed CLEO script sources. */
   cleoDirs?: string[];
   /** Effects per run of a trigger; default 12. */
@@ -26,6 +39,7 @@ export type AssemblerOptions = {
 type Access = ChartFile["globals"][number];
 export type Trace = ChartFile["traces"][number];
 export type LaunchSite = ChartFile["launchSites"][number];
+export type Conflict = ChartFile["conflicts"][number];
 
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 
@@ -36,6 +50,9 @@ export class ChartAssembler {
   readonly #cleoDirs: string[];
   readonly #triggerBound: number;
   readonly #missionBound: number;
+  readonly #missionRange: [number, number];
+  readonly #phrasebook: string | undefined;
+  readonly #library: string | undefined;
   #graph?: Promise<GraphData>;
   #source?: Promise<SourceProgram>;
 
@@ -45,6 +62,26 @@ export class ChartAssembler {
     this.#cleoDirs = options.cleoDirs ?? [];
     this.#triggerBound = options.triggerBound ?? 12;
     this.#missionBound = options.missionBound ?? 24;
+    this.#missionRange = options.missionRange ?? [1, 6];
+    this.#phrasebook = options.phrasebook;
+    this.#library = options.library;
+  }
+
+  /** Globals whose every write is 0, 1, `true`, or `false`: boolean flags, so `$V == 0` is the negation of `$V == 1`. */
+  async #booleans(): Promise<Set<string>> {
+    const writes = new Map<string, boolean>();
+    for (const node of (await this.#build()).nodes) {
+      for (const f of node.flags) {
+        if (f.access !== "write") continue;
+        const boolean = ["0", "1", "true", "false"].includes(
+          (f.value ?? "").toLowerCase(),
+        );
+        writes.set(f.var, (writes.get(f.var) ?? true) && boolean);
+      }
+    }
+    return new Set(
+      [...writes].filter(([, boolean]) => boolean).map(([v]) => v),
+    );
   }
 
   /**
@@ -130,16 +167,167 @@ export class ChartAssembler {
    * and each `if`, `while`, or `repeat` by its header alone.
    */
   async statements(mission: string): Promise<Statement[]> {
+    const { items } = await this.#flow(mission);
+    return MarksMerger.number(
+      items.map(({ text, file, line }): RawStatement => ({ text, file, line })),
+    );
+  }
+
+  /**
+   * The states the marks cut the mission into, and the statements more than one state reaches.
+   * A mark with no matching statement begins no state.
+   */
+  async states(mission: string, marks: Mark[]): Promise<StateOutput> {
+    const flow = await this.#flow(mission);
+    const statements = MarksMerger.number(
+      flow.items.map(({ text, file, line }): RawStatement => ({
+        text,
+        file,
+        line,
+      })),
+    );
+    const anchors = MarksMerger.anchors(marks, statements);
+    const guards = new GuardWriter(
+      this.#phrasebook
+        ? Phrasebook.parse(await Deno.readTextFile(this.#phrasebook))
+        : Phrasebook.empty(),
+      await this.#booleans(),
+      this.#library ? loadLibrary(this.#library) : new Map(),
+    );
+    return deriveStates(
+      flow,
+      marks.flatMap((mark, i) => {
+        const anchor = anchors[i];
+        return anchor
+          ? [{ item: statements.indexOf(anchor), label: mark.label }]
+          : [];
+      }),
+      (g) => guards.write(g.mode, g.conditions, g.negated),
+    );
+  }
+
+  /**
+   * Every conflict that involves the mission. A `mission-thread` conflict pairs an access of a global the
+   * mission touches with an access of a thread, and needs a write on one side. A `thread-thread` conflict
+   * pairs writes of such a global by two threads. A `trigger-mission` conflict is a launch of a mission in
+   * range with no read of `$ONMISSION` in its guard lines. Scripts of kind `mission` are never threads.
+   */
+  async conflicts(mission: string): Promise<Conflict[]> {
     const graph = await this.#build();
-    const node = this.#find(graph, mission);
-    const program = await this.#program();
-    const raw: RawStatement[] = [];
-    for (const label of node.labels) {
-      for (const { node: stmt, file } of program.blocks.get(label)!.stmts) {
-        this.#flatten(outlineOf(stmt), file, raw);
+    const target = this.#find(graph, mission);
+    const sitesOf = (node: GraphNode, name: string): Conflict["accesses"] => {
+      const seen = new Set<string>();
+      return node.flags.flatMap((f) => {
+        const key = `${f.at.file}:${f.at.line}:${f.access}`;
+        if (f.var !== name || f.access === "declare" || seen.has(key)) {
+          return [];
+        }
+        seen.add(key);
+        return [{
+          script: node.id,
+          file: f.at.file,
+          line: f.at.line,
+          kind: f.access,
+        }];
+      });
+    };
+    const mine = [
+      ...new Set(
+        target.flags.filter((f) => f.access !== "declare").map((f) => f.var),
+      ),
+    ].sort(compare);
+    const threads = graph.nodes.filter((n) => n.kind !== "mission");
+    const out: Conflict[] = [];
+    for (const name of mine) {
+      for (const a of sitesOf(target, name)) {
+        for (const t of threads) {
+          for (const b of sitesOf(t, name)) {
+            if (a.kind === "write" || b.kind === "write") {
+              out.push({
+                pair: "mission-thread",
+                global: name,
+                accesses: [a, b],
+              });
+            }
+          }
+        }
+      }
+      threads.forEach((first, i) => {
+        for (const second of threads.slice(i + 1)) {
+          for (
+            const a of sitesOf(first, name).filter((s) => s.kind === "write")
+          ) {
+            for (
+              const b of sitesOf(second, name).filter((s) => s.kind === "write")
+            ) {
+              out.push({
+                pair: "thread-thread",
+                global: name,
+                accesses: [a, b],
+              });
+            }
+          }
+        }
+      });
+    }
+    const [lo, hi] = this.#missionRange;
+    for (const node of graph.nodes) {
+      if (node.kind !== "mission" || node.mission === undefined) continue;
+      if (node.mission < lo || node.mission > hi) continue;
+      for (const { site, guards } of await this.#launches(node)) {
+        if (guards.some(ChartAssembler.#readsLock)) continue;
+        out.push({
+          pair: "trigger-mission",
+          global: "$ONMISSION",
+          accesses: [{
+            script: site.thread,
+            file: site.file,
+            line: site.line,
+            kind: "write",
+          }],
+        });
       }
     }
-    return MarksMerger.number(raw);
+    const rank = {
+      "mission-thread": 0,
+      "thread-thread": 1,
+      "trigger-mission": 2,
+    };
+    return out.sort((x, y) =>
+      rank[x.pair] - rank[y.pair] || compare(x.global, y.global) ||
+      compare(x.accesses[0].file, y.accesses[0].file) ||
+      x.accesses[0].line - y.accesses[0].line ||
+      (x.accesses[1]?.line ?? 0) - (y.accesses[1]?.line ?? 0)
+    );
+  }
+
+  /** True when an `if` or `while` header reads `$ONMISSION`. */
+  static #readsLock(o: OutlineStatement): boolean {
+    const text = "conditions" in o
+      ? o.conditions.join(" ")
+      : "condition" in o
+      ? o.condition
+      : "";
+    return /\$ONMISSION\b/i.test(text);
+  }
+
+  async #flow(mission: string): Promise<FlowGraph> {
+    const node = this.#find(await this.#build(), mission);
+    const program = await this.#program();
+    return FlowGraph.build(
+      node.labels.map((label) => {
+        const block = program.blocks.get(label)!;
+        return {
+          label,
+          next: block.next,
+          stmts: block.stmts.map((s) => ({
+            outline: outlineOf(s.node),
+            file: s.file,
+          })),
+        };
+      }),
+      (name) => program.resolve(name),
+    );
   }
 
   /**
@@ -148,10 +336,17 @@ export class ChartAssembler {
    * earlier `if ... goto_if_false` line in the same label block that falls through to the call.
    */
   async launchSites(mission: string): Promise<LaunchSite[]> {
+    const target = this.#find(await this.#build(), mission);
+    return (await this.#launches(target)).map(({ site }) => site);
+  }
+
+  /** The launch sites of a mission node, each with the guard statements on the way to it. */
+  async #launches(
+    target: GraphNode,
+  ): Promise<{ site: LaunchSite; guards: OutlineStatement[] }[]> {
     const graph = await this.#build();
-    const target = this.#find(graph, mission);
     const program = await this.#program();
-    const sites: LaunchSite[] = [];
+    const found: { site: LaunchSite; guards: OutlineStatement[] }[] = [];
     for (const node of graph.nodes) {
       for (const edge of node.edges) {
         if (
@@ -161,24 +356,33 @@ export class ChartAssembler {
         const stmts = program.blocks.get(edge.label)!.stmts
           .filter((s) => s.file === edge.at.file)
           .map((s) => outlineOf(s.node));
-        const guards = ChartAssembler.#guardsOf(stmts, edge.at.line) ?? [];
-        sites.push({
-          file: edge.at.file,
-          line: edge.at.line,
-          thread: node.id,
-          guardLines: [...new Set(guards)].sort((a, b) => a - b),
+        const guards = [
+          ...new Set(ChartAssembler.#guardsOf(stmts, edge.at.line) ?? []),
+        ];
+        found.push({
+          guards,
+          site: {
+            file: edge.at.file,
+            line: edge.at.line,
+            thread: node.id,
+            guardLines: [...new Set(guards.map((g) => g.line))].sort((a, b) =>
+              a - b
+            ),
+          },
         });
       }
     }
-    return sites.sort((a, b) => compare(a.file, b.file) || a.line - b.line);
+    return found.sort((a, b) =>
+      compare(a.site.file, b.site.file) || a.site.line - b.site.line
+    );
   }
 
-  /** The guard lines on the way to the statement at `line`, or undefined when it is not in `list`. */
+  /** The guard statements on the way to the statement at `line`, or undefined when it is not in `list`. */
   static #guardsOf(
     list: OutlineStatement[],
     line: number,
-  ): number[] | undefined {
-    const earlier: number[] = [];
+  ): OutlineStatement[] | undefined {
+    const earlier: OutlineStatement[] = [];
     for (const o of list) {
       if (o.line === line && !("then" in o) && !("body" in o)) return earlier;
       const inner = "then" in o
@@ -188,27 +392,11 @@ export class ChartAssembler {
         : [];
       for (const branch of inner) {
         const found = ChartAssembler.#guardsOf(branch, line);
-        if (found) return [...earlier, o.line, ...found];
+        if (found) return [...earlier, o, ...found];
       }
-      if ("target" in o) earlier.push(o.line);
+      if ("target" in o) earlier.push(o);
     }
     return undefined;
-  }
-
-  #flatten(o: OutlineStatement, file: string, out: RawStatement[]) {
-    const add = (text: string) => out.push({ text, file, line: o.line });
-    if ("then" in o) {
-      add(`if ${o.conditions.join(` ${o.mode} `)}`);
-      for (const s of o.then) this.#flatten(s, file, out);
-      for (const s of o.else ?? []) this.#flatten(s, file, out);
-    } else if ("target" in o) {
-      add(
-        `if ${o.conditions.join(` ${o.mode} `)} goto_if_false @${o.target}`,
-      );
-    } else if ("body" in o) {
-      add(o.kind === "while" ? `while ${o.condition}` : "repeat");
-      for (const s of o.body) this.#flatten(s, file, out);
-    } else add(o.text);
   }
 
   #find(graph: GraphData, mission: string): GraphNode {

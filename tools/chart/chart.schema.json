@@ -88,21 +88,23 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["pair", "accesses"],
+        "required": ["pair", "global", "accesses"],
         "additionalProperties": false,
         "properties": {
           "pair": {
             "enum": ["mission-thread", "thread-thread", "trigger-mission"]
           },
+          "global": { "type": "string", "minLength": 1 },
           "accesses": {
             "type": "array",
-            "minItems": 2,
+            "minItems": 1,
             "maxItems": 2,
             "items": {
               "type": "object",
-              "required": ["file", "line", "kind"],
+              "required": ["script", "file", "line", "kind"],
               "additionalProperties": false,
               "properties": {
+                "script": { "type": "string", "minLength": 1 },
                 "file": { "type": "string" },
                 "line": { "type": "integer", "minimum": 1 },
                 "kind": { "enum": ["read", "write"] }
@@ -110,6 +112,39 @@
             }
           }
         }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["kind", "file", "line", "severity", "states"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": { "const": "reach" },
+              "file": { "type": "string" },
+              "line": { "type": "integer", "minimum": 1 },
+              "severity": { "enum": ["error", "warning"] },
+              "states": {
+                "type": "array",
+                "minItems": 2,
+                "items": { "type": "string" }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "severity", "expression"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": { "const": "unphrased" },
+              "severity": { "enum": ["error", "warning"] },
+              "expression": { "type": "string", "minLength": 1 }
+            }
+          }
+        ]
       }
     },
     "traces": {

@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "exports": "./mod.ts",
   "tasks": {
-    "start": "deno run --allow-read main.ts"
+    "start": "deno run --env-file=../../.env --allow-env --allow-read main.ts"
   }
 }
