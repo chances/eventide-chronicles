@@ -6,6 +6,11 @@
  *
  * `tools/chart/main.ts` runs this command under the capped runner, because enumerating every trace of a
  * mission script can exhaust memory.
+ *
+ * @remarks
+ * The runner walks forward from the entry and groups the next moves by effect, so it holds the result and one
+ * path of at most `bound` steps. A run that exceeds the memory cap or the timeout stops the command with the
+ * cap named, and nothing is written.
  */
 import { parseArgs } from "@std/cli/parse-args";
 import { ChartAssembler } from "./assembler.ts";

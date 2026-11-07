@@ -1,0 +1,4045 @@
+{
+  "version": 1,
+  "mission": "cart",
+  "globals": [
+    {
+      "name": "$BossPhone",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$BossPhone",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$BossPhone",
+      "accessor": "Help",
+      "kind": "write"
+    },
+    {
+      "name": "$BossPhone",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$BossPhone",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$GolfCart",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$GolfCart",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$MachineGun",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$MachineGun",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fairy",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Endgame",
+      "kind": "write"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PackageToggle",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pizza",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Barrier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Clothes",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Inside",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "JewelryRobbery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Lazlow",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Replay",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "rooftop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Skin",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Sphere",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Swim",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Water",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VehHeal",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PACKAGE",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fairy",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mall",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Telport",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "End",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Endgame",
+      "kind": "read"
+    },
+    {
+      "name": "$PhoneBlip",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$PhoneBlip",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$PhoneBlip",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$Psycho",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$Psycho",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$PsychoDead",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$PsychoDead",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$PsychoDead",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "read"
+    }
+  ],
+  "states": [
+    {
+      "transitions": []
+    }
+  ],
+  "launchSites": [
+    {
+      "file": "main.txt",
+      "line": 307,
+      "thread": "Golf",
+      "guardLines": [
+        293,
+        296,
+        299,
+        302
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "pair": "mission-thread",
+      "global": "$BossPhone",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 141,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 95,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$BossPhone",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 141,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 98,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$BossPhone",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 141,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 108,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$BossPhone",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 142,
+          "kind": "read"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 95,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 17,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 137,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 162,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 179,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 24,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 52,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 129,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PsychoDead",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 136,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 113,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PsychoDead",
+      "accesses": [
+        {
+          "script": "Cart",
+          "file": "missions/cart.txt",
+          "line": 136,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 287,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "traces": [
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Takin' Out the Competition...\", 6000, TextStyle.BottomRight)",
+        "Mission.LoadAndLaunchInternal(5)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Golf",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Golf'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Cart",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cart'",
+        "$TIMER = 10000",
+        "$ONMISSION = true",
+        "Stat.RegisterMissionGiven()",
+        "wait 500",
+        "Streaming.RequestModel(#CADDY)",
+        "Streaming.RequestModel(#UZI)",
+        "Streaming.RequestModel(#WFYG2)",
+        "Streaming.LoadAllModelsNow",
+        "Player.SetControl($PLAYER1, False)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Hud.SwitchWidescreen(True)",
+        "$GolfCart = Car.Create(#CADDY, 106.2301, 241.5375, 21.8008)",
+        "$MachineGun = Pickup.CreateWithAmmo(#UZI, PickupType.Once, 6000, 117.841, 268.747, 21.791)",
+        "Camera.SetFixedPosition(119.747, 262.051, 25.791, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(117.841, 268.747, 21.791, SwitchType.JumpCut)",
+        "wait 250",
+        "Camera.SetGenerateCarsAround(False)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "Text.Print('GOLFG1', 5000, 0)",
+        "wait 3000",
+        "Camera.DoFade(1500, Fade.Out)"
+      ]
+    }
+  ],
+  "marks": []
+}

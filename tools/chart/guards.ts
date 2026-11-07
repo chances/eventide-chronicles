@@ -5,6 +5,13 @@
  * A condition is keyed in `./Phrasebook.csv` by its text, or by its command name when it is a call, and a
  * comparison of a boolean flag with 0 or 1 is the flag or its negation. A condition chain is negated and
  * minimized by `logi.js`, and each alternative of the result is written as `When` and `And` lines.
+ *
+ * @remarks
+ * `logi.js` takes an expression string, so each condition is mapped to a letter, negated with `~`, minimized,
+ * and mapped back. A `When` line uses the active phrase, an `And` line the nominal phrase, and a negated
+ * condition the opposite phrase. A global whose every write is `0`, `1`, `true`, or `false` is a boolean flag
+ * with one Phrasebook row keyed by its name. No grammar for every Sanny expression exists: a condition with no
+ * row shows its source text and is reported as unphrased.
  */
 import { createRequire } from "node:module";
 import { parse } from "@std/csv";

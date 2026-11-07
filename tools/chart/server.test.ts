@@ -120,23 +120,30 @@ Deno.test("error messages name the action, the item, the reason, and the next st
   assertStringIncludes(unknownText, "POST /<mission>/marks");
 });
 
-Deno.test("regenerate names the mission and the failed step, and rejects other missions", async () => {
-  const { root } = await fixture();
-  const server = new ChartServer(root);
+const hasRunPermission =
+  Deno.permissions.querySync({ name: "run" }).state === "granted";
 
-  const rejected = await server.handle(post("/hell/regenerate", {}));
-  assertEquals(rejected.status, 404);
-  assertStringIncludes(
-    await rejected.text(),
-    'Could not rebuild the chart for "hell"',
-  );
+Deno.test({
+  name: "regenerate names the mission and the failed step, and rejects other missions",
+  ignore: !hasRunPermission,
+  async fn() {
+    const { root } = await fixture();
+    const server = new ChartServer(root);
 
-  const failed = await server.handle(post("/intro/regenerate", {}));
-  assertEquals(failed.status, 500);
-  const failedText = await failed.text();
-  assertStringIncludes(failedText, "Could not rebuild the chart for intro");
-  assertStringIncludes(failedText, "exit code");
-  assertStringIncludes(failedText, "Fix the source");
+    const rejected = await server.handle(post("/hell/regenerate", {}));
+    assertEquals(rejected.status, 404);
+    assertStringIncludes(
+      await rejected.text(),
+      'Could not rebuild the chart for "hell"',
+    );
+
+    const failed = await server.handle(post("/intro/regenerate", {}));
+    assertEquals(failed.status, 500);
+    const failedText = await failed.text();
+    assertStringIncludes(failedText, "Could not rebuild the chart for intro");
+    assertStringIncludes(failedText, "exit code");
+    assertStringIncludes(failedText, "Fix the source");
+  },
 });
 
 Deno.test("writes through a temporary file and leaves none behind", async () => {
@@ -220,17 +227,88 @@ Deno.test("POST /phrases adds or edits a row in Phrasebook.csv", async () => {
   );
 });
 
-Deno.test("POST /<mission>/regenerate executes main.ts and returns orphans on success", async () => {
-  const server = new ChartServer(Deno.cwd());
-  const res = await server.handle(post("/intro/regenerate", {}));
-  assertEquals(res.status, 200);
-  const data = await res.json();
-  assertEquals(data.ok, true);
-  assertEquals(Array.isArray(data.orphans), true);
+Deno.test({
+  name: "POST /<mission>/regenerate executes main.ts and returns orphans on success",
+  ignore: !hasRunPermission,
+  async fn() {
+    const server = new ChartServer(Deno.cwd());
+    const res = await server.handle(post("/intro/regenerate", {}));
+    assertEquals(res.status, 200);
+    const data = await res.json();
+    assertEquals(data.ok, true);
+    assertEquals(Array.isArray(data.orphans), true);
+  },
 });
 
-Deno.test("chart:serve task configuration restricts network access to 127.0.0.1", async () => {
+Deno.test("renders HTML dynamically in-memory without reading dist/charts/*.html", async () => {
+  const { root } = await fixture();
+  const distHtml = join(root, "dist", "charts", "intro.html");
+  try {
+    await Deno.remove(distHtml);
+  } catch {
+    // Expected to not exist
+  }
+
+  const mockAssembler = {
+    async statements(mission: string) {
+      assertEquals(mission, "intro");
+      return [
+        { line: 1, text: "Wait 0 ms", occurrence: 1, copies: 1, file: "main.txt" },
+        { line: 2, text: "Set $X 1", occurrence: 1, copies: 1, file: "main.txt" },
+      ];
+    },
+  };
+
+  const server = new ChartServer(root, { assembler: mockAssembler });
+  const response = await server.handle(
+    new Request("http://127.0.0.1:8080/intro.html"),
+  );
+  assertEquals(response.status, 200);
+  assertEquals(
+    response.headers.get("content-type"),
+    "text/html; charset=utf-8",
+  );
+  const html = await response.text();
+  assertStringIncludes(html, "<!DOCTYPE html>");
+  assertStringIncludes(html, "Intro Chart");
+  assertStringIncludes(html, "Wait 0 ms");
+
+  let distExists = true;
+  try {
+    await Deno.stat(distHtml);
+  } catch {
+    distExists = false;
+  }
+  assertEquals(distExists, false);
+});
+
+Deno.test("POST /<mission>/marks updates .chart.json directly without subprocess rebuild", async () => {
+  const { root, file } = await fixture();
+  const server = new ChartServer(root);
+
+  const response = await server.handle(post("/intro/marks", {
+    action: "add",
+    statementText: "Wait 0 ms",
+    label: "Dynamic Mark",
+  }));
+  assertEquals(response.status, 200);
+  const data = await response.json();
+  assertEquals(data.ok, true);
+  assertEquals(data.marks, [{
+    statementText: "Wait 0 ms",
+    label: "Dynamic Mark",
+  }]);
+
+  const updatedChart = JSON.parse(await Deno.readTextFile(file));
+  assertEquals(updatedChart.marks, [{
+    statementText: "Wait 0 ms",
+    label: "Dynamic Mark",
+  }]);
+});
+
+Deno.test("chart:serve task configuration includes --env-file=.env and restricts network access to 127.0.0.1", async () => {
   const denoConfig = JSON.parse(await Deno.readTextFile("deno.json"));
   const taskCmd = denoConfig.tasks["chart:serve"];
+  assertStringIncludes(taskCmd, "--env-file=.env");
   assertStringIncludes(taskCmd, "--allow-net=127.0.0.1");
 });

@@ -4,17 +4,23 @@
  * `missions/<mission>.chart.json`. Accepts only the missions in `MISSIONS`, writes each JSON file through a
  * temporary file and a rename, and binds to 127.0.0.1.
  *
+ * @remarks
+ * A request whose path is not one of the six `MISSIONS` names is rejected and nothing is written. The only
+ * files the server writes are `missions/*.chart.json` and `./Phrasebook.csv`.
+ *
  * Usage: `deno task chart:serve [--port <number>]` (default port 8080). Run from the repository root.
  */
 import { parseArgs } from "@std/cli/parse-args";
 import { parse, stringify } from "@std/csv";
-import { dirname, join } from "@std/path";
+import { dirname, isAbsolute, join } from "@std/path";
+import { ChartAssembler } from "./assembler.ts";
 import {
   loadCommandDescriptions,
   type PhraseRow,
   suggestPhrase,
 } from "./guards.ts";
-import { collapse } from "./marks.ts";
+import { collapse, type Statement } from "./marks.ts";
+import { PageRenderer } from "./render.ts";
 import {
   type ChartFile,
   ChartSchema,
@@ -33,6 +39,15 @@ export type MarkAction =
   }
   | { action: "remove"; statementText: string; occurrence?: number }
   | { action: "set"; from: Key; to: Key };
+
+export interface ChartServerOptions {
+  library?: string;
+  phrasebook?: string;
+  entry?: string;
+  wasm?: string;
+  cleoDirs?: string[];
+  assembler?: { statements(mission: string): Promise<Statement[]> };
+}
 
 export class HttpError extends Error {
   constructor(readonly status: number, message: string) {
@@ -120,11 +135,15 @@ export class ChartServer {
   #phrasebookPath: string;
   #libraryPath?: string;
   #descriptions?: Map<string, string>;
+  #entryPath: string;
+  #wasmPath?: string;
+  #cleoDirs: string[];
+  #assembler?: { statements(mission: string): Promise<Statement[]> };
 
   /** `root` is the repository root holding `missions/` and `dist/charts/`. */
   constructor(
     root: string,
-    options?: { library?: string; phrasebook?: string },
+    options?: ChartServerOptions,
   ) {
     this.#root = root;
     this.#phrasebookPath = options?.phrasebook ?? join(root, "Phrasebook.csv");
@@ -135,6 +154,54 @@ export class ChartServer {
         this.#libraryPath = join(dirname(sanny), "data", "vc_sbl", "vc.json");
       }
     }
+    this.#entryPath = options?.entry ?? join(root, "main.txt");
+    this.#wasmPath = options?.wasm ?? Deno.env.get("SBL_WASM");
+    if (!this.#wasmPath) {
+      try {
+        const envContent = Deno.readTextFileSync(join(root, ".env"));
+        for (const line of envContent.split(/\r?\n/)) {
+          const match = /^\s*SBL_WASM\s*=\s*(.*)$/.exec(line);
+          if (match) {
+            let val = match[1].trim();
+            if (
+              (val.startsWith('"') && val.endsWith('"')) ||
+              (val.startsWith("'") && val.endsWith("'"))
+            ) {
+              val = val.slice(1, -1);
+            }
+            this.#wasmPath = val;
+            break;
+          }
+        }
+      } catch {
+        // Fall back to env
+      }
+    }
+    this.#cleoDirs = options?.cleoDirs ?? ["lib/threads"];
+    if (options?.assembler) {
+      this.#assembler = options.assembler;
+    }
+  }
+
+  #getAssembler(): { statements(mission: string): Promise<Statement[]> } {
+    if (!this.#assembler) {
+      if (!this.#wasmPath) {
+        throw new HttpError(
+          500,
+          "SBL_WASM is not set; point it at tree-sitter-gta3.wasm in .env or pass wasm to ChartServer.",
+        );
+      }
+      this.#assembler = new ChartAssembler(
+        this.#entryPath,
+        this.#wasmPath,
+        {
+          cleoDirs: this.#cleoDirs,
+          phrasebook: this.#phrasebookPath,
+          library: this.#libraryPath,
+        },
+      );
+    }
+    return this.#assembler;
   }
 
   #getDescriptions(): Map<string, string> {
@@ -394,14 +461,18 @@ export class ChartServer {
     return name;
   }
 
-  async #readChart(mission: string, file: string): Promise<ChartFile> {
+  async #readChart(
+    mission: string,
+    file: string,
+    action = "save marks",
+  ): Promise<ChartFile> {
     try {
       return this.#schema.check(JSON.parse(await Deno.readTextFile(file)));
     } catch (error) {
       if (error instanceof Deno.errors.NotFound) {
         throw new HttpError(
           404,
-          `Could not save marks for ${mission}. missions/${mission}.chart.json does not exist. Run deno task chart ${mission} to create it.`,
+          `Could not ${action} for ${mission}. missions/${mission}.chart.json does not exist. Run deno task chart ${mission} to create it.`,
         );
       }
       if (
@@ -410,7 +481,7 @@ export class ChartServer {
       ) {
         throw new HttpError(
           500,
-          `Could not save marks for ${mission}. missions/${mission}.chart.json is not a valid chart: ${error.message}. Fix the file, or run deno task chart ${mission} to rebuild it, then reload.`,
+          `Could not ${action} for ${mission}. missions/${mission}.chart.json is not a valid chart: ${error.message}. Fix the file, or run deno task chart ${mission} to rebuild it, then reload.`,
         );
       }
       throw error;
@@ -419,29 +490,23 @@ export class ChartServer {
 
   async #page(name: string): Promise<Response> {
     const mission = await this.#mission(name, "open the chart");
-    const chartPath = join(this.#root, "dist", "charts", `${mission}.html`);
-    try {
-      const html = await Deno.readTextFile(chartPath);
-      return new Response(html, {
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
-    } catch (error) {
-      if (error instanceof Deno.errors.NotFound) {
-        try {
-          await this.#rebuild(mission);
-          const html = await Deno.readTextFile(chartPath);
-          return new Response(html, {
-            headers: { "content-type": "text/html; charset=utf-8" },
-          });
-        } catch {
-          throw new HttpError(
-            404,
-            `Could not open the chart for ${mission}. dist/charts/${mission}.html does not exist yet. Run deno task chart ${mission} to generate it, then reload.`,
-          );
-        }
-      }
-      throw error;
-    }
+    const file = join(this.#root, "missions", `${mission}.chart.json`);
+    const chart = await this.#readChart(mission, file, "open the chart");
+    const assembler = this.#getAssembler();
+    const statements = await assembler.statements(mission);
+    const renderer = new PageRenderer(
+      chart,
+      statements,
+      (filePath) => {
+        const full = isAbsolute(filePath)
+          ? filePath
+          : join(this.#root, filePath);
+        return Deno.readTextFileSync(full);
+      },
+    );
+    return new Response(renderer.render(), {
+      headers: { "content-type": "text/html; charset=utf-8" },
+    });
   }
 
   /** Runs the chart command for one mission, which rewrites its JSON and page, and returns the orphaned marks. */
@@ -474,6 +539,7 @@ export class ChartServer {
     const chart = await this.#readChart(
       mission,
       join(this.#root, "missions", `${mission}.chart.json`),
+      "rebuild the chart",
     );
     const orphans = chart.marks
       .filter((m) => m.orphaned)
@@ -489,14 +555,14 @@ export class ChartServer {
     const mission = await this.#mission(name, "save marks");
     const file = join(this.#root, "missions", `${mission}.chart.json`);
     const action = await readAction(request, mission);
-    const chart = await this.#readChart(mission, file);
+    const chart = await this.#readChart(mission, file, "save marks");
     const next = this.#schema.check(applyMarkAction(chart, action));
     const temp = `${file}.${crypto.randomUUID()}.tmp`;
     await Deno.writeTextFile(temp, JSON.stringify(next, null, 2) + "\n");
     await Deno.rename(temp, file);
     return text(
       200,
-      JSON.stringify({ ok: true, marks: next.marks.length }),
+      JSON.stringify({ ok: true, marks: next.marks }),
       "application/json",
     );
   }
@@ -512,8 +578,15 @@ export class ChartServer {
     const expression = typeof b?.expression === "string"
       ? b.expression.trim()
       : "";
-    const nominal = typeof b?.nominal === "string" ? b.nominal.trim() : "";
-    const opposite = typeof b?.opposite === "string" ? b.opposite.trim() : "";
+    const rawPhrase = typeof b?.phrase === "string" ? b.phrase.trim() : "";
+    const nominal = typeof b?.nominal === "string"
+      ? b.nominal.trim()
+      : rawPhrase;
+    const opposite = typeof b?.opposite === "string"
+      ? b.opposite.trim()
+      : (typeof b?.suggestedOpposite === "string"
+        ? (b.suggestedOpposite as string).trim()
+        : (nominal ? `not ${nominal}` : ""));
     const active = typeof b?.active === "string" ? b.active.trim() : "";
 
     if (!expression || !nominal || !opposite) {

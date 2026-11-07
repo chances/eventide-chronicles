@@ -67,5 +67,5 @@ Twenty-two user events were logged in the repeat logs of six existing topics, on
 
 - Global topics `verification-discipline`, `skill-checklist-discipline`, `stop-mid-task-for-handoff`, `scope-discipline`, `questions`, `relentless-grilling`, and `use-available-tools-first`, each with a repeat log beside it.
 - Global topic `user-frustration-signals`, with 19 rows logged for this session.
-- The plan files [mission-baseline.md](../plans/mission-baseline.md) and [mission-baseline.ac.md](../plans/mission-baseline.ac.md) hold the decisions the user gave in the answers.
+- The epic [mission-baseline.md](../docs/epics/mission-baseline.md) holds the decisions the user gave in the answers.
 - Project memory `feedback-read-env-paths-before-fetching`.

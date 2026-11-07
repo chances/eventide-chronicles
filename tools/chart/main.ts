@@ -2,14 +2,15 @@
  * @module
  * Mission chart command.
  *
- * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>] [--phrasebook <file>] [--library <file>]`
+ * Usage: `deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>] [--phrasebook <file>] [--library <file>] [--html]`
  *
  * Guards are written in Gherkin English from `--phrasebook` (default `Phrasebook.csv`), with argument
  * names from `--library` (default: `data/vc_sbl/vc.json` under the folder of `SANNY`). A condition with no
  * Phrasebook row shows its source text and is listed in the chart's `errors` as unphrased.
  *
  * Rewrites the derived content of `<dir>/<mission>.chart.json` (default dir: `missions`) from the
- * script at `<file>` (default: `main.txt`) and keeps its marks. Stops with a message when an
+ * script at `<file>` (default: `main.txt`) and keeps its marks. When `--html` is provided, also renders
+ * static HTML to `dist/charts/<mission>.html`. Stops with a message when an
  * existing file has an unknown schema version or invalid content, and lists orphaned marks on stderr.
  * The effect traces are enumerated by `traces.ts` under the capped runner, with a memory cap of
  * `--memory` megabytes (default 1500) and a timeout of `--timeout` seconds (default 300). A run that
@@ -29,6 +30,7 @@ import {
 } from "./schema.ts";
 
 const args = parseArgs(Deno.args, {
+  boolean: ["html"],
   string: [
     "missions",
     "entry",
@@ -43,7 +45,7 @@ const args = parseArgs(Deno.args, {
 const [mission] = args._ as string[];
 if (!mission) {
   console.error(
-    "usage: deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>]",
+    "usage: deno task chart <mission> [--missions <dir>] [--entry <file>] [--cleo-dir <dir>]... [--memory <MB>] [--timeout <seconds>] [--html]",
   );
   Deno.exit(1);
 }
@@ -144,12 +146,14 @@ await Deno.writeTextFile(
   path,
   JSON.stringify(schema.check(chart), null, 2) + "\n",
 );
-const pagePath = join("dist", "charts", `${mission}.html`);
-await Deno.mkdir(dirname(pagePath), { recursive: true });
-await Deno.writeTextFile(
-  pagePath,
-  new PageRenderer(chart, statements).render(),
-);
+if (args.html) {
+  const pagePath = join("dist", "charts", `${mission}.html`);
+  await Deno.mkdir(dirname(pagePath), { recursive: true });
+  await Deno.writeTextFile(
+    pagePath,
+    new PageRenderer(chart, statements).render(),
+  );
+}
 for (const mark of orphans) {
   console.error(`orphaned mark: ${JSON.stringify(mark.statementText)}`);
 }

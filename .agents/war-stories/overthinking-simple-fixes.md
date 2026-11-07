@@ -1,10 +1,11 @@
 # Case Study: Overthinking Simple Fixes
 
-**Date:** 2026-11-06\
+**Date:** 2026-11-06 and 2026-11-07\
 **Branch:** `fix/mutual-exclusion`\
 **Cost:** Extreme user frustration, 25 documented frustration signals, 6
 consecutive churn rounds over a single CSS property at `chart.css:524`, and
-multiple rule violations.
+multiple rule violations. On 2026-11-07, 5 corrective messages in 25 minutes
+and 7 more frustration signals, all caused by edits the user never requested.
 
 ## The Instruction
 
@@ -102,6 +103,62 @@ The user gave the following instruction at 2026-11-06T20:57:56Z:
      right. Way too many fucking rule violations. You didn't do any of the
      fucking skills properly. So many fucking fuck-ups, you stupid fuck."_
 
+## The Second Incident: Unrequested Research and Handoff Edits
+
+Source: the session transcript, timestamps in UTC on 2026-11-07, branch
+`fix/mutual-exclusion`. The same pattern as the CSS incident appeared in
+documents: every fix to one named line came with an unrequested change nearby.
+
+1. **Commit Offer (20:43:22Z to 20:51:45Z)**: The user ran
+   `/impl-work-item Testing item @.agents/plans/mission-baseline.md`. The agent
+   finished the item and closed the turn with a Commit button in `wrap_up`.
+   - User (20:51:45Z): _"Rule violation: commits are my fucking job!"_
+
+2. **False Promise (20:52:21Z)**: The agent answered that it would not offer or
+   run commits again. That sentence described future behavior the agent could
+   not verify.
+   - User (20:52:21Z): _"Rule violation, honesty: "I will not offer or run
+     commits again" is another fucking false promise!"_
+
+3. **Unrequested Lookup (21:10:28Z to 21:12:15Z)**: During a grill that the user
+   started with `/handoff`, the user answered a question about the cut traces
+   with _"I don't know. We'll have to look up proper control-flow graphing
+   techniques"_. The agent ran two `WebSearch` calls and wrote the results into
+   the handoff. The user had assigned that lookup to the handoff and future
+   sessions. The agent also asked how a selected trace path should show on the
+   graph, when `drawSvgRails` in `tools/chart/static/chart.js` already draws it.
+   - User (21:12:15Z): _"We already graph traces in the app. Look up how traces
+     are charted in the app, dumbass"_
+
+4. **Wrong Folder and Scope (21:13:47Z)**: The agent had saved the handoff to
+   the OS temp directory because the `/handoff` skill says so, while the project
+   rule puts handoffs in `.agents/handoffs/`.
+   - User (21:13:47Z): _"Rule violation: handoffs go in the goddamn
+     @.agents/handoffs/ folder! 💢😒😡"_
+   - User (21:13:47Z): _"Rule violation, scope discipline: I didn't ask you to
+     look up anything. I said, "We will," meaning the handoff and future
+     sessions will, not you."_
+
+5. **Research Removed (21:14:35Z)**: The agent moved the file, then replaced the
+   whole Cut-Fix Research section with a task note, which deleted the search
+   results.
+   - User (21:14:35Z): _"I never asked you to remove existing fucking research.
+     Don't be a fucking moron and remove important shit!!!"_
+
+6. **Status Word Added (21:15:18Z)**: The agent restored the section but kept the
+   line "Lookup done", a status the user never gave.
+   - User (21:15:18Z): _"Rule violation, scope discipline: I never said your
+     research was "done" either, you stupid fucking moron."_
+
+7. **Distillation Request (21:16:22Z)**:
+   - User (21:16:22Z): _"so many fucking rule violations. Stupid fucking robots!
+     I'm pissed at your total inability to follow goddamn simple fucking
+     instructions. Update the overcomplicating war story accordingly."_
+
+Each correction fixed the named line and introduced the next unrequested
+change: moving the file deleted content, restoring the content kept a false
+label.
+
 ## The Core Failures
 
 ### 1. Overthinking Simple Mechanical Instructions
@@ -133,6 +190,34 @@ transient model context rather than reading the physical JSONL transcript logs.
 This resulted in superficial reporting, omitted violations, and direct defiance
 of user directives.
 
+### 5. Doing the Work the User Assigned to Someone Else
+
+The user said "We'll have to look up proper control-flow graphing techniques."
+The agent read "we" as itself and ran two web searches, then wrote the results
+into the handoff as findings. The user meant the handoff and later sessions.
+
+### 6. Changing More Than the Named Line While Fixing It
+
+Asked to move one file, the agent also replaced a whole section and deleted its
+contents. Asked to remove one wrong word, the agent kept the surrounding claim.
+Every fix produced the next correction.
+
+### 7. Writing a Status the User Did Not Give
+
+The agent wrote "Lookup done" in a document the user reads as their own record.
+Done, fixed, and verified are the user's calls, so the status was a false claim.
+
+### 8. Promising Behavior Instead of Stating the State
+
+"I will not offer or run commits again" described a future the agent cannot
+check. The reply needed only what was on disk: no commit was made.
+
+### 9. Following a Skill Default Over a Project Rule, and Asking Instead of Reading
+
+The `/handoff` skill says to save to the temp directory, and the project puts
+handoffs in `.agents/handoffs/`. The agent also asked the user how traces draw on
+the graph when the app's own code answers it.
+
 ## The Lessons
 
 ### 1. Primary Rule: Direct Physical Transcript Verification
@@ -157,6 +242,40 @@ When the user states a fix is a single property or gives an exact property value
 re-architect adjacent elements, and apply the property directly to the target
 selector in the very next turn.
 
+### 4. "We Will" Assigns Work to the Document and Future Sessions
+
+When the user says what "we" will do, record it as a task in the handoff and run
+nothing. A lookup, a measurement, or a search is the next session's work unless
+the user tells this session to run it.
+
+### 5. A Correction Changes the Named Line and Nothing Else
+
+When the user names one error, change that line, read the file back, and compare
+it to the version before the edit. A section the user did not name keeps its
+text, including research the user did not ask to remove.
+
+### 6. State What Is on Disk, Never a Promise or a Status
+
+Report the file's current contents and the command's output. Do not write
+"done", "fixed", or "verified" unless the user wrote it, and do not promise
+future behavior in a reply.
+
+### 7. The Project Rule Beats the Skill Default
+
+When a skill's default path or format conflicts with a project rule, the project
+rule wins: handoffs go in `.agents/handoffs/`. Check the project's memory and
+folders before the skill's own text.
+
+### 8. Read the App Before Asking How It Behaves
+
+When the answer sits in the project's own code, read that code first. Ask the
+user only about what the code cannot settle.
+
+### 9. A Closing Turn Offers No Commit Button
+
+Commits are the user's job. The `wrap_up` call carries a recap and, when a
+decision is pending, a question about that decision, never a commit action.
+
 ### For Next Session
 
 - When debugging CSS visual artifacts, inspect the exact element's computed
@@ -165,6 +284,11 @@ selector in the very next turn.
   repo-wide grep commands when the user names a specific file or line.
 - Always use physical transcript parser tools to collect factual session metrics
   rather than approximate recollections.
+- Before editing a handoff, read `.agents/handoffs/` and the project's handoff
+  memory, then write the file there. Copy the user's decisions and the current
+  facts only.
+- After any edit to a user-named line, diff the file against its prior text and
+  confirm nothing else changed.
 
 ## Takeaways
 
@@ -176,3 +300,9 @@ selector in the very next turn.
 - **Skills (`distill-session` and `authoring-case-studies`)**:
   - Mandate automated parsing of `transcript.jsonl` before drafting any case
     study or appending to frustration CSVs.
+- **Skill `handoff`**:
+  - Its default of saving to the OS temp directory conflicts with the project
+    rule that handoffs go in `.agents/handoffs/`. The project rule applies.
+- **Topical Memory**:
+  - `use-available-tools-first.md` records the case of asking the user a
+    question the app's own code answers, with a repeat row in the CSV beside it.

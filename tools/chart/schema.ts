@@ -1,6 +1,11 @@
 /**
  * @module
  * Validates the content of a `missions/<name>.chart.json` file against `chart.schema.json`.
+ *
+ * @remarks
+ * A `version` the tool does not know stops the run. The schema has no top-level `traceBound`; each trace
+ * stores its own `bound` and `cut` flag. `errors` entries are derived on every run: `unphrased` conditions
+ * and statements reached from more than one state (`error`) or only through `gosub` (`warning`).
  */
 import { Ajv } from "ajv";
 import schema from "./chart.schema.json" with { type: "json" };

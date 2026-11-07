@@ -4,6 +4,10 @@
  * A state holds every statement reachable by control flow from its mark without crossing
  * another mark. Subroutine (`gosub`) calls are followed. A statement reached from two
  * states is reported.
+ *
+ * @remarks
+ * Waits never split a state. A statement reached through a `gosub` call from two states is an error; one
+ * reached only through `gosub` calls is a warning that the subroutine should become a function.
  */
 import type { OutlineStatement } from "@eventide/thread-graph";
 

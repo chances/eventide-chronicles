@@ -3,6 +3,12 @@
  * Keeps the authored marks of a chart while the derived content is rewritten.
  * A mark anchors to a statement by the statement's text with whitespace collapsed, and by its
  * 1-based occurrence among statements with the same text; an absent occurrence means the first.
+ *
+ * @remarks
+ * A mark sits between lines: it begins the state at the statement that follows it. A mark whose statement is
+ * gone stays in `marks` with `orphaned: true`, set or cleared on every run, and begins no state. Only the
+ * author's confirmation drops it. The markable statements are every leaf statement and the header line of
+ * each compound statement (`if`, `while`, `repeat`), body excluded.
  */
 import type { ChartFile } from "./schema.ts";
 

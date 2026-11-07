@@ -1,6 +1,13 @@
 /**
  * @module
  * Derives a mission chart from its source statically.
+ *
+ * @remarks
+ * No recorded game run feeds the chart. Trigger traces run at bound 12 and mission-script traces at bound 24,
+ * each trace stores its own bound, and a trace that hit its bound carries `cut: true`. The conflict thread
+ * side is `MAIN`, CLEO scripts, and thread-kind scripts; every script of kind `mission` is skipped because
+ * the engine runs one mission at a time. A `trigger-mission` conflict is listed on the chart of every
+ * mission, whichever mission the trigger launches.
  */
 import {
   type GraphData,

@@ -1,0 +1,5001 @@
+{
+  "version": 1,
+  "mission": "intro",
+  "globals": [
+    {
+      "name": "$Admiral",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$Admiral",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$Admiral",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$Admiral",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$Admiral",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$BeachBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$BeachBlip",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$BeachBlip",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$Intro_Passed",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$Intro_Passed",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$Intro_Passed",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$Intro_Passed",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fairy",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Endgame",
+      "kind": "write"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PackageToggle",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pizza",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Barrier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Clothes",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Inside",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "JewelryRobbery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Lazlow",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Replay",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "rooftop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Skin",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Sphere",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Swim",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Water",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VehHeal",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PACKAGE",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fairy",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mall",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Telport",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "End",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Endgame",
+      "kind": "read"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "Help",
+      "kind": "write"
+    },
+    {
+      "name": "$PRINT_CAR_HELP",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "read"
+    }
+  ],
+  "states": [
+    {
+      "transitions": []
+    }
+  ],
+  "launchSites": [
+    {
+      "file": "main.txt",
+      "line": 159,
+      "thread": "Star",
+      "guardLines": [
+        137,
+        141,
+        145,
+        149
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "pair": "mission-thread",
+      "global": "$Admiral",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 411,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Admiral",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 411,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 273,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Admiral",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 411,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 276,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 57,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 57,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 262,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 57,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 279,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 75,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 75,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 262,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 75,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 279,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 409,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 409,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 262,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$AdmiralBlip",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 409,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 279,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 159,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 188,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 204,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 296,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 320,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 413,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 414,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Intro_Passed",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 19,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 102,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Intro_Passed",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 285,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 102,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Intro_Passed",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 285,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 130,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Intro_Passed",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 309,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 102,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Intro_Passed",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 309,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 130,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 29,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 286,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 310,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 398,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 44,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 45,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 55,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 66,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 111,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 134,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 137,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 160,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 161,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 279,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 281,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 303,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 305,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 323,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 325,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 338,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 53,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 112,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 53,
+          "kind": "read"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 263,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 58,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 67,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 58,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 112,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 58,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 254,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 58,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 263,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 69,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 112,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 69,
+          "kind": "read"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 263,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 399,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 67,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 399,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 112,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 399,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 254,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 399,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 263,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 412,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 412,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 412,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 412,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 172,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 182,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 186,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 203,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 295,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Intro",
+          "file": "missions/intro.txt",
+          "line": 319,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$PRINT_CAR_HELP",
+      "accesses": [
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 112,
+          "kind": "write"
+        },
+        {
+          "script": "Help",
+          "file": "lib/threads/help.txt",
+          "line": 263,
+          "kind": "write"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "traces": [
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000",
+        "Mission.LoadAndLaunchInternal(1)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 3000"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)",
+        "Player.SetControl($PLAYER1, False)",
+        "Text.PrintBigString(\"Answering the Call to Abandon...\", 3000, TextStyle.BottomRight)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "Sphere.Remove($SidewalkSphere)"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250",
+        "wait 0",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Star",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Star'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Intro",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Intro'",
+        "wait 0",
+        "$ONMISSION = true",
+        "Stat.RegisterMissionGiven()",
+        "Hud.SwitchWidescreen(True)",
+        "Camera.SetFixedPosition(-532.6, -325.521, 17.56, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(-535.64, -300.451, 12.29, SwitchType.JumpCut)",
+        "Blip.Remove($BeachBlip)",
+        "wait 3000",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 3000",
+        "Text.Print('LOCATE', 4000, 0)",
+        "wait 4000",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Text.ClearHelp()",
+        "Hud.SwitchWidescreen(False)",
+        "Player.SetControl($PLAYER1, True)",
+        "Player.SetHeading($PLAYER1, 90)",
+        "Camera.RestoreJumpcut",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 250",
+        "Player.SetControl($PLAYER1, True)"
+      ]
+    },
+    {
+      "script": "Intro",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Intro'",
+        "wait 0",
+        "$ONMISSION = true",
+        "Stat.RegisterMissionGiven()",
+        "Hud.SwitchWidescreen(True)",
+        "Camera.SetFixedPosition(-532.6, -325.521, 17.56, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(-535.64, -300.451, 12.29, SwitchType.JumpCut)",
+        "Blip.Remove($BeachBlip)",
+        "wait 3000",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 3000",
+        "Text.Print('LOCATE', 4000, 0)",
+        "wait 4000",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Text.ClearHelp()",
+        "Hud.SwitchWidescreen(False)",
+        "Player.SetControl($PLAYER1, True)",
+        "Player.SetHeading($PLAYER1, 90)",
+        "Camera.RestoreJumpcut",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 250",
+        "wait 5000"
+      ]
+    }
+  ],
+  "marks": []
+}

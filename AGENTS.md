@@ -72,6 +72,8 @@ Auto: Vice City.
 - Read [docs/visual-identity.md](docs/visual-identity.md) before making any art,
   font, color, or HUD change. Colors come from
   [docs/palette.csv](docs/palette.csv).
+- Internal tool pages, such as the chart pages, use the dark theme of
+  [docs/palette.csv](docs/palette.csv) only and have no light theme.
 - The hidden premise lives only in [docs/spoilers.md](docs/spoilers.md). Do not
   state or hint at it in any other document, in release art, or in any
   player-facing string. Link to the spoiler document instead.

@@ -38,5 +38,5 @@
   `missions/<mission>.chart.json` and stops with a message that names the
   version when the schema version is unknown or the file is invalid.
   `tools/chart` (`@eventide/chart`) is a Deno workspace member that imports the
-  other three tools through their `mod.ts`. The plan is
-  [.agents/plans/mission-baseline.md](../../.agents/plans/mission-baseline.md).
+  other three tools through their `mod.ts`. The epic is
+  [mission-baseline.md](epics/mission-baseline.md).

@@ -1,0 +1,7431 @@
+{
+  "version": 1,
+  "mission": "cop",
+  "globals": [
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$AdmiralBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$AutoDealerBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$AutoDealerBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$Bat",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$BatBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$COL_GarageX",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$COL_GarageX",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$COL_GarageY",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$COL_GarageY",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$COL_GarageZ",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$COL_GarageZ",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$Caddy",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$CellBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$CellBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$CellPhone",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$CellPhone",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$CellPhone",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$Cop",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$Cop",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$CopBlip",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$Faggio",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$Faggio",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$Faggio",
+      "accessor": "Lazlow",
+      "kind": "read"
+    },
+    {
+      "name": "$FaggioBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$FaggioBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$FaggioGen",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$FlamerBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$GEN_CAR31",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$GEN_CAR31",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$GEN_CAR31",
+      "accessor": "MAIN",
+      "kind": "read"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$GOLFBLIP",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$GUN_BEACH1",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$GodsBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$GrenadeBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeBlip",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$HomeSafe",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeSafe",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$HomeSafe",
+      "accessor": "Barrier",
+      "kind": "read"
+    },
+    {
+      "name": "$HomeSafe",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$HomeSafe",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$KnifeBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$MacTenBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$MolotovBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$NitestickBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Fairy",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$ONMISSION",
+      "accessor": "Endgame",
+      "kind": "write"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$OceanViewBlip",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "MAIN",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Save",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VPHotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PackageToggle",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pizza",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BUS",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Barrier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Clothes",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fae",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Help",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Inside",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "JewelryRobbery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Lazlow",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mystery",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Replay",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "ringu",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "rooftop",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "SaveHot",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Skin",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Sphere",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Swim",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Water",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "VehHeal",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "PACKAGE",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Fairy",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Mall",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Telport",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cell",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Pier",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Golf",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Kill",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "End",
+      "kind": "read"
+    },
+    {
+      "name": "$PLAYER1",
+      "accessor": "Endgame",
+      "kind": "read"
+    },
+    {
+      "name": "$PRINT_SAVE_HELP",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$PRINT_SAVE_HELP",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$RugerBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SMGBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SPRAY_SHOP1",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SPRAY_SHOP1",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$SPRAY_SHOP2",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SPRAY_SHOP3",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SPRAY_SHOP4",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SPRAY_SHOP5",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$STAR_GATE_2",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$STAR_GATE_2",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$STAR_GATE_2",
+      "accessor": "MAIN",
+      "kind": "read"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Endgame",
+      "kind": "write"
+    },
+    {
+      "name": "$Sabre",
+      "accessor": "Endgame",
+      "kind": "read"
+    },
+    {
+      "name": "$ShotgunBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "INIT",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "INIT",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Star",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Police",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "HOT",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Boss",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$SidewalkSphere",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$Spaz",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$SpazBlip",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$StarfishBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$StarfishBlip",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$StarfishGarage",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$StarfishGarage",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$StarfishGarage2",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$StarfishGarage2",
+      "accessor": "MAIN",
+      "kind": "write"
+    },
+    {
+      "name": "$StubbyBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cop",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Intro",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Hotel",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Work",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "Cart",
+      "kind": "read"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "write"
+    },
+    {
+      "name": "$TIMER",
+      "accessor": "BossDie",
+      "kind": "read"
+    },
+    {
+      "name": "$UziBlip",
+      "accessor": "Cop",
+      "kind": "write"
+    }
+  ],
+  "states": [
+    {
+      "transitions": []
+    }
+  ],
+  "launchSites": [
+    {
+      "file": "main.txt",
+      "line": 196,
+      "thread": "Police",
+      "guardLines": [
+        178,
+        181,
+        184,
+        187
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageX",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 424,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 153,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageX",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 425,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 153,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageY",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 424,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 154,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageY",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 425,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 154,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageZ",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 424,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 155,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$COL_GarageZ",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 425,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 155,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 245,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 257,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 259,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 269,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 277,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 465,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 482,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 490,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 508,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 517,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$CellPhone",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 535,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 557,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Faggio",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 36,
+          "kind": "write"
+        },
+        {
+          "script": "Lazlow",
+          "file": "lib/threads/lazlow.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GEN_CAR31",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 290,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 289,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$GUN_BEACH1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 551,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 795,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Barrier",
+          "file": "lib/threads/barrier.txt",
+          "line": 10,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Barrier",
+          "file": "lib/threads/barrier.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 103,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 172,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 411,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 481,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$HomeSafe",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 589,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 491,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 20,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 467,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 492,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 519,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "SaveHot",
+          "file": "lib/threads/savehot.txt",
+          "line": 7,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 13,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 23,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 32,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Fae",
+          "file": "lib/threads/fae.txt",
+          "line": 44,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 86,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 109,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 142,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 182,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 218,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 261,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Golf",
+          "file": "main.txt",
+          "line": 297,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Kill",
+          "file": "main.txt",
+          "line": 329,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Cell",
+          "file": "main.txt",
+          "line": 408,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 962,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 998,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1035,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1051,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1087,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "BUS",
+          "file": "lib/threads/bus.txt",
+          "line": 1122,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1313,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1365,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1439,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1495,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "Save",
+          "file": "main.txt",
+          "line": 1512,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 590,
+          "kind": "write"
+        },
+        {
+          "script": "VPHotel",
+          "file": "main.txt",
+          "line": 1663,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$OceanViewBlip",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 485,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 192,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$OceanViewBlip",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 511,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 192,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 86,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 91,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 120,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 130,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 137,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 138,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 146,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 164,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 170,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 173,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 188,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 222,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 297,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 300,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 305,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 361,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 364,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 367,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 378,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 393,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 399,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 411,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 412,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 574,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 580,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$PLAYER1",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 584,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "main.txt",
+          "line": 47,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$STAR_GATE_2",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 304,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 169,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$STAR_GATE_2",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 326,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 169,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$STAR_GATE_2",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 331,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 169,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 324,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 324,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 324,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 324,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 486,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 486,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 486,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 486,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 512,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 512,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 512,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 512,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 538,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 538,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 538,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 538,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 569,
+          "kind": "write"
+        },
+        {
+          "script": "Star",
+          "file": "main.txt",
+          "line": 154,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 569,
+          "kind": "write"
+        },
+        {
+          "script": "Police",
+          "file": "main.txt",
+          "line": 191,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 569,
+          "kind": "write"
+        },
+        {
+          "script": "HOT",
+          "file": "main.txt",
+          "line": 227,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$SidewalkSphere",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 569,
+          "kind": "write"
+        },
+        {
+          "script": "Boss",
+          "file": "main.txt",
+          "line": 270,
+          "kind": "read"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$Spaz",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 550,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 807,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$StarfishGarage",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 420,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 788,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "mission-thread",
+      "global": "$StarfishGarage2",
+      "accesses": [
+        {
+          "script": "Cop",
+          "file": "missions/cop.txt",
+          "line": 421,
+          "kind": "read"
+        },
+        {
+          "script": "MAIN",
+          "file": "lib/init.txt",
+          "line": 789,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 21,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "Mystery",
+          "file": "lib/threads/mystery.txt",
+          "line": 71,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 43,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1391,
+          "kind": "write"
+        }
+      ]
+    },
+    {
+      "pair": "thread-thread",
+      "global": "$ONMISSION",
+      "accesses": [
+        {
+          "script": "ringu",
+          "file": "lib/threads/ringu.txt",
+          "line": 73,
+          "kind": "write"
+        },
+        {
+          "script": "Pier",
+          "file": "main.txt",
+          "line": 1418,
+          "kind": "write"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "traces": [
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "free",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)",
+        "wait 1500",
+        "Mission.LoadAndLaunchInternal(2)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)",
+        "Text.PrintBigString(\"Model Citizens Get Stitches...\", 3000, TextStyle.BottomRight)",
+        "Camera.DoFade(1500, Fade.Out)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)",
+        "Sphere.Remove($SidewalkSphere)",
+        "Blip.Remove($OceanViewBlip)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "Player.SetControl($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "cut": true,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250",
+        "wait 250",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Police",
+      "lock": "held",
+      "bound": 12,
+      "effects": [
+        "script_name 'Police'",
+        "wait 250"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)",
+        "Game.SetPoliceIgnorePlayer($PLAYER1, False)",
+        "Char.RemoveElegantly($Cop)",
+        "Streaming.MarkModelAsNoLongerNeeded(#COP)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "play_audio_stream_1channel \"Audio/SSA/ohshit.mp3\" false, 0.5",
+        "Text.Print('OHSHIT', 1500, 0)",
+        "wait 1500",
+        "play_audio_stream_2channel \"Audio/SSA/copcall.mp3\", false, 0.5",
+        "Text.Print('COPCALL', 2000, 0)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)",
+        "Game.SetPoliceIgnorePlayer($PLAYER1, False)",
+        "Char.RemoveElegantly($Cop)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "Pickup.Remove($CellPhone)",
+        "Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)",
+        "$ONMISSION = 0",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)",
+        "Game.SetPoliceIgnorePlayer($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "Pickup.Remove($CellPhone)",
+        "Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)",
+        "$ONMISSION = 0"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "Pickup.Remove($CellPhone)",
+        "Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "Pickup.Remove($CellPhone)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "wait 0",
+        "wait 0"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)",
+        "Game.SetPoliceIgnorePlayer($PLAYER1, False)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "play_audio_stream_1channel \"Audio/SSA/ohshit.mp3\" false, 0.5",
+        "Text.Print('OHSHIT', 1500, 0)",
+        "wait 1500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)",
+        "Blip.Remove($CopBlip)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "Pickup.Remove($CellPhone)",
+        "Text.PrintBig('MISFAIL', 2000, TextStyle.Middle)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "Hud.ClearTimer($TIMER)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "Pickup.Remove($CellPhone)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0",
+        "wait 0",
+        "wait 0"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "Hud.ClearTimer($TIMER)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "play_audio_stream_1channel \"Audio/SSA/ohshit.mp3\" false, 0.5"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500",
+        "wait 0"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)",
+        "Camera.DoFade(1500, Fade.In)",
+        "wait 1500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500",
+        "Camera.SetFixedPosition(400.0314, -920.3746, 15.0712, 0.0, 0.0, 0.0)",
+        "Camera.PointAtPoint(410.0, -910.0, 13.081, SwitchType.JumpCut)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'",
+        "$ONMISSION = true"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "Hud.SwitchWidescreen(True)",
+        "Char.SetObjWaitOnFoot($Cop)"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "script_name 'Cop'"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "$Cop = Char.Create(PedType.Cop, #COP, 410.0, -910.0, 13.081)",
+        "$Faggio = Car.Create(#FAGGIO, 410.5, -875.05, 12.0)",
+        "wait 500",
+        "wait 500",
+        "wait 500"
+      ]
+    },
+    {
+      "script": "Cop",
+      "lock": "held",
+      "bound": 24,
+      "cut": true,
+      "effects": [
+        "script_name 'Cop'",
+        "$ONMISSION = true",
+        "$TIMER = 60000",
+        "Stat.RegisterMissionGiven()",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500",
+        "Streaming.RequestModel(#COP)",
+        "Streaming.RequestModel(#FAGGIO)",
+        "wait 500",
+        "Streaming.LoadAllModelsNow()",
+        "wait 500"
+      ]
+    }
+  ],
+  "marks": []
+}
